@@ -1,8 +1,11 @@
 package io.github.plizzzhealme.service.util;
 
-public class ServiceUtil {
+public final class ServiceUtil {
 
-    public int passwordToHash(String password) {
+    private ServiceUtil() {
+    }
+
+    public static int passwordToHash(String password) {
         if (password == null) {
             return 0;
         }
