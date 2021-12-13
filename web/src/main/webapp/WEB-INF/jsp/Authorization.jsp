@@ -12,8 +12,7 @@
     <title>Authorization</title>
 </head>
 <body>
-<h2>Authorize here</h2>
-
+<h2>Authorization</h2>
 <form action="controller">
     <input type="hidden" name="command" value="authorization">
     <label>

@@ -9,8 +9,10 @@ public final class CommandProvider {
 
     public CommandProvider() {
         commands = new HashMap<>();
+
         commands.put("authorization", new AuthorizationCommand());
-        commands.put("to_registration_page", new ToAuthorizationPageCommand());
+        commands.put("to_authorization_page", new ToAuthorizationPageCommand());
+        commands.put("to_registration_page", new ToRegistrationPageCommand());
     }
 
     public Command getCommand(String commandName) {
