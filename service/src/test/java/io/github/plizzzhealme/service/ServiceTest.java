@@ -23,7 +23,7 @@ class ServiceTest {
         expected.setGender("male");
         expected.setUserRole("admin");
 
-        actual = Service.authorise(email, password);
+        actual = Service.authorize(email, password);
 
         assertEquals(expected, actual);
     }
