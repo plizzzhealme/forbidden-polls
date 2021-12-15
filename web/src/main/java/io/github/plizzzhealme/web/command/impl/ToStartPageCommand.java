@@ -1,6 +1,7 @@
 package io.github.plizzzhealme.web.command.impl;
 
 import io.github.plizzzhealme.web.command.Command;
+import io.github.plizzzhealme.web.command.util.WebUtil;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -12,7 +13,7 @@ public class ToStartPageCommand implements Command {
 
     @Override
     public void execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/StartPage.jsp");
+        RequestDispatcher dispatcher = request.getRequestDispatcher(WebUtil.START_JSP);
         dispatcher.forward(request, response);
     }
 }
