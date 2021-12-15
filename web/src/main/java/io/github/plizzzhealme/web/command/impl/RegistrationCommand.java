@@ -1,4 +1,6 @@
-package io.github.plizzzhealme.web.command;
+package io.github.plizzzhealme.web.command.impl;
+
+import io.github.plizzzhealme.web.command.Command;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;

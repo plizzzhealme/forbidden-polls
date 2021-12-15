@@ -1,10 +1,4 @@
-<%--
-  Created by IntelliJ IDEA.
-  User: analB
-  Date: 13.12.2021
-  Time: 02:45
-  To change this template use File | Settings | File Templates.
---%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <!DOCTYPE html>
 <html lang="en">
@@ -13,13 +7,16 @@
 </head>
 <body>
 <h2>Authorization</h2>
-<form action="controller">
+<form action="controller" method="post">
+
+    <br/>
+
     <input type="hidden" name="command" value="authorization">
     <label>
-        <input type="email" name="email">
+        Email: <input type="email" name="email">
     </label>
     <label>
-        <input type="password" name="password">
+        Password: <input type="password" name="password">
     </label>
     <input type="submit" value="login">
 </form>

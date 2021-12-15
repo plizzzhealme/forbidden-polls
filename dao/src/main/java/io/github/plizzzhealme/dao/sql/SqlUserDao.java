@@ -88,7 +88,9 @@ public class SqlUserDao implements UserDao {
 
     @Override
     public User search (SearchCriteria criteria) throws DaoException { // at the moment is just a stub to search by email
+        System.out.println("search");
         Connection connection = connectionPool.takeConnection();
+        System.out.println("connected");
         PreparedStatement preparedStatement = null;
         ResultSet resultSet = null;
         User user = null;
@@ -129,7 +131,7 @@ public class SqlUserDao implements UserDao {
             if (connection != null) {
                 connectionPool.closeConnection(connection, preparedStatement, resultSet);
             }
-            connectionPool.dispose();
+            //connectionPool.dispose();
         }
 
         return user;

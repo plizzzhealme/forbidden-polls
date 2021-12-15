@@ -22,7 +22,6 @@ public enum ConnectionPool {
             return;
         }
 
-
         try {
             Class.forName(DatabaseData.DRIVER);
             givenAwayConQueue = new ArrayBlockingQueue<>(DatabaseData.POOL_SIZE);

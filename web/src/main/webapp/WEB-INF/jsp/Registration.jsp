@@ -23,7 +23,7 @@
     <label>
         <input type="text" name="name">
     </label>
-    
+
 
     <label>
         <input type="password" name="password">

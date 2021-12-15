@@ -8,7 +8,7 @@ import io.github.plizzzhealme.service.util.ServiceUtil;
 
 public class Service {
 
-    public static User authorize(String email, String password) {
+    public User authorize(String email, String password) {
         int passwordHash = ServiceUtil.passwordToHash(password);
         password = null;
         SearchCriteria criteriaWithEmail = new SearchCriteria();
