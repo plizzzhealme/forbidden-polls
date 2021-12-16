@@ -6,7 +6,10 @@ import io.github.plizzzhealme.dao.DaoFactory;
 import io.github.plizzzhealme.dao.exception.DaoException;
 import io.github.plizzzhealme.service.util.ServiceUtil;
 
-public class Service {
+public class UserService {
+
+    protected UserService() {
+    }
 
     public User authorize(String email, String password) {
         int passwordHash = ServiceUtil.passwordToHash(password);

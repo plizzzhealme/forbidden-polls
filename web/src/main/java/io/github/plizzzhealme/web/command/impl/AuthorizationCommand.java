@@ -1,7 +1,8 @@
 package io.github.plizzzhealme.web.command.impl;
 
 import io.github.plizzzhealme.bean.User;
-import io.github.plizzzhealme.service.Service;
+import io.github.plizzzhealme.service.ServiceFactory;
+import io.github.plizzzhealme.service.UserService;
 import io.github.plizzzhealme.web.command.Command;
 import io.github.plizzzhealme.web.command.util.WebUtil;
 
@@ -16,10 +17,11 @@ public class AuthorizationCommand implements Command {
 
     @Override
     public void execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
         String email = request.getParameter(WebUtil.EMAIL);
         String password = request.getParameter(WebUtil.PASSWORD);
-        User user = new Service().authorize(email, password);
+
+        UserService userService = ServiceFactory.getUserService();
+        User user = userService.authorize(email, password);
 
         if (user != null) {
             password = null;

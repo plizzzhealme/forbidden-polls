@@ -5,7 +5,7 @@ import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-class ServiceTest {
+class UserServiceTest {
 
     @Test
     void authorizeWithCorrectData() {
@@ -23,7 +23,7 @@ class ServiceTest {
         expected.setGender("male");
         expected.setUserRole("admin");
 
-        actual = new Service().authorize(email, password);
+        actual = new UserService().authorize(email, password);
 
         assertEquals(expected, actual);
     }
