@@ -5,6 +5,7 @@ public final class ServiceUtil {
     private ServiceUtil() {
     }
 
+    // todo replace with b-crypt
     public static int passwordToHash(String password) {
         if (password == null) {
             return 0;
