@@ -2,8 +2,11 @@ package io.github.plizzzhealme.web.command.util;
 
 public final class WebUtil {
 
-    // parameters
+    // common attributes and parameters
+    public static final String ERROR = "error_message";
     public static final String USER = "user";
+
+    // user's parameters
     public static final String NAME = "name";
     public static final String EMAIL = "email";
     public static final String PASSWORD = "password";
@@ -18,8 +21,8 @@ public final class WebUtil {
     public static final String USER_JSP = "/WEB-INF/jsp/User.jsp";
 
     // others
-    public static final String ERROR_MESSAGE = "error_message";
     public static final String TO_USER_PAGE_REDIRECT = "controller?command=to_user_page";
+    public static final String INVALID_EMAIL_OR_PASSWORD = "Invalid email or password";
 
     private WebUtil() {
     }

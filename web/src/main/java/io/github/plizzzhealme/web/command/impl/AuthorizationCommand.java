@@ -27,7 +27,7 @@ public class AuthorizationCommand implements Command {
             session.setAttribute(WebUtil.USER, user);
             response.sendRedirect(WebUtil.TO_USER_PAGE_REDIRECT);
         } else {
-            request.setAttribute(WebUtil.ERROR_MESSAGE, "Invalid email or password");
+            request.setAttribute(WebUtil.ERROR, WebUtil.INVALID_EMAIL_OR_PASSWORD);
             RequestDispatcher dispatcher = request.getRequestDispatcher(WebUtil.AUTHORIZATION_JSP);
             dispatcher.forward(request, response);
         }
