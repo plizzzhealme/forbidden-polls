@@ -11,6 +11,6 @@ public class UnknownCommand implements Command {
 
     @Override
     public void execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
+        // todo add some dzich'
     }
 }
