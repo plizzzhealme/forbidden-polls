@@ -9,7 +9,6 @@ public class User implements Serializable {
     private int id;
     private String name;
     private String email;
-    private int passwordHash; // not included into equals, hashcode, toString methods
     private LocalDateTime registrationDate;
     private long phoneNumber;
     private LocalDateTime lastLoginDate;
@@ -39,14 +38,6 @@ public class User implements Serializable {
 
     public void setEmail(String email) {
         this.email = email;
-    }
-
-    public int getPasswordHash() {
-        return passwordHash;
-    }
-
-    public void setPasswordHash(int passwordHash) {
-        this.passwordHash = passwordHash;
     }
 
     public LocalDateTime getRegistrationDate() {

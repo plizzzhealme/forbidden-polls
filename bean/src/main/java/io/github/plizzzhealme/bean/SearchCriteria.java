@@ -5,7 +5,6 @@ import java.util.Map;
 
 public class SearchCriteria {
 
-    // public static final String SQL_PARAM_POSTFIX = "=?";
     private final Map<String, String> parameters;
 
     public SearchCriteria() {
@@ -13,7 +12,7 @@ public class SearchCriteria {
     }
 
     public void addParameter(String key, String value) {
-        parameters.put(key /* + SQL_PARAM_POSTFIX*/, value);
+        parameters.put(key, value);
     }
 
     public Map<String, String> getParameters() {
