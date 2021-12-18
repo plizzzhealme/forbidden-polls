@@ -1,8 +1,11 @@
 package io.github.plizzzhealme.web;
 
+import io.github.plizzzhealme.service.PoolService;
+import io.github.plizzzhealme.service.ServiceFactory;
 import io.github.plizzzhealme.web.command.Command;
 import io.github.plizzzhealme.web.command.CommandProvider;
 
+import javax.servlet.ServletConfig;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -14,6 +17,18 @@ import java.io.IOException;
 public class Controller extends HttpServlet {
 
     private final CommandProvider commandProvider = new CommandProvider();
+
+    @Override
+    public void init(ServletConfig config) throws ServletException {
+        PoolService poolService = ServiceFactory.getPoolService();
+        poolService.initPoolData();
+    }
+
+    @Override
+    public void destroy() {
+        PoolService poolService = ServiceFactory.getPoolService();
+        poolService.clearPool();
+    }
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {

@@ -7,4 +7,6 @@ import io.github.plizzzhealme.dao.exception.DaoException;
 public interface UserDao extends Dao<User> {
 
     User search(SearchCriteria criteria) throws DaoException;
+
+    User authorize(String email, int passwordHash) throws DaoException;
 }
