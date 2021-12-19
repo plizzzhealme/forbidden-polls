@@ -19,7 +19,7 @@ public class Controller extends HttpServlet {
     private final CommandProvider commandProvider = new CommandProvider();
 
     @Override
-    public void init(ServletConfig config) throws ServletException {
+    public void init(ServletConfig config) {
         System.out.println("hello");
         DatabaseConnectionService databaseConnectionService = ServiceFactory.getDatabaseConnectionService();
         databaseConnectionService.connect();

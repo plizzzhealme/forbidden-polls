@@ -6,9 +6,6 @@ import io.github.plizzzhealme.dao.UserDao;
 import io.github.plizzzhealme.dao.exception.DaoException;
 import io.github.plizzzhealme.dao.pool.ConnectionPool;
 import io.github.plizzzhealme.dao.util.DaoUtil;
-import org.apache.logging.log4j.Level;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -17,9 +14,7 @@ import java.sql.SQLException;
 
 public class SqlUserDao implements UserDao {
 
-    private static final Logger logger = LogManager.getLogger(SqlUserDao.class);
-
-    private static final String SELECT_USER_BY_EMAIL_SQL = "SELECT FIRST U.id, U.name, U.password_hash, U.registration_date, U.phone_number, U.last_login , R.name, C.name, G.name FROM survinator.users AS U JOIN user_roles AS R on U.user_role_id = R.id JOIN countries AS C on U.country_id = C.id JOIN gender AS G on U.gender_id = G.id WHERE  U.email = ?";
+    private static final String SELECT_USER_BY_EMAIL_SQL = "SELECT U.id, U.name, U.password_hash, U.registration_date, U.phone_number, U.last_login , R.name, C.name, G.name FROM survinator.users AS U JOIN user_roles AS R on U.user_role_id = R.id JOIN countries AS C on U.country_id = C.id JOIN gender AS G on U.gender_id = G.id WHERE  U.email = ?";
     private static final String USER_ID = "U.id";
     private static final String USER_NAME = "U.name";
     private static final String USER_PASSWORD_HASH = "U.password_hash";
@@ -42,22 +37,22 @@ public class SqlUserDao implements UserDao {
     }
 
     @Override
-    public User read(int id) throws DaoException {
+    public User read(int id) {
         return null;
     }
 
     @Override
-    public boolean update(User user) throws DaoException {
+    public boolean update(User user) {
         return false;
     }
 
     @Override
-    public boolean delete(int id) throws DaoException {
+    public boolean delete(int id) {
         return false;
     }
 
     @Override
-    public User search(SearchCriteria criteria) throws DaoException {
+    public User search(SearchCriteria criteria) {
         return null;
     }
 
@@ -67,7 +62,7 @@ public class SqlUserDao implements UserDao {
 
         PreparedStatement preparedStatement = null;
         ResultSet resultSet = null;
-        User user = null;
+        User user;
 
         try {
             preparedStatement = connection.prepareStatement(SELECT_USER_BY_EMAIL_SQL);
@@ -76,11 +71,8 @@ public class SqlUserDao implements UserDao {
 
             if (resultSet.next()) {
                 if (resultSet.getInt(USER_PASSWORD_HASH) != passwordHash) {
-                    logger.log(Level.ERROR, "Invalid password");
-                    throw new DaoException("Invalid password");
+                    return null;
                 }
-
-                passwordHash = 0;
 
                 user = new User();
 
@@ -96,7 +88,7 @@ public class SqlUserDao implements UserDao {
 
                 return user;
             } else {
-                throw new DaoException("User is not found");
+                return null;
             }
         } catch (SQLException e) {
             throw new DaoException("Error while reading from database", e);

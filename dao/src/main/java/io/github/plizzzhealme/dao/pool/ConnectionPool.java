@@ -20,7 +20,7 @@ public enum ConnectionPool {
     private BlockingQueue<Connection> givenAwayConQueue;
 
     public void initPoolData() throws DaoException {
-        if (connectionQueue != null) {
+        if (connectionQueue == null) {
             try {
                 Class.forName(DatabaseInfo.DRIVER);
                 givenAwayConQueue = new ArrayBlockingQueue<>(DatabaseInfo.POOL_SIZE);
@@ -67,17 +67,23 @@ public enum ConnectionPool {
 
     public void closeConnection(Connection con, Statement st, ResultSet rs) {
         try {
-            con.close();
+            if (con != null) {
+                con.close();
+            }
         } catch (SQLException e) {
             logger.error("Connection isn't returned to the pool.", e);
         }
         try {
-            rs.close();
+            if (rs != null) {
+                rs.close();
+            }
         } catch (SQLException e) {
             logger.error("ResultSet isn't closed.", e);
         }
         try {
-            st.close();
+            if (st != null) {
+                st.close();
+            }
         } catch (SQLException e) {
             logger.error("Statement isn't closed.", e);
         }
@@ -86,12 +92,16 @@ public enum ConnectionPool {
     @SuppressWarnings("unused")
     public void closeConnection(Connection con, Statement st) {
         try {
-            con.close();
+            if (con != null) {
+                con.close();
+            }
         } catch (SQLException e) {
             logger.error("Connection isn't return to the pool.", e);
         }
         try {
-            st.close();
+            if (st != null) {
+                st.close();
+            }
         } catch (SQLException e) {
             logger.error("Statement isn't closed.", e);
         }
