@@ -20,7 +20,6 @@ public class Controller extends HttpServlet {
 
     @Override
     public void init(ServletConfig config) {
-        System.out.println("hello");
         DatabaseConnectionService databaseConnectionService = ServiceFactory.getDatabaseConnectionService();
         databaseConnectionService.connect();
     }
@@ -32,7 +31,7 @@ public class Controller extends HttpServlet {
     }
 
     @Override
-    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+    protected void doGet(HttpServletRequest req, HttpServletResponse resp) {
         try {
             processRequest(req, resp);
         } catch (ServletException | IOException e) {
@@ -41,7 +40,7 @@ public class Controller extends HttpServlet {
     }
 
     @Override
-    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+    protected void doPost(HttpServletRequest req, HttpServletResponse resp) {
         try {
             processRequest(req, resp);
         } catch (ServletException | IOException e) {

@@ -15,6 +15,7 @@ import java.io.IOException;
 
 public class AuthorizationCommand implements Command {
 
+    @SuppressWarnings({"unused", "UnusedAssignment"})
     @Override
     public void execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String email = request.getParameter(WebUtil.EMAIL);
