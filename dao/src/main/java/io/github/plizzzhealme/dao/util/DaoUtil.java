@@ -15,6 +15,7 @@ public final class DaoUtil {
         return sqlTime.toLocalDateTime();
     }
 
+    @SuppressWarnings("unused")
     public static Timestamp toSqlTime(LocalDateTime javaTime) {
         return Timestamp.valueOf(javaTime);
     }
