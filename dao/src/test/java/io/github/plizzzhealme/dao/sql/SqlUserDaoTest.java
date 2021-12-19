@@ -1,24 +1,35 @@
 package io.github.plizzzhealme.dao.sql;
 
-import io.github.plizzzhealme.bean.SearchCriteria;
 import io.github.plizzzhealme.bean.User;
 import io.github.plizzzhealme.dao.DaoFactory;
 import io.github.plizzzhealme.dao.exception.DaoException;
+import io.github.plizzzhealme.dao.pool.ConnectionPool;
+import org.junit.jupiter.api.AfterAll;
+import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 class SqlUserDaoTest {
 
-    @Test
-    void read() {
+    @BeforeAll
+    static void start() {
+        try {
+            ConnectionPool.INSTANCE.initPoolData();
+        } catch (DaoException e) {
+            e.printStackTrace();
+        }
+    }
+
+    @AfterAll
+    static void finish() {
+        ConnectionPool.INSTANCE.dispose();
     }
 
     @Test
     void search() {
         String email = "plizzz.healme@gmail.com";
-        SearchCriteria criteria = new SearchCriteria();
-        criteria.addParameter("email", email);
+        int passwordHash = "1q2w3e".hashCode();
 
         User expected;
         User actual;
@@ -32,7 +43,7 @@ class SqlUserDaoTest {
         expected.setUserRole("admin");
 
         try {
-            actual = DaoFactory.getUserDao().search(criteria);
+            actual = DaoFactory.getUserDao().authorize(email, passwordHash);
         } catch (DaoException e) {
             actual = null;
         }
