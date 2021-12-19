@@ -22,12 +22,12 @@ public enum ConnectionPool {
     public void initPoolData() throws DaoException {
         if (connectionQueue != null) {
             try {
-                Class.forName(DatabaseData.DRIVER);
-                givenAwayConQueue = new ArrayBlockingQueue<>(DatabaseData.POOL_SIZE);
-                connectionQueue = new ArrayBlockingQueue<>(DatabaseData.POOL_SIZE);
+                Class.forName(DatabaseInfo.DRIVER);
+                givenAwayConQueue = new ArrayBlockingQueue<>(DatabaseInfo.POOL_SIZE);
+                connectionQueue = new ArrayBlockingQueue<>(DatabaseInfo.POOL_SIZE);
 
-                for (int i = 0; i < DatabaseData.POOL_SIZE; i++) {
-                    Connection connection = DriverManager.getConnection(DatabaseData.URL, DatabaseData.USER, DatabaseData.PASSWORD);
+                for (int i = 0; i < DatabaseInfo.POOL_SIZE; i++) {
+                    @SuppressWarnings("all") Connection connection = DriverManager.getConnection(DatabaseInfo.URL, DatabaseInfo.USER, DatabaseInfo.PASSWORD);
                     PooledConnection pooledConnection = new PooledConnection(connection);
                     connectionQueue.add(pooledConnection);
                 }
@@ -83,6 +83,7 @@ public enum ConnectionPool {
         }
     }
 
+    @SuppressWarnings("unused")
     public void closeConnection(Connection con, Statement st) {
         try {
             con.close();

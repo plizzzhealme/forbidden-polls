@@ -3,7 +3,7 @@ package io.github.plizzzhealme.service;
 public final class ServiceFactory {
 
     private static final UserService USER_SERVICE = new UserService();
-    private static final DatabaseService DATABASE_SERVICE = new DatabaseService();
+    private static final DatabaseConnectionService DATABASE_CONNECTION_SERVICE = new DatabaseConnectionService();
 
     private ServiceFactory() {
     }
@@ -12,7 +12,7 @@ public final class ServiceFactory {
         return USER_SERVICE;
     }
 
-    public static DatabaseService getPoolService() {
-        return DATABASE_SERVICE;
+    public static DatabaseConnectionService getDatabaseConnectionService() {
+        return DATABASE_CONNECTION_SERVICE;
     }
 }

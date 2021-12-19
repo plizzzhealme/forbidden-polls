@@ -3,12 +3,12 @@ package io.github.plizzzhealme.service;
 import io.github.plizzzhealme.dao.exception.DaoException;
 import io.github.plizzzhealme.dao.pool.ConnectionPool;
 
-public class DatabaseService {
+public class DatabaseConnectionService {
 
-    protected DatabaseService() {
+    protected DatabaseConnectionService() {
     }
 
-    public void connectToDatabase() {
+    public void connect() {
         try {
             ConnectionPool.INSTANCE.initPoolData();
         } catch (DaoException e) {
@@ -16,11 +16,7 @@ public class DatabaseService {
         }
     }
 
-    public void disconnectFromDatabase() {
-        try {
-            ConnectionPool.INSTANCE.dispose();
-        } catch (DaoException e) {
-            e.printStackTrace();
-        }
+    public void disconnect() {
+        ConnectionPool.INSTANCE.dispose();
     }
 }
