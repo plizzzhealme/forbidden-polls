@@ -1,8 +1,8 @@
 package io.github.plizzzhealme.service;
 
-import io.github.plizzzhealme.bean.SearchCriteria;
 import io.github.plizzzhealme.bean.User;
 import io.github.plizzzhealme.dao.DaoFactory;
+import io.github.plizzzhealme.dao.UserDao;
 import io.github.plizzzhealme.dao.exception.DaoException;
 import io.github.plizzzhealme.service.util.ServiceUtil;
 
@@ -13,26 +13,12 @@ public class UserService {
 
     public User authorize(String email, String password) {
         int passwordHash = ServiceUtil.passwordToHash(password);
+        UserDao userDao = DaoFactory.getUserDao();
         password = null;
-        SearchCriteria criteriaWithEmail = new SearchCriteria();
-        criteriaWithEmail.addParameter("email", email);
-
-        User user;
 
         try {
-            user = DaoFactory.getUserDao().search(criteriaWithEmail);
+            return userDao.authorize(email, passwordHash);
         } catch (DaoException e) {
-            return null;
-        }
-
-        boolean isCorrectPassword = user.getPasswordHash() == passwordHash;
-        passwordHash = 0;
-        user.setPasswordHash(0);
-
-        if (isCorrectPassword) {
-            return user;
-        } else {
-            user.setPasswordHash(0);
             return null;
         }
     }

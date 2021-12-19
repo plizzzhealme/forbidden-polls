@@ -6,6 +6,9 @@ import io.github.plizzzhealme.dao.UserDao;
 import io.github.plizzzhealme.dao.exception.DaoException;
 import io.github.plizzzhealme.dao.pool.ConnectionPool;
 import io.github.plizzzhealme.dao.util.DaoUtil;
+import org.apache.logging.log4j.Level;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -14,7 +17,24 @@ import java.sql.SQLException;
 
 public class SqlUserDao implements UserDao {
 
-    private static final String IF_USER_EXISTS_SQL = "SELECT EXISTS(SELECT * FROM survinator.users WHERE email = ?)";
+    private static final Logger logger = LogManager.getLogger(SqlUserDao.class);
+
+    private static final String SELECT_USER_BY_EMAIL_SQL = "SELECT FIRST U.id, U.name, U.password_hash, U.registration_date, U.phone_number, U.last_login , R.name, C.name, G.name FROM survinator.users AS U JOIN user_roles AS R on U.user_role_id = R.id JOIN countries AS C on U.country_id = C.id JOIN gender AS G on U.gender_id = G.id WHERE  U.email = ?";
+    private static final String USER_ID = "U.id";
+    private static final String USER_NAME = "U.name";
+    private static final String USER_PASSWORD_HASH = "U.password_hash";
+    private static final String USER_REGISTRATION_DATE = "U.registration_date";
+    private static final String USER_PHONE_NUMBER = "U.phone_number";
+    private static final String USER_LAST_LOGIN = "U.last_login";
+    private static final String ROLE_NAME = "R.name";
+    private static final String COUNTRY_NAME = "C.name";
+    private static final String GENDER_NAME = "G.name";
+
+    private final ConnectionPool pool;
+
+    public SqlUserDao() {
+        pool = ConnectionPool.INSTANCE;
+    }
 
     @Override
     public boolean create(User user) {
@@ -23,46 +43,7 @@ public class SqlUserDao implements UserDao {
 
     @Override
     public User read(int id) throws DaoException {
-        ConnectionPool pool = ConnectionPool.INSTANCE;
-        Connection connection = pool.takeConnection();
-        PreparedStatement preparedStatement = null;
-        ResultSet resultSet = null;
-        User user = null;
-        String sql = "SELECT U.id, U.name, U.email, U.registration_date, U.phone_number, U.last_login , R.name, C.name, G.name " +
-                "FROM survinator.users AS U " +
-                "JOIN user_roles AS R on U.user_role_id = R.id " +
-                "JOIN countries AS C on U.country_id = C.id " +
-                "JOIN gender AS G on U.gender_id = G.id " +
-                "WHERE  U.id = ?";
-
-        try {
-            if (connection != null) {
-                preparedStatement = connection.prepareStatement(sql);
-                preparedStatement.setInt(1, id);
-                resultSet = preparedStatement.executeQuery();
-
-                while (resultSet.next()) {
-                    user = new User();
-
-                    user.setId(id);
-                    user.setName(resultSet.getString("U.name"));
-                    user.setEmail(resultSet.getString("U.email"));
-                    user.setRegistrationDate(DaoUtil.toJavaTime(resultSet.getTimestamp("U.registration_date")));
-                    user.setPhoneNumber(resultSet.getLong("U.phone_number"));
-                    user.setLastLoginDate(DaoUtil.toJavaTime(resultSet.getTimestamp("U.last_login")));
-                    user.setUserRole(resultSet.getString("R.name"));
-                    user.setCountry(resultSet.getString("C.name"));
-                    user.setGender(resultSet.getString("G.name"));
-                }
-            }
-        } catch (SQLException e) {
-            throw new DaoException("Error while reading from database", e);
-        } finally {
-            if (connection != null) {
-                pool.closeConnection(connection, preparedStatement, resultSet);
-            }
-        }
-        return user;
+        return null;
     }
 
     @Override
@@ -76,120 +57,51 @@ public class SqlUserDao implements UserDao {
     }
 
     @Override
-    public User search (SearchCriteria criteria) throws DaoException { // at the moment is just a stub to search by email
-        ConnectionPool pool = ConnectionPool.INSTANCE;
-        Connection connection = pool.takeConnection();
-        PreparedStatement preparedStatement = null;
-        ResultSet resultSet = null;
-        User user = null;
-        String email = criteria.getParameters().get("email");
-
-        String sql = "SELECT U.id, U.name, U.email, U.password_hash, U.registration_date, U.phone_number, U.last_login , R.name, C.name, G.name " +
-                "FROM survinator.users AS U " +
-                "JOIN user_roles AS R on U.user_role_id = R.id " +
-                "JOIN countries AS C on U.country_id = C.id " +
-                "JOIN gender AS G on U.gender_id = G.id " +
-                "WHERE  U.email = ?";
-
-        try {
-            if (connection != null) {
-                preparedStatement = connection.prepareStatement(sql);
-                preparedStatement.setString(1, email);
-                resultSet = preparedStatement.executeQuery();
-
-
-                while (resultSet.next()) {
-                    user = new User();
-
-                    user.setId(resultSet.getInt("U.id"));
-                    user.setName(resultSet.getString("U.name"));
-                    user.setEmail(email);
-                    user.setPasswordHash(resultSet.getInt("U.password_hash"));
-                    user.setRegistrationDate(DaoUtil.toJavaTime(resultSet.getTimestamp("U.registration_date")));
-                    user.setPhoneNumber(resultSet.getLong("U.phone_number"));
-                    user.setLastLoginDate(DaoUtil.toJavaTime(resultSet.getTimestamp("U.last_login")));
-                    user.setUserRole(resultSet.getString("R.name"));
-                    user.setCountry(resultSet.getString("C.name"));
-                    user.setGender(resultSet.getString("G.name"));
-                }
-            }
-        } catch (SQLException e) {
-            throw new DaoException("Error while reading from database", e);
-        } finally {
-            if (connection != null) {
-                pool.closeConnection(connection, preparedStatement, resultSet);
-            }
-        }
-
-        return user;
+    public User search(SearchCriteria criteria) throws DaoException {
+        return null;
     }
 
     @Override
     public User authorize(String email, int passwordHash) throws DaoException {
-        ConnectionPool pool = ConnectionPool.INSTANCE;
         Connection connection = pool.takeConnection();
+
         PreparedStatement preparedStatement = null;
         ResultSet resultSet = null;
         User user = null;
 
-        String sql = "SELECT U.id, U.name, U.password_hash, U.registration_date, U.phone_number, U.last_login , R.name, C.name, G.name " +
-                "FROM survinator.users AS U " +
-                "JOIN user_roles AS R on U.user_role_id = R.id " +
-                "JOIN countries AS C on U.country_id = C.id " +
-                "JOIN gender AS G on U.gender_id = G.id " +
-                "WHERE  U.email = ?";
-
         try {
-            if (connection != null) {
-                preparedStatement = connection.prepareStatement(sql);
-                preparedStatement.setString(1, email);
-                resultSet = preparedStatement.executeQuery();
+            preparedStatement = connection.prepareStatement(SELECT_USER_BY_EMAIL_SQL);
+            preparedStatement.setString(1, email);
+            resultSet = preparedStatement.executeQuery();
 
-
-                while (resultSet.next()) {
-                    user = new User();
-
-                    user.setId(resultSet.getInt("U.id"));
-                    user.setName(resultSet.getString("U.name"));
-                    user.setEmail(email);
-                    user.setPasswordHash(resultSet.getInt("U.password_hash"));
-                    user.setRegistrationDate(DaoUtil.toJavaTime(resultSet.getTimestamp("U.registration_date")));
-                    user.setPhoneNumber(resultSet.getLong("U.phone_number"));
-                    user.setLastLoginDate(DaoUtil.toJavaTime(resultSet.getTimestamp("U.last_login")));
-                    user.setUserRole(resultSet.getString("R.name"));
-                    user.setCountry(resultSet.getString("C.name"));
-                    user.setGender(resultSet.getString("G.name"));
+            if (resultSet.next()) {
+                if (resultSet.getInt(USER_PASSWORD_HASH) != passwordHash) {
+                    logger.log(Level.ERROR, "Invalid password");
+                    throw new DaoException("Invalid password");
                 }
+
+                passwordHash = 0;
+
+                user = new User();
+
+                user.setId(resultSet.getInt(USER_ID));
+                user.setName(resultSet.getString(USER_NAME));
+                user.setEmail(email);
+                user.setRegistrationDate(DaoUtil.toJavaTime(resultSet.getTimestamp(USER_REGISTRATION_DATE)));
+                user.setPhoneNumber(resultSet.getLong(USER_PHONE_NUMBER));
+                user.setLastLoginDate(DaoUtil.toJavaTime(resultSet.getTimestamp(USER_LAST_LOGIN)));
+                user.setUserRole(resultSet.getString(ROLE_NAME));
+                user.setCountry(resultSet.getString(COUNTRY_NAME));
+                user.setGender(resultSet.getString(GENDER_NAME));
+
+                return user;
+            } else {
+                throw new DaoException("User is not found");
             }
         } catch (SQLException e) {
             throw new DaoException("Error while reading from database", e);
         } finally {
-            if (connection != null) {
-                pool.closeConnection(connection, preparedStatement, resultSet);
-            }
-            //connectionPool.dispose();
-        }
-
-        return user;
-    }
-
-    private boolean userExists(String email) throws DaoException {
-        ConnectionPool pool = ConnectionPool.INSTANCE;
-        Connection connection = pool.takeConnection();
-        PreparedStatement preparedStatement = null;
-        ResultSet resultSet = null;
-        boolean userExists;
-
-        try {
-            preparedStatement = connection.prepareStatement(IF_USER_EXISTS_SQL);
-            preparedStatement.setString(1, email);
-            resultSet = preparedStatement.executeQuery();
-            userExists = resultSet.next();
-        } catch (SQLException e) {
-            throw new DaoException("Error while reading database", e);
-        } finally {
             pool.closeConnection(connection, preparedStatement, resultSet);
         }
-        return userExists;
     }
 }

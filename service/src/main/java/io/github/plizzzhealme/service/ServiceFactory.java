@@ -2,17 +2,17 @@ package io.github.plizzzhealme.service;
 
 public final class ServiceFactory {
 
-    private static final UserService userService = new UserService();
-    private static final PoolService poolService = new PoolService();
+    private static final UserService USER_SERVICE = new UserService();
+    private static final DatabaseService DATABASE_SERVICE = new DatabaseService();
 
     private ServiceFactory() {
     }
 
     public static UserService getUserService() {
-        return userService;
+        return USER_SERVICE;
     }
 
-    public static PoolService getPoolService() {
-        return poolService;
+    public static DatabaseService getPoolService() {
+        return DATABASE_SERVICE;
     }
 }

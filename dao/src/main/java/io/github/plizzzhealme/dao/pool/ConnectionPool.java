@@ -1,6 +1,8 @@
 package io.github.plizzzhealme.dao.pool;
 
 import io.github.plizzzhealme.dao.exception.DaoException;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import java.sql.*;
 import java.util.Map;
@@ -13,29 +15,27 @@ public enum ConnectionPool {
 
     INSTANCE;
 
+    private static final Logger logger = LogManager.getLogger(ConnectionPool.class);
     private BlockingQueue<Connection> connectionQueue;
     private BlockingQueue<Connection> givenAwayConQueue;
 
     public void initPoolData() throws DaoException {
-
         if (connectionQueue != null) {
-            return;
-        }
+            try {
+                Class.forName(DatabaseData.DRIVER);
+                givenAwayConQueue = new ArrayBlockingQueue<>(DatabaseData.POOL_SIZE);
+                connectionQueue = new ArrayBlockingQueue<>(DatabaseData.POOL_SIZE);
 
-        try {
-            Class.forName(DatabaseData.DRIVER);
-            givenAwayConQueue = new ArrayBlockingQueue<>(DatabaseData.POOL_SIZE);
-            connectionQueue = new ArrayBlockingQueue<>(DatabaseData.POOL_SIZE);
-
-            for (int i = 0; i < DatabaseData.POOL_SIZE; i++) {
-                Connection connection = DriverManager.getConnection(DatabaseData.URL, DatabaseData.USER, DatabaseData.PASSWORD);
-                PooledConnection pooledConnection = new PooledConnection(connection);
-                connectionQueue.add(pooledConnection);
+                for (int i = 0; i < DatabaseData.POOL_SIZE; i++) {
+                    Connection connection = DriverManager.getConnection(DatabaseData.URL, DatabaseData.USER, DatabaseData.PASSWORD);
+                    PooledConnection pooledConnection = new PooledConnection(connection);
+                    connectionQueue.add(pooledConnection);
+                }
+            } catch (SQLException e) {
+                throw new DaoException("SQLException in ConnectionPool", e);
+            } catch (ClassNotFoundException e) {
+                throw new DaoException("Can't find database driver class", e);
             }
-        } catch (SQLException e) {
-            throw new DaoException("SQLException in ConnectionPool", e);
-        } catch (ClassNotFoundException e) {
-            throw new DaoException("Can't find database driver class", e);
         }
     }
 
@@ -48,7 +48,7 @@ public enum ConnectionPool {
             closeConnectionsQueue(givenAwayConQueue);
             closeConnectionsQueue(connectionQueue);
         } catch (SQLException e) {
-            // todo logger.log(Level.ERROR, "Error closing the connection.", e);
+            logger.error("Error clothing the connection.", e);
         }
     }
 
@@ -69,17 +69,17 @@ public enum ConnectionPool {
         try {
             con.close();
         } catch (SQLException e) {
-            // todo logger.log(Level.ERROR, "Connection isn't return to the pool.");
+            logger.error("Connection isn't returned to the pool.", e);
         }
         try {
             rs.close();
         } catch (SQLException e) {
-            // todo logger.log(Level.ERROR, "ResultSet isn't closed.");
+            logger.error("ResultSet isn't closed.", e);
         }
         try {
             st.close();
         } catch (SQLException e) {
-            // todo logger.log(Level.ERROR, "Statement isn't closed.");
+            logger.error("Statement isn't closed.", e);
         }
     }
 
@@ -87,12 +87,12 @@ public enum ConnectionPool {
         try {
             con.close();
         } catch (SQLException e) {
-            // todo logger.log(Level.ERROR, "Connection isn't return to the pool.");
+            logger.error("Connection isn't return to the pool.", e);
         }
         try {
             st.close();
         } catch (SQLException e) {
-            // todo logger.log(Level.ERROR, "Statement isn't closed.");
+            logger.error("Statement isn't closed.", e);
         }
     }
 
@@ -137,8 +137,7 @@ public enum ConnectionPool {
                 throw new SQLException("Error deleting connection from the given away connections pool.");
             }
             if (!connectionQueue.offer(this)) {
-                throw new SQLException(
-                        "Error allocating connection in the pool.");
+                throw new SQLException("Error allocating connection in the pool.");
             }
         }
 
@@ -148,8 +147,7 @@ public enum ConnectionPool {
         }
 
         @Override
-        public Array createArrayOf(String typeName, Object[] elements)
-                throws SQLException {
+        public Array createArrayOf(String typeName, Object[] elements) throws SQLException {
             return connection.createArrayOf(typeName, elements);
         }
 
@@ -184,18 +182,13 @@ public enum ConnectionPool {
         }
 
         @Override
-        public Statement createStatement(int resultSetType,
-                                         int resultSetConcurrency) throws SQLException {
-            return connection.createStatement(resultSetType,
-                    resultSetConcurrency);
+        public Statement createStatement(int resultSetType, int resultSetConcurrency) throws SQLException {
+            return connection.createStatement(resultSetType, resultSetConcurrency);
         }
 
         @Override
-        public Statement createStatement(int resultSetType,
-                                         int resultSetConcurrency, int resultSetHoldability)
-                throws SQLException {
-            return connection.createStatement(resultSetType,
-                    resultSetConcurrency, resultSetHoldability);
+        public Statement createStatement(int resultSetType, int resultSetConcurrency, int resultSetHoldability) throws SQLException {
+            return connection.createStatement(resultSetType, resultSetConcurrency, resultSetHoldability);
         }
 
         @Override
@@ -249,8 +242,7 @@ public enum ConnectionPool {
         }
 
         @Override
-        public void setClientInfo(Properties arg0)
-                throws SQLClientInfoException {
+        public void setClientInfo(Properties arg0) throws SQLClientInfoException {
             connection.setClientInfo(arg0);
         }
 
@@ -350,58 +342,43 @@ public enum ConnectionPool {
         }
 
         @Override
-        public CallableStatement prepareCall(String sql, int resultSetType,
-                                             int resultSetConcurrency) throws SQLException {
-            return connection.prepareCall(sql, resultSetType,
-                    resultSetConcurrency);
+        public CallableStatement prepareCall(String sql, int resultSetType, int resultSetConcurrency) throws SQLException {
+            return connection.prepareCall(sql, resultSetType, resultSetConcurrency);
         }
 
         @Override
-        public CallableStatement prepareCall(String sql, int resultSetType,
-                                             int resultSetConcurrency, int resultSetHoldability)
-                throws SQLException {
-            return connection.prepareCall(sql, resultSetType,
-                    resultSetConcurrency, resultSetHoldability);
+        public CallableStatement prepareCall(String sql, int resultSetType, int resultSetConcurrency, int resultSetHoldability) throws SQLException {
+            return connection.prepareCall(sql, resultSetType, resultSetConcurrency, resultSetHoldability);
         }
 
         @Override
-        public PreparedStatement prepareStatement(String sql)
-                throws SQLException {
+        public PreparedStatement prepareStatement(String sql) throws SQLException {
             return connection.prepareStatement(sql);
         }
 
         @Override
-        public PreparedStatement prepareStatement(String sql,
-                                                  int autoGeneratedKeys) throws SQLException {
+        public PreparedStatement prepareStatement(String sql, int autoGeneratedKeys) throws SQLException {
             return connection.prepareStatement(sql, autoGeneratedKeys);
         }
 
         @Override
-        public PreparedStatement prepareStatement(String sql,
-                                                  int[] columnIndexes) throws SQLException {
+        public PreparedStatement prepareStatement(String sql, int[] columnIndexes) throws SQLException {
             return connection.prepareStatement(sql, columnIndexes);
         }
 
         @Override
-        public PreparedStatement prepareStatement(String sql,
-                                                  String[] columnNames) throws SQLException {
+        public PreparedStatement prepareStatement(String sql, String[] columnNames) throws SQLException {
             return connection.prepareStatement(sql, columnNames);
         }
 
         @Override
-        public PreparedStatement prepareStatement(String sql,
-                                                  int resultSetType, int resultSetConcurrency)
-                throws SQLException {
-            return connection.prepareStatement(sql, resultSetType,
-                    resultSetConcurrency);
+        public PreparedStatement prepareStatement(String sql, int resultSetType, int resultSetConcurrency) throws SQLException {
+            return connection.prepareStatement(sql, resultSetType, resultSetConcurrency);
         }
 
         @Override
-        public PreparedStatement prepareStatement(String sql,
-                                                  int resultSetType, int resultSetConcurrency,
-                                                  int resultSetHoldability) throws SQLException {
-            return connection.prepareStatement(sql, resultSetType,
-                    resultSetConcurrency, resultSetHoldability);
+        public PreparedStatement prepareStatement(String sql, int resultSetType, int resultSetConcurrency, int resultSetHoldability) throws SQLException {
+            return connection.prepareStatement(sql, resultSetType, resultSetConcurrency, resultSetHoldability);
         }
 
         @Override
@@ -410,8 +387,7 @@ public enum ConnectionPool {
         }
 
         @Override
-        public void setClientInfo(String name, String value)
-                throws SQLClientInfoException {
+        public void setClientInfo(String name, String value) throws SQLClientInfoException {
             connection.setClientInfo(name, value);
         }
 

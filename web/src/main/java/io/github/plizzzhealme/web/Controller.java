@@ -1,6 +1,6 @@
 package io.github.plizzzhealme.web;
 
-import io.github.plizzzhealme.service.PoolService;
+import io.github.plizzzhealme.service.DatabaseService;
 import io.github.plizzzhealme.service.ServiceFactory;
 import io.github.plizzzhealme.web.command.Command;
 import io.github.plizzzhealme.web.command.CommandProvider;
@@ -20,14 +20,15 @@ public class Controller extends HttpServlet {
 
     @Override
     public void init(ServletConfig config) throws ServletException {
-        PoolService poolService = ServiceFactory.getPoolService();
-        poolService.initPoolData();
+        System.out.println("hello");
+        DatabaseService databaseService = ServiceFactory.getPoolService();
+        databaseService.connectToDatabase();
     }
 
     @Override
     public void destroy() {
-        PoolService poolService = ServiceFactory.getPoolService();
-        poolService.clearPool();
+        DatabaseService databaseService = ServiceFactory.getPoolService();
+        databaseService.disconnectFromDatabase();
     }
 
     @Override
