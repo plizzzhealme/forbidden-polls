@@ -11,9 +11,11 @@ public class UserService {
     protected UserService() {
     }
 
+    @SuppressWarnings("unused")
     public User authorize(String email, String password) {
         int passwordHash = ServiceUtil.passwordToHash(password);
         UserDao userDao = DaoFactory.getUserDao();
+
         //noinspection UnusedAssignment
         password = null;
 
