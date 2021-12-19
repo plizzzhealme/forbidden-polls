@@ -7,6 +7,7 @@
         <groupId>io.github.plizzzhealme</groupId>
         <version>1.0-SNAPSHOT</version>
     </parent>
+
     <modelVersion>4.0.0</modelVersion>
 
     <artifactId>dao</artifactId>
@@ -14,6 +15,29 @@
     <properties>
         <maven.compiler.source>16</maven.compiler.source>
         <maven.compiler.target>16</maven.compiler.target>
+
+        <!-- modules -->
+        <bean.version>1.0-SNAPSHOT</bean.version>
+
+        <!-- mysql -->
+        <mysql-connector-java.version>8.0.25</mysql-connector-java.version>
     </properties>
 
+    <dependencies>
+
+        <!-- modules -->
+        <dependency>
+            <groupId>io.github.plizzzhealme</groupId>
+            <artifactId>bean</artifactId>
+            <version>${bean.version}</version>
+            <scope>compile</scope>
+        </dependency>
+
+        <!-- mysql connector -->
+        <dependency>
+            <groupId>mysql</groupId>
+            <artifactId>mysql-connector-java</artifactId>
+            <version>${mysql-connector-java.version}</version>
+        </dependency>
+    </dependencies>
 </project>
