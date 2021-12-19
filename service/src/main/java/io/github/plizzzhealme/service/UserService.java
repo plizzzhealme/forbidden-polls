@@ -14,6 +14,7 @@ public class UserService {
     public User authorize(String email, String password) {
         int passwordHash = ServiceUtil.passwordToHash(password);
         UserDao userDao = DaoFactory.getUserDao();
+        //noinspection UnusedAssignment
         password = null;
 
         try {
@@ -21,9 +22,5 @@ public class UserService {
         } catch (DaoException e) {
             return null;
         }
-    }
-
-    public static boolean register(User user, String password) {
-        return false;
     }
 }

@@ -10,11 +10,8 @@ public class DatabaseConnectionService {
 
     public void connect() {
         try {
-            System.out.println("try");
             ConnectionPool.INSTANCE.initPoolData();
-            System.out.println("done");
         } catch (DaoException e) {
-            System.out.println("error");
             e.printStackTrace();
         }
     }
