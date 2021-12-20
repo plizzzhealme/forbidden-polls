@@ -8,7 +8,7 @@
         <version>1.0-SNAPSHOT</version>
     </parent>
 
-    <modelVersion>4.0.0</modelVersion>
+    <modelVersion>${project.modelVersion}</modelVersion>
 
     <artifactId>dao</artifactId>
 
@@ -21,6 +21,8 @@
 
         <!-- mysql -->
         <mysql-connector-java.version>8.0.25</mysql-connector-java.version>
+
+        <project.modelVersion>4.0.0</project.modelVersion>
     </properties>
 
     <dependencies>
