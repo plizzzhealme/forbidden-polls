@@ -8,6 +8,7 @@
 <body>
 <form action="controller" method="post">
     <input type="hidden" name="command" value="registration">
+
     <fieldset>
         <legend>Registration:</legend>
 
@@ -292,4 +293,3 @@
 </form>
 </body>
 </html>
-

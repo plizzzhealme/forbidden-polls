@@ -6,19 +6,20 @@
     <title>Authorization</title>
 </head>
 <body>
-<h2>Authorization</h2>
 <form action="controller" method="post">
-
-    <br/>
-
     <input type="hidden" name="command" value="authorization">
-    <label>
-        Email: <input type="email" name="email">
-    </label>
-    <label>
-        Password: <input type="password" name="password">
-    </label>
-    <input type="submit" value="login">
+
+    <fieldset>
+        <legend>Authorization:</legend>
+
+        <label for="email">Email:</label><br/>
+        <input id="email" type="email" name="email"><br/>
+
+        <label for="password">Password:</label><br/>
+        <input id="password" type="password" name="password"><br/>
+
+        <input type="submit" value="login">
+    </fieldset>
 </form>
 </body>
 </html>

@@ -3,6 +3,7 @@
 <head>
     <title>Authorization</title>
 </head>
+
 <body>
 <h2>Welcome To Forbidden Polls</h2>
 
@@ -17,7 +18,5 @@
     <input type="hidden" name="command" value="to_registration_page">
     <input type="submit" value="registration">
 </form>
-
-
 </body>
 </html>

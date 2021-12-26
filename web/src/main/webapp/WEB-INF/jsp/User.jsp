@@ -4,9 +4,13 @@
 <html lang="eu" xml:lang="eu">
 
 <head>
-    <title>Title</title>
+    <title>home</title>
 </head>
 <body>
-<c:out value="${sessionScope.user.email}"/>
+<c:out value="Email: ${sessionScope.user.email}"/><br/>
+<c:out value="Name: ${sessionScope.user.name}"/><br/>
+<c:out value="Gender: ${sessionScope.user.gender}"/><br/>
+<c:out value="Country: ${sessionScope.user.country}"/><br/>
+<c:out value="Role: ${sessionScope.user.userRole}"/><br/>
 </body>
 </html>
