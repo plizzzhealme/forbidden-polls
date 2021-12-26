@@ -27,7 +27,7 @@ class SqlUserDaoTest {
     }
 
     @Test
-    void search() {
+    void correctAuthorization() {
         String email = "plizzz.healme@gmail.com";
         int passwordHash = "1q2w3e".hashCode();
 
@@ -44,6 +44,29 @@ class SqlUserDaoTest {
 
         try {
             actual = DaoFactory.getUserDao().authorize(email, passwordHash);
+        } catch (DaoException e) {
+            actual = null;
+        }
+
+        assertEquals(expected, actual);
+    }
+
+    @Test
+    void readWithExistingID() {
+        int id = 2;
+        User expected;
+        User actual;
+
+        expected = new User();
+        expected.setId(2);
+        expected.setEmail("plizzz.healme@gmail.com");
+        expected.setName("Dzianis");
+        expected.setCountry("Belarus");
+        expected.setGender("male");
+        expected.setUserRole("admin");
+
+        try {
+            actual = DaoFactory.getUserDao().read(id);
         } catch (DaoException e) {
             actual = null;
         }
