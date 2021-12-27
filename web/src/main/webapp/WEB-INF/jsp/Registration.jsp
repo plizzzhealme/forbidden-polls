@@ -24,7 +24,11 @@
         <label for="confirm_password">Confirm password:</label><br/>
         <input id="confirm_password" type="password" name="confirm_password"><br/>
 
+        <label for="birthday">Birthday:</label><br/>
+        <input id="birthday" type="datetime-local" name="birthday"/><br/>
+
         <label for="gender">Gender:</label><br/>
+
         <select id="gender" name="gender">
             <option value="male">male</option>
             <option value="female">female</option>
@@ -285,11 +289,13 @@
             <option value="YE">Yemen</option>
             <option value="ZM">Zambia</option>
             <option value="ZW">Zimbabwe</option>
-        </select>
+        </select><br/>
 
+        <input type="submit" value="register">
+
+        <input type="button" onclick="history.back();" value="Back">
     </fieldset>
     <br/>
-    <input type="submit" value="register">
 </form>
 </body>
 </html>
