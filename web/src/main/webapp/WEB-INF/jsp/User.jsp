@@ -7,10 +7,10 @@
     <title>home</title>
 </head>
 <body>
-<c:out value="Email: ${sessionScope.user.email}"/><br/>
-<c:out value="Name: ${sessionScope.user.name}"/><br/>
-<c:out value="Gender: ${sessionScope.user.gender}"/><br/>
-<c:out value="Country: ${sessionScope.user.country}"/><br/>
-<c:out value="Role: ${sessionScope.user.userRole}"/><br/>
+<c:set var="name" value="${sessionScope.user.name}"/>
+<p><c:out value="Hello, ${name}! Now you are logged in, and you can take our surveys."/></p>
+<c:forEach items="${sessionScope.values()}" var="elem">
+    <c:out value="${elem}"/>
+</c:forEach>
 </body>
 </html>
