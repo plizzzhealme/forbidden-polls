@@ -2,6 +2,7 @@ package io.github.plizzzhealme.dao.sql;
 
 import io.github.plizzzhealme.bean.User;
 import io.github.plizzzhealme.dao.DaoFactory;
+import io.github.plizzzhealme.dao.UserDao;
 import io.github.plizzzhealme.dao.exception.DaoException;
 import io.github.plizzzhealme.dao.pool.ConnectionPool;
 import org.junit.jupiter.api.AfterAll;
@@ -72,5 +73,23 @@ class SqlUserDaoTest {
         }
 
         assertEquals(expected, actual);
+    }
+
+    @Test
+    void create() {
+        User user = new User();
+        user.setId(2);
+        user.setEmail("plizzz.healme@gmail.com");
+        user.setName("Dzianis");
+        user.setCountry("Belarus");
+        user.setGender("male");
+        user.setUserRole("admin");
+
+        UserDao dao = DaoFactory.getUserDao();
+        try {
+            dao.create(user, "1q2w3e");
+        } catch (DaoException e) {
+            e.printStackTrace();
+        }
     }
 }

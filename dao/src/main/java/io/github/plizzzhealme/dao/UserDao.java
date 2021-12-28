@@ -5,6 +5,8 @@ import io.github.plizzzhealme.dao.exception.DaoException;
 
 public interface UserDao {
 
+    boolean create(User user, String password) throws DaoException;
+
     User read(int id) throws DaoException;
 
     User authorize(String email, int passwordHash) throws DaoException;

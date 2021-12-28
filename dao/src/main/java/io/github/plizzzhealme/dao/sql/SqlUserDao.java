@@ -33,6 +33,35 @@ public class SqlUserDao implements UserDao {
     }
 
     @Override
+    public boolean create(User user, String password) throws DaoException {
+        Connection connection = pool.takeConnection();
+
+        PreparedStatement preparedStatement = null;
+
+        try {
+            preparedStatement = connection.prepareStatement("INSERT INTO users (name, email, password_hash, registration_date, phone_number, last_login, user_role_id, country_id, gender_id) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)");
+            preparedStatement.setString(1, user.getName());
+            preparedStatement.setString(2, user.getEmail());
+            preparedStatement.setInt(3, password.hashCode());
+            preparedStatement.setTimestamp(4, DaoUtil.toSqlTime(user.getRegistrationDate()));
+            preparedStatement.setLong(5, user.getPhoneNumber());
+            preparedStatement.setTimestamp(6, DaoUtil.toSqlTime(user.getLastLoginDate()));
+            preparedStatement.setInt(7, 1); // stub
+            preparedStatement.setInt(8, 1); // stub
+            preparedStatement.setInt(9, 1); // stub
+
+            int i = preparedStatement.executeUpdate();
+            System.out.println(i);
+
+        } catch (SQLException e) {
+            throw new DaoException("Error creating user", e);
+        } finally {
+            pool.closeConnection(connection, preparedStatement);
+        }
+        return false;
+    }
+
+    @Override
     public User read(int id) throws DaoException {
         Connection connection = pool.takeConnection();
 
