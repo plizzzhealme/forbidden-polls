@@ -31,4 +31,8 @@ public final class DaoUtil {
     public static String hashPassword(String password) {
         return SCryptUtil.scrypt(password, CPU_COST_PARAM, MEMORY_COST_PARAM, PARALLELIZATION_PARAM);
     }
+
+    public static boolean isCorrectPassword(String password, String hashedPassword) {
+        return SCryptUtil.check(password, hashedPassword);
+    }
 }

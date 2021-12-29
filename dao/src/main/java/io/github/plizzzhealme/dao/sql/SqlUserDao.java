@@ -25,6 +25,13 @@ public class SqlUserDao implements UserDao {
     private static final String COUNTRY_NAME = "C.name";
     private static final String GENDER_NAME = "G.name";
     private static final String USER_EMAIL = "U.email";
+    private static final String CREATE_NEW_USER_SQL = "INSERT INTO users "
+            + "(name, email, password_hash, registration_date, phone_number, "
+            + "last_login, user_role_id, country_id, gender_id) "
+            + "VALUES (?, ?, ?, ?, ?, ?, "
+            + "(SELECT id FROM user_roles WHERE user_roles.name=?), "
+            + "(SELECT id FROM countries WHERE countries.name=?), "
+            + "(SELECT id FROM gender WHERE gender.name=?))";
 
     private final ConnectionPool pool;
 
@@ -39,26 +46,26 @@ public class SqlUserDao implements UserDao {
         PreparedStatement preparedStatement = null;
 
         try {
-            preparedStatement = connection.prepareStatement("INSERT INTO users (name, email, password_hash, registration_date, phone_number, last_login, user_role_id, country_id, gender_id) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)");
+            preparedStatement = connection.prepareStatement(CREATE_NEW_USER_SQL);
             preparedStatement.setString(1, user.getName());
             preparedStatement.setString(2, user.getEmail());
-            preparedStatement.setInt(3, password.hashCode());
+            preparedStatement.setString(3, DaoUtil.hashPassword(password));
             preparedStatement.setTimestamp(4, DaoUtil.toSqlTime(user.getRegistrationDate()));
             preparedStatement.setLong(5, user.getPhoneNumber());
             preparedStatement.setTimestamp(6, DaoUtil.toSqlTime(user.getLastLoginDate()));
-            preparedStatement.setInt(7, 1); // stub
-            preparedStatement.setInt(8, 1); // stub
-            preparedStatement.setInt(9, 1); // stub
+            preparedStatement.setString(7, user.getUserRole());
+            preparedStatement.setString(8, user.getCountry());
+            preparedStatement.setString(9, user.getGender());
 
-            int i = preparedStatement.executeUpdate();
-            System.out.println(i);
+            preparedStatement.executeUpdate();
+            return true;
 
         } catch (SQLException e) {
-            throw new DaoException("Error creating user", e);
+            e.printStackTrace();
+            return false;
         } finally {
             pool.closeConnection(connection, preparedStatement);
         }
-        return false;
     }
 
     @Override
@@ -99,7 +106,7 @@ public class SqlUserDao implements UserDao {
     }
 
     @Override
-    public User authorize(String email, int passwordHash) throws DaoException {
+    public User authorize(String email, String password) throws DaoException {
         Connection connection = pool.takeConnection();
 
         PreparedStatement preparedStatement = null;
@@ -112,7 +119,9 @@ public class SqlUserDao implements UserDao {
             resultSet = preparedStatement.executeQuery();
 
             if (resultSet.next()) {
-                if (resultSet.getInt(USER_PASSWORD_HASH) != passwordHash) {
+                boolean isCorrectPassword = DaoUtil.isCorrectPassword(password, resultSet.getString(USER_PASSWORD_HASH));
+
+                if (!isCorrectPassword) {
                     return null;
                 }
 

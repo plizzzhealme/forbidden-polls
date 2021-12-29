@@ -10,6 +10,7 @@ import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 class SqlUserDaoTest {
 
@@ -30,13 +31,13 @@ class SqlUserDaoTest {
     @Test
     void correctAuthorization() {
         String email = "plizzz.healme@gmail.com";
-        int passwordHash = "1q2w3e".hashCode();
+        String password = "1q2w3e";
 
         User expected;
         User actual;
 
         expected = new User();
-        expected.setId(2);
+        expected.setId(8);
         expected.setEmail(email);
         expected.setName("Dzianis");
         expected.setCountry("Belarus");
@@ -44,7 +45,7 @@ class SqlUserDaoTest {
         expected.setUserRole("admin");
 
         try {
-            actual = DaoFactory.getUserDao().authorize(email, passwordHash);
+            actual = DaoFactory.getUserDao().authorize(email, password);
         } catch (DaoException e) {
             actual = null;
         }
@@ -54,12 +55,12 @@ class SqlUserDaoTest {
 
     @Test
     void readWithExistingID() {
-        int id = 2;
+        int id = 8;
         User expected;
         User actual;
 
         expected = new User();
-        expected.setId(2);
+        expected.setId(8);
         expected.setEmail("plizzz.healme@gmail.com");
         expected.setName("Dzianis");
         expected.setCountry("Belarus");
@@ -69,6 +70,7 @@ class SqlUserDaoTest {
         try {
             actual = DaoFactory.getUserDao().read(id);
         } catch (DaoException e) {
+            e.printStackTrace();
             actual = null;
         }
 
@@ -78,18 +80,22 @@ class SqlUserDaoTest {
     @Test
     void create() {
         User user = new User();
-        user.setId(2);
-        user.setEmail("plizzz.healme@gmail.com");
+        user.setEmail("plizzzehesalme@gmail.com");
         user.setName("Dzianis");
         user.setCountry("Belarus");
         user.setGender("male");
         user.setUserRole("admin");
 
         UserDao dao = DaoFactory.getUserDao();
+
+        boolean isCreated = false;
+
         try {
-            dao.create(user, "1q2w3e");
+            isCreated = dao.create(user, "1q2w3e");
         } catch (DaoException e) {
             e.printStackTrace();
         }
+
+        assertTrue(isCreated);
     }
 }

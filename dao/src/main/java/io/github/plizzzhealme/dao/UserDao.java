@@ -9,5 +9,5 @@ public interface UserDao {
 
     User read(int id) throws DaoException;
 
-    User authorize(String email, int passwordHash) throws DaoException;
+    User authorize(String email, String password) throws DaoException;
 }
