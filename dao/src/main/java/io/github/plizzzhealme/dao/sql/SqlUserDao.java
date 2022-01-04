@@ -15,7 +15,10 @@ public class SqlUserDao implements UserDao {
 
     private static final String SELECT_USER_BY_EMAIL_SQL = "SELECT U.id, U.name, U.password_hash, U.registration_date, U.phone_number, U.last_login , R.name, C.name, G.name FROM survinator.users AS U JOIN user_roles AS R on U.user_role_id = R.id JOIN countries AS C on U.country_id = C.id JOIN gender AS G on U.gender_id = G.id WHERE  U.email = ?";
     private static final String SELECT_USER_BY_ID_SQL = "SELECT U.id, U.email, U.name, U.password_hash, U.registration_date, U.phone_number, U.last_login , R.name, C.name, G.name FROM survinator.users AS U JOIN user_roles AS R on U.user_role_id = R.id JOIN countries AS C on U.country_id = C.id JOIN gender AS G on U.gender_id = G.id WHERE  U.id = ?";
+    private static final String CREATE_NEW_USER_SQL = "INSERT INTO users (name, email, password_hash, registration_date, phone_number, last_login, user_role_id, country_id, gender_id) VALUES (?, ?, ?, ?, ?, ?, (SELECT id FROM user_roles WHERE user_roles.name=?), (SELECT id FROM countries WHERE countries.name=?), (SELECT id FROM gender WHERE gender.name=?))";
+
     private static final String USER_ID = "U.id";
+    private static final String USER_EMAIL = "U.email";
     private static final String USER_NAME = "U.name";
     private static final String USER_PASSWORD_HASH = "U.password_hash";
     private static final String USER_REGISTRATION_DATE = "U.registration_date";
@@ -24,14 +27,6 @@ public class SqlUserDao implements UserDao {
     private static final String ROLE_NAME = "R.name";
     private static final String COUNTRY_NAME = "C.name";
     private static final String GENDER_NAME = "G.name";
-    private static final String USER_EMAIL = "U.email";
-    private static final String CREATE_NEW_USER_SQL = "INSERT INTO users "
-            + "(name, email, password_hash, registration_date, phone_number, "
-            + "last_login, user_role_id, country_id, gender_id) "
-            + "VALUES (?, ?, ?, ?, ?, ?, "
-            + "(SELECT id FROM user_roles WHERE user_roles.name=?), "
-            + "(SELECT id FROM countries WHERE countries.name=?), "
-            + "(SELECT id FROM gender WHERE gender.name=?))";
 
     private final ConnectionPool pool;
 
