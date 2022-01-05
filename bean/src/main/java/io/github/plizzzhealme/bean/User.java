@@ -7,6 +7,10 @@ import java.util.Objects;
 
 public class User implements Serializable {
 
+    public static final String FEMALE = "female";
+    public static final String MALE = "male";
+    public static final String OTHER = "other";
+
     private int id;
     private String name;
     private String email;
