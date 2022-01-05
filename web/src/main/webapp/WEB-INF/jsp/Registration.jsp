@@ -25,7 +25,7 @@
         <input id="confirm_password" type="password" name="confirm_password"><br/>
 
         <label for="birthday">Birthday:</label><br/>
-        <input id="birthday" type="datetime-local" name="birthday"/><br/>
+        <input id="birthday" type="date" name="birthday"/><br/>
 
         <label for="gender">Gender:</label><br/>
 

@@ -1,7 +1,7 @@
 package io.github.plizzzhealme.web.command.impl;
 
 import io.github.plizzzhealme.web.command.Command;
-import io.github.plizzzhealme.web.command.util.WebUtil;
+import io.github.plizzzhealme.web.util.WebUtil;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;

@@ -33,42 +33,30 @@ class SqlUserDaoTest {
         String email = "plizzz.healme@gmail.com";
         String password = "1q2w3e";
 
-        User expected;
-        User actual;
-
-        expected = new User();
-        expected.setId(8);
-        expected.setEmail(email);
-        expected.setName("Dzianis");
-        expected.setCountry("Belarus");
-        expected.setGender("male");
-        expected.setUserRole("admin");
+        int expectedID = 1;
+        int actualID;
 
         try {
-            actual = DaoFactory.getUserDao().authorize(email, password);
+            User user = DaoFactory.getUserDao().authorize(email, password);
+            actualID = user.getId();
         } catch (DaoException e) {
-            actual = null;
+            actualID = 0;
         }
 
-        assertEquals(expected, actual);
+        assertEquals(expectedID, actualID);
     }
 
     @Test
     void readWithExistingID() {
-        int id = 8;
-        User expected;
-        User actual;
+        int id = 1;
 
-        expected = new User();
-        expected.setId(8);
-        expected.setEmail("plizzz.healme@gmail.com");
-        expected.setName("Dzianis");
-        expected.setCountry("Belarus");
-        expected.setGender("male");
-        expected.setUserRole("admin");
+        String expected = "plizzz.healme@gmail.com";
+        String actual;
+
 
         try {
-            actual = DaoFactory.getUserDao().read(id);
+            User user = DaoFactory.getUserDao().read(id);
+            actual = user.getEmail();
         } catch (DaoException e) {
             e.printStackTrace();
             actual = null;

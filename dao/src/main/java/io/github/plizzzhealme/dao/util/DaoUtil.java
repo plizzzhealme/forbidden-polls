@@ -2,7 +2,9 @@ package io.github.plizzzhealme.dao.util;
 
 import com.lambdaworks.crypto.SCryptUtil;
 
+import java.sql.Date;
 import java.sql.Timestamp;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 public final class DaoUtil {
@@ -21,11 +23,25 @@ public final class DaoUtil {
         return sqlTime.toLocalDateTime();
     }
 
+    public static LocalDate toJavaTime(Date sqlTime) {
+        if (sqlTime == null) {
+            return null;
+        }
+        return sqlTime.toLocalDate();
+    }
+
     public static Timestamp toSqlTime(LocalDateTime javaTime) {
         if (javaTime == null) {
             return null;
         }
         return Timestamp.valueOf(javaTime);
+    }
+
+    public static Date toSqlTime(LocalDate javaTime) {
+        if (javaTime == null) {
+            return null;
+        }
+        return Date.valueOf(javaTime);
     }
 
     public static String hashPassword(String password) {

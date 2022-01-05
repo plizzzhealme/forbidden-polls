@@ -16,7 +16,22 @@ public class UserService {
         try {
             return userDao.authorize(email, password);
         } catch (DaoException e) {
+            e.printStackTrace();
             return null;
         }
+    }
+
+    public boolean register(User user, String password) {
+        UserDao userDao = DaoFactory.getUserDao();
+        boolean isCreated;
+
+        try {
+            isCreated = userDao.create(user, password);
+        } catch (DaoException e) {
+            isCreated = false;
+            e.printStackTrace();
+        }
+
+        return isCreated;
     }
 }

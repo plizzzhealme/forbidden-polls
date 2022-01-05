@@ -4,7 +4,7 @@ import io.github.plizzzhealme.bean.User;
 import io.github.plizzzhealme.service.ServiceFactory;
 import io.github.plizzzhealme.service.UserService;
 import io.github.plizzzhealme.web.command.Command;
-import io.github.plizzzhealme.web.command.util.WebUtil;
+import io.github.plizzzhealme.web.util.WebUtil;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -15,7 +15,6 @@ import java.io.IOException;
 
 public class AuthorizationCommand implements Command {
 
-    @SuppressWarnings({"unused", "UnusedAssignment"})
     @Override
     public void execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String email = request.getParameter(WebUtil.EMAIL);
@@ -25,7 +24,6 @@ public class AuthorizationCommand implements Command {
         User user = userService.authorize(email, password);
 
         if (user != null) {
-            password = null;
             HttpSession session = request.getSession(true);
             session.setAttribute(WebUtil.USER, user);
             response.sendRedirect(WebUtil.TO_USER_PAGE_REDIRECT);

@@ -1,4 +1,6 @@
-package io.github.plizzzhealme.web.command.util;
+package io.github.plizzzhealme.web.util;
+
+import io.github.plizzzhealme.web.command.CommandProvider;
 
 public final class WebUtil {
 
@@ -10,6 +12,7 @@ public final class WebUtil {
     public static final String NAME = "name";
     public static final String EMAIL = "email";
     public static final String PASSWORD = "password";
+    public static final String BIRTHDAY = "birthday";
     public static final String CONFIRM_PASSWORD = "confirm_password";
     public static final String GENDER = "gender";
     public static final String COUNTRY = "country";
@@ -22,6 +25,7 @@ public final class WebUtil {
 
     // others
     public static final String TO_USER_PAGE_REDIRECT = "controller?command=to_user_page";
+    public static final String TO_AUTHORIZATION_PAGE_REDIRECT = "controller?command=" + CommandProvider.TO_AUTHORIZATION_PAGE_COMMAND;
     public static final String INVALID_EMAIL_OR_PASSWORD = "Invalid email or password";
 
     private WebUtil() {

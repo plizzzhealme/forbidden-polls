@@ -27,7 +27,7 @@ public enum ConnectionPool {
                 connectionQueue = new ArrayBlockingQueue<>(DatabaseInfo.POOL_SIZE);
 
                 for (int i = 0; i < DatabaseInfo.POOL_SIZE; i++) {
-                    @SuppressWarnings("all") Connection connection = DriverManager.getConnection(DatabaseInfo.URL, DatabaseInfo.USER, DatabaseInfo.PASSWORD);
+                    Connection connection = DriverManager.getConnection(DatabaseInfo.URL, DatabaseInfo.USER, DatabaseInfo.PASSWORD);
                     PooledConnection pooledConnection = new PooledConnection(connection);
                     connectionQueue.add(pooledConnection);
                 }
