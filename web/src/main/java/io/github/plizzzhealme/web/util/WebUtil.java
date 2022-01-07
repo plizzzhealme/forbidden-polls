@@ -27,6 +27,8 @@ public final class WebUtil {
     public static final String TO_USER_PAGE_REDIRECT = "controller?command=to_user_page";
     public static final String TO_AUTHORIZATION_PAGE_REDIRECT = "controller?command=" + CommandProvider.TO_AUTHORIZATION_PAGE_COMMAND;
     public static final String INVALID_EMAIL_OR_PASSWORD = "Invalid email or password";
+    public static final String URL = "url";
+    public static final String LOCALE = "locale";
 
     private WebUtil() {
     }

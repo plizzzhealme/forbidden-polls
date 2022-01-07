@@ -41,12 +41,10 @@ public class RegistrationCommand implements Command {
         if (password != null && !password.isEmpty() && password.equals(confirmPassword)) {
             UserService userService = ServiceFactory.getUserService();
             boolean isCreated = userService.register(user, password);
-            System.out.println(isCreated);
 
             if (isCreated) {
                 response.sendRedirect(WebUtil.TO_AUTHORIZATION_PAGE_REDIRECT);
             } else {
-                System.out.println("error");
             }
         }
     }

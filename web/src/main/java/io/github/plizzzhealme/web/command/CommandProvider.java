@@ -12,6 +12,9 @@ public final class CommandProvider {
     // for errors
     public static final String UNKNOWN_COMMAND = "unknown";
 
+    // localization
+    public static final String CHANGE_LANGUAGE_COMMAND = "change_language";
+
     // for actions
     public static final String AUTHORIZATION_COMMAND = "authorization";
     public static final String REGISTRATION_COMMAND = "registration";
@@ -34,6 +37,7 @@ public final class CommandProvider {
         commands.put(TO_USER_PAGE_COMMAND, new ToUserPageCommand());
         commands.put(UNKNOWN_COMMAND, new UnknownCommand());
         commands.put(REGISTRATION_COMMAND, new RegistrationCommand());
+        commands.put(CHANGE_LANGUAGE_COMMAND, new ChangeLanguageCommand());
     }
 
     public Command getCommand(String commandName) {
