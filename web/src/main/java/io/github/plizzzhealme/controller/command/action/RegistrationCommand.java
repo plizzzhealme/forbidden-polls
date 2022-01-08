@@ -44,7 +44,6 @@ public class RegistrationCommand implements Command {
 
             if (isCreated) {
                 response.sendRedirect(WebUtil.TO_AUTHORIZATION_PAGE_REDIRECT);
-            } else {
             }
         }
     }
