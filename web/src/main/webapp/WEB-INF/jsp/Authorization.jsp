@@ -31,11 +31,9 @@
 
     <input type="submit" value=${auth}>
 </form>
+<br/>
 
-<form action="controller" method="get">
-    <input type="hidden" name="command" value="to_start_page">
-    <input type="submit" value="${back}">
-</form>
+<a href="controller?command=to_start_page">[${back}]</a>
 </body>
 </html>
 
