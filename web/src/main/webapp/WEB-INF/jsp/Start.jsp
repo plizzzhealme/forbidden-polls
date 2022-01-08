@@ -26,13 +26,13 @@
 <form action="controller" method="get" class="st">
     <input type="hidden" name="command" value="to_authorization_page"/>
 
-    <input type="submit" value=${auth}/>
+    <input type="submit" value="${auth}"/>
 </form>
 
 <form action="controller" method="get" class="st">
     <input type="hidden" name="command" value="to_registration_page"/>
 
-    <input type="submit" value=${reg}/>
+    <input type="submit" value="${reg}"/>
 </form>
 </body>
 </html>

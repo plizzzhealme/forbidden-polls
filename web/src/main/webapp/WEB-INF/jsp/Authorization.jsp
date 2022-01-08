@@ -29,7 +29,7 @@
     <label for="password">${password}:</label><br/>
     <input id="password" type="password" name="password"><br/>
 
-    <input type="submit" value=${auth}>
+    <input type="submit" value="${auth}">
 </form>
 <br/>
 
