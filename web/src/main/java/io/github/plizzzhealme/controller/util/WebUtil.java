@@ -1,6 +1,9 @@
-package io.github.plizzzhealme.web.util;
+package io.github.plizzzhealme.controller.util;
 
-import io.github.plizzzhealme.web.command.CommandProvider;
+import io.github.plizzzhealme.controller.command.CommandProvider;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 public final class WebUtil {
 
@@ -29,7 +32,14 @@ public final class WebUtil {
     public static final String INVALID_EMAIL_OR_PASSWORD = "Invalid email or password";
     public static final String URL = "url";
     public static final String LOCALE = "locale";
+    public static final String REFERER = "referer";
 
     private WebUtil() {
+    }
+
+    public static void saveUrl(HttpServletRequest request) {
+        HttpSession session = request.getSession();
+        String url = request.getRequestURL().append("?").append(request.getQueryString()).toString();
+        session.setAttribute(WebUtil.URL, url);
     }
 }

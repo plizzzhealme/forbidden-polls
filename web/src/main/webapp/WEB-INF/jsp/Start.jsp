@@ -4,38 +4,33 @@
 <!DOCTYPE html>
 <html xml:lang="en">
 <head>
-    <!-- localization section -->
+    <link href="${pageContext.request.contextPath}/css/style.css" rel="stylesheet">
+
+    <%-- localization section --%>
     <fmt:setLocale value="${sessionScope.locale}"/>
+
     <fmt:setBundle basename="locale" var="locale"/>
+
     <fmt:message bundle="${locale}" key="project-name" var="project"/>
     <fmt:message bundle="${locale}" key="start-page.message" var="message"/>
     <fmt:message bundle="${locale}" key="start-page.authorization-button" var="auth"/>
     <fmt:message bundle="${locale}" key="start-page.registration-button" var="reg"/>
 
     <title>${project}</title>
-    <link href="${pageContext.request.contextPath}/css/style.css" rel="stylesheet">
 </head>
 <body>
-<p>
-    <a href="controller?command=change_language&locale=ru_RU">ru</a>
-    <a href="controller?command=change_language&locale=en_US">us</a>
-</p>
+<jsp:include page="Header.jsp"/>
 
+<p>${message}</p>
 
-<fieldset>
-    <legend>${project}:</legend>
+<form action="controller" class="st">
+    <input type="hidden" name="command" value="to_authorization_page"/>
+    <input type="submit" value=${auth}/>
+</form>
 
-    <p>${message}</p>
-
-    <form class="st">
-        <input type="hidden" name="command" value="to_authorization_page"/>
-        <input type="submit" value=${auth}/>
-    </form>
-    <form class="st">
-        <input type="hidden" name="command" value="to_registration_page"/>
-        <input type="submit" value=${reg}/>
-    </form>
-
-</fieldset>
+<form action="controller" class="st">
+    <input type="hidden" name="command" value="to_registration_page"/>
+    <input type="submit" value=${reg}/>
+</form>
 </body>
 </html>

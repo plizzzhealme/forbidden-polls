@@ -1,10 +1,10 @@
-package io.github.plizzzhealme.web.command.impl;
+package io.github.plizzzhealme.controller.command.action;
 
 import io.github.plizzzhealme.bean.User;
+import io.github.plizzzhealme.controller.command.Command;
+import io.github.plizzzhealme.controller.util.WebUtil;
 import io.github.plizzzhealme.service.ServiceFactory;
 import io.github.plizzzhealme.service.UserService;
-import io.github.plizzzhealme.web.command.Command;
-import io.github.plizzzhealme.web.util.WebUtil;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;

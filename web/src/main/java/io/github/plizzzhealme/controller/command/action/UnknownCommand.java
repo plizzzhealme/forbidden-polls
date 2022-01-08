@@ -1,6 +1,6 @@
-package io.github.plizzzhealme.web.command.impl;
+package io.github.plizzzhealme.controller.command.action;
 
-import io.github.plizzzhealme.web.command.Command;
+import io.github.plizzzhealme.controller.command.Command;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;

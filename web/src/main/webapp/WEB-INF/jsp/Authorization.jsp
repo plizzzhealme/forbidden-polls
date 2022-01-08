@@ -4,10 +4,11 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-
-    <!-- localization section -->
+    <%-- localization section --%>
     <fmt:setLocale value="${sessionScope.locale}"/>
+
     <fmt:setBundle basename="locale" var="locale"/>
+
     <fmt:message bundle="${locale}" key="authorization-page.title" var="title"/>
     <fmt:message bundle="${locale}" key="authorization-page.email" var="email"/>
     <fmt:message bundle="${locale}" key="authorization-page.password" var="password"/>
@@ -17,30 +18,23 @@
     <title>${title}</title>
 </head>
 <body>
-
-<p>
-    <a href="controller?command=change_language&locale=ru_RU">ru</a>
-    <a href="controller?command=change_language&locale=en_US">us</a>
-</p>
-
+<jsp:include page="Header.jsp"/>
 
 <form action="controller" method="post">
     <input type="hidden" name="command" value="authorization">
 
-    <fieldset>
-        <legend>${title}:</legend>
+    <label for="email">${email}:</label><br/>
+    <input id="email" type="email" name="email"><br/>
 
-        <label for="email">${email}:</label><br/>
-        <input id="email" type="email" name="email"><br/>
+    <label for="password">${password}:</label><br/>
+    <input id="password" type="password" name="password"><br/>
 
-        <label for="password">${password}:</label><br/>
-        <input id="password" type="password" name="password"><br/>
+    <input type="submit" value=${auth}>
+</form>
 
-        <input type="submit" value=${auth}>
-
-        <input type="button" onclick="controller?command=to_start_page" value=${back}>
-    </fieldset>
-
+<form action="controller" method="get">
+    <input type="hidden" name="command" value="to_start_page">
+    <input type="submit" value="${back}">
 </form>
 </body>
 </html>

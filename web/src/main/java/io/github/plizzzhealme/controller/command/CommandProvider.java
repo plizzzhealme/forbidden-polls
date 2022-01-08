@@ -1,6 +1,13 @@
-package io.github.plizzzhealme.web.command;
+package io.github.plizzzhealme.controller.command;
 
-import io.github.plizzzhealme.web.command.impl.*;
+import io.github.plizzzhealme.controller.command.action.AuthorizationCommand;
+import io.github.plizzzhealme.controller.command.action.ChangeLocaleCommand;
+import io.github.plizzzhealme.controller.command.action.RegistrationCommand;
+import io.github.plizzzhealme.controller.command.action.UnknownCommand;
+import io.github.plizzzhealme.controller.command.navigation.ToAuthorizationPageCommand;
+import io.github.plizzzhealme.controller.command.navigation.ToRegistrationPageCommand;
+import io.github.plizzzhealme.controller.command.navigation.ToStartPageCommand;
+import io.github.plizzzhealme.controller.command.navigation.ToUserPageCommand;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -9,15 +16,11 @@ public final class CommandProvider {
 
     public static final String COMMAND = "command";
 
-    // for errors
-    public static final String UNKNOWN_COMMAND = "unknown";
-
-    // localization
-    public static final String CHANGE_LANGUAGE_COMMAND = "change_language";
-
     // for actions
     public static final String AUTHORIZATION_COMMAND = "authorization";
     public static final String REGISTRATION_COMMAND = "registration";
+    public static final String CHANGE_LOCALE_COMMAND = "change_locale";
+    public static final String UNKNOWN_COMMAND = "unknown";
 
     // for navigation
     public static final String TO_AUTHORIZATION_PAGE_COMMAND = "to_authorization_page";
@@ -37,7 +40,7 @@ public final class CommandProvider {
         commands.put(TO_USER_PAGE_COMMAND, new ToUserPageCommand());
         commands.put(UNKNOWN_COMMAND, new UnknownCommand());
         commands.put(REGISTRATION_COMMAND, new RegistrationCommand());
-        commands.put(CHANGE_LANGUAGE_COMMAND, new ChangeLanguageCommand());
+        commands.put(CHANGE_LOCALE_COMMAND, new ChangeLocaleCommand());
     }
 
     public Command getCommand(String commandName) {

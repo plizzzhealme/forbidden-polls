@@ -1,4 +1,4 @@
-package io.github.plizzzhealme.web;
+package io.github.plizzzhealme.controller;
 
 import javax.servlet.*;
 import javax.servlet.annotation.WebFilter;
