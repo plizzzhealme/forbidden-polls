@@ -7,6 +7,7 @@
     <title>home</title>
 </head>
 <body>
+<jsp:include page="Header.jsp"/>
 <c:set var="name" value="${sessionScope.user.name}"/>
 <p><c:out value="Hello, ${name}! Now you are logged in, and you can take our surveys."/></p>
 <c:forEach items="${sessionScope.values()}" var="elem">

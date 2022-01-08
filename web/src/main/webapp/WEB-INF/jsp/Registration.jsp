@@ -6,6 +6,7 @@
     <title>Registration</title>
 </head>
 <body>
+<jsp:include page="Header.jsp"/>
 <form action="controller" method="post">
     <input type="hidden" name="command" value="registration">
 
