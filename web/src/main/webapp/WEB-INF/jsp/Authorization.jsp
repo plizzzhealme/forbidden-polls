@@ -1,21 +1,11 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page contentType="text/html; charset=UTF-8" %>
+<%@include file="Localization.jsp" %>
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <%-- localization section --%>
-    <fmt:setLocale value="${sessionScope.locale}"/>
-
-    <fmt:setBundle basename="locale" var="locale"/>
-
-    <fmt:message bundle="${locale}" key="authorization-page.title" var="title"/>
-    <fmt:message bundle="${locale}" key="authorization-page.email" var="email"/>
-    <fmt:message bundle="${locale}" key="authorization-page.password" var="password"/>
-    <fmt:message bundle="${locale}" key="authorization-page.authorization-button" var="auth"/>
-    <fmt:message bundle="${locale}" key="authorization-page.back-button" var="back"/>
-
-    <title>${title}</title>
+    <title>${authorization}</title>
 </head>
 <body>
 <jsp:include page="Header.jsp"/>
@@ -29,11 +19,10 @@
     <label for="password">${password}:</label><br/>
     <input id="password" type="password" name="password"><br/>
 
-    <input type="submit" value="${auth}">
+    <input type="submit" value="${sign_in}">
 </form>
 <br/>
 
-<a href="controller?command=to_start_page">[${back}]</a>
+<a href="controller?command=to_start_page">[${to_main_page}]</a>
 </body>
 </html>
-

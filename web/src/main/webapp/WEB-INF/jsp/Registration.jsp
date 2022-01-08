@@ -5,9 +5,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-
-
-    <title>${title}</title>
+    <title>${registration}</title>
 </head>
 <body>
 <jsp:include page="Header.jsp"/>
@@ -24,7 +22,7 @@
     <label for="password">${password}:</label><br/>
     <input id="password" type="password" name="password"><br/>
 
-    <label for="confirm_password">${confirm}:</label><br/>
+    <label for="confirm_password">${confirm_password}:</label><br/>
     <input id="confirm_password" type="password" name="confirm_password"><br/>
 
     <label for="birthday">${birthday}:</label><br/>
@@ -293,10 +291,10 @@
         <option value="ZW">Zimbabwe</option>
     </select><br/>
 
-    <input type="submit" value=${reg}>
+    <input type="submit" value=${sign_up}>
 </form>
 <br/>
 
-<a href="controller?command=to_start_page">[${back}]</a>
+<a href="controller?command=to_start_page">[${to_main_page}]</a>
 </body>
 </html>
