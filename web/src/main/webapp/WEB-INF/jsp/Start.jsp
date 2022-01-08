@@ -25,11 +25,13 @@
 
 <form action="controller" class="st">
     <input type="hidden" name="command" value="to_authorization_page"/>
+
     <input type="submit" value=${auth}/>
 </form>
 
 <form action="controller" class="st">
     <input type="hidden" name="command" value="to_registration_page"/>
+
     <input type="submit" value=${reg}/>
 </form>
 </body>
