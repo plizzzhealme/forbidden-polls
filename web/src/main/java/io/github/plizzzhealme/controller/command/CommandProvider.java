@@ -16,13 +16,13 @@ public final class CommandProvider {
 
     public static final String COMMAND = "command";
 
-    // for actions
+    // actions
     public static final String AUTHORIZATION_COMMAND = "authorization";
     public static final String REGISTRATION_COMMAND = "registration";
     public static final String CHANGE_LOCALE_COMMAND = "change_locale";
     public static final String UNKNOWN_COMMAND = "unknown";
 
-    // for navigation
+    // navigation
     public static final String TO_AUTHORIZATION_PAGE_COMMAND = "to_authorization_page";
     public static final String TO_REGISTRATION_PAGE_COMMAND = "to_registration_page";
     public static final String TO_START_PAGE_COMMAND = "to_start_page";
