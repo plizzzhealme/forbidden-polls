@@ -13,6 +13,7 @@ public class ToRegistrationPageCommand implements Command {
 
     @Override
     public void execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+
         RequestDispatcher dispatcher = request.getRequestDispatcher(WebUtil.REGISTRATION_JSP);
         dispatcher.forward(request, response);
     }

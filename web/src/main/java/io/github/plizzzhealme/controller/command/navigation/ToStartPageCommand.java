@@ -13,7 +13,7 @@ public class ToStartPageCommand implements Command {
 
     @Override
     public void execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        WebUtil.saveUrl(request);
+        WebUtil.saveUrlToSession(request);
 
         RequestDispatcher dispatcher = request.getRequestDispatcher(WebUtil.START_JSP);
         dispatcher.forward(request, response);

@@ -37,7 +37,7 @@ public final class WebUtil {
     private WebUtil() {
     }
 
-    public static void saveUrl(HttpServletRequest request) {
+    public static void saveUrlToSession(HttpServletRequest request) {
         HttpSession session = request.getSession();
         String url = request.getRequestURL().append("?").append(request.getQueryString()).toString();
         session.setAttribute(WebUtil.URL, url);
