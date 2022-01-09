@@ -3,19 +3,18 @@ package io.github.plizzzhealme.service;
 import io.github.plizzzhealme.service.impl.ConnectionServiceImpl;
 import io.github.plizzzhealme.service.impl.UserServiceImpl;
 
-public final class ServiceFactory {
+public enum ServiceFactory {
 
-    private static final UserServiceImpl USER_SERVICE = new UserServiceImpl();
-    private static final ConnectionServiceImpl DATABASE_CONNECTION_SERVICE = new ConnectionServiceImpl();
+    INSTANCE;
 
-    private ServiceFactory() {
+    private final UserService userService = new UserServiceImpl();
+    private final ConnectionService connectionService = new ConnectionServiceImpl();
+
+    public UserService getUserService() {
+        return userService;
     }
 
-    public static UserServiceImpl getUserService() {
-        return USER_SERVICE;
-    }
-
-    public static ConnectionServiceImpl getDatabaseConnectionService() {
-        return DATABASE_CONNECTION_SERVICE;
+    public ConnectionService getConnectionService() {
+        return connectionService;
     }
 }

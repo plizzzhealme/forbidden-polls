@@ -28,7 +28,7 @@ public class Controller extends HttpServlet {
     @Override
     public void init(ServletConfig config) {
         try {
-            ServiceFactory.getDatabaseConnectionService().connect();
+            ServiceFactory.INSTANCE.getConnectionService().connect();
         } catch (ServiceException e) {
             logger.error("Error with database connection", e);
             throw new ControllerException();
@@ -37,7 +37,7 @@ public class Controller extends HttpServlet {
 
     @Override
     public void destroy() {
-        ServiceFactory.getDatabaseConnectionService().disconnect();
+        ServiceFactory.INSTANCE.getConnectionService().disconnect();
     }
 
     @Override

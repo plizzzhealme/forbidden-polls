@@ -9,9 +9,6 @@ import io.github.plizzzhealme.service.exception.ServiceException;
 
 public class UserServiceImpl implements UserService {
 
-    protected UserServiceImpl() {
-    }
-
     public User authorize(String email, String password) throws ServiceException {
 
         UserDao userDao = DaoFactory.INSTANCE.getUserDao();

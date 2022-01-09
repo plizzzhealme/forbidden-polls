@@ -4,8 +4,8 @@ import io.github.plizzzhealme.bean.User;
 import io.github.plizzzhealme.controller.command.Command;
 import io.github.plizzzhealme.controller.util.ControllerUtil;
 import io.github.plizzzhealme.service.ServiceFactory;
+import io.github.plizzzhealme.service.UserService;
 import io.github.plizzzhealme.service.exception.ServiceException;
-import io.github.plizzzhealme.service.impl.UserServiceImpl;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -22,7 +22,7 @@ public class AuthorizationCommand implements Command {
         String email = request.getParameter(ControllerUtil.EMAIL);
         String password = request.getParameter(ControllerUtil.PASSWORD);
 
-        UserServiceImpl userService = ServiceFactory.getUserService();
+        UserService userService = ServiceFactory.INSTANCE.getUserService();
         User user = userService.authorize(email, password);
 
         if (user != null) {
