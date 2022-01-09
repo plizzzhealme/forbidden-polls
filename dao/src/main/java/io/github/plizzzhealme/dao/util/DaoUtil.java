@@ -49,6 +49,10 @@ public final class DaoUtil {
     }
 
     public static boolean isCorrectPassword(String password, String hashedPassword) {
-        return SCryptUtil.check(password, hashedPassword);
+        if (!"".equals(password)
+                && !"".equals(hashedPassword)) {
+            return SCryptUtil.check(password, hashedPassword);
+        }
+        return false;
     }
 }

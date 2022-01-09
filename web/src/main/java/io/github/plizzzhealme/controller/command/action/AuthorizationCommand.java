@@ -5,6 +5,7 @@ import io.github.plizzzhealme.controller.command.Command;
 import io.github.plizzzhealme.controller.util.WebUtil;
 import io.github.plizzzhealme.service.ServiceFactory;
 import io.github.plizzzhealme.service.UserService;
+import io.github.plizzzhealme.service.exception.ServiceException;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -16,7 +17,8 @@ import java.io.IOException;
 public class AuthorizationCommand implements Command {
 
     @Override
-    public void execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    public void execute(HttpServletRequest request,
+                        HttpServletResponse response) throws ServletException, IOException, ServiceException {
         String email = request.getParameter(WebUtil.EMAIL);
         String password = request.getParameter(WebUtil.PASSWORD);
 

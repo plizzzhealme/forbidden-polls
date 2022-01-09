@@ -21,13 +21,13 @@ public class UserService {
         }
     }
 
-    public boolean register(User user, String password) throws DaoException {
+    public boolean register(User user, String password) throws ServiceException {
         UserDao userDao = DaoFactory.getUserDao();
 
         try {
             return userDao.create(user, password);
         } catch (DaoException e) {
-            throw new DaoException("Registration error", e);
+            throw new ServiceException("Registration error", e);
         }
     }
 }

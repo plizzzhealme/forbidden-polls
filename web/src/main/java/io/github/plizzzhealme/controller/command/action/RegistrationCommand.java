@@ -5,6 +5,7 @@ import io.github.plizzzhealme.controller.command.Command;
 import io.github.plizzzhealme.controller.util.WebUtil;
 import io.github.plizzzhealme.service.ServiceFactory;
 import io.github.plizzzhealme.service.UserService;
+import io.github.plizzzhealme.service.exception.ServiceException;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -15,7 +16,7 @@ import java.time.LocalDateTime;
 public class RegistrationCommand implements Command {
 
     @Override
-    public void execute(HttpServletRequest request, HttpServletResponse response) throws IOException {
+    public void execute(HttpServletRequest request, HttpServletResponse response) throws IOException, ServiceException {
         String email = request.getParameter(WebUtil.EMAIL);
         String name = request.getParameter(WebUtil.NAME);
         String password = request.getParameter(WebUtil.PASSWORD);
@@ -44,6 +45,8 @@ public class RegistrationCommand implements Command {
 
             if (isCreated) {
                 response.sendRedirect(WebUtil.TO_AUTHORIZATION_PAGE_REDIRECT);
+            } else {
+                // todo add message with a reason of creation error
             }
         }
     }
