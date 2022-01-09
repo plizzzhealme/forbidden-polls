@@ -4,34 +4,30 @@ import io.github.plizzzhealme.bean.User;
 import io.github.plizzzhealme.dao.DaoFactory;
 import io.github.plizzzhealme.dao.UserDao;
 import io.github.plizzzhealme.dao.exception.DaoException;
+import io.github.plizzzhealme.service.exception.ServiceException;
 
 public class UserService {
 
     protected UserService() {
     }
 
-    public User authorize(String email, String password) {
+    public User authorize(String email, String password) throws ServiceException {
         UserDao userDao = DaoFactory.getUserDao();
 
         try {
             return userDao.authorize(email, password);
         } catch (DaoException e) {
-            e.printStackTrace();
-            return null;
+            throw new ServiceException("Authorization error", e);
         }
     }
 
-    public boolean register(User user, String password) {
+    public boolean register(User user, String password) throws DaoException {
         UserDao userDao = DaoFactory.getUserDao();
-        boolean isCreated;
 
         try {
-            isCreated = userDao.create(user, password);
+            return userDao.create(user, password);
         } catch (DaoException e) {
-            isCreated = false;
-            e.printStackTrace();
+            throw new DaoException("Registration error", e);
         }
-
-        return isCreated;
     }
 }
