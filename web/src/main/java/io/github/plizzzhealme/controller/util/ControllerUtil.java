@@ -3,7 +3,7 @@ package io.github.plizzzhealme.controller.util;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
-public final class WebUtil {
+public final class ControllerUtil {
 
     // common attributes and parameters
     public static final String ERROR = "error_message";
@@ -22,10 +22,10 @@ public final class WebUtil {
     public static final String COUNTRY = "country";
 
     // pages
-    public static final String AUTHORIZATION_JSP = "/WEB-INF/jsp/Authorization.jsp";
-    public static final String REGISTRATION_JSP = "/WEB-INF/jsp/Registration.jsp";
-    public static final String START_JSP = "/WEB-INF/jsp/Start.jsp";
-    public static final String USER_JSP = "/WEB-INF/jsp/User.jsp";
+    public static final String AUTHORIZATION_JSP = "/WEB-INF/jsp/authorization.jsp";
+    public static final String REGISTRATION_JSP = "/WEB-INF/jsp/registration.jsp";
+    public static final String START_JSP = "/WEB-INF/jsp/start.jsp";
+    public static final String USER_JSP = "/WEB-INF/jsp/user.jsp";
 
     // redirects
     public static final String TO_USER_PAGE_REDIRECT = "controller?command=to_user_page";
@@ -34,12 +34,12 @@ public final class WebUtil {
     public static final String TO_UNFOUNDED_PAGE_REDIRECT = "error/pageNotFound.jsp";
     public static final String INVALID_EMAIL_OR_PASSWORD = "Invalid email or password";
 
-    private WebUtil() {
+    private ControllerUtil() {
     }
 
     public static void saveUrlToSession(HttpServletRequest request) {
         HttpSession session = request.getSession();
         String url = request.getRequestURL().append("?").append(request.getQueryString()).toString();
-        session.setAttribute(WebUtil.URL, url);
+        session.setAttribute(ControllerUtil.URL, url);
     }
 }

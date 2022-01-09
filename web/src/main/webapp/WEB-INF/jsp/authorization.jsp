@@ -1,14 +1,14 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page contentType="text/html; charset=UTF-8" %>
-<%@include file="Localization.jsp" %>
+<%@include file="localization.jsp" %>
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <title>${authorization}</title>
 </head>
 <body>
-<jsp:include page="Header.jsp"/>
+<jsp:include page="header.jsp"/>
 
 <form action="controller" method="post">
     <input type="hidden" name="command" value="authorization">

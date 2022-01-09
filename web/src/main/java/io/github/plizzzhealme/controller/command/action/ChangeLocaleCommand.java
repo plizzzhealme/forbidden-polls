@@ -1,7 +1,7 @@
 package io.github.plizzzhealme.controller.command.action;
 
 import io.github.plizzzhealme.controller.command.Command;
-import io.github.plizzzhealme.controller.util.WebUtil;
+import io.github.plizzzhealme.controller.util.ControllerUtil;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -13,13 +13,13 @@ public class ChangeLocaleCommand implements Command {
     @Override
     public void execute(HttpServletRequest request, HttpServletResponse response) throws IOException {
         HttpSession session = request.getSession(true);
-        String locale = request.getParameter(WebUtil.LOCALE);
-        session.setAttribute(WebUtil.LOCALE, locale);
+        String locale = request.getParameter(ControllerUtil.LOCALE);
+        session.setAttribute(ControllerUtil.LOCALE, locale);
 
-        String referer = request.getHeader(WebUtil.REFERER);
+        String referer = request.getHeader(ControllerUtil.REFERER);
 
         if (referer == null) {
-            referer = (String) session.getAttribute(WebUtil.URL);
+            referer = (String) session.getAttribute(ControllerUtil.URL);
         }
 
         response.sendRedirect(referer);

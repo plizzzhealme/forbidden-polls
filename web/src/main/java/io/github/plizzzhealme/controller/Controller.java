@@ -3,7 +3,7 @@ package io.github.plizzzhealme.controller;
 import io.github.plizzzhealme.controller.command.Command;
 import io.github.plizzzhealme.controller.command.CommandProvider;
 import io.github.plizzzhealme.controller.exception.ControllerException;
-import io.github.plizzzhealme.controller.util.WebUtil;
+import io.github.plizzzhealme.controller.util.ControllerUtil;
 import io.github.plizzzhealme.service.ServiceFactory;
 import io.github.plizzzhealme.service.exception.ServiceException;
 
@@ -58,10 +58,10 @@ public class Controller extends HttpServlet {
             // todo add logger
 
             try {
-                request.getSession(true).setAttribute(WebUtil.ERROR, "redirected");
-                response.sendRedirect(WebUtil.TO_SERVER_ERROR_PAGE_REDIRECT);
+                request.getSession(true).setAttribute(ControllerUtil.ERROR, "redirected");
+                response.sendRedirect(ControllerUtil.TO_SERVER_ERROR_PAGE_REDIRECT);
             } catch (IOException ex) {
-                request.getSession(true).setAttribute(WebUtil.ERROR, "web.xml");
+                request.getSession(true).setAttribute(ControllerUtil.ERROR, "web.xml");
                 throw new ControllerException();
             }
         }

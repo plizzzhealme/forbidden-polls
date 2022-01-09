@@ -1,7 +1,7 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page contentType="text/html; charset=UTF-8" %>
-<%@ include file="Localization.jsp" %>
+<%@ include file="localization.jsp" %>
 <!DOCTYPE html>
 <html xml:lang="en">
 <head>
@@ -11,7 +11,7 @@
 
 </head>
 <body>
-<jsp:include page="Header.jsp"/>
+<jsp:include page="header.jsp"/>
 
 <p>${start_page_message}</p>
 

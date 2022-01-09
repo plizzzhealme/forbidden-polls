@@ -1,14 +1,14 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ page contentType="text/html;charset=UTF-8" %>
-<%@include file="Localization.jsp" %>
+<%@include file="localization.jsp" %>
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <title>${registration}</title>
 </head>
 <body>
-<jsp:include page="Header.jsp"/>
+<jsp:include page="header.jsp"/>
 
 <form action="controller" method="post">
     <input type="hidden" name="command" value="registration">
@@ -291,7 +291,7 @@
         <option value="ZW">Zimbabwe</option>
     </select><br/>
 
-    <input type="submit" value=${sign_up}>
+    <input type="submit" value="${sign_up}">
 </form>
 <br/>
 
