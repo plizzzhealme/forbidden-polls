@@ -48,6 +48,10 @@ public enum ConnectionPool {
             closeConnectionsQueue(givenAwayConQueue);
             closeConnectionsQueue(connectionQueue);
         } catch (SQLException e) {
+            /*
+            Here and below we can don't throw the exception to the
+            upper layers, because it is not critical for a user
+             */
             logger.error("Error clothing the connection.", e);
         }
     }
@@ -89,7 +93,6 @@ public enum ConnectionPool {
         }
     }
 
-    @SuppressWarnings("unused")
     public void closeConnection(Connection con, Statement st) {
         try {
             if (con != null) {
