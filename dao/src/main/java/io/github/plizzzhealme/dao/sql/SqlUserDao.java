@@ -50,12 +50,9 @@ public class SqlUserDao implements UserDao {
             preparedStatement.setString(7, user.getCountry());
             preparedStatement.setString(8, user.getGender());
 
-            preparedStatement.executeUpdate();
-            return true;
-
+            return preparedStatement.executeUpdate() > 0;
         } catch (SQLException e) {
-            e.printStackTrace();
-            return false;
+            throw new DaoException("Profile creation error.", e);
         } finally {
             pool.closeConnection(connection, preparedStatement);
         }
@@ -67,7 +64,7 @@ public class SqlUserDao implements UserDao {
 
         PreparedStatement preparedStatement = null;
         ResultSet resultSet = null;
-        User user;
+        User user = null;
 
         try {
             preparedStatement = connection.prepareStatement(SELECT_USER_BY_ID_SQL);
@@ -84,16 +81,14 @@ public class SqlUserDao implements UserDao {
                 user.setUserRole(resultSet.getString(ROLE_NAME));
                 user.setCountry(resultSet.getString(COUNTRY_NAME));
                 user.setGender(resultSet.getString(GENDER_NAME));
-
-                return user;
             }
         } catch (SQLException e) {
-            throw new DaoException("Error while reading from database", e);
+            throw new DaoException("Error while reading user data from database", e);
         } finally {
             pool.closeConnection(connection, preparedStatement, resultSet);
         }
 
-        return null;
+        return user;
     }
 
     @Override
