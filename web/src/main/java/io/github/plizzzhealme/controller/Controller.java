@@ -6,6 +6,8 @@ import io.github.plizzzhealme.controller.exception.ControllerException;
 import io.github.plizzzhealme.controller.util.ControllerUtil;
 import io.github.plizzzhealme.service.ServiceFactory;
 import io.github.plizzzhealme.service.exception.ServiceException;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import javax.servlet.ServletConfig;
 import javax.servlet.ServletException;
@@ -14,9 +16,12 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.text.MessageFormat;
 
 @WebServlet("/controller")
 public class Controller extends HttpServlet {
+
+    private static final Logger logger = LogManager.getLogger(Controller.class);
 
     private final CommandProvider commandProvider = new CommandProvider();
 
@@ -25,8 +30,7 @@ public class Controller extends HttpServlet {
         try {
             ServiceFactory.getDatabaseConnectionService().connect();
         } catch (ServiceException e) {
-            e.printStackTrace();
-            // todo add logger
+            logger.error("Error with database connection", e);
             throw new ControllerException();
         }
     }
@@ -54,14 +58,14 @@ public class Controller extends HttpServlet {
         try {
             command.execute(request, response);
         } catch (ServletException | IOException | ServiceException e) {
-            e.printStackTrace();
-            // todo add logger
+            logger.error(MessageFormat.format("Error processing a request for a command {0}.", commandName), e);
+
+            request.getSession().setAttribute(ControllerUtil.ERROR,
+                    MessageFormat.format("Error processing a request for a command{0}", commandName));
 
             try {
-                request.getSession(true).setAttribute(ControllerUtil.ERROR, "redirected");
                 response.sendRedirect(ControllerUtil.TO_SERVER_ERROR_PAGE_REDIRECT);
             } catch (IOException ex) {
-                request.getSession(true).setAttribute(ControllerUtil.ERROR, "web.xml");
                 throw new ControllerException();
             }
         }
