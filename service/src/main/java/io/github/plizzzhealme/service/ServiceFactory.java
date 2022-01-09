@@ -1,18 +1,20 @@
 package io.github.plizzzhealme.service;
 
-public final class ServiceFactory {
+import io.github.plizzzhealme.service.impl.ConnectionServiceImpl;
+import io.github.plizzzhealme.service.impl.UserServiceImpl;
 
-    private static final UserService USER_SERVICE = new UserService();
-    private static final DatabaseConnectionService DATABASE_CONNECTION_SERVICE = new DatabaseConnectionService();
+public enum ServiceFactory {
 
-    private ServiceFactory() {
+    INSTANCE;
+
+    private final UserService userService = new UserServiceImpl();
+    private final ConnectionService connectionService = new ConnectionServiceImpl();
+
+    public UserService getUserService() {
+        return userService;
     }
 
-    public static UserService getUserService() {
-        return USER_SERVICE;
-    }
-
-    public static DatabaseConnectionService getDatabaseConnectionService() {
-        return DATABASE_CONNECTION_SERVICE;
+    public ConnectionService getConnectionService() {
+        return connectionService;
     }
 }

@@ -2,14 +2,13 @@ package io.github.plizzzhealme.dao;
 
 import io.github.plizzzhealme.dao.sql.SqlUserDao;
 
-public class DaoFactory {
+public enum DaoFactory {
 
-    private static final UserDao userDao = new SqlUserDao();
+    INSTANCE;
 
-    private DaoFactory() {
-    }
+    private final UserDao userDao = new SqlUserDao();
 
-    public static UserDao getUserDao() {
+    public UserDao getUserDao() {
         return userDao;
     }
 }

@@ -1,17 +1,21 @@
 package io.github.plizzzhealme.bean;
 
 import java.io.Serializable;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.Objects;
 
 public class User implements Serializable {
 
+    public static final String FEMALE = "female";
+    public static final String MALE = "male";
+    public static final String OTHER = "other";
+
     private int id;
     private String name;
     private String email;
     private LocalDateTime registrationDate;
-    private long phoneNumber;
-    private LocalDateTime lastLoginDate;
+    private LocalDate birthday;
     private String gender;
     private String userRole;
     private String country;
@@ -48,20 +52,12 @@ public class User implements Serializable {
         this.registrationDate = registrationDate;
     }
 
-    public long getPhoneNumber() {
-        return phoneNumber;
+    public LocalDate getBirthday() {
+        return birthday;
     }
 
-    public void setPhoneNumber(long phoneNumber) {
-        this.phoneNumber = phoneNumber;
-    }
-
-    public LocalDateTime getLastLoginDate() {
-        return lastLoginDate;
-    }
-
-    public void setLastLoginDate(LocalDateTime lastLoginDate) {
-        this.lastLoginDate = lastLoginDate;
+    public void setBirthday(LocalDate birthday) {
+        this.birthday = birthday;
     }
 
     public String getGender() {
@@ -99,11 +95,10 @@ public class User implements Serializable {
         }
 
         return getId() == user.getId()
-                && getPhoneNumber() == user.getPhoneNumber()
                 && Objects.equals(getName(), user.getName())
                 && Objects.equals(getEmail(), user.getEmail())
                 && Objects.equals(getRegistrationDate(), user.getRegistrationDate())
-                && Objects.equals(getLastLoginDate(), user.getLastLoginDate())
+                && Objects.equals(getBirthday(), user.getBirthday())
                 && Objects.equals(getGender(), user.getGender())
                 && Objects.equals(getUserRole(), user.getUserRole())
                 && Objects.equals(getCountry(), user.getCountry());
@@ -115,8 +110,7 @@ public class User implements Serializable {
                 getName(),
                 getEmail(),
                 getRegistrationDate(),
-                getPhoneNumber(),
-                getLastLoginDate(),
+                getBirthday(),
                 getGender(),
                 getUserRole(),
                 getCountry());
@@ -129,8 +123,7 @@ public class User implements Serializable {
                 ", name='" + name + '\'' +
                 ", email='" + email + '\'' +
                 ", registrationDate=" + registrationDate +
-                ", phoneNumber=" + phoneNumber +
-                ", lastLoginDate=" + lastLoginDate +
+                ", birthday=" + birthday +
                 ", gender='" + gender + '\'' +
                 ", userRole='" + userRole + '\'' +
                 ", country='" + country + '\'' +
