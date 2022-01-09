@@ -537,7 +537,7 @@ VALUES (1, 'AF', 'Afghanistan'),
        (251, 'ZM', 'Zambia'),
        (252, 'ZW', 'Zimbabwe');
 
-COMMIT
+COMMIT;
 
 USE forbidden_polls;
 

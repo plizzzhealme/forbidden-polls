@@ -4,6 +4,7 @@ import io.github.plizzzhealme.bean.User;
 import io.github.plizzzhealme.dao.exception.DaoException;
 import io.github.plizzzhealme.dao.pool.ConnectionPool;
 import io.github.plizzzhealme.service.exception.ServiceException;
+import io.github.plizzzhealme.service.impl.UserServiceImpl;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
@@ -42,7 +43,7 @@ class UserServiceTest {
         expected.setGender("male");
         expected.setUserRole("admin");
 
-        actual = new UserService().authorize(email, password);
+        actual = new UserServiceImpl().authorize(email, password);
 
         assertEquals(expected, actual);
     }

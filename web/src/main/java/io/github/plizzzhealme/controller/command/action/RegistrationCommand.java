@@ -4,8 +4,8 @@ import io.github.plizzzhealme.bean.User;
 import io.github.plizzzhealme.controller.command.Command;
 import io.github.plizzzhealme.controller.util.ControllerUtil;
 import io.github.plizzzhealme.service.ServiceFactory;
-import io.github.plizzzhealme.service.UserService;
 import io.github.plizzzhealme.service.exception.ServiceException;
+import io.github.plizzzhealme.service.impl.UserServiceImpl;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -40,7 +40,7 @@ public class RegistrationCommand implements Command {
         user.setRegistrationDate(registrationDate);
 
         if (password != null && !password.isEmpty() && password.equals(confirmPassword)) {
-            UserService userService = ServiceFactory.getUserService();
+            UserServiceImpl userService = ServiceFactory.getUserService();
             boolean isCreated = userService.register(user, password);
 
             if (isCreated) {

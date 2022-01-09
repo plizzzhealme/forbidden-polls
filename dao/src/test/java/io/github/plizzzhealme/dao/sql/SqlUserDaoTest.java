@@ -37,7 +37,7 @@ class SqlUserDaoTest {
         int actualID;
 
         try {
-            User user = DaoFactory.getUserDao().authorize(email, password);
+            User user = DaoFactory.INSTANCE.getUserDao().authorize(email, password);
             actualID = user.getId();
         } catch (DaoException e) {
             actualID = 0;
@@ -55,7 +55,7 @@ class SqlUserDaoTest {
 
 
         try {
-            User user = DaoFactory.getUserDao().read(id);
+            User user = DaoFactory.INSTANCE.getUserDao().read(id);
             actual = user.getEmail();
         } catch (DaoException e) {
             e.printStackTrace();
@@ -74,7 +74,7 @@ class SqlUserDaoTest {
         user.setGender("male");
         user.setUserRole("admin");
 
-        UserDao dao = DaoFactory.getUserDao();
+        UserDao dao = DaoFactory.INSTANCE.getUserDao();
 
         boolean isCreated = false;
 

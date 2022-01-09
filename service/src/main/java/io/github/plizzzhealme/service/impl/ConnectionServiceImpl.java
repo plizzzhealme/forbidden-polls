@@ -1,12 +1,12 @@
-package io.github.plizzzhealme.service;
+package io.github.plizzzhealme.service.impl;
 
 import io.github.plizzzhealme.dao.exception.DaoException;
 import io.github.plizzzhealme.dao.pool.ConnectionPool;
 import io.github.plizzzhealme.service.exception.ServiceException;
 
-public class DatabaseConnectionService {
+public class ConnectionServiceImpl {
 
-    protected DatabaseConnectionService() {
+    protected ConnectionServiceImpl() {
     }
 
     public void connect() throws ServiceException {
