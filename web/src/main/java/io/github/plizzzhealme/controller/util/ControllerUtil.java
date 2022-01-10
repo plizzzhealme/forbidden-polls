@@ -1,7 +1,9 @@
 package io.github.plizzzhealme.controller.util;
 
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpSession;
+import java.util.Collections;
+import java.util.List;
+import java.util.stream.Collectors;
 
 public final class ControllerUtil {
 
@@ -10,7 +12,6 @@ public final class ControllerUtil {
     public static final String USER = "user";
     public static final String URL = "url";
     public static final String LOCALE = "locale";
-    public static final String REFERER = "referer";
 
     // user's parameters
     public static final String NAME = "name";
@@ -26,20 +27,23 @@ public final class ControllerUtil {
     public static final String REGISTRATION_JSP = "/WEB-INF/jsp/registration.jsp";
     public static final String START_JSP = "/WEB-INF/jsp/start.jsp";
     public static final String USER_JSP = "/WEB-INF/jsp/user.jsp";
+    public static final String PAGE_NOT_FOUND_JSP = "error/pageNotFound.jsp";
+    public static final String SERVER_ERROR_JSP = "error/serverError.jsp";
 
     // redirects
     public static final String TO_USER_PAGE_REDIRECT = "controller?command=to_user_page";
-    public static final String TO_SERVER_ERROR_PAGE_REDIRECT = "error/serverError.jsp";
     public static final String TO_AUTHORIZATION_PAGE_REDIRECT = "controller?command=to_authorization_page";
-    public static final String TO_UNFOUNDED_PAGE_REDIRECT = "error/pageNotFound.jsp";
-    public static final String INVALID_EMAIL_OR_PASSWORD = "Invalid email or password";
 
     private ControllerUtil() {
     }
 
     public static void saveUrlToSession(HttpServletRequest request) {
-        HttpSession session = request.getSession();
-        String url = request.getRequestURL().append("?").append(request.getQueryString()).toString();
-        session.setAttribute(ControllerUtil.URL, url);
+        List<String> parameters = Collections.list(request.getParameterNames());
+        String url = parameters
+                .stream()
+                .map(p -> p + "=" + request.getParameter(p))
+                .collect(Collectors.joining("&", request.getRequestURL().append("?"), ""));
+
+        request.getSession().setAttribute(ControllerUtil.URL, url);
     }
 }

@@ -23,3 +23,5 @@
 <fmt:message bundle="${locale}" key="authorization" var="authorization"/>
 <fmt:message bundle="${locale}" key="start-page.message" var="start_page_message"/>
 <fmt:message bundle="${locale}" key="registration" var="registration"/>
+<fmt:message bundle="${locale}" key="error.empty-fields" var="empty_fields"/>
+<fmt:message bundle="${locale}" key="error.invalid-credentials" var="invalid_credentials"/>

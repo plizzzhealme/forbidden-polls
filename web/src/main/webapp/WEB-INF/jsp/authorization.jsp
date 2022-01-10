@@ -10,6 +10,17 @@
 <body>
 <jsp:include page="header.jsp"/>
 
+
+<c:set var="error" value="${sessionScope.error_message}"/>
+
+<c:if test="${error == 'empty'}">
+    <p>${empty_fields}</p>
+</c:if>
+
+<c:if test="${error == 'invalid'}">
+    <p>${invalid_credentials}</p>
+</c:if>
+
 <form action="controller" method="post">
     <input type="hidden" name="command" value="authorization">
 

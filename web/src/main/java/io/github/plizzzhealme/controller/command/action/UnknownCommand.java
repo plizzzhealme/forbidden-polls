@@ -11,6 +11,6 @@ public class UnknownCommand implements Command {
 
     @Override
     public void execute(HttpServletRequest request, HttpServletResponse response) throws IOException {
-        response.sendRedirect(ControllerUtil.TO_UNFOUNDED_PAGE_REDIRECT);
+        response.sendRedirect(ControllerUtil.PAGE_NOT_FOUND_JSP);
     }
 }

@@ -44,6 +44,7 @@ public final class CommandProvider {
     }
 
     public Command getCommand(String commandName) {
+        System.out.println(commandName);
         Command command = commands.get(commandName);
 
         if (command == null) {

@@ -31,6 +31,7 @@ public class Controller extends HttpServlet {
             ServiceFactory.INSTANCE.getConnectionService().connect();
         } catch (ServiceException e) {
             logger.error("Error with database connection", e);
+
             throw new ControllerException();
         }
     }
@@ -64,8 +65,10 @@ public class Controller extends HttpServlet {
                     MessageFormat.format("Error processing a request for a command{0}", commandName));
 
             try {
-                response.sendRedirect(ControllerUtil.TO_SERVER_ERROR_PAGE_REDIRECT);
+                response.sendRedirect(ControllerUtil.SERVER_ERROR_JSP);
             } catch (IOException ex) {
+                logger.error("Error while redirecting to the error page.", ex);
+
                 throw new ControllerException();
             }
         }

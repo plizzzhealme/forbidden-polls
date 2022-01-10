@@ -16,12 +16,6 @@ public class ChangeLocaleCommand implements Command {
         String locale = request.getParameter(ControllerUtil.LOCALE);
         session.setAttribute(ControllerUtil.LOCALE, locale);
 
-        String referer = request.getHeader(ControllerUtil.REFERER);
-
-        if (referer == null) {
-            referer = (String) session.getAttribute(ControllerUtil.URL);
-        }
-
-        response.sendRedirect(referer);
+        response.sendRedirect((String) session.getAttribute(ControllerUtil.URL));
     }
 }
