@@ -7,13 +7,8 @@ import java.util.stream.Collectors;
 
 public final class ControllerUtil {
 
-    // common attributes and parameters
-    public static final String ERROR = "error_message";
+    // user parameters
     public static final String USER = "user";
-    public static final String URL = "url";
-    public static final String LOCALE = "locale";
-
-    // user's parameters
     public static final String NAME = "name";
     public static final String EMAIL = "email";
     public static final String PASSWORD = "password";
@@ -33,6 +28,15 @@ public final class ControllerUtil {
     // redirects
     public static final String TO_USER_PAGE_REDIRECT = "controller?command=to_user_page";
     public static final String TO_AUTHORIZATION_PAGE_REDIRECT = "controller?command=to_authorization_page";
+
+    // errors
+    public static final String ERROR_MESSAGE = "error_message";
+    public static final String EMPTY_FIELDS_ERROR = "empty_fields";
+    public static final String INVALID_CREDENTIALS_ERROR = "invalid_credentials";
+
+    // not classified
+    public static final String URL = "url";
+    public static final String LOCALE = "locale";
 
     private ControllerUtil() {
     }

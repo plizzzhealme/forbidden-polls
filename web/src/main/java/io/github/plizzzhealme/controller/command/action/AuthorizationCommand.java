@@ -21,16 +21,13 @@ public class AuthorizationCommand implements Command {
     public void execute(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException, ServiceException {
 
-        ControllerUtil.saveUrlToSession(request);
-
         String email = request.getParameter(ControllerUtil.EMAIL);
         String password = request.getParameter(ControllerUtil.PASSWORD);
 
         User user;
 
         if (StringUtils.isAnyBlank(email, password)) {
-
-            request.getSession().setAttribute("error_message", "empty");
+            request.getSession().setAttribute(ControllerUtil.ERROR_MESSAGE, ControllerUtil.EMPTY_FIELDS_ERROR);
             RequestDispatcher dispatcher = request.getRequestDispatcher(ControllerUtil.AUTHORIZATION_JSP);
             dispatcher.forward(request, response);
         } else {
@@ -38,12 +35,12 @@ public class AuthorizationCommand implements Command {
             user = userService.authorize(email, password);
 
             if (user == null) {
-                request.getSession().setAttribute("error_message", "invalid");
+                request.getSession().setAttribute(ControllerUtil.ERROR_MESSAGE, ControllerUtil.INVALID_CREDENTIALS_ERROR);
                 RequestDispatcher dispatcher = request.getRequestDispatcher(ControllerUtil.AUTHORIZATION_JSP);
                 dispatcher.forward(request, response);
             } else {
                 HttpSession session = request.getSession(true);
-                session.removeAttribute("error_message");
+                session.removeAttribute(ControllerUtil.ERROR_MESSAGE);
                 session.setAttribute(ControllerUtil.USER, user);
                 response.sendRedirect(ControllerUtil.TO_USER_PAGE_REDIRECT);
             }

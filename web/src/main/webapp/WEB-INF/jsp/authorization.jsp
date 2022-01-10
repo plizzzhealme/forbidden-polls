@@ -8,18 +8,20 @@
     <title>${authorization}</title>
 </head>
 <body>
+
 <jsp:include page="header.jsp"/>
 
+<c:set var="error_message" value="${sessionScope.error_message}"/>
 
-<c:set var="error" value="${sessionScope.error_message}"/>
-
-<c:if test="${error == 'empty'}">
-    <p>${empty_fields}</p>
+<c:if test="${error_message == ControllerUtil.EMPTY_FIELDS_ERROR}">
+    <c:set var="error" value="${empty_fields}"/>
 </c:if>
 
-<c:if test="${error == 'invalid'}">
-    <p>${invalid_credentials}</p>
+<c:if test="${error_message == ControllerUtil.INVALID_CREDENTIALS_ERROR}">
+    <c:set var="error" value="${invalid_credentials}"/>
 </c:if>
+
+<p>${error}</p>
 
 <form action="controller" method="post">
     <input type="hidden" name="command" value="authorization">

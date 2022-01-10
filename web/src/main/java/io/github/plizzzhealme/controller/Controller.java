@@ -61,9 +61,6 @@ public class Controller extends HttpServlet {
         } catch (ServletException | IOException | ServiceException e) {
             logger.error(MessageFormat.format("Error processing a request for a command {0}.", commandName), e);
 
-            request.getSession().setAttribute(ControllerUtil.ERROR,
-                    MessageFormat.format("Error processing a request for a command{0}", commandName));
-
             try {
                 response.sendRedirect(ControllerUtil.SERVER_ERROR_JSP);
             } catch (IOException ex) {
