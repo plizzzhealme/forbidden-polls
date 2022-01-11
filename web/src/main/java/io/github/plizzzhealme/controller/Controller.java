@@ -4,12 +4,10 @@ import io.github.plizzzhealme.controller.command.Command;
 import io.github.plizzzhealme.controller.command.CommandProvider;
 import io.github.plizzzhealme.controller.exception.ControllerException;
 import io.github.plizzzhealme.controller.util.ControllerUtil;
-import io.github.plizzzhealme.service.ServiceFactory;
 import io.github.plizzzhealme.service.exception.ServiceException;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import javax.servlet.ServletConfig;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -24,22 +22,6 @@ public class Controller extends HttpServlet {
     private static final Logger logger = LogManager.getLogger(Controller.class);
 
     private final CommandProvider commandProvider = new CommandProvider();
-
-    @Override
-    public void init(ServletConfig config) {
-        try {
-            ServiceFactory.INSTANCE.getConnectionService().connect();
-        } catch (ServiceException e) {
-            logger.error("Error with database connection", e);
-
-            throw new ControllerException();
-        }
-    }
-
-    @Override
-    public void destroy() {
-        ServiceFactory.INSTANCE.getConnectionService().disconnect();
-    }
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) {
