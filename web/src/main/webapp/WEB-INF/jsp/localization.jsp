@@ -14,6 +14,9 @@
 <fmt:message bundle="${locale}" key="user.gender.female" var="female"/>
 <fmt:message bundle="${locale}" key="user.gender.male" var="male"/>
 <fmt:message bundle="${locale}" key="user.gender.other" var="other"/>
+<fmt:message bundle="${locale}" key="user.role" var="role"/>
+<fmt:message bundle="${locale}" key="user.role.admin" var="admin"/>
+<fmt:message bundle="${locale}" key="user.role.user" var="user"/>
 
 
 <fmt:message bundle="${locale}" key="sign-in" var="sign_in"/>

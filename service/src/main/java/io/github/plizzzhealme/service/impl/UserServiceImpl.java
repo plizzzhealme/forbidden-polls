@@ -29,4 +29,13 @@ public class UserServiceImpl implements UserService {
             throw new ServiceException("Registration error", e);
         }
     }
+
+    @Override
+    public User read(int id) throws ServiceException {
+        try {
+            return DaoFactory.INSTANCE.getUserDao().read(id);
+        } catch (DaoException e) {
+            throw new ServiceException("Error getting user info", e);
+        }
+    }
 }
