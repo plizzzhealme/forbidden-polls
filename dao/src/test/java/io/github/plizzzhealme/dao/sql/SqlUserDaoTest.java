@@ -28,23 +28,7 @@ class SqlUserDaoTest {
         ConnectionPool.INSTANCE.dispose();
     }
 
-    @Test
-    void correctAuthorization() {
-        String email = "plizzz.healme@gmail.com";
-        String password = "1q2w3e";
 
-        int expectedID = 1;
-        int actualID;
-
-        try {
-            User user = DaoFactory.INSTANCE.getUserDao().authorize(email, password);
-            actualID = user.getId();
-        } catch (DaoException e) {
-            actualID = 0;
-        }
-
-        assertEquals(expectedID, actualID);
-    }
 
     @Test
     void readWithExistingID() {

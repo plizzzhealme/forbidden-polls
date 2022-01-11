@@ -9,7 +9,7 @@ import io.github.plizzzhealme.service.exception.ServiceException;
 
 public class UserServiceImpl implements UserService {
 
-    public User authorize(String email, String password) throws ServiceException {
+    public int authorize(String email, String password) throws ServiceException {
 
         UserDao userDao = DaoFactory.INSTANCE.getUserDao();
 

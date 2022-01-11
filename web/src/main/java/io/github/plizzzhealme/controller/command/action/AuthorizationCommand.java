@@ -33,16 +33,16 @@ public class AuthorizationCommand implements Command {
             dispatcher.forward(request, response);
         } else { // if entered
             UserService userService = ServiceFactory.INSTANCE.getUserService();
-            user = userService.authorize(email, password);
+            int id = userService.authorize(email, password);
 
-            if (user == null) { // if invalid email or password
+            if (id == 0) { // if invalid email or password
                 session.setAttribute(ControllerUtil.ERROR_MESSAGE, ControllerUtil.INVALID_CREDENTIALS_ERROR);
 
                 RequestDispatcher dispatcher = request.getRequestDispatcher(ControllerUtil.AUTHORIZATION_JSP);
                 dispatcher.forward(request, response);
             } else { // if ok
                 session.removeAttribute(ControllerUtil.ERROR_MESSAGE);
-                session.setAttribute(ControllerUtil.USER_ID, user.getId());
+                session.setAttribute(ControllerUtil.USER_ID, id);
 
                 response.sendRedirect(ControllerUtil.TO_USER_PAGE_REDIRECT);
             }

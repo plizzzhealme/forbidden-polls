@@ -14,7 +14,7 @@ import java.sql.SQLException;
 public class SqlUserDao implements UserDao {
 
     public static final String USER_BIRTHDAY = "U.birthday";
-    private static final String SELECT_USER_BY_EMAIL_SQL = "SELECT U.id, U.name, U.hashed_password, U.registration_date, U.birthday, R.name, C.name, G.name FROM forbidden_polls.users AS U JOIN user_roles AS R on U.user_role_id = R.id JOIN forbidden_polls.countries AS C on U.country_id = C.id JOIN forbidden_polls.genders AS G on U.gender_id = G.id WHERE  U.email = ?";
+    private static final String SELECT_USER_BY_EMAIL_SQL = "SELECT U.id, U.hashed_password FROM forbidden_polls.users AS U WHERE  U.email = ?";
     private static final String SELECT_USER_BY_ID_SQL = "SELECT U.name, U.email, U.registration_date, U.birthday, R.name, C.name, G.name FROM forbidden_polls.users AS U JOIN user_roles AS R on U.user_role_id = R.id JOIN forbidden_polls.countries AS C on U.country_id = C.id JOIN forbidden_polls.genders AS G on U.gender_id = G.id WHERE  U.id = ?";
 
     private static final String USER_ID = "U.id";
@@ -92,11 +92,10 @@ public class SqlUserDao implements UserDao {
     }
 
     @Override
-    public User authorize(String email, String password) throws DaoException {
+    public int authorize(String email, String password) throws DaoException {
         Connection connection = pool.takeConnection();
         PreparedStatement preparedStatement = null;
         ResultSet resultSet = null;
-        User user;
 
         try {
             preparedStatement = connection.prepareStatement(SELECT_USER_BY_EMAIL_SQL);
@@ -107,23 +106,13 @@ public class SqlUserDao implements UserDao {
                 boolean isCorrectPassword = DaoUtil.isCorrectPassword(password, resultSet.getString(USER_PASSWORD_HASH));
 
                 if (!isCorrectPassword) {
-                    return null;
+                    return 0;
+                } else {
+                    return resultSet.getInt(USER_ID);
                 }
 
-                user = new User();
-
-                user.setId(resultSet.getInt(USER_ID));
-                user.setName(resultSet.getString(USER_NAME));
-                user.setEmail(email);
-                user.setRegistrationDate(DaoUtil.toJavaTime(resultSet.getTimestamp(USER_REGISTRATION_DATE)));
-                user.setBirthday(DaoUtil.toJavaTime(resultSet.getDate(USER_BIRTHDAY)));
-                user.setUserRole(resultSet.getString(ROLE_NAME));
-                user.setCountry(resultSet.getString(COUNTRY_NAME));
-                user.setGender(resultSet.getString(GENDER_NAME));
-
-                return user;
             } else {
-                return null;
+                return 0;
             }
         } catch (SQLException e) {
             throw new DaoException("Error while reading from database", e);
