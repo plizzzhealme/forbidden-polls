@@ -1,6 +1,5 @@
 package io.github.plizzzhealme.controller.command.action;
 
-import io.github.plizzzhealme.bean.User;
 import io.github.plizzzhealme.controller.command.Command;
 import io.github.plizzzhealme.controller.util.ControllerUtil;
 import io.github.plizzzhealme.service.ServiceFactory;
@@ -24,8 +23,6 @@ public class AuthorizationCommand implements Command {
         String email = request.getParameter(ControllerUtil.EMAIL);
         String password = request.getParameter(ControllerUtil.PASSWORD);
         HttpSession session = request.getSession();
-
-        User user;
 
         if (StringUtils.isAnyBlank(email, password)) { // if email or password are not entered
             session.setAttribute(ControllerUtil.ERROR_MESSAGE, ControllerUtil.EMPTY_FIELDS_ERROR);

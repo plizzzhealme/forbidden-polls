@@ -29,7 +29,6 @@ class SqlUserDaoTest {
     }
 
 
-
     @Test
     void readWithExistingID() {
         int id = 1;

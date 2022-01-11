@@ -81,6 +81,7 @@ public class SqlUserDao implements UserDao {
                 user.setUserRole(resultSet.getString(ROLE_NAME));
                 user.setCountry(resultSet.getString(COUNTRY_NAME));
                 user.setGender(resultSet.getString(GENDER_NAME));
+                user.setBirthday(DaoUtil.toJavaTime(resultSet.getDate(USER_BIRTHDAY)));
             }
         } catch (SQLException e) {
             throw new DaoException("Error while reading user data from database", e);

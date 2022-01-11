@@ -43,6 +43,9 @@
     </c:otherwise>
 </c:choose></p>
 
+<%-- birthday --%>
+<c:out value="${birthday}: ${requestScope.user.birthday}"/>
+
 <%-- country --%>
 <p><c:out value="${country}: ${requestScope.user.country}"/></p>
 </body>
