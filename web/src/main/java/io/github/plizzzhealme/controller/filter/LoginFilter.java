@@ -22,7 +22,7 @@ public class LoginFilter implements Filter {
         if (CommandProvider.TO_USER_PAGE_COMMAND.equals(command)) { // if command = to_user_page
             HttpSession session = ((HttpServletRequest) servletRequest).getSession();
 
-            if (session.getAttribute(ControllerUtil.USER) == null) { // if logged in
+            if (session.getAttribute(ControllerUtil.USER_ID) == null) { // if logged in
                 ((HttpServletResponse) servletResponse).sendRedirect(ControllerUtil.TO_AUTHORIZATION_PAGE_REDIRECT);
             } else { // if not logged in
                 filterChain.doFilter(servletRequest, servletResponse);

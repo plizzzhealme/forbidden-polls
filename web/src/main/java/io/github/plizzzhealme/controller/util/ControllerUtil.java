@@ -9,6 +9,7 @@ public final class ControllerUtil {
 
     // user parameters
     public static final String USER = "user";
+    public static final String USER_ID = "user_id";
     public static final String NAME = "name";
     public static final String EMAIL = "email";
     public static final String PASSWORD = "password";
@@ -37,6 +38,7 @@ public final class ControllerUtil {
     // not classified
     public static final String URL = "url";
     public static final String LOCALE = "locale";
+
 
     private ControllerUtil() {
     }

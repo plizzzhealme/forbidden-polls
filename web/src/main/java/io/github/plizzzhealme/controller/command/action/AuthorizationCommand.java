@@ -23,30 +23,26 @@ public class AuthorizationCommand implements Command {
 
         String email = request.getParameter(ControllerUtil.EMAIL);
         String password = request.getParameter(ControllerUtil.PASSWORD);
+        HttpSession session = request.getSession();
 
         User user;
 
-        // if email or password are not indicated
-        if (StringUtils.isAnyBlank(email, password)) {
-            request.getSession().setAttribute(ControllerUtil.ERROR_MESSAGE, ControllerUtil.EMPTY_FIELDS_ERROR);
+        if (StringUtils.isAnyBlank(email, password)) { // if email or password are not entered
+            session.setAttribute(ControllerUtil.ERROR_MESSAGE, ControllerUtil.EMPTY_FIELDS_ERROR);
             RequestDispatcher dispatcher = request.getRequestDispatcher(ControllerUtil.AUTHORIZATION_JSP);
             dispatcher.forward(request, response);
-        } else {
+        } else { // if entered
             UserService userService = ServiceFactory.INSTANCE.getUserService();
             user = userService.authorize(email, password);
 
-            // if invalid email or password
-            if (user == null) {
-                request.getSession().setAttribute(ControllerUtil.ERROR_MESSAGE, ControllerUtil.INVALID_CREDENTIALS_ERROR);
+            if (user == null) { // if invalid email or password
+                session.setAttribute(ControllerUtil.ERROR_MESSAGE, ControllerUtil.INVALID_CREDENTIALS_ERROR);
 
                 RequestDispatcher dispatcher = request.getRequestDispatcher(ControllerUtil.AUTHORIZATION_JSP);
                 dispatcher.forward(request, response);
-            } else {
-
-                // if ok
-                HttpSession session = request.getSession(true);
+            } else { // if ok
                 session.removeAttribute(ControllerUtil.ERROR_MESSAGE);
-                session.setAttribute(ControllerUtil.USER, user);
+                session.setAttribute(ControllerUtil.USER_ID, user.getId());
 
                 response.sendRedirect(ControllerUtil.TO_USER_PAGE_REDIRECT);
             }
