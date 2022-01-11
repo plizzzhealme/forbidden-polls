@@ -14,13 +14,26 @@ import java.sql.SQLException;
 public class SqlUserDao implements UserDao {
 
     public static final String USER_BIRTHDAY = "U.birthday";
-    private static final String SELECT_USER_BY_EMAIL_SQL = "SELECT U.id, U.hashed_password FROM forbidden_polls.users AS U WHERE  U.email = ?";
-    private static final String SELECT_USER_BY_ID_SQL = "SELECT U.name, U.email, U.registration_date, U.birthday, R.name, C.name, G.name FROM forbidden_polls.users AS U JOIN user_roles AS R on U.user_role_id = R.id JOIN forbidden_polls.countries AS C on U.country_id = C.id JOIN forbidden_polls.genders AS G on U.gender_id = G.id WHERE  U.id = ?";
+    private static final String SELECT_USER_BY_EMAIL_SQL = "" +
+            "SELECT U.id, U.hashed_password FROM users AS U WHERE  U.email = ?";
+    private static final String SELECT_USER_BY_ID_SQL = "" +
+            "SELECT U.name, U.email, U.registration_date, U.birthday, R.name, C.name, G.name " +
+            "FROM users AS U " +
+            "JOIN user_roles AS R ON U.user_role_id = R.id " +
+            "JOIN countries AS C ON U.country_id = C.id " +
+            "JOIN genders AS G ON U.gender_id = G.id " +
+            "WHERE  U.id = ?";
 
     private static final String USER_ID = "U.id";
     private static final String USER_EMAIL = "U.email";
     private static final String USER_NAME = "U.name";
-    private static final String CREATE_NEW_USER_SQL = "INSERT INTO forbidden_polls.users (name, email, hashed_password, registration_date, birthday, user_role_id, country_id, gender_id) VALUES (?, ?, ?, ?, ?, (SELECT id FROM forbidden_polls.user_roles WHERE name=?), (SELECT id FROM forbidden_polls.countries WHERE countries.iso_code=?), (SELECT id FROM forbidden_polls.genders WHERE name=?))";
+    private static final String CREATE_NEW_USER_SQL = "" +
+            "INSERT INTO users " +
+            "(name, email, hashed_password, registration_date, birthday, user_role_id, country_id, gender_id) " +
+            "VALUES (?, ?, ?, ?, ?, " +
+            "(SELECT id FROM forbidden_polls.user_roles WHERE name=?), " +
+            "(SELECT id FROM forbidden_polls.countries WHERE countries.iso_code=?), " +
+            "(SELECT id FROM forbidden_polls.genders WHERE name=?))";
     private static final String USER_REGISTRATION_DATE = "U.registration_date";
     private static final String ROLE_NAME = "R.name";
     private static final String COUNTRY_NAME = "C.name";
@@ -36,7 +49,6 @@ public class SqlUserDao implements UserDao {
     @Override
     public boolean create(User user, String password) throws DaoException {
         Connection connection = pool.takeConnection();
-
         PreparedStatement preparedStatement = null;
 
         try {
