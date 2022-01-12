@@ -9,7 +9,9 @@
 </head>
 <body>
 
-<jsp:include page="header.jsp"/>
+<div>
+    <jsp:include page="header.jsp"/>
+</div>
 
 <c:set var="error_message" value="${requestScope.error_message}"/>
 
@@ -21,7 +23,7 @@
     <c:set var="error" value="${invalid_credentials}"/>
 </c:if>
 
-<p>${error}</p>
+<c:out value="${error}"/>
 
 <form action="controller" method="post">
     <input type="hidden" name="command" value="authorization">

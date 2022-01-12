@@ -1,9 +1,6 @@
 package io.github.plizzzhealme.controller.command;
 
-import io.github.plizzzhealme.controller.command.action.AuthorizationCommand;
-import io.github.plizzzhealme.controller.command.action.ChangeLocaleCommand;
-import io.github.plizzzhealme.controller.command.action.RegistrationCommand;
-import io.github.plizzzhealme.controller.command.action.UnknownCommand;
+import io.github.plizzzhealme.controller.command.action.*;
 import io.github.plizzzhealme.controller.command.navigation.ToAuthorizationPageCommand;
 import io.github.plizzzhealme.controller.command.navigation.ToRegistrationPageCommand;
 import io.github.plizzzhealme.controller.command.navigation.ToStartPageCommand;
@@ -21,6 +18,7 @@ public final class CommandProvider {
     public static final String REGISTRATION_COMMAND = "registration";
     public static final String CHANGE_LOCALE_COMMAND = "change_locale";
     public static final String UNKNOWN_COMMAND = "unknown";
+    public static final String SIGN_OUT_COMMAND = "sign_out";
 
     // navigation
     public static final String TO_AUTHORIZATION_PAGE_COMMAND = "to_authorization_page";
@@ -41,6 +39,7 @@ public final class CommandProvider {
         commands.put(UNKNOWN_COMMAND, new UnknownCommand());
         commands.put(REGISTRATION_COMMAND, new RegistrationCommand());
         commands.put(CHANGE_LOCALE_COMMAND, new ChangeLocaleCommand());
+        commands.put(SIGN_OUT_COMMAND, new SignOutCommand());
     }
 
     public Command getCommand(String commandName) {
