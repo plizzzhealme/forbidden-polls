@@ -36,7 +36,7 @@ public class RegistrationCommand implements Command {
             dispatcher.forward(request, response);
         } else { // if entered
             if (!StringUtils.equals(password, confirmPassword)) {
-                request.setAttribute(ControllerUtil.ERROR_MESSAGE, "Password mismatch");
+                request.setAttribute(ControllerUtil.ERROR_MESSAGE, ControllerUtil.PASSWORD_MISMATCH_ERROR);
 
                 RequestDispatcher dispatcher = request.getRequestDispatcher(ControllerUtil.REGISTRATION_JSP);
                 dispatcher.forward(request, response);
@@ -59,7 +59,7 @@ public class RegistrationCommand implements Command {
 
                     response.sendRedirect(ControllerUtil.TO_USER_PAGE_REDIRECT);
                 } else {
-                    request.setAttribute(ControllerUtil.ERROR_MESSAGE, "Email is busy");
+                    request.setAttribute(ControllerUtil.ERROR_MESSAGE, ControllerUtil.EMAIL_IS_BUSY_ERROR);
 
                     RequestDispatcher dispatcher = request.getRequestDispatcher(ControllerUtil.REGISTRATION_JSP);
                     dispatcher.forward(request, response);

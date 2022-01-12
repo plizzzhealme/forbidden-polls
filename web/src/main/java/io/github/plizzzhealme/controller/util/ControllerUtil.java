@@ -34,11 +34,12 @@ public final class ControllerUtil {
     public static final String ERROR_MESSAGE = "error_message";
     public static final String EMPTY_FIELDS_ERROR = "empty_fields";
     public static final String INVALID_CREDENTIALS_ERROR = "invalid_credentials";
+    public static final String PASSWORD_MISMATCH_ERROR = "password_mismatch";
+    public static final String EMAIL_IS_BUSY_ERROR = "email_is_busy";
 
     // not classified
     public static final String URL = "url";
     public static final String LOCALE = "locale";
-
 
     private ControllerUtil() {
     }

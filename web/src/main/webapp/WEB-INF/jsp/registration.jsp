@@ -10,7 +10,21 @@
 <body>
 <jsp:include page="header.jsp"/>
 
-<c:out value="${requestScope.error_message}"/>
+<c:set var="error_message" value="${requestScope.error_message}"/>
+
+<c:if test="${error_message == ControllerUtil.EMPTY_FIELDS_ERROR}">
+    <c:set var="error" value="${empty_fields}"/>
+</c:if>
+
+<c:if test="${error_message == ControllerUtil.PASSWORD_MISMATCH_ERROR}">
+    <c:set var="error" value="${password_mismatch}"/>
+</c:if>
+
+<c:if test="${error_message == ControllerUtil.EMAIL_IS_BUSY_ERROR}">
+    <c:set var="error" value="${email_is_busy}"/>
+</c:if>
+
+<p>${error}</p>
 
 <form action="controller" method="post">
     <input type="hidden" name="command" value="registration">

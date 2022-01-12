@@ -17,12 +17,13 @@ public enum ConnectionPool {
 
     private static final Logger logger = LogManager.getLogger(ConnectionPool.class);
 
-    private BlockingQueue<Connection> connectionQueue;
-    private BlockingQueue<Connection> givenAwayConQueue;
     private final String driverName;
     private final String url;
     private final String user;
     private final String password;
+
+    private BlockingQueue<Connection> connectionQueue;
+    private BlockingQueue<Connection> givenAwayConQueue;
     private int poolSize;
 
     ConnectionPool() {

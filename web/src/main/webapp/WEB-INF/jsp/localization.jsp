@@ -28,3 +28,5 @@
 <fmt:message bundle="${locale}" key="registration" var="registration"/>
 <fmt:message bundle="${locale}" key="error.empty-fields" var="empty_fields"/>
 <fmt:message bundle="${locale}" key="error.invalid-credentials" var="invalid_credentials"/>
+<fmt:message bundle="${locale}" key="error.email-is-busy" var="email_is_busy"/>
+<fmt:message bundle="${locale}" key="error.password-mismatch" var="password_mismatch"/>
