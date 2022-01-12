@@ -31,7 +31,7 @@ public class SqlUserDao implements UserDao {
 
     @Override
     public boolean create(User user, String password) throws DaoException {
-        if (hasUserRecord(user.getEmail())) {
+        if (isPresent(user.getEmail())) {
             return false;
         }
 
@@ -93,7 +93,7 @@ public class SqlUserDao implements UserDao {
 
     @Override
     public int authorize(String email, String password) throws DaoException {
-        if (!hasUserRecord(email)) {
+        if (!isPresent(email)) {
             return 0;
         }
 
@@ -126,7 +126,7 @@ public class SqlUserDao implements UserDao {
     }
 
     @Override
-    public boolean hasUserRecord(String email) throws DaoException {
+    public boolean isPresent(String email) throws DaoException {
         Connection connection = pool.takeConnection();
         PreparedStatement preparedStatement = null;
         ResultSet resultSet = null;
