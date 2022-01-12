@@ -18,7 +18,6 @@ public class ToUserPageCommand implements Command {
     @Override
     public void execute(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException, ServiceException {
-        ControllerUtil.saveUrlToSession(request);
 
         HttpSession session = request.getSession();
 
