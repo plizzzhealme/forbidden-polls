@@ -10,4 +10,6 @@ public interface UserDao {
     User read(int id) throws DaoException;
 
     int authorize(String email, String password) throws DaoException;
+
+    boolean hasUserRecord(String email) throws DaoException;
 }

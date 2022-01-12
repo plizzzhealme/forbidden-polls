@@ -11,7 +11,7 @@
 
 <jsp:include page="header.jsp"/>
 
-<c:set var="error_message" value="${sessionScope.error_message}"/>
+<c:set var="error_message" value="${requestScope.error_message}"/>
 
 <c:if test="${error_message == ControllerUtil.EMPTY_FIELDS_ERROR}">
     <c:set var="error" value="${empty_fields}"/>

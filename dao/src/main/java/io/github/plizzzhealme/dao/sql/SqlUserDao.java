@@ -13,27 +13,10 @@ import java.sql.SQLException;
 
 public class SqlUserDao implements UserDao {
 
-    public static final String USER_BIRTHDAY = "U.birthday";
-    private static final String SELECT_USER_BY_EMAIL_SQL = "" +
-            "SELECT U.id, U.hashed_password FROM users AS U WHERE  U.email = ?";
-    private static final String SELECT_USER_BY_ID_SQL = "" +
-            "SELECT U.name, U.email, U.registration_date, U.birthday, R.name, C.name, G.name " +
-            "FROM users AS U " +
-            "JOIN user_roles AS R ON U.user_role_id = R.id " +
-            "JOIN countries AS C ON U.country_id = C.id " +
-            "JOIN genders AS G ON U.gender_id = G.id " +
-            "WHERE  U.id = ?";
-
     private static final String USER_ID = "U.id";
     private static final String USER_EMAIL = "U.email";
     private static final String USER_NAME = "U.name";
-    private static final String CREATE_NEW_USER_SQL = "" +
-            "INSERT INTO users " +
-            "(name, email, hashed_password, registration_date, birthday, user_role_id, country_id, gender_id) " +
-            "VALUES (?, ?, ?, ?, ?, " +
-            "(SELECT id FROM forbidden_polls.user_roles WHERE name=?), " +
-            "(SELECT id FROM forbidden_polls.countries WHERE countries.iso_code=?), " +
-            "(SELECT id FROM forbidden_polls.genders WHERE name=?))";
+    private static final String USER_BIRTHDAY = "U.birthday";
     private static final String USER_REGISTRATION_DATE = "U.registration_date";
     private static final String ROLE_NAME = "R.name";
     private static final String COUNTRY_NAME = "C.name";
@@ -48,11 +31,15 @@ public class SqlUserDao implements UserDao {
 
     @Override
     public boolean create(User user, String password) throws DaoException {
+        if (hasUserRecord(user.getEmail())) {
+            return false;
+        }
+
         Connection connection = pool.takeConnection();
         PreparedStatement preparedStatement = null;
 
         try {
-            preparedStatement = connection.prepareStatement(CREATE_NEW_USER_SQL);
+            preparedStatement = connection.prepareStatement(DaoUtil.CREATE_NEW_USER_SQL);
             preparedStatement.setString(1, user.getName());
             preparedStatement.setString(2, user.getEmail());
             preparedStatement.setString(3, DaoUtil.hashPassword(password));
@@ -79,7 +66,7 @@ public class SqlUserDao implements UserDao {
         User user = null;
 
         try {
-            preparedStatement = connection.prepareStatement(SELECT_USER_BY_ID_SQL);
+            preparedStatement = connection.prepareStatement(DaoUtil.SELECT_USER_BY_ID_SQL);
             preparedStatement.setInt(1, id);
             resultSet = preparedStatement.executeQuery();
 
@@ -106,12 +93,16 @@ public class SqlUserDao implements UserDao {
 
     @Override
     public int authorize(String email, String password) throws DaoException {
+        if (!hasUserRecord(email)) {
+            return 0;
+        }
+
         Connection connection = pool.takeConnection();
         PreparedStatement preparedStatement = null;
         ResultSet resultSet = null;
 
         try {
-            preparedStatement = connection.prepareStatement(SELECT_USER_BY_EMAIL_SQL);
+            preparedStatement = connection.prepareStatement(DaoUtil.SELECT_USER_BY_EMAIL_SQL);
             preparedStatement.setString(1, email);
             resultSet = preparedStatement.executeQuery();
 
@@ -129,6 +120,26 @@ public class SqlUserDao implements UserDao {
             }
         } catch (SQLException e) {
             throw new DaoException("Error while reading from database", e);
+        } finally {
+            pool.closeConnection(connection, preparedStatement, resultSet);
+        }
+    }
+
+    @Override
+    public boolean hasUserRecord(String email) throws DaoException {
+        Connection connection = pool.takeConnection();
+        PreparedStatement preparedStatement = null;
+        ResultSet resultSet = null;
+
+        try {
+            preparedStatement = connection.prepareStatement(DaoUtil.CHECK_IF_USER_EXISTS);
+            preparedStatement.setString(1, email);
+            resultSet = preparedStatement.executeQuery();
+            resultSet.next();
+
+            return resultSet.getBoolean(1);
+        } catch (SQLException e) {
+            throw new DaoException("Error while checking record existence", e);
         } finally {
             pool.closeConnection(connection, preparedStatement, resultSet);
         }

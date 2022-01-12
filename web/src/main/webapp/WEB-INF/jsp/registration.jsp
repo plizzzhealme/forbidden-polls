@@ -10,6 +10,8 @@
 <body>
 <jsp:include page="header.jsp"/>
 
+<c:out value="${requestScope.error_message}"/>
+
 <form action="controller" method="post">
     <input type="hidden" name="command" value="registration">
 
