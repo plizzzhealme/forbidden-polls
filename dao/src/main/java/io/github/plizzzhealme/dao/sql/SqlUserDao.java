@@ -23,11 +23,29 @@ public class SqlUserDao implements UserDao {
     private static final String GENDER_NAME = "G.name";
     private static final String USER_PASSWORD_HASH = "U.hashed_password";
 
-    private final ConnectionPool pool;
+    public static final String CHECK_IF_USER_EXISTS = "" +
+            "SELECT EXISTS(SELECT id FROM forbidden_polls.users WHERE email = ?)";
 
-    public SqlUserDao() {
-        pool = ConnectionPool.INSTANCE;
-    }
+    public static final String SELECT_USER_BY_EMAIL_SQL = "" +
+            "SELECT U.id, U.hashed_password FROM forbidden_polls.users AS U WHERE  U.email = ?";
+
+    public static final String SELECT_USER_BY_ID_SQL = "" +
+            "SELECT U.name, U.email, U.registration_date, U.birthday, R.name, C.name, G.name " +
+            "FROM forbidden_polls.users AS U " +
+            "JOIN forbidden_polls.user_roles AS R ON U.user_role_id = R.id " +
+            "JOIN forbidden_polls.countries AS C ON U.country_id = C.id " +
+            "JOIN forbidden_polls.genders AS G ON U.gender_id = G.id " +
+            "WHERE  U.id = ?";
+
+    public static final String CREATE_NEW_USER_SQL = "" +
+            "INSERT INTO forbidden_polls.users " +
+            "(name, email, hashed_password, registration_date, birthday, user_role_id, country_id, gender_id) " +
+            "VALUES (?, ?, ?, ?, ?, " +
+            "(SELECT id FROM forbidden_polls.user_roles WHERE name=?), " +
+            "(SELECT id FROM forbidden_polls.countries WHERE countries.iso_code=?), " +
+            "(SELECT id FROM forbidden_polls.genders WHERE name=?))";
+
+    private final ConnectionPool pool = ConnectionPool.INSTANCE;
 
     @Override
     public boolean create(User user, String password) throws DaoException {
@@ -39,7 +57,7 @@ public class SqlUserDao implements UserDao {
         PreparedStatement preparedStatement = null;
 
         try {
-            preparedStatement = connection.prepareStatement(DaoUtil.CREATE_NEW_USER_SQL);
+            preparedStatement = connection.prepareStatement(CREATE_NEW_USER_SQL);
             preparedStatement.setString(1, user.getName());
             preparedStatement.setString(2, user.getEmail());
             preparedStatement.setString(3, DaoUtil.hashPassword(password));
@@ -66,7 +84,7 @@ public class SqlUserDao implements UserDao {
         User user = null;
 
         try {
-            preparedStatement = connection.prepareStatement(DaoUtil.SELECT_USER_BY_ID_SQL);
+            preparedStatement = connection.prepareStatement(SELECT_USER_BY_ID_SQL);
             preparedStatement.setInt(1, id);
             resultSet = preparedStatement.executeQuery();
 
@@ -102,7 +120,7 @@ public class SqlUserDao implements UserDao {
         ResultSet resultSet = null;
 
         try {
-            preparedStatement = connection.prepareStatement(DaoUtil.SELECT_USER_BY_EMAIL_SQL);
+            preparedStatement = connection.prepareStatement(SELECT_USER_BY_EMAIL_SQL);
             preparedStatement.setString(1, email);
             resultSet = preparedStatement.executeQuery();
 
@@ -132,7 +150,7 @@ public class SqlUserDao implements UserDao {
         ResultSet resultSet = null;
 
         try {
-            preparedStatement = connection.prepareStatement(DaoUtil.CHECK_IF_USER_EXISTS);
+            preparedStatement = connection.prepareStatement(CHECK_IF_USER_EXISTS);
             preparedStatement.setString(1, email);
             resultSet = preparedStatement.executeQuery();
             resultSet.next();

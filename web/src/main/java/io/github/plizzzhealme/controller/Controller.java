@@ -33,8 +33,7 @@ public class Controller extends HttpServlet {
         processRequest(req, resp);
     }
 
-    private void processRequest(HttpServletRequest request,
-                                HttpServletResponse response) {
+    private void processRequest(HttpServletRequest request, HttpServletResponse response) {
         String commandName = request.getParameter(CommandProvider.COMMAND);
         Command command = commandProvider.getCommand(commandName);
 

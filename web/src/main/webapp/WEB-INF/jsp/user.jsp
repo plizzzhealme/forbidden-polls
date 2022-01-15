@@ -51,6 +51,8 @@
     <p><c:out value="${country}: ${requestScope.user.country}"/></p>
 </div>
 
+<p><a href="controller?command=to_survey_page">survey</a></p>
+
 <form action="controller" method="post">
     <input type="hidden" name="command" value="sign_out">
 

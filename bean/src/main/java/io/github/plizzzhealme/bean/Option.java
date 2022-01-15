@@ -1,15 +1,12 @@
 package io.github.plizzzhealme.bean;
 
-import java.util.List;
 import java.util.Objects;
 
-public class Question {
+public class Option {
 
     private int id;
     private int index;
     private String body;
-    private List<Option> options;
-    private String optionType;
 
     public int getId() {
         return id;
@@ -35,43 +32,25 @@ public class Question {
         this.body = body;
     }
 
-    public List<Option> getOptions() {
-        return options;
-    }
-
-    public void setOptions(List<Option> options) {
-        this.options = options;
-    }
-
-    public String getOptionType() {
-        return optionType;
-    }
-
-    public void setOptionType(String optionType) {
-        this.optionType = optionType;
-    }
-
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        Question question = (Question) o;
-        return id == question.id && index == question.index && Objects.equals(body, question.body) && Objects.equals(options, question.options) && Objects.equals(optionType, question.optionType);
+        Option option = (Option) o;
+        return id == option.id && index == option.index && Objects.equals(body, option.body);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, index, body, options, optionType);
+        return Objects.hash(id, index, body);
     }
 
     @Override
     public String toString() {
-        return "Question{" +
+        return "Option{" +
                 "id=" + id +
                 ", index=" + index +
                 ", body='" + body + '\'' +
-                ", options=" + options +
-                ", optionType='" + optionType + '\'' +
                 '}';
     }
 }

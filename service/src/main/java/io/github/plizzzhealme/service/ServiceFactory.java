@@ -1,6 +1,7 @@
 package io.github.plizzzhealme.service;
 
 import io.github.plizzzhealme.service.impl.ConnectionServiceImpl;
+import io.github.plizzzhealme.service.impl.SurveyServiceImpl;
 import io.github.plizzzhealme.service.impl.UserServiceImpl;
 
 public enum ServiceFactory {
@@ -9,6 +10,7 @@ public enum ServiceFactory {
 
     private final UserService userService = new UserServiceImpl();
     private final ConnectionService connectionService = new ConnectionServiceImpl();
+    private final SurveyService surveyService = new SurveyServiceImpl();
 
     public UserService getUserService() {
         return userService;
@@ -16,5 +18,9 @@ public enum ServiceFactory {
 
     public ConnectionService getConnectionService() {
         return connectionService;
+    }
+
+    public SurveyService getSurveyService() {
+        return surveyService;
     }
 }

@@ -24,6 +24,7 @@ public class AuthorizationCommand implements Command {
 
         if (StringUtils.isAnyBlank(email, password)) { // if email or password are not entered
             request.setAttribute(ControllerUtil.ERROR_MESSAGE, ControllerUtil.EMPTY_FIELDS_ERROR);
+
             RequestDispatcher dispatcher = request.getRequestDispatcher(ControllerUtil.AUTHORIZATION_JSP);
             dispatcher.forward(request, response);
         } else { // if entered

@@ -24,7 +24,6 @@ class SqlUserDaoTest {
         ConnectionPool.INSTANCE.dispose();
     }
 
-
     @Test
     void readWithExistingID() throws DaoException {
         UserDao userDao = DaoFactory.INSTANCE.getUserDao();
