@@ -15,41 +15,32 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 class SqlUserDaoTest {
 
     @BeforeAll
-    static void start() {
-        try {
-            ConnectionPool.INSTANCE.initPoolData();
-        } catch (DaoException e) {
-            e.printStackTrace();
-        }
+    static void connect() throws DaoException {
+        ConnectionPool.INSTANCE.initPoolData();
     }
 
     @AfterAll
-    static void finish() {
+    static void disconnect() {
         ConnectionPool.INSTANCE.dispose();
     }
 
 
     @Test
-    void readWithExistingID() {
-        int id = 1;
+    void readWithExistingID() throws DaoException {
+        UserDao userDao = DaoFactory.INSTANCE.getUserDao();
 
+        int existingID = 1;
         String expected = "plizzz.healme@gmail.com";
-        String actual;
-
-
-        try {
-            User user = DaoFactory.INSTANCE.getUserDao().read(id);
-            actual = user.getEmail();
-        } catch (DaoException e) {
-            e.printStackTrace();
-            actual = null;
-        }
+        String actual = userDao.read(existingID).getEmail();
 
         assertEquals(expected, actual);
     }
 
     @Test
-    void create() {
+    void create() throws DaoException {
+        UserDao dao = DaoFactory.INSTANCE.getUserDao();
+
+        String password = "1q2w3e";
         User user = new User();
         user.setEmail("plizzzehesalme@gmail.com");
         user.setName("Dzianis");
@@ -57,15 +48,7 @@ class SqlUserDaoTest {
         user.setGender("male");
         user.setUserRole("admin");
 
-        UserDao dao = DaoFactory.INSTANCE.getUserDao();
-
-        boolean isCreated = false;
-
-        try {
-            isCreated = dao.create(user, "1q2w3e");
-        } catch (DaoException e) {
-            e.printStackTrace();
-        }
+        boolean isCreated = dao.create(user, password);
 
         assertTrue(isCreated);
     }

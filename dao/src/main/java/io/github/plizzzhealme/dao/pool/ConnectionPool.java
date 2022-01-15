@@ -92,6 +92,7 @@ public enum ConnectionPool {
         } catch (SQLException e) {
             logger.error("Connection isn't returned to the pool.", e);
         }
+
         try {
             if (rs != null) {
                 rs.close();
@@ -99,6 +100,7 @@ public enum ConnectionPool {
         } catch (SQLException e) {
             logger.error("ResultSet isn't closed.", e);
         }
+
         try {
             if (st != null) {
                 st.close();
@@ -116,6 +118,7 @@ public enum ConnectionPool {
         } catch (SQLException e) {
             logger.error("Connection isn't return to the pool.", e);
         }
+
         try {
             if (st != null) {
                 st.close();
