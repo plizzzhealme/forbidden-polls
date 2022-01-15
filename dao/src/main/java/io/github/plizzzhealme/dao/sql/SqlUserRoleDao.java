@@ -39,4 +39,30 @@ public class SqlUserRoleDao implements UserRoleDao {
 
         return userRole;
     }
+
+    @Override
+    public int search(String userRoleName) throws DaoException {
+        Connection connection = ConnectionPool.INSTANCE.takeConnection();
+        PreparedStatement preparedStatement = null;
+        ResultSet resultSet = null;
+        int id = 0;
+
+        String sql = "SELECT id FROM forbidden_polls.user_roles WHERE name = ?";
+
+        try {
+            preparedStatement = connection.prepareStatement(sql);
+            preparedStatement.setString(1, userRoleName);
+            resultSet = preparedStatement.executeQuery();
+
+            if (resultSet.next()) {
+                id = resultSet.getInt("id");
+            }
+        } catch (SQLException e) {
+            throw new DaoException("Error while reading user data from database", e);
+        } finally {
+            ConnectionPool.INSTANCE.closeConnection(connection, preparedStatement, resultSet);
+        }
+
+        return id;
+    }
 }

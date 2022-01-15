@@ -24,23 +24,45 @@ class SqlUserRoleDaoTest {
     }
 
     @Test
-    void readExistentUserRole() throws DaoException {
+    void readWithExistingID() throws DaoException {
         UserRoleDao userRoleDao = DaoFactory.INSTANCE.getUserRoleDao();
 
-        int existentID = 1;
+        int existingID = 1;
         String expected = "admin";
-        String actual = userRoleDao.read(existentID);
+        String actual = userRoleDao.read(existingID);
 
         assertEquals(expected, actual);
     }
 
     @Test
-    void readNonexistentUserRole() throws DaoException {
+    void readWithNonExistentID() throws DaoException {
         UserRoleDao userRoleDao = DaoFactory.INSTANCE.getUserRoleDao();
 
-        int nonexistentID = 5;
-        String actual = userRoleDao.read(nonexistentID);
+        int nonExistentID = 5;
+        String actual = userRoleDao.read(nonExistentID);
 
         assertNull(actual);
+    }
+
+    @Test
+    void readWithExistingUserRole() throws DaoException {
+        UserRoleDao userRoleDao = DaoFactory.INSTANCE.getUserRoleDao();
+
+        String existingRole = "admin";
+        int expected = 1;
+        int actual = userRoleDao.search(existingRole);
+
+        assertEquals(expected, actual);
+    }
+
+    @Test
+    void readWithNonExistentUserRole() throws DaoException {
+        UserRoleDao userRoleDao = DaoFactory.INSTANCE.getUserRoleDao();
+
+        String nonExistentUserRole = "god";
+        int expected = 0;
+        int actual = userRoleDao.search(nonExistentUserRole);
+
+        assertEquals(expected, actual);
     }
 }
