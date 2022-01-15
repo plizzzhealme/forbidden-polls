@@ -9,7 +9,7 @@ import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 class SqlSurveyDaoTest {
 
@@ -28,7 +28,21 @@ class SqlSurveyDaoTest {
         SurveyDao surveyDao = DaoFactory.INSTANCE.getSurveyDao();
 
         Survey survey = surveyDao.read(1);
-        System.out.println(survey);
-        assertTrue(true);
+
+        String expected = "Poll about smoking";
+        String actual = survey.getName();
+
+        assertEquals(expected, actual);
+    }
+
+    @Test
+    void search() throws DaoException {
+        SurveyDao surveyDao = DaoFactory.INSTANCE.getSurveyDao();
+
+        String surveyName = "Poll about smoking";
+        int expected = 1;
+        int actual = surveyDao.search(surveyName);
+
+        assertEquals(expected, actual);
     }
 }

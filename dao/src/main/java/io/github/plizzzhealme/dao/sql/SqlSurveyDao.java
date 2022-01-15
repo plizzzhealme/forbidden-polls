@@ -17,23 +17,49 @@ import java.util.List;
 
 public class SqlSurveyDao implements SurveyDao {
 
+    public static final String SURVEYS_ID = "surveys.id";
+    public static final String SURVEYS_NAME = "surveys.name";
+    public static final String SURVEYS_IMAGE_URL = "surveys.image_url";
+    public static final String SURVEYS_INSTRUCTIONS = "surveys.instructions";
+    public static final String SURVEYS_CREATION_DATE = "surveys.creation_date";
+    public static final String SURVEYS_DESCRIPTION = "surveys.description";
+
+    public static final String OPTION_TYPES_TYPE = "option_types.type";
+
+    public static final String CATEGORIES_NAME = "categories.name";
+
+    public static final String QUESTIONS_ID = "questions.id";
+    public static final String QUESTIONS_BODY = "questions.body";
+    public static final String QUESTIONS_INDEX_NUMBER = "questions.index_number";
+
     private static final ConnectionPool pool = ConnectionPool.INSTANCE;
 
     private static final String SELECT_SURVEY_BY_ID_SQL = "" +
-            "SELECT S.name, S.creation_date, S.description, S.instructions, S.image_url, C.name " +
-            "FROM forbidden_polls.surveys AS S " +
-            "JOIN categories AS C on C.id = S.category_id " +
-            "WHERE S.id = ?";
+            "SELECT surveys.name, surveys.creation_date, surveys.description, " +
+            "surveys.instructions, surveys.image_url, categories.name " +
+            "FROM forbidden_polls.surveys " +
+            "JOIN forbidden_polls.categories ON categories.id = surveys.category_id " +
+            "WHERE surveys.id = ?";
 
     private static final String SELECT_QUESTIONS_BY_SURVEY_ID = "" +
-            "SELECT Q.id, Q.index_number, Q.body, Q.image_url, Q.question_description, OT.type " +
-            "FROM questions AS Q " +
-            "JOIN option_types AS OT on OT.id = Q.option_type_id " +
-            "WHERE survey_id = ? " +
-            "ORDER BY Q.index_number";
+            "SELECT questions.id, questions.index_number, questions.body, questions.image_url, " +
+            "questions.question_description, option_types.type " +
+            "FROM forbidden_polls.questions " +
+            "JOIN forbidden_polls.option_types ON option_types.id = questions.option_type_id " +
+            "WHERE questions.survey_id = ? " +
+            "ORDER BY questions.index_number";
 
     private static final String SELECT_OPTIONS_BY_QUESTION_ID = "" +
-            "SELECT id, index_number, body FROM forbidden_polls.options WHERE question_id = ? ORDER BY index_number";
+            "SELECT options.id, options.index_number, options.body " +
+            "FROM forbidden_polls.options " +
+            "WHERE options.question_id = ? " +
+            "ORDER BY options.index_number";
+
+    private static final String SELECT_SURVEY_BY_NAME_SQL = "" +
+            "SELECT surveys.id " +
+            "FROM forbidden_polls.surveys " +
+            "WHERE surveys.name = ?";
+
 
     @Override
     public Survey read(int id) throws DaoException {
@@ -51,12 +77,12 @@ public class SqlSurveyDao implements SurveyDao {
             if (resultSet.next()) {
                 survey = new Survey();
                 survey.setId(id);
-                survey.setCreationDate(DaoUtil.toJavaTime(resultSet.getTimestamp("S.creation_date")));
-                survey.setName(resultSet.getString("S.name"));
-                survey.setCategory(resultSet.getString("C.name"));
-                survey.setDescription(resultSet.getString("S.description"));
-                survey.setImageUrl(resultSet.getString("S.image_url"));
-                survey.setInstructions(resultSet.getString("S.instructions"));
+                survey.setCreationDate(DaoUtil.toJavaTime(resultSet.getTimestamp(SURVEYS_CREATION_DATE)));
+                survey.setName(resultSet.getString(SURVEYS_NAME));
+                survey.setCategory(resultSet.getString(CATEGORIES_NAME));
+                survey.setDescription(resultSet.getString(SURVEYS_DESCRIPTION));
+                survey.setImageUrl(resultSet.getString(SURVEYS_IMAGE_URL));
+                survey.setInstructions(resultSet.getString(SURVEYS_INSTRUCTIONS));
 
                 survey.setQuestions(readQuestions(id));
             }
@@ -68,6 +94,32 @@ public class SqlSurveyDao implements SurveyDao {
 
 
         return survey;
+    }
+
+    @Override
+    public int search(String surveyName) throws DaoException {
+        Connection connection = pool.takeConnection();
+
+        PreparedStatement preparedStatement = null;
+        ResultSet resultSet = null;
+
+        int id = 0;
+
+        try {
+            preparedStatement = connection.prepareStatement(SELECT_SURVEY_BY_NAME_SQL);
+            preparedStatement.setString(1, surveyName);
+            resultSet = preparedStatement.executeQuery();
+
+            if (resultSet.next()) {
+                id = resultSet.getInt(SURVEYS_ID);
+            }
+        } catch (SQLException e) {
+            throw new DaoException("Error while reading survey data from database", e);
+        } finally {
+            pool.closeConnection(connection, preparedStatement, resultSet);
+        }
+
+        return id;
     }
 
     private List<Question> readQuestions(int surveyID) throws DaoException {
@@ -84,11 +136,11 @@ public class SqlSurveyDao implements SurveyDao {
             while (resultSet.next()) {
                 Question question = new Question();
 
-                int questionID = resultSet.getInt("Q.id");
+                int questionID = resultSet.getInt(QUESTIONS_ID);
                 question.setId(questionID);
-                question.setBody(resultSet.getString("Q.body"));
-                question.setIndex(resultSet.getInt("Q.index_number"));
-                question.setOptionType(resultSet.getString("OT.type"));
+                question.setBody(resultSet.getString(QUESTIONS_BODY));
+                question.setIndex(resultSet.getInt(QUESTIONS_INDEX_NUMBER));
+                question.setOptionType(resultSet.getString(OPTION_TYPES_TYPE));
                 question.setOptions(readOptions(questionID));
 
                 questions.add(question);
