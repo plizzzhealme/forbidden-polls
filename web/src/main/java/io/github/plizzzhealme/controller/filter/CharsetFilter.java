@@ -7,14 +7,17 @@ import java.io.IOException;
 @WebFilter("/controller")
 public class CharsetFilter implements Filter {
 
+    public static final String UTF_8 = "utf-8";
+    public static final String REQUEST_ENCODING = "requestEncoding";
+
     private String encoding;
 
     @Override
     public void init(FilterConfig filterConfig) {
-        encoding = filterConfig.getInitParameter("requestEncoding");
+        encoding = filterConfig.getInitParameter(REQUEST_ENCODING);
 
         if (encoding == null) {
-            encoding = "utf-8";
+            encoding = UTF_8;
         }
     }
 
@@ -23,6 +26,7 @@ public class CharsetFilter implements Filter {
             throws IOException, ServletException {
 
         servletRequest.setCharacterEncoding(encoding);
+        servletResponse.setCharacterEncoding(encoding);
 
         filterChain.doFilter(servletRequest, servletResponse);
     }
