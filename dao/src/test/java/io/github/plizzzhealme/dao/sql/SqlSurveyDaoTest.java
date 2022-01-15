@@ -1,6 +1,7 @@
 package io.github.plizzzhealme.dao.sql;
 
 import io.github.plizzzhealme.bean.Survey;
+import io.github.plizzzhealme.bean.criteria.Criteria;
 import io.github.plizzzhealme.dao.DaoFactory;
 import io.github.plizzzhealme.dao.SurveyDao;
 import io.github.plizzzhealme.dao.exception.DaoException;
@@ -44,5 +45,14 @@ class SqlSurveyDaoTest {
         int actual = surveyDao.search(surveyName);
 
         assertEquals(expected, actual);
+    }
+
+    @Test
+    void testSearch() throws DaoException {
+        SurveyDao surveyDao = DaoFactory.INSTANCE.getSurveyDao();
+
+        Criteria criteria = new Criteria();
+        criteria.addParameter("surveys.category_id", "2");
+        System.out.println(surveyDao.search(criteria));
     }
 }

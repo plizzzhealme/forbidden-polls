@@ -3,6 +3,7 @@ package io.github.plizzzhealme.dao.sql;
 import io.github.plizzzhealme.bean.Option;
 import io.github.plizzzhealme.bean.Question;
 import io.github.plizzzhealme.bean.Survey;
+import io.github.plizzzhealme.bean.criteria.Criteria;
 import io.github.plizzzhealme.dao.SurveyDao;
 import io.github.plizzzhealme.dao.exception.DaoException;
 import io.github.plizzzhealme.dao.pool.ConnectionPool;
@@ -14,6 +15,8 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
 
 public class SqlSurveyDao implements SurveyDao {
 
@@ -120,6 +123,51 @@ public class SqlSurveyDao implements SurveyDao {
         }
 
         return id;
+    }
+
+    @Override
+    public List<Integer> search(Criteria criteria) throws DaoException {
+        List<Integer> result = new ArrayList<>();
+
+        String sql = criteria.getSearchParameters().keySet()
+                .stream()
+                .map(p -> p + " = ?")
+                .collect(Collectors.joining(" AND ", "SELECT id FROM forbidden_polls.surveys WHERE ", ""));
+        System.out.println(sql);
+
+        Connection connection = pool.takeConnection();
+
+        PreparedStatement preparedStatement = null;
+        ResultSet resultSet = null;
+
+        try {
+            preparedStatement = connection.prepareStatement(sql);
+
+            int paramIndex = 1;
+
+            for (Map.Entry<String, String> entry : criteria.getSearchParameters().entrySet()) {
+
+                String s2 = entry.getValue();
+                preparedStatement.setString(paramIndex, s2);
+                paramIndex++;
+
+            }
+
+            resultSet = preparedStatement.executeQuery();
+
+            while (resultSet.next()) {
+                System.out.println("!!!!");
+                int id = resultSet.getInt(SURVEYS_ID);
+                result.add(id);
+            }
+
+        } catch (SQLException e) {
+            throw new DaoException("Error while reading survey data from database", e);
+        } finally {
+            pool.closeConnection(connection, preparedStatement, resultSet);
+        }
+
+        return result;
     }
 
     private List<Question> readQuestions(int surveyID) throws DaoException {
