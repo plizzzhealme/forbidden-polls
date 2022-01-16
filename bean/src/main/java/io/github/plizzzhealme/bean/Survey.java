@@ -7,13 +7,13 @@ import java.util.Objects;
 public class Survey {
 
     private int id;
-    private String category;
     private String name;
+    private LocalDateTime creationDate;
     private String description;
     private String instructions;
     private String imageUrl;
+    private String category;
     private List<Question> questions;
-    private LocalDateTime creationDate;
 
     public int getId() {
         return id;

@@ -10,7 +10,5 @@ public interface SurveyDao {
 
     Survey read(int id) throws DaoException;
 
-    int search(String surveyName) throws DaoException;
-
     List<Integer> search(Criteria criteria) throws DaoException;
 }

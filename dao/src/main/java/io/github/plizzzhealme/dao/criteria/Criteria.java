@@ -1,14 +1,14 @@
 package io.github.plizzzhealme.dao.criteria;
 
-import java.util.HashMap;
+import java.util.EnumMap;
 import java.util.Map;
 
 public class Criteria {
 
-    private final Map<Column, String> searchParameters;
+    private final EnumMap<Column, String> searchParameters;
 
     public Criteria() {
-        searchParameters = new HashMap<>();
+        searchParameters = new EnumMap<>(Column.class);
     }
 
     public void addParameter(Column column, String value) {

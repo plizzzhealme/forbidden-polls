@@ -1,9 +1,6 @@
 package io.github.plizzzhealme.dao;
 
-import io.github.plizzzhealme.dao.sql.SqlConnectionDao;
-import io.github.plizzzhealme.dao.sql.SqlSurveyDao;
-import io.github.plizzzhealme.dao.sql.SqlUserDao;
-import io.github.plizzzhealme.dao.sql.SqlUserRoleDao;
+import io.github.plizzzhealme.dao.sql.*;
 import io.github.plizzzhealme.dao.util.ConnectionDao;
 
 public enum DaoFactory {
@@ -14,6 +11,8 @@ public enum DaoFactory {
     private final ConnectionDao connectionDao = new SqlConnectionDao();
     private final UserRoleDao userRoleDao = new SqlUserRoleDao();
     private final SurveyDao surveyDao = new SqlSurveyDao();
+    private final QuestionDao questionDao = new SqlQuestionDao();
+    private final OptionDao optionDao = new SqlOptionDao();
 
     public UserDao getUserDao() {
         return userDao;
@@ -29,5 +28,13 @@ public enum DaoFactory {
 
     public SurveyDao getSurveyDao() {
         return surveyDao;
+    }
+
+    public QuestionDao getQuestionDao() {
+        return questionDao;
+    }
+
+    public OptionDao getOptionDao() {
+        return optionDao;
     }
 }

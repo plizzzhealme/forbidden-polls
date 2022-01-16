@@ -8,6 +8,8 @@ public class Question {
     private int id;
     private int index;
     private String body;
+    private String imageUrl;
+    private String description;
     private List<Option> options;
     private String optionType;
 
@@ -35,6 +37,22 @@ public class Question {
         this.body = body;
     }
 
+    public String getImageUrl() {
+        return imageUrl;
+    }
+
+    public void setImageUrl(String imageUrl) {
+        this.imageUrl = imageUrl;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
     public List<Option> getOptions() {
         return options;
     }
@@ -56,12 +74,12 @@ public class Question {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Question question = (Question) o;
-        return id == question.id && index == question.index && Objects.equals(body, question.body) && Objects.equals(options, question.options) && Objects.equals(optionType, question.optionType);
+        return id == question.id && index == question.index && Objects.equals(body, question.body) && Objects.equals(imageUrl, question.imageUrl) && Objects.equals(description, question.description) && Objects.equals(options, question.options) && Objects.equals(optionType, question.optionType);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, index, body, options, optionType);
+        return Objects.hash(id, index, body, imageUrl, description, options, optionType);
     }
 
     @Override
@@ -70,6 +88,8 @@ public class Question {
                 "id=" + id +
                 ", index=" + index +
                 ", body='" + body + '\'' +
+                ", imageUrl='" + imageUrl + '\'' +
+                ", description='" + description + '\'' +
                 ", options=" + options +
                 ", optionType='" + optionType + '\'' +
                 '}';

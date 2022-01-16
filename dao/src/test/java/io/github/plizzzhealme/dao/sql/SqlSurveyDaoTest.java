@@ -11,6 +11,8 @@ import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
+import java.util.List;
+
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 class SqlSurveyDaoTest {
@@ -38,22 +40,14 @@ class SqlSurveyDaoTest {
     }
 
     @Test
-    void search() throws DaoException {
-        SurveyDao surveyDao = DaoFactory.INSTANCE.getSurveyDao();
-
-        String surveyName = "Poll about smoking";
-        int expected = 1;
-        int actual = surveyDao.search(surveyName);
-
-        assertEquals(expected, actual);
-    }
-
-    @Test
     void testSearch() throws DaoException {
         SurveyDao surveyDao = DaoFactory.INSTANCE.getSurveyDao();
 
         Criteria criteria = new Criteria();
         criteria.addParameter(Column.SURVEYS_NAME, "Poll about smoking");
-        System.out.println(surveyDao.search(criteria));
+        List<Integer> expected = List.of(1);
+        List<Integer> actual = surveyDao.search(criteria);
+
+        assertEquals(expected, actual);
     }
 }

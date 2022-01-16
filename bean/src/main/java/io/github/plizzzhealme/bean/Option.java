@@ -5,8 +5,8 @@ import java.util.Objects;
 public class Option {
 
     private int id;
-    private int index;
     private String body;
+    private int index;
 
     public int getId() {
         return id;
