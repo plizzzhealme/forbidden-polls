@@ -16,10 +16,9 @@ public class ToSurveyPageCommand implements Command {
 
     @Override
     public void execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException, ServiceException {
-        int id = 1; //stub for int id = Integer.parseInt(request.getParameter("survey_id"));
+        int id = Integer.parseInt(request.getParameter("survey_id"));
 
         Survey survey = ServiceFactory.INSTANCE.getSurveyService().takeSurvey(id);
-        System.out.println(survey);
         request.setAttribute("survey_name", survey.getName());
 
         RequestDispatcher dispatcher = request.getRequestDispatcher(ControllerUtil.SURVEY_JSP);
