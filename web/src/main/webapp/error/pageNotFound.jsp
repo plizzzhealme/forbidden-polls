@@ -6,6 +6,6 @@
     <title>404</title>
 </head>
 <body>
-<p>Page is not found</p>
+<p>Page ${requestScope.page} is not found</p>
 </body>
 </html>

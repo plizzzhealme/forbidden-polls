@@ -1,9 +1,14 @@
 package io.github.plizzzhealme.bean;
 
+import java.io.Serial;
+import java.io.Serializable;
 import java.util.List;
 import java.util.Objects;
 
-public class Question {
+public class Question implements Serializable {
+
+    @Serial
+    private static final long serialVersionUID = 7809120840553064347L;
 
     private int id;
     private int index;

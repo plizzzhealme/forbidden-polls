@@ -1,10 +1,15 @@
 package io.github.plizzzhealme.bean;
 
+import java.io.Serial;
+import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Objects;
 
-public class Survey {
+public class Survey implements Serializable {
+
+    @Serial
+    private static final long serialVersionUID = 6485520742536097834L;
 
     private int id;
     private String name;

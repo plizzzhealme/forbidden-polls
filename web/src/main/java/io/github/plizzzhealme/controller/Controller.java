@@ -14,10 +14,14 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.io.Serial;
 import java.text.MessageFormat;
 
 @WebServlet("/controller")
 public class Controller extends HttpServlet {
+
+    @Serial
+    private static final long serialVersionUID = 819081927994556627L;
 
     private static final Logger logger = LogManager.getLogger(Controller.class);
 

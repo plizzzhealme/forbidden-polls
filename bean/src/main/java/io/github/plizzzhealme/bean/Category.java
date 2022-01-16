@@ -1,8 +1,13 @@
 package io.github.plizzzhealme.bean;
 
+import java.io.Serial;
+import java.io.Serializable;
 import java.util.Objects;
 
-public class Category {
+public class Category implements Serializable {
+
+    @Serial
+    private static final long serialVersionUID = -2206900477662606325L;
 
     private int id;
     private String name;

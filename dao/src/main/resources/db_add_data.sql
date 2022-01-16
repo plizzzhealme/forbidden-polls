@@ -30,11 +30,11 @@ VALUES ('Poll about smoking', '2022-01-05 11:27:52', null, null, null, 2);
 INSERT INTO forbidden_polls.questions (index_number, body, image_url, description, survey_id, option_type_id)
 VALUES (1, 'Do you smoke?', null, null, 1, 1);
 
-INSERT INTO forbidden_polls.options (body, question_id)
-VALUES ('yes', 1);
+INSERT INTO forbidden_polls.options (body, question_id, index_number)
+VALUES ('yes', 1, 1);
 
-INSERT INTO forbidden_polls.options (body, question_id)
-VALUES ('no', 1);
+INSERT INTO forbidden_polls.options (body, question_id, index_number)
+VALUES ('no', 1, 1);
 
 
 COMMIT;
