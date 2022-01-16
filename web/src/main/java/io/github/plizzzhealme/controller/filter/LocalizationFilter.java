@@ -21,9 +21,9 @@ public class LocalizationFilter implements Filter {
     @Override
     public void init(FilterConfig filterConfig) {
         commandsToBeSaved.add(CommandProvider.TO_USER_PAGE_COMMAND);
-        commandsToBeSaved.add(CommandProvider.TO_AUTHORIZATION_PAGE_COMMAND);
+        commandsToBeSaved.add(CommandProvider.TO_SIGN_IN_PAGE_COMMAND);
         commandsToBeSaved.add(CommandProvider.TO_START_PAGE_COMMAND);
-        commandsToBeSaved.add(CommandProvider.TO_REGISTRATION_PAGE_COMMAND);
+        commandsToBeSaved.add(CommandProvider.TO_SIGN_UP_PAGE_COMMAND);
         commandsToBeSaved.add(CommandProvider.TO_PROFILE_PAGE_COMMAND);
         commandsToBeSaved.add(CommandProvider.TO_CATEGORIES_PAGE_COMMAND);
         commandsToBeSaved.add(CommandProvider.TO_CATEGORY_PAGE_COMMAND);

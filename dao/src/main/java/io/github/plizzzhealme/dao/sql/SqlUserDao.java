@@ -45,7 +45,7 @@ public class SqlUserDao implements UserDao {
             "(SELECT id FROM forbidden_polls.countries WHERE countries.iso_code=?), " +
             "(SELECT id FROM forbidden_polls.genders WHERE name=?))";
 
-    private final ConnectionPool pool = ConnectionPool.INSTANCE;
+    private static final ConnectionPool pool = ConnectionPool.INSTANCE;
 
     @Override
     public boolean create(User user, String password) throws DaoException {
@@ -110,7 +110,7 @@ public class SqlUserDao implements UserDao {
     }
 
     @Override
-    public int authorize(String email, String password) throws DaoException {
+    public int signIn(String email, String password) throws DaoException {
         if (!isPresent(email)) {
             return 0;
         }

@@ -9,11 +9,11 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
-public class ToRegistrationPageCommand implements Command {
+public class ToSignInPageCommand implements Command {
 
     @Override
     public void execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        RequestDispatcher dispatcher = request.getRequestDispatcher(ControllerUtil.REGISTRATION_JSP);
+        RequestDispatcher dispatcher = request.getRequestDispatcher(ControllerUtil.SIGN_IN_JSP);
         dispatcher.forward(request, response);
     }
 }

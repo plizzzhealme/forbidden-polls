@@ -1,14 +1,14 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ page contentType="text/html;charset=UTF-8" %>
-<%@include file="localization.jsp" %>
+<%@include file="../jspf/localization.jspf" %>
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <title>${registration}</title>
 </head>
 <body>
-<jsp:include page="header.jsp"/>
+<jsp:include page="../jspf/header.jspf"/>
 
 <c:set var="error_message" value="${requestScope.error_message}"/>
 
@@ -27,7 +27,7 @@
 <p>${error}</p>
 
 <form action="controller" method="post">
-    <input type="hidden" name="command" value="registration">
+    <input type="hidden" name="command" value="sign_up">
 
     <label for="email">${email}:</label><br/>
     <input id="email" type="email" name="email"><br/>
@@ -309,8 +309,7 @@
 
     <input type="submit" value="${sign_up}">
 </form>
-<br/>
 
-<a href="controller?command=to_start_page">[${to_main_page}]</a>
+<p><a href="controller?command=to_start_page">${back}</a></p>
 </body>
 </html>

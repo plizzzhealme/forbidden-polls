@@ -32,13 +32,13 @@ public class RegistrationCommand implements Command {
         if (StringUtils.isAnyBlank(email, name, password, confirmPassword, birthday, country, gender)) {
             request.setAttribute(ControllerUtil.ERROR_MESSAGE, ControllerUtil.EMPTY_FIELDS_ERROR);
 
-            RequestDispatcher dispatcher = request.getRequestDispatcher(ControllerUtil.REGISTRATION_JSP);
+            RequestDispatcher dispatcher = request.getRequestDispatcher(ControllerUtil.SIGN_UP_JSP);
             dispatcher.forward(request, response);
         } else { // if entered
             if (!StringUtils.equals(password, confirmPassword)) {
                 request.setAttribute(ControllerUtil.ERROR_MESSAGE, ControllerUtil.PASSWORD_MISMATCH_ERROR);
 
-                RequestDispatcher dispatcher = request.getRequestDispatcher(ControllerUtil.REGISTRATION_JSP);
+                RequestDispatcher dispatcher = request.getRequestDispatcher(ControllerUtil.SIGN_UP_JSP);
                 dispatcher.forward(request, response);
             } else {
                 User user = new User();
@@ -61,7 +61,7 @@ public class RegistrationCommand implements Command {
                 } else {
                     request.setAttribute(ControllerUtil.ERROR_MESSAGE, ControllerUtil.EMAIL_IS_BUSY_ERROR);
 
-                    RequestDispatcher dispatcher = request.getRequestDispatcher(ControllerUtil.REGISTRATION_JSP);
+                    RequestDispatcher dispatcher = request.getRequestDispatcher(ControllerUtil.SIGN_UP_JSP);
                     dispatcher.forward(request, response);
                 }
             }

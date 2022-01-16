@@ -25,7 +25,7 @@ public class AuthorizationCommand implements Command {
         if (StringUtils.isAnyBlank(email, password)) { // if email or password are not entered
             request.setAttribute(ControllerUtil.ERROR_MESSAGE, ControllerUtil.EMPTY_FIELDS_ERROR);
 
-            RequestDispatcher dispatcher = request.getRequestDispatcher(ControllerUtil.AUTHORIZATION_JSP);
+            RequestDispatcher dispatcher = request.getRequestDispatcher(ControllerUtil.SIGN_IN_JSP);
             dispatcher.forward(request, response);
         } else { // if entered
             UserService userService = ServiceFactory.INSTANCE.getUserService();
@@ -34,7 +34,7 @@ public class AuthorizationCommand implements Command {
             if (userID == 0) { // if invalid email or password
                 request.setAttribute(ControllerUtil.ERROR_MESSAGE, ControllerUtil.INVALID_CREDENTIALS_ERROR);
 
-                RequestDispatcher dispatcher = request.getRequestDispatcher(ControllerUtil.AUTHORIZATION_JSP);
+                RequestDispatcher dispatcher = request.getRequestDispatcher(ControllerUtil.SIGN_IN_JSP);
                 dispatcher.forward(request, response);
             } else { // if ok
                 request.getSession().setAttribute(ControllerUtil.USER_ID, userID);

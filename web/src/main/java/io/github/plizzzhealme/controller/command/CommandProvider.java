@@ -11,15 +11,15 @@ public final class CommandProvider {
     public static final String COMMAND = "command";
 
     // actions
-    public static final String AUTHORIZATION_COMMAND = "authorization";
-    public static final String REGISTRATION_COMMAND = "registration";
+    public static final String SIGN_IN_COMMAND = "sign_in";
+    public static final String SIGN_UP_COMMAND = "sign_up";
     public static final String CHANGE_LOCALE_COMMAND = "change_locale";
     public static final String UNKNOWN_COMMAND = "unknown";
     public static final String SIGN_OUT_COMMAND = "sign_out";
 
     // navigation
-    public static final String TO_AUTHORIZATION_PAGE_COMMAND = "to_authorization_page";
-    public static final String TO_REGISTRATION_PAGE_COMMAND = "to_registration_page";
+    public static final String TO_SIGN_IN_PAGE_COMMAND = "to_sign_in_page";
+    public static final String TO_SIGN_UP_PAGE_COMMAND = "to_sign_up_page";
     public static final String TO_START_PAGE_COMMAND = "to_start_page";
     public static final String TO_USER_PAGE_COMMAND = "to_user_page";
     public static final String TO_SURVEY_PAGE_COMMAND = "to_survey_page";
@@ -32,13 +32,13 @@ public final class CommandProvider {
     public CommandProvider() {
         commands = new HashMap<>();
 
-        commands.put(AUTHORIZATION_COMMAND, new AuthorizationCommand());
-        commands.put(TO_AUTHORIZATION_PAGE_COMMAND, new ToAuthorizationPageCommand());
-        commands.put(TO_REGISTRATION_PAGE_COMMAND, new ToRegistrationPageCommand());
+        commands.put(SIGN_IN_COMMAND, new AuthorizationCommand());
+        commands.put(TO_SIGN_IN_PAGE_COMMAND, new ToSignInPageCommand());
+        commands.put(TO_SIGN_UP_PAGE_COMMAND, new ToSignUpPageCommand());
         commands.put(TO_START_PAGE_COMMAND, new ToStartPageCommand());
         commands.put(TO_USER_PAGE_COMMAND, new ToUserPageCommand());
         commands.put(UNKNOWN_COMMAND, new UnknownCommand());
-        commands.put(REGISTRATION_COMMAND, new RegistrationCommand());
+        commands.put(SIGN_UP_COMMAND, new RegistrationCommand());
         commands.put(CHANGE_LOCALE_COMMAND, new ChangeLocaleCommand());
         commands.put(SIGN_OUT_COMMAND, new SignOutCommand());
         commands.put(TO_SURVEY_PAGE_COMMAND, new ToSurveyPageCommand());

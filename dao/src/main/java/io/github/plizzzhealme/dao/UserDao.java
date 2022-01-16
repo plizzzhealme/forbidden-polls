@@ -9,7 +9,7 @@ public interface UserDao {
 
     User read(int id) throws DaoException;
 
-    int authorize(String email, String password) throws DaoException;
+    int signIn(String email, String password) throws DaoException;
 
     boolean isPresent(String email) throws DaoException;
 }

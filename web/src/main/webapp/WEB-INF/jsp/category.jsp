@@ -1,17 +1,23 @@
-<%--
-  Created by IntelliJ IDEA.
-  User: analB
-  Date: 16.01.2022
-  Time: 19:34
-  To change this template use File | Settings | File Templates.
---%>
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<html>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ page contentType="text/html;charset=UTF-8" %>
+<!DOCTYPE>
+<html xml:lang="eu">
 <head>
     <title>Title</title>
-    category page
+
+
 </head>
 <body>
+<p>
+    <jsp:include page="../jspf/header.jspf"/>
+</p>
 
+<p><c:out value="surveys from category ${requestScope.category_name}"/></p>
+
+<c:forEach var="survey" items="${requestScope.surveys}">
+    <a href="controller?command=to_survey_page&survey_id=${survey.id}">
+        <c:out value="${survey.name}"/>
+    </a>
+</c:forEach>
 </body>
 </html>

@@ -14,7 +14,7 @@ public class UserServiceImpl implements UserService {
         UserDao userDao = DaoFactory.INSTANCE.getUserDao();
 
         try {
-            return userDao.authorize(email, password);
+            return userDao.signIn(email, password);
         } catch (DaoException e) {
             throw new ServiceException("Authorization error", e);
         }

@@ -14,8 +14,8 @@ public final class ControllerUtil {
     public static final String COUNTRY = "country";
 
     // pages
-    public static final String AUTHORIZATION_JSP = "/WEB-INF/jsp/authorization.jsp";
-    public static final String REGISTRATION_JSP = "/WEB-INF/jsp/registration.jsp";
+    public static final String SIGN_IN_JSP = "/WEB-INF/jsp/signIn.jsp";
+    public static final String SIGN_UP_JSP = "/WEB-INF/jsp/signUp.jsp";
     public static final String START_JSP = "/WEB-INF/jsp/start.jsp";
     public static final String USER_JSP = "/WEB-INF/jsp/user.jsp";
     public static final String PAGE_NOT_FOUND_JSP = "error/pageNotFound.jsp";
@@ -27,7 +27,7 @@ public final class ControllerUtil {
 
     // redirects
     public static final String TO_USER_PAGE_REDIRECT = "controller?command=to_user_page";
-    public static final String TO_AUTHORIZATION_PAGE_REDIRECT = "controller?command=to_authorization_page";
+    public static final String TO_SIGN_IN_PAGE_REDIRECT = "controller?command=to_sign_in_page";
 
     // errors
     public static final String ERROR_MESSAGE = "error_message";
@@ -40,7 +40,6 @@ public final class ControllerUtil {
     public static final String URL = "url";
     public static final String LOCALE = "locale";
     public static final String CATEGORY_ID = "category_id";
-
 
     private ControllerUtil() {
     }

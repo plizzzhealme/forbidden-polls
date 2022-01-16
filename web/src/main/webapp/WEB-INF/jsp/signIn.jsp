@@ -1,7 +1,7 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page contentType="text/html; charset=UTF-8" %>
-<%@include file="localization.jsp" %>
+<%@include file="../jspf/localization.jspf" %>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -10,7 +10,7 @@
 <body>
 
 <div>
-    <jsp:include page="header.jsp"/>
+    <jsp:include page="../jspf/header.jspf"/>
 </div>
 
 <c:set var="error_message" value="${requestScope.error_message}"/>
@@ -23,10 +23,10 @@
     <c:set var="error" value="${invalid_credentials}"/>
 </c:if>
 
-<c:out value="${error}"/>
+<p><c:out value="${error}"/></p>
 
 <form action="controller" method="post">
-    <input type="hidden" name="command" value="authorization">
+    <input type="hidden" name="command" value="sign_in">
 
     <label for="email">${email}:</label><br/>
     <input id="email" type="email" name="email"><br/>
@@ -36,8 +36,7 @@
 
     <input type="submit" value="${sign_in}">
 </form>
-<br/>
 
-<a href="controller?command=to_start_page">[${to_main_page}]</a>
+<p><a href="controller?command=to_start_page">${back}</a></p>
 </body>
 </html>

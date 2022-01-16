@@ -13,17 +13,17 @@ import java.util.HashSet;
 import java.util.Set;
 
 @WebFilter("/controller")
-public class AuthorizationFilter implements Filter {
+public class SignInFilter implements Filter {
 
-    private final Set<String> commandsRequiringAuthorization = new HashSet<>();
+    private final Set<String> commandsRequiringToBeSignedIn = new HashSet<>();
 
     @Override
     public void init(FilterConfig filterConfig) {
-        commandsRequiringAuthorization.add(CommandProvider.TO_USER_PAGE_COMMAND);
-        commandsRequiringAuthorization.add(CommandProvider.TO_SURVEY_PAGE_COMMAND);
-        commandsRequiringAuthorization.add(CommandProvider.TO_PROFILE_PAGE_COMMAND);
-        commandsRequiringAuthorization.add(CommandProvider.TO_CATEGORIES_PAGE_COMMAND);
-        commandsRequiringAuthorization.add(CommandProvider.TO_CATEGORY_PAGE_COMMAND);
+        commandsRequiringToBeSignedIn.add(CommandProvider.TO_USER_PAGE_COMMAND);
+        commandsRequiringToBeSignedIn.add(CommandProvider.TO_SURVEY_PAGE_COMMAND);
+        commandsRequiringToBeSignedIn.add(CommandProvider.TO_PROFILE_PAGE_COMMAND);
+        commandsRequiringToBeSignedIn.add(CommandProvider.TO_CATEGORIES_PAGE_COMMAND);
+        commandsRequiringToBeSignedIn.add(CommandProvider.TO_CATEGORY_PAGE_COMMAND);
     }
 
     @Override
@@ -32,11 +32,11 @@ public class AuthorizationFilter implements Filter {
 
         String command = servletRequest.getParameter(CommandProvider.COMMAND);
 
-        if (commandsRequiringAuthorization.contains(command)) {
+        if (commandsRequiringToBeSignedIn.contains(command)) {
             HttpSession session = ((HttpServletRequest) servletRequest).getSession();
 
             if (session.getAttribute(ControllerUtil.USER_ID) == null) {
-                ((HttpServletResponse) servletResponse).sendRedirect(ControllerUtil.TO_AUTHORIZATION_PAGE_REDIRECT);
+                ((HttpServletResponse) servletResponse).sendRedirect(ControllerUtil.TO_SIGN_IN_PAGE_REDIRECT);
             } else {
                 filterChain.doFilter(servletRequest, servletResponse);
             }

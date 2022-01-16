@@ -17,6 +17,6 @@ public class SignOutCommand implements Command {
 
         request.getSession().invalidate();
 
-        response.sendRedirect(ControllerUtil.TO_AUTHORIZATION_PAGE_REDIRECT);
+        response.sendRedirect(ControllerUtil.TO_SIGN_IN_PAGE_REDIRECT);
     }
 }

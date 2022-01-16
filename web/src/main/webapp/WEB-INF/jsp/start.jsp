@@ -1,7 +1,7 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page contentType="text/html; charset=UTF-8" %>
-<%@ include file="localization.jsp" %>
+<%@ include file="../jspf/localization.jspf" %>
 <!DOCTYPE html>
 <html xml:lang="en">
 <head>
@@ -11,18 +11,18 @@
 
 </head>
 <body>
-<jsp:include page="header.jsp"/>
+<jsp:include page="../jspf/header.jspf"/>
 
 <p>${start_page_message}</p>
 
 <form action="controller" method="get" class="st">
-    <input type="hidden" name="command" value="to_authorization_page"/>
+    <input type="hidden" name="command" value="to_sign_in_page"/>
 
     <input type="submit" value="${sign_in}"/>
 </form>
 
 <form action="controller" method="get" class="st">
-    <input type="hidden" name="command" value="to_registration_page"/>
+    <input type="hidden" name="command" value="to_sign_up_page"/>
 
     <input type="submit" value="${sign_up}"/>
 </form>

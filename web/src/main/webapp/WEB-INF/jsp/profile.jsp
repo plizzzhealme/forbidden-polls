@@ -1,6 +1,6 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page contentType="text/html;charset=UTF-8" %>
-<%@ include file="localization.jsp" %>
+<%@ include file="../jspf/localization.jspf" %>
 <!DOCTYPE html>
 <html lang="eu" xml:lang="eu">
 
@@ -10,7 +10,7 @@
 
 <body>
 <p>
-    <jsp:include page="header.jsp"/>
+    <jsp:include page="../jspf/header.jspf"/>
 </p>
 
 <div>
@@ -50,10 +50,7 @@
     <p><c:out value="${country}: ${requestScope.user.country}"/></p>
 </div>
 
-<form action="controller" method="post">
-    <input type="hidden" name="command" value="to_user_page">
+<p><a href="controller?command=to_user_page">${back}</a></p>
 
-    <input type="submit" value="${back}">
-</form>
 </body>
 </html>
