@@ -33,6 +33,18 @@ public class SqlQuestionDao implements QuestionDao {
     @Override
     public List<Question> search(int surveyId) throws DaoException {
         Connection connection = pool.takeConnection();
+
+        try {
+            System.out.println("start");
+            ResultSet rs = connection.getMetaData().getColumns("", "", "", "");
+            while (rs.next()) {
+                System.out.println("print");
+                System.out.println(rs.getString(1));
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
         PreparedStatement preparedStatement = null;
         ResultSet resultSet = null;
         List<Question> questions = new ArrayList<>();

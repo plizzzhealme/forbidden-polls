@@ -1,10 +1,5 @@
 package io.github.plizzzhealme.controller.util;
 
-import javax.servlet.http.HttpServletRequest;
-import java.util.Collections;
-import java.util.List;
-import java.util.stream.Collectors;
-
 public final class ControllerUtil {
 
     // user parameters
@@ -26,6 +21,8 @@ public final class ControllerUtil {
     public static final String PAGE_NOT_FOUND_JSP = "error/pageNotFound.jsp";
     public static final String SERVER_ERROR_JSP = "error/serverError.jsp";
     public static final String SURVEY_JSP = "/WEB-INF/jsp/survey.jsp";
+    public static final String PROFILE_JSP = "/WEB-INF/jsp/profile.jsp";
+    public static final String CATEGORIES_JSP = "/WEB-INF/jsp/categories.jsp";
 
     // redirects
     public static final String TO_USER_PAGE_REDIRECT = "controller?command=to_user_page";
@@ -42,16 +39,7 @@ public final class ControllerUtil {
     public static final String URL = "url";
     public static final String LOCALE = "locale";
 
+
     private ControllerUtil() {
-    }
-
-    public static void saveUrlToSession(HttpServletRequest request) {
-        List<String> parameters = Collections.list(request.getParameterNames());
-        String url = parameters
-                .stream()
-                .map(p -> p + "=" + request.getParameter(p))
-                .collect(Collectors.joining("&", request.getRequestURL().append("?"), ""));
-
-        request.getSession().setAttribute(ControllerUtil.URL, url);
     }
 }

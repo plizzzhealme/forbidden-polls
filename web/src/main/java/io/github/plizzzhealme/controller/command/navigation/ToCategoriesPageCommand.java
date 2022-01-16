@@ -1,7 +1,10 @@
 package io.github.plizzzhealme.controller.command.navigation;
 
+import io.github.plizzzhealme.bean.Category;
 import io.github.plizzzhealme.controller.command.Command;
 import io.github.plizzzhealme.controller.util.ControllerUtil;
+import io.github.plizzzhealme.service.CategoryService;
+import io.github.plizzzhealme.service.ServiceFactory;
 import io.github.plizzzhealme.service.exception.ServiceException;
 
 import javax.servlet.RequestDispatcher;
@@ -9,14 +12,20 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.util.List;
 
-public class ToUserPageCommand implements Command {
+public class ToCategoriesPageCommand implements Command {
 
     @Override
     public void execute(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException, ServiceException {
 
-        RequestDispatcher dispatcher = request.getRequestDispatcher(ControllerUtil.USER_JSP);
+        CategoryService categoryService = ServiceFactory.INSTANCE.getCategoryService();
+        List<Category> categories = categoryService.findAll();
+
+        request.setAttribute("categories", categories);
+
+        RequestDispatcher dispatcher = request.getRequestDispatcher(ControllerUtil.CATEGORIES_JSP);
         dispatcher.forward(request, response);
     }
 }

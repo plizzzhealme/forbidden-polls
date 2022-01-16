@@ -21,6 +21,8 @@ public class AuthorizationFilter implements Filter {
     public void init(FilterConfig filterConfig) {
         commandsRequiringAuthorization.add(CommandProvider.TO_USER_PAGE_COMMAND);
         commandsRequiringAuthorization.add(CommandProvider.TO_SURVEY_PAGE_COMMAND);
+        commandsRequiringAuthorization.add(CommandProvider.TO_PROFILE_PAGE_COMMAND);
+        commandsRequiringAuthorization.add(CommandProvider.TO_CATEGORIES_PAGE_COMMAND);
     }
 
     @Override
@@ -29,15 +31,15 @@ public class AuthorizationFilter implements Filter {
 
         String command = servletRequest.getParameter(CommandProvider.COMMAND);
 
-        if (commandsRequiringAuthorization.contains(command)) { // if command = to_user_page
+        if (commandsRequiringAuthorization.contains(command)) {
             HttpSession session = ((HttpServletRequest) servletRequest).getSession();
 
-            if (session.getAttribute(ControllerUtil.USER_ID) == null) { // if logged in
+            if (session.getAttribute(ControllerUtil.USER_ID) == null) {
                 ((HttpServletResponse) servletResponse).sendRedirect(ControllerUtil.TO_AUTHORIZATION_PAGE_REDIRECT);
-            } else { // if not logged in
+            } else {
                 filterChain.doFilter(servletRequest, servletResponse);
             }
-        } else { // if other commands
+        } else {
             filterChain.doFilter(servletRequest, servletResponse);
         }
     }

@@ -13,6 +13,7 @@ public enum DaoFactory {
     private final SurveyDao surveyDao = new SqlSurveyDao();
     private final QuestionDao questionDao = new SqlQuestionDao();
     private final OptionDao optionDao = new SqlOptionDao();
+    private final CategoryDao categoryDao = new SqlCategoryDao();
 
     public UserDao getUserDao() {
         return userDao;
@@ -36,5 +37,9 @@ public enum DaoFactory {
 
     public OptionDao getOptionDao() {
         return optionDao;
+    }
+
+    public CategoryDao getCategoryDao() {
+        return categoryDao;
     }
 }

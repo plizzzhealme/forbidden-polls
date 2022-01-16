@@ -7,8 +7,11 @@ import javax.servlet.*;
 import javax.servlet.annotation.WebFilter;
 import javax.servlet.http.HttpServletRequest;
 import java.io.IOException;
+import java.util.Collections;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 @WebFilter("/controller")
 public class LocalizationFilter implements Filter {
@@ -21,6 +24,8 @@ public class LocalizationFilter implements Filter {
         commandsToBeSaved.add(CommandProvider.TO_AUTHORIZATION_PAGE_COMMAND);
         commandsToBeSaved.add(CommandProvider.TO_START_PAGE_COMMAND);
         commandsToBeSaved.add(CommandProvider.TO_REGISTRATION_PAGE_COMMAND);
+        commandsToBeSaved.add(CommandProvider.TO_PROFILE_PAGE_COMMAND);
+        commandsToBeSaved.add(CommandProvider.TO_CATEGORIES_PAGE_COMMAND);
     }
 
     @Override
@@ -30,9 +35,19 @@ public class LocalizationFilter implements Filter {
         String command = servletRequest.getParameter(CommandProvider.COMMAND);
 
         if (commandsToBeSaved.contains(command)) {
-            ControllerUtil.saveUrlToSession((HttpServletRequest) servletRequest);
+            saveUrlToSession((HttpServletRequest) servletRequest);
         }
 
         filterChain.doFilter(servletRequest, servletResponse);
+    }
+
+    private void saveUrlToSession(HttpServletRequest request) {
+        List<String> parameters = Collections.list(request.getParameterNames());
+        String url = parameters
+                .stream()
+                .map(p -> p + "=" + request.getParameter(p))
+                .collect(Collectors.joining("&", request.getRequestURL().append("?"), ""));
+
+        request.getSession().setAttribute(ControllerUtil.URL, url);
     }
 }
