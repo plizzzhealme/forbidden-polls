@@ -4,8 +4,6 @@
 <html xml:lang="eu">
 <head>
     <title>Title</title>
-
-
 </head>
 <body>
 <p>

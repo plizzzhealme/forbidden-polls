@@ -1,13 +1,11 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page contentType="text/html;charset=UTF-8" %>
 <%@ include file="../jspf/localization.jspf" %>
-<!DOCTYPE html>
-<html lang="eu" xml:lang="eu">
-
+<!DOCTYPE>
+<html xml:lang="eu">
 <head>
     <title>home</title>
 </head>
-
 <body>
 <p>
     <jsp:include page="../jspf/header.jspf"/>

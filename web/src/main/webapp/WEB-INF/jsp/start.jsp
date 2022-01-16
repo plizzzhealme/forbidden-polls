@@ -2,8 +2,8 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page contentType="text/html; charset=UTF-8" %>
 <%@ include file="../jspf/localization.jspf" %>
-<!DOCTYPE html>
-<html xml:lang="en">
+<!DOCTYPE>
+<html xml:lang="eu">
 <head>
     <title>${project_name}</title>
     <link href="${pageContext.request.contextPath}/css/style.css" rel="stylesheet">
