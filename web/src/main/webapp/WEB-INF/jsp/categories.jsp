@@ -13,7 +13,8 @@
 </head>
 <body>
 <c:forEach var="category" items="${requestScope.categories}">
-    <p><a href="controller?command=to_category_page&category_id=${category.id}"><c:out value="${category.name}"/></a>
+    <p><a href="controller?command=to_category_page&category_id=${category.id}"><c:out value="${category.name}"/><c:out
+            value="${category.id}"/></a>
     </p>
 </c:forEach>
 </body>

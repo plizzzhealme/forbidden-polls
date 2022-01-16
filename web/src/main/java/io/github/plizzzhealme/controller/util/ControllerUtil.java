@@ -23,6 +23,7 @@ public final class ControllerUtil {
     public static final String SURVEY_JSP = "/WEB-INF/jsp/survey.jsp";
     public static final String PROFILE_JSP = "/WEB-INF/jsp/profile.jsp";
     public static final String CATEGORIES_JSP = "/WEB-INF/jsp/categories.jsp";
+    public static final String CATEGORY_JSP = "/WEB-INF/jsp/category.jsp";
 
     // redirects
     public static final String TO_USER_PAGE_REDIRECT = "controller?command=to_user_page";

@@ -1,10 +1,10 @@
 package io.github.plizzzhealme.dao.sql;
 
 import io.github.plizzzhealme.bean.Survey;
+import io.github.plizzzhealme.bean.criteria.Column;
+import io.github.plizzzhealme.bean.criteria.Criteria;
 import io.github.plizzzhealme.dao.DaoFactory;
 import io.github.plizzzhealme.dao.SurveyDao;
-import io.github.plizzzhealme.dao.criteria.Column;
-import io.github.plizzzhealme.dao.criteria.Criteria;
 import io.github.plizzzhealme.dao.exception.DaoException;
 import io.github.plizzzhealme.dao.pool.ConnectionPool;
 import org.junit.jupiter.api.AfterAll;
@@ -40,14 +40,15 @@ class SqlSurveyDaoTest {
     }
 
     @Test
-    void testSearch() throws DaoException {
+    void testCriteriaSearch() throws DaoException {
         SurveyDao surveyDao = DaoFactory.INSTANCE.getSurveyDao();
 
         Criteria criteria = new Criteria();
-        criteria.addParameter(Column.SURVEYS_NAME, "Poll about smoking");
-        List<Integer> expected = List.of(1);
-        List<Integer> actual = surveyDao.search(criteria);
+        String expectedName = "Poll about smoking";
+        criteria.addParameter(Column.SURVEYS_NAME, expectedName);
+        List<Survey> surveys = surveyDao.search(criteria);
+        String actualName = surveys.get(0).getName();
 
-        assertEquals(expected, actual);
+        assertEquals(expectedName, actualName);
     }
 }

@@ -1,8 +1,8 @@
 package io.github.plizzzhealme.dao.util;
 
 import com.lambdaworks.crypto.SCryptUtil;
-import io.github.plizzzhealme.dao.criteria.Column;
-import io.github.plizzzhealme.dao.criteria.Criteria;
+import io.github.plizzzhealme.bean.criteria.Column;
+import io.github.plizzzhealme.bean.criteria.Criteria;
 
 import java.sql.Date;
 import java.sql.PreparedStatement;
@@ -65,7 +65,7 @@ public final class DaoUtil {
         return criteria.getSearchParameters().keySet()
                 .stream()
                 .map(p -> p.getValue() + " = ?")
-                .collect(Collectors.joining(" AND ", "SELECT id FROM " + table + " WHERE ", ""));
+                .collect(Collectors.joining(" AND ", "SELECT * FROM " + table + " WHERE ", ""));
     }
 
     public static void setSearchParameters(Criteria criteria, PreparedStatement preparedStatement) throws SQLException {

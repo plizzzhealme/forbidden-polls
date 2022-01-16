@@ -1,9 +1,9 @@
 package io.github.plizzzhealme.dao.sql;
 
 import io.github.plizzzhealme.bean.Survey;
+import io.github.plizzzhealme.bean.criteria.Criteria;
 import io.github.plizzzhealme.dao.DaoFactory;
 import io.github.plizzzhealme.dao.SurveyDao;
-import io.github.plizzzhealme.dao.criteria.Criteria;
 import io.github.plizzzhealme.dao.exception.DaoException;
 import io.github.plizzzhealme.dao.pool.ConnectionPool;
 import io.github.plizzzhealme.dao.util.DaoUtil;
@@ -68,10 +68,10 @@ public class SqlSurveyDao implements SurveyDao {
     }
 
     @Override
-    public List<Integer> search(Criteria criteria) throws DaoException {
+    public List<Survey> search(Criteria criteria) throws DaoException {
         Connection connection = pool.takeConnection();
 
-        List<Integer> result = new ArrayList<>();
+        List<Survey> result = new ArrayList<>();
         String sql = DaoUtil.buildSearchSql(criteria, FORBIDDEN_POLLS_SURVEYS);
         PreparedStatement preparedStatement = null;
         ResultSet resultSet = null;
@@ -82,7 +82,16 @@ public class SqlSurveyDao implements SurveyDao {
             resultSet = preparedStatement.executeQuery();
 
             while (resultSet.next()) {
-                result.add(resultSet.getInt(SURVEYS_ID));
+                Survey survey = new Survey();
+
+                survey.setId(resultSet.getInt(SURVEYS_ID));
+                survey.setName(resultSet.getString(SURVEYS_NAME));
+                survey.setCreationDate(DaoUtil.toJavaTime(resultSet.getTimestamp(SURVEYS_CREATION_DATE)));
+                survey.setDescription(resultSet.getString(SURVEYS_DESCRIPTION));
+                survey.setInstructions(resultSet.getString(SURVEYS_INSTRUCTIONS));
+                survey.setImageUrl(resultSet.getString(SURVEYS_IMAGE_URL));
+
+                result.add(survey);
             }
         } catch (SQLException e) {
             throw new DaoException("Error while searching survey data in database", e);

@@ -25,6 +25,7 @@ public final class CommandProvider {
     public static final String TO_SURVEY_PAGE_COMMAND = "to_survey_page";
     public static final String TO_PROFILE_PAGE_COMMAND = "to_profile_page";
     public static final String TO_CATEGORIES_PAGE_COMMAND = "to_categories_page";
+    public static final String TO_CATEGORY_PAGE_COMMAND = "to_category_page";
 
     private final Map<String, Command> commands;
 
@@ -43,6 +44,7 @@ public final class CommandProvider {
         commands.put(TO_SURVEY_PAGE_COMMAND, new ToSurveyPageCommand());
         commands.put(TO_PROFILE_PAGE_COMMAND, new ToProfilePageCommand());
         commands.put(TO_CATEGORIES_PAGE_COMMAND, new ToCategoriesPageCommand());
+        commands.put(TO_CATEGORY_PAGE_COMMAND, new ToCategoryPageCommand());
     }
 
     public Command getCommand(String commandName) {

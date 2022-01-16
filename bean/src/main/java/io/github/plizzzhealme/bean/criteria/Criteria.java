@@ -1,4 +1,4 @@
-package io.github.plizzzhealme.dao.criteria;
+package io.github.plizzzhealme.bean.criteria;
 
 import java.util.EnumMap;
 import java.util.Map;
