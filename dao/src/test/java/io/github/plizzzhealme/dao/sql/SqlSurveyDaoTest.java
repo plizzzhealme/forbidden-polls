@@ -1,9 +1,10 @@
 package io.github.plizzzhealme.dao.sql;
 
 import io.github.plizzzhealme.bean.Survey;
-import io.github.plizzzhealme.bean.criteria.Criteria;
 import io.github.plizzzhealme.dao.DaoFactory;
 import io.github.plizzzhealme.dao.SurveyDao;
+import io.github.plizzzhealme.dao.criteria.Column;
+import io.github.plizzzhealme.dao.criteria.Criteria;
 import io.github.plizzzhealme.dao.exception.DaoException;
 import io.github.plizzzhealme.dao.pool.ConnectionPool;
 import org.junit.jupiter.api.AfterAll;
@@ -52,7 +53,7 @@ class SqlSurveyDaoTest {
         SurveyDao surveyDao = DaoFactory.INSTANCE.getSurveyDao();
 
         Criteria criteria = new Criteria();
-        criteria.addParameter("surveys.category_id", "2");
+        criteria.addParameter(Column.SURVEYS_NAME, "Poll about smoking");
         System.out.println(surveyDao.search(criteria));
     }
 }
