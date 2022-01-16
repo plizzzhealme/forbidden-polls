@@ -25,7 +25,7 @@ public class Controller extends HttpServlet {
 
     private static final Logger logger = LogManager.getLogger(Controller.class);
 
-    private final CommandProvider commandProvider = new CommandProvider();
+    private final transient CommandProvider commandProvider = new CommandProvider();
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) {
