@@ -23,6 +23,7 @@ public class AuthorizationFilter implements Filter {
         commandsRequiringAuthorization.add(CommandProvider.TO_SURVEY_PAGE_COMMAND);
         commandsRequiringAuthorization.add(CommandProvider.TO_PROFILE_PAGE_COMMAND);
         commandsRequiringAuthorization.add(CommandProvider.TO_CATEGORIES_PAGE_COMMAND);
+        commandsRequiringAuthorization.add(CommandProvider.TO_CATEGORY_PAGE_COMMAND);
     }
 
     @Override

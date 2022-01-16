@@ -39,6 +39,7 @@ public final class ControllerUtil {
     // not classified
     public static final String URL = "url";
     public static final String LOCALE = "locale";
+    public static final String CATEGORY_ID = "category_id";
 
 
     private ControllerUtil() {

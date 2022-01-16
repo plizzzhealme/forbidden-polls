@@ -26,6 +26,7 @@ public class LocalizationFilter implements Filter {
         commandsToBeSaved.add(CommandProvider.TO_REGISTRATION_PAGE_COMMAND);
         commandsToBeSaved.add(CommandProvider.TO_PROFILE_PAGE_COMMAND);
         commandsToBeSaved.add(CommandProvider.TO_CATEGORIES_PAGE_COMMAND);
+        commandsToBeSaved.add(CommandProvider.TO_CATEGORY_PAGE_COMMAND);
     }
 
     @Override
