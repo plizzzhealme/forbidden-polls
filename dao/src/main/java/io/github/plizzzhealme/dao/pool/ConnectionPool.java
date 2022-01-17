@@ -47,6 +47,7 @@ public enum ConnectionPool {
             connectionQueue = new ArrayBlockingQueue<>(poolSize);
 
             for (int i = 0; i < poolSize; i++) {
+                @SuppressWarnings("all") // to supress warning about not closed connection
                 Connection connection = DriverManager.getConnection(url, user, password);
                 PooledConnection pooledConnection = new PooledConnection(connection);
                 connectionQueue.add(pooledConnection);
