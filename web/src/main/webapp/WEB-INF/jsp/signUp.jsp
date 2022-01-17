@@ -8,7 +8,9 @@
     <title>${registration}</title>
 </head>
 <body>
-<jsp:include page="../jspf/header.jspf"/>
+<p>
+    <%@include file="../jspf/header.jspf" %>
+</p>
 
 <c:set var="error_message" value="${requestScope.error_message}"/>
 

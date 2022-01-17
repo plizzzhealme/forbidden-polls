@@ -1,5 +1,6 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page contentType="text/html;charset=UTF-8" %>
+<%@ include file="../jspf/localization.jspf" %>
 <!DOCTYPE>
 <html xml:lang="eu">
 <head>
@@ -7,7 +8,7 @@
 </head>
 <body>
 <p>
-    <jsp:include page="../jspf/header.jspf"/>
+    <%@include file="../jspf/header.jspf" %>
 </p>
 
 <p><c:out value="surveys from category ${requestScope.category_name}"/></p>
@@ -17,5 +18,7 @@
         <c:out value="${survey.name}"/>
     </a>
 </c:forEach>
+
+<p><a href="controller?command=to_categories_page">${back}</a></p>
 </body>
 </html>

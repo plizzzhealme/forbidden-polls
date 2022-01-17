@@ -9,9 +9,9 @@
 </head>
 <body>
 
-<div>
-    <jsp:include page="../jspf/header.jspf"/>
-</div>
+<p>
+    <%@include file="../jspf/header.jspf" %>
+</p>
 
 <c:set var="error_message" value="${requestScope.error_message}"/>
 

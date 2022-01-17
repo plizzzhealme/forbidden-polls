@@ -11,7 +11,9 @@
 
 </head>
 <body>
-<jsp:include page="../jspf/header.jspf"/>
+<p>
+    <%@include file="../jspf/header.jspf" %>
+</p>
 
 <p>${start_page_message}</p>
 

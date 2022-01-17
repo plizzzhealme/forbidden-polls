@@ -6,6 +6,7 @@ import io.github.plizzzhealme.controller.util.ControllerUtil;
 import javax.servlet.*;
 import javax.servlet.annotation.WebFilter;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.util.Collections;
 import java.util.HashSet;
@@ -43,12 +44,13 @@ public class LocalizationFilter implements Filter {
     }
 
     private void saveUrlToSession(HttpServletRequest request) {
+        HttpSession session = request.getSession();
         List<String> parameters = Collections.list(request.getParameterNames());
         String url = parameters
                 .stream()
                 .map(p -> p + "=" + request.getParameter(p))
                 .collect(Collectors.joining("&", request.getRequestURL().append("?"), ""));
 
-        request.getSession().setAttribute(ControllerUtil.URL, url);
+        session.setAttribute(ControllerUtil.URL, url);
     }
 }

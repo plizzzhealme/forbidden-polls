@@ -8,7 +8,7 @@
 </head>
 <body>
 <p>
-    <jsp:include page="../jspf/header.jspf"/>
+    <%@include file="../jspf/header.jspf" %>
 </p>
 
 <div>
