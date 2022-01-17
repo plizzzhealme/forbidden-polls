@@ -2,7 +2,6 @@ package io.github.plizzzhealme.dao.sql;
 
 import io.github.plizzzhealme.bean.Survey;
 import io.github.plizzzhealme.bean.criteria.Criteria;
-import io.github.plizzzhealme.dao.DaoFactory;
 import io.github.plizzzhealme.dao.SurveyDao;
 import io.github.plizzzhealme.dao.exception.DaoException;
 import io.github.plizzzhealme.dao.pool.ConnectionPool;
@@ -55,8 +54,6 @@ public class SqlSurveyDao implements SurveyDao {
                 survey.setDescription(resultSet.getString(SURVEYS_DESCRIPTION));
                 survey.setImageUrl(resultSet.getString(SURVEYS_IMAGE_URL));
                 survey.setInstructions(resultSet.getString(SURVEYS_INSTRUCTIONS));
-
-                survey.setQuestions(DaoFactory.INSTANCE.getQuestionDao().search(id));
             }
         } catch (SQLException e) {
             throw new DaoException("Error while reading survey by id from database", e);

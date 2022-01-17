@@ -1,7 +1,6 @@
 package io.github.plizzzhealme.dao.sql;
 
 import io.github.plizzzhealme.bean.Question;
-import io.github.plizzzhealme.dao.DaoFactory;
 import io.github.plizzzhealme.dao.QuestionDao;
 import io.github.plizzzhealme.dao.exception.DaoException;
 import io.github.plizzzhealme.dao.pool.ConnectionPool;
@@ -53,8 +52,6 @@ public class SqlQuestionDao implements QuestionDao {
                 question.setImageUrl(resultSet.getString(QUESTIONS_IMAGE_URL));
                 question.setDescription(resultSet.getString(QUESTIONS_DESCRIPTION));
                 question.setOptionType(resultSet.getString(OPTION_TYPES_TYPE));
-
-                question.setOptions(DaoFactory.INSTANCE.getOptionDao().search(questionId));
 
                 questions.add(question);
 
