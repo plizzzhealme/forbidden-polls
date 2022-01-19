@@ -1,8 +1,8 @@
 package io.github.plizzzhealme.dao.util;
 
 import com.lambdaworks.crypto.SCryptUtil;
-import io.github.plizzzhealme.bean.criteria.Column;
-import io.github.plizzzhealme.bean.criteria.Criteria;
+import io.github.plizzzhealme.bean.criteria.Parameter;
+import io.github.plizzzhealme.bean.criteria.SearchCriteria;
 
 import java.sql.Date;
 import java.sql.PreparedStatement;
@@ -61,18 +61,20 @@ public final class DaoUtil {
         return false;
     }
 
-    public static String buildSearchSql(Criteria criteria, String table) {
-        return criteria.getSearchParameters().keySet()
+    public static String buildSearchSql(SearchCriteria searchCriteria, String table) {
+        return searchCriteria.getSearchParameters().keySet()
                 .stream()
-                .map(p -> p.getValue() + " = ?")
+                .map(parameter -> SqlParameter.getSqlParameter(parameter) + " = ?")
                 .collect(Collectors.joining(" AND ", "SELECT * FROM " + table + " WHERE ", ""));
     }
 
-    public static void setSearchParameters(Criteria criteria, PreparedStatement preparedStatement) throws SQLException {
+    public static void setSearchParameters(SearchCriteria searchCriteria, PreparedStatement preparedStatement)
+            throws SQLException {
+
         int i = 1;
 
-        for (Column column : criteria.getSearchParameters().keySet()) {
-            preparedStatement.setString(i, criteria.getSearchParameters().get(column));
+        for (Parameter parameter : searchCriteria.getSearchParameters().keySet()) {
+            preparedStatement.setObject(i, searchCriteria.getSearchParameters().get(parameter));
             i++;
         }
     }

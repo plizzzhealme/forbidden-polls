@@ -14,7 +14,7 @@
 <p><c:out value="surveys from category ${requestScope.category_name}"/></p>
 
 <c:forEach var="survey" items="${requestScope.surveys}">
-    <a href="controller?command=to_survey_page&survey_id=${survey.id}">
+    <a href="controller?command=to_survey_start_page&survey_id=${survey.id}">
         <c:out value="${survey.name}"/>
     </a>
 </c:forEach>

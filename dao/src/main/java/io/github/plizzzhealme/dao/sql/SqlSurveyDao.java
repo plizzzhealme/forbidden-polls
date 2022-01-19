@@ -1,11 +1,12 @@
 package io.github.plizzzhealme.dao.sql;
 
 import io.github.plizzzhealme.bean.Survey;
-import io.github.plizzzhealme.bean.criteria.Criteria;
+import io.github.plizzzhealme.bean.criteria.SearchCriteria;
 import io.github.plizzzhealme.dao.SurveyDao;
 import io.github.plizzzhealme.dao.exception.DaoException;
 import io.github.plizzzhealme.dao.pool.ConnectionPool;
 import io.github.plizzzhealme.dao.util.DaoUtil;
+import io.github.plizzzhealme.dao.util.SqlParameter;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -16,12 +17,7 @@ import java.util.List;
 
 public class SqlSurveyDao implements SurveyDao {
 
-    public static final String SURVEYS_ID = "surveys.id";
-    public static final String SURVEYS_NAME = "surveys.name";
-    public static final String SURVEYS_IMAGE_URL = "surveys.image_url";
-    public static final String SURVEYS_INSTRUCTIONS = "surveys.instructions";
-    public static final String SURVEYS_CREATION_DATE = "surveys.creation_date";
-    public static final String SURVEYS_DESCRIPTION = "surveys.description";
+
     public static final String CATEGORIES_NAME = "categories.name";
     public static final String FORBIDDEN_POLLS_SURVEYS = "forbidden_polls.surveys";
     private static final ConnectionPool pool = ConnectionPool.INSTANCE;
@@ -33,7 +29,7 @@ public class SqlSurveyDao implements SurveyDao {
             "WHERE surveys.id = ?";
 
     @Override
-    public Survey read(int id) throws DaoException {
+    public Survey find(int id) throws DaoException {
         Connection connection = pool.takeConnection();
 
         PreparedStatement preparedStatement = null;
@@ -48,12 +44,12 @@ public class SqlSurveyDao implements SurveyDao {
             if (resultSet.next()) {
                 survey = new Survey();
                 survey.setId(id);
-                survey.setCreationDate(DaoUtil.toJavaTime(resultSet.getTimestamp(SURVEYS_CREATION_DATE)));
-                survey.setName(resultSet.getString(SURVEYS_NAME));
+                survey.setCreationDate(DaoUtil.toJavaTime(resultSet.getTimestamp(SqlParameter.SURVEYS_CREATION_DATE)));
+                survey.setName(resultSet.getString(SqlParameter.SURVEYS_NAME));
                 survey.setCategory(resultSet.getString(CATEGORIES_NAME));
-                survey.setDescription(resultSet.getString(SURVEYS_DESCRIPTION));
-                survey.setImageUrl(resultSet.getString(SURVEYS_IMAGE_URL));
-                survey.setInstructions(resultSet.getString(SURVEYS_INSTRUCTIONS));
+                survey.setDescription(resultSet.getString(SqlParameter.SURVEYS_DESCRIPTION));
+                survey.setImageUrl(resultSet.getString(SqlParameter.SURVEYS_IMAGE_URL));
+                survey.setInstructions(resultSet.getString(SqlParameter.SURVEYS_INSTRUCTIONS));
             }
         } catch (SQLException e) {
             throw new DaoException("Error while reading survey by id from database", e);
@@ -65,28 +61,28 @@ public class SqlSurveyDao implements SurveyDao {
     }
 
     @Override
-    public List<Survey> search(Criteria criteria) throws DaoException {
+    public List<Survey> search(SearchCriteria searchCriteria) throws DaoException {
         Connection connection = pool.takeConnection();
 
         List<Survey> result = new ArrayList<>();
-        String sql = DaoUtil.buildSearchSql(criteria, FORBIDDEN_POLLS_SURVEYS);
+        String sql = DaoUtil.buildSearchSql(searchCriteria, FORBIDDEN_POLLS_SURVEYS);
         PreparedStatement preparedStatement = null;
         ResultSet resultSet = null;
 
         try {
             preparedStatement = connection.prepareStatement(sql);
-            DaoUtil.setSearchParameters(criteria, preparedStatement);
+            DaoUtil.setSearchParameters(searchCriteria, preparedStatement);
             resultSet = preparedStatement.executeQuery();
 
             while (resultSet.next()) {
                 Survey survey = new Survey();
 
-                survey.setId(resultSet.getInt(SURVEYS_ID));
-                survey.setName(resultSet.getString(SURVEYS_NAME));
-                survey.setCreationDate(DaoUtil.toJavaTime(resultSet.getTimestamp(SURVEYS_CREATION_DATE)));
-                survey.setDescription(resultSet.getString(SURVEYS_DESCRIPTION));
-                survey.setInstructions(resultSet.getString(SURVEYS_INSTRUCTIONS));
-                survey.setImageUrl(resultSet.getString(SURVEYS_IMAGE_URL));
+                survey.setId(resultSet.getInt(SqlParameter.SURVEYS_ID));
+                survey.setName(resultSet.getString(SqlParameter.SURVEYS_NAME));
+                survey.setCreationDate(DaoUtil.toJavaTime(resultSet.getTimestamp(SqlParameter.SURVEYS_CREATION_DATE)));
+                survey.setDescription(resultSet.getString(SqlParameter.SURVEYS_DESCRIPTION));
+                survey.setInstructions(resultSet.getString(SqlParameter.SURVEYS_INSTRUCTIONS));
+                survey.setImageUrl(resultSet.getString(SqlParameter.SURVEYS_IMAGE_URL));
 
                 result.add(survey);
             }

@@ -1,7 +1,6 @@
 package io.github.plizzzhealme.dao;
 
 import io.github.plizzzhealme.dao.sql.*;
-import io.github.plizzzhealme.dao.util.ConnectionDao;
 
 public enum DaoFactory {
 

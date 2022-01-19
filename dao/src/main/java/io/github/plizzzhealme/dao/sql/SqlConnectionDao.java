@@ -1,8 +1,8 @@
 package io.github.plizzzhealme.dao.sql;
 
+import io.github.plizzzhealme.dao.ConnectionDao;
 import io.github.plizzzhealme.dao.exception.DaoException;
 import io.github.plizzzhealme.dao.pool.ConnectionPool;
-import io.github.plizzzhealme.dao.util.ConnectionDao;
 
 public class SqlConnectionDao implements ConnectionDao {
 

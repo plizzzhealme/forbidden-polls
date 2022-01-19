@@ -1,4 +1,4 @@
-package io.github.plizzzhealme.dao.util;
+package io.github.plizzzhealme.dao;
 
 import io.github.plizzzhealme.dao.exception.DaoException;
 

@@ -1,8 +1,8 @@
 package io.github.plizzzhealme.dao.sql;
 
 import io.github.plizzzhealme.bean.Survey;
-import io.github.plizzzhealme.bean.criteria.Column;
-import io.github.plizzzhealme.bean.criteria.Criteria;
+import io.github.plizzzhealme.bean.criteria.Parameter;
+import io.github.plizzzhealme.bean.criteria.SearchCriteria;
 import io.github.plizzzhealme.dao.DaoFactory;
 import io.github.plizzzhealme.dao.SurveyDao;
 import io.github.plizzzhealme.dao.exception.DaoException;
@@ -31,7 +31,7 @@ class SqlSurveyDaoTest {
     void read() throws DaoException {
         SurveyDao surveyDao = DaoFactory.INSTANCE.getSurveyDao();
 
-        Survey survey = surveyDao.read(1);
+        Survey survey = surveyDao.find(1);
 
         String expected = "Poll about smoking";
         String actual = survey.getName();
@@ -43,10 +43,10 @@ class SqlSurveyDaoTest {
     void testCriteriaSearch() throws DaoException {
         SurveyDao surveyDao = DaoFactory.INSTANCE.getSurveyDao();
 
-        Criteria criteria = new Criteria();
+        SearchCriteria searchCriteria = new SearchCriteria();
         String expectedName = "Poll about smoking";
-        criteria.addParameter(Column.SURVEYS_NAME, expectedName);
-        List<Survey> surveys = surveyDao.search(criteria);
+        searchCriteria.addParameter(Parameter.SURVEY_NAME, expectedName);
+        List<Survey> surveys = surveyDao.search(searchCriteria);
         String actualName = surveys.get(0).getName();
 
         assertEquals(expectedName, actualName);

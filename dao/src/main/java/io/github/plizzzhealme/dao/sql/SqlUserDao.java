@@ -1,43 +1,39 @@
 package io.github.plizzzhealme.dao.sql;
 
 import io.github.plizzzhealme.bean.User;
+import io.github.plizzzhealme.bean.criteria.SearchCriteria;
 import io.github.plizzzhealme.dao.UserDao;
 import io.github.plizzzhealme.dao.exception.DaoException;
 import io.github.plizzzhealme.dao.pool.ConnectionPool;
 import io.github.plizzzhealme.dao.util.DaoUtil;
+import io.github.plizzzhealme.dao.util.SqlParameter;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 
 public class SqlUserDao implements UserDao {
 
-    private static final String USER_ID = "U.id";
-    private static final String USER_EMAIL = "U.email";
-    private static final String USER_NAME = "U.name";
-    private static final String USER_BIRTHDAY = "U.birthday";
-    private static final String USER_REGISTRATION_DATE = "U.registration_date";
-    private static final String ROLE_NAME = "R.name";
-    private static final String COUNTRY_NAME = "C.name";
-    private static final String GENDER_NAME = "G.name";
-    private static final String USER_PASSWORD_HASH = "U.hashed_password";
+    private static final String ROLE_NAME = "user_roles.name";
+    private static final String COUNTRY_NAME = "countries.name";
+    private static final String GENDER_NAME = "genders.name";
 
-    public static final String CHECK_IF_USER_EXISTS = "" +
+    private static final String CHECK_IF_USER_EXISTS = "" +
             "SELECT EXISTS(SELECT id FROM forbidden_polls.users WHERE email = ?)";
-
-    public static final String SELECT_USER_BY_EMAIL_SQL = "" +
-            "SELECT U.id, U.hashed_password FROM forbidden_polls.users AS U WHERE  U.email = ?";
-
-    public static final String SELECT_USER_BY_ID_SQL = "" +
-            "SELECT U.name, U.email, U.registration_date, U.birthday, R.name, C.name, G.name " +
-            "FROM forbidden_polls.users AS U " +
-            "JOIN forbidden_polls.user_roles AS R ON U.user_role_id = R.id " +
-            "JOIN forbidden_polls.countries AS C ON U.country_id = C.id " +
-            "JOIN forbidden_polls.genders AS G ON U.gender_id = G.id " +
-            "WHERE  U.id = ?";
-
-    public static final String CREATE_NEW_USER_SQL = "" +
+    private static final String SELECT_USER_BY_EMAIL_SQL = "" +
+            "SELECT users.id, users.hashed_password FROM forbidden_polls.users WHERE  users.email = ?";
+    private static final String SELECT_USER_BY_ID_SQL = "" +
+            "SELECT users.name, users.email, users.registration_date, users.birthday, " +
+            "user_roles.name, countries.name, genders.name " +
+            "FROM forbidden_polls.users " +
+            "JOIN forbidden_polls.user_roles ON users.user_role_id = user_roles.id " +
+            "JOIN forbidden_polls.countries ON users.country_id = countries.id " +
+            "JOIN forbidden_polls.genders ON users.gender_id = genders.id " +
+            "WHERE  users.id = ?";
+    private static final String CREATE_NEW_USER_SQL = "" +
             "INSERT INTO forbidden_polls.users " +
             "(name, email, hashed_password, registration_date, birthday, user_role_id, country_id, gender_id) " +
             "VALUES (?, ?, ?, ?, ?, " +
@@ -46,6 +42,7 @@ public class SqlUserDao implements UserDao {
             "(SELECT id FROM forbidden_polls.genders WHERE name=?))";
 
     private static final ConnectionPool pool = ConnectionPool.INSTANCE;
+
 
     @Override
     public boolean create(User user, String password) throws DaoException {
@@ -58,6 +55,7 @@ public class SqlUserDao implements UserDao {
 
         try {
             preparedStatement = connection.prepareStatement(CREATE_NEW_USER_SQL);
+
             preparedStatement.setString(1, user.getName());
             preparedStatement.setString(2, user.getEmail());
             preparedStatement.setString(3, DaoUtil.hashPassword(password));
@@ -76,7 +74,7 @@ public class SqlUserDao implements UserDao {
     }
 
     @Override
-    public User read(int id) throws DaoException {
+    public User find(int id) throws DaoException {
         Connection connection = pool.takeConnection();
 
         PreparedStatement preparedStatement = null;
@@ -92,13 +90,14 @@ public class SqlUserDao implements UserDao {
                 user = new User();
 
                 user.setId(id);
-                user.setName(resultSet.getString(USER_NAME));
-                user.setEmail(resultSet.getString(USER_EMAIL));
-                user.setRegistrationDate(DaoUtil.toJavaTime(resultSet.getTimestamp(USER_REGISTRATION_DATE)));
+                user.setName(resultSet.getString(SqlParameter.USERS_NAME));
+                user.setEmail(resultSet.getString(SqlParameter.USERS_EMAIL));
+                user.setRegistrationDate(DaoUtil.toJavaTime(resultSet.getTimestamp(SqlParameter.USERS_REGISTRATION_DATE)));
+                user.setBirthday(DaoUtil.toJavaTime(resultSet.getDate(SqlParameter.USERS_BIRTHDAY)));
                 user.setUserRole(resultSet.getString(ROLE_NAME));
                 user.setCountry(resultSet.getString(COUNTRY_NAME));
                 user.setGender(resultSet.getString(GENDER_NAME));
-                user.setBirthday(DaoUtil.toJavaTime(resultSet.getDate(USER_BIRTHDAY)));
+
             }
         } catch (SQLException e) {
             throw new DaoException("Error while reading user data from database", e);
@@ -125,12 +124,13 @@ public class SqlUserDao implements UserDao {
             resultSet = preparedStatement.executeQuery();
 
             if (resultSet.next()) {
-                boolean isCorrectPassword = DaoUtil.isCorrectPassword(password, resultSet.getString(USER_PASSWORD_HASH));
+                String hashedPassword = resultSet.getString(SqlParameter.USERS_HASHED_PASSWORD);
+                boolean isCorrectPassword = DaoUtil.isCorrectPassword(password, hashedPassword);
 
                 if (!isCorrectPassword) {
                     return 0;
                 } else {
-                    return resultSet.getInt(USER_ID);
+                    return resultSet.getInt(SqlParameter.USERS_ID);
                 }
 
             } else {
@@ -141,6 +141,45 @@ public class SqlUserDao implements UserDao {
         } finally {
             pool.closeConnection(connection, preparedStatement, resultSet);
         }
+    }
+
+    public List<User> search(SearchCriteria searchCriteria) throws DaoException {
+        Connection connection = pool.takeConnection();
+
+        List<User> result = new ArrayList<>();
+
+        String sql = DaoUtil.buildSearchSql(searchCriteria, SqlParameter.USERS);
+
+        PreparedStatement preparedStatement = null;
+        ResultSet resultSet = null;
+
+        try {
+            preparedStatement = connection.prepareStatement(sql);
+
+            DaoUtil.setSearchParameters(searchCriteria, preparedStatement);
+
+            resultSet = preparedStatement.executeQuery();
+
+            while (resultSet.next()) {
+                User user = new User();
+
+                user.setId(resultSet.getInt(SqlParameter.USERS_ID));
+                user.setName(resultSet.getString(SqlParameter.USERS_NAME));
+                user.setEmail(resultSet.getString(SqlParameter.USERS_EMAIL));
+                user.setRegistrationDate(DaoUtil.toJavaTime(resultSet.getTimestamp(SqlParameter.USERS_REGISTRATION_DATE)));
+                user.setBirthday(DaoUtil.toJavaTime(resultSet.getDate(SqlParameter.USERS_BIRTHDAY)));
+
+                result.add(user);
+            }
+
+
+        } catch (SQLException e) {
+            throw new DaoException("Error while searching survey data in database", e);
+        } finally {
+            pool.closeConnection(connection, preparedStatement, resultSet);
+        }
+
+        return result;
     }
 
     @Override

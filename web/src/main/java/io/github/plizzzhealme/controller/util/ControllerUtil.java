@@ -20,7 +20,7 @@ public final class ControllerUtil {
     public static final String USER_JSP = "/WEB-INF/jsp/user.jsp";
     public static final String PAGE_NOT_FOUND_JSP = "error/pageNotFound.jsp";
     public static final String SERVER_ERROR_JSP = "error/serverError.jsp";
-    public static final String SURVEY_JSP = "/WEB-INF/jsp/survey.jsp";
+    public static final String SURVEY_JSP = "/WEB-INF/jsp/surveyStart.jsp";
     public static final String PROFILE_JSP = "/WEB-INF/jsp/profile.jsp";
     public static final String CATEGORIES_JSP = "/WEB-INF/jsp/categories.jsp";
     public static final String CATEGORY_JSP = "/WEB-INF/jsp/category.jsp";

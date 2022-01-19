@@ -4,7 +4,6 @@ import io.github.plizzzhealme.controller.command.CommandProvider;
 import io.github.plizzzhealme.controller.util.ControllerUtil;
 
 import javax.servlet.*;
-import javax.servlet.annotation.WebFilter;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
@@ -14,7 +13,6 @@ import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
 
-@WebFilter("/controller")
 public class LocalizationFilter implements Filter {
 
     private final Set<String> commandsToBeSaved = new HashSet<>();

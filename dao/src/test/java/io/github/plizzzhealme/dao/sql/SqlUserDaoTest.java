@@ -1,6 +1,8 @@
 package io.github.plizzzhealme.dao.sql;
 
 import io.github.plizzzhealme.bean.User;
+import io.github.plizzzhealme.bean.criteria.Parameter;
+import io.github.plizzzhealme.bean.criteria.SearchCriteria;
 import io.github.plizzzhealme.dao.DaoFactory;
 import io.github.plizzzhealme.dao.UserDao;
 import io.github.plizzzhealme.dao.exception.DaoException;
@@ -8,6 +10,9 @@ import io.github.plizzzhealme.dao.pool.ConnectionPool;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
+
+import java.time.LocalDate;
+import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
@@ -30,7 +35,7 @@ class SqlUserDaoTest {
 
         int existingID = 1;
         String expected = "plizzz.healme@gmail.com";
-        String actual = userDao.read(existingID).getEmail();
+        String actual = userDao.find(existingID).getEmail();
 
         assertEquals(expected, actual);
     }
@@ -51,4 +56,19 @@ class SqlUserDaoTest {
 
         assertTrue(isCreated);
     }
+
+
+    @Test
+    void testSearch() throws DaoException {
+
+        UserDao userDao = DaoFactory.INSTANCE.getUserDao();
+        LocalDate date = LocalDate.of(1989, 9, 5);
+
+        SearchCriteria criteria = new SearchCriteria();
+        criteria.addParameter(Parameter.USER_BIRTHDAY, date);
+        List<User> users = userDao.search(criteria);
+
+        assertEquals(date, users.get(0).getBirthday());
+    }
+
 }

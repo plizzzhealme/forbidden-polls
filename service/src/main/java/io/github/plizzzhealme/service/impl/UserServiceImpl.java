@@ -33,7 +33,7 @@ public class UserServiceImpl implements UserService {
     @Override
     public User read(int id) throws ServiceException {
         try {
-            return DaoFactory.INSTANCE.getUserDao().read(id);
+            return DaoFactory.INSTANCE.getUserDao().find(id);
         } catch (DaoException e) {
             throw new ServiceException("Error getting user info", e);
         }

@@ -12,14 +12,14 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
-public class ToSurveyPageCommand implements Command {
+public class ToSurveyStartPageCommand implements Command {
 
     @Override
     public void execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException, ServiceException {
         int id = Integer.parseInt(request.getParameter("survey_id"));
 
         Survey survey = ServiceFactory.INSTANCE.getSurveyService().takeSurvey(id);
-        request.setAttribute("survey_name", survey.getName());
+        request.setAttribute("survey", survey);
 
         RequestDispatcher dispatcher = request.getRequestDispatcher(ControllerUtil.SURVEY_JSP);
         dispatcher.forward(request, response);

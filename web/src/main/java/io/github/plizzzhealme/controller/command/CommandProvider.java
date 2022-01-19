@@ -22,7 +22,7 @@ public final class CommandProvider {
     public static final String TO_SIGN_UP_PAGE_COMMAND = "to_sign_up_page";
     public static final String TO_START_PAGE_COMMAND = "to_start_page";
     public static final String TO_USER_PAGE_COMMAND = "to_user_page";
-    public static final String TO_SURVEY_PAGE_COMMAND = "to_survey_page";
+    public static final String TO_SURVEY_START_PAGE_COMMAND = "to_survey_start_page";
     public static final String TO_PROFILE_PAGE_COMMAND = "to_profile_page";
     public static final String TO_CATEGORIES_PAGE_COMMAND = "to_categories_page";
     public static final String TO_CATEGORY_PAGE_COMMAND = "to_category_page";
@@ -41,7 +41,7 @@ public final class CommandProvider {
         commands.put(SIGN_UP_COMMAND, new RegistrationCommand());
         commands.put(CHANGE_LOCALE_COMMAND, new ChangeLocaleCommand());
         commands.put(SIGN_OUT_COMMAND, new SignOutCommand());
-        commands.put(TO_SURVEY_PAGE_COMMAND, new ToSurveyPageCommand());
+        commands.put(TO_SURVEY_START_PAGE_COMMAND, new ToSurveyStartPageCommand());
         commands.put(TO_PROFILE_PAGE_COMMAND, new ToProfilePageCommand());
         commands.put(TO_CATEGORIES_PAGE_COMMAND, new ToCategoriesPageCommand());
         commands.put(TO_CATEGORY_PAGE_COMMAND, new ToCategoryPageCommand());

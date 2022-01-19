@@ -1,10 +1,8 @@
 package io.github.plizzzhealme.controller.filter;
 
 import javax.servlet.*;
-import javax.servlet.annotation.WebFilter;
 import java.io.IOException;
 
-@WebFilter("/controller")
 public class CharsetFilter implements Filter {
 
     public static final String UTF_8 = "utf-8";

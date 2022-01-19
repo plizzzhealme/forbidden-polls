@@ -1,8 +1,8 @@
 package io.github.plizzzhealme.controller.command.navigation;
 
 import io.github.plizzzhealme.bean.Survey;
-import io.github.plizzzhealme.bean.criteria.Column;
-import io.github.plizzzhealme.bean.criteria.Criteria;
+import io.github.plizzzhealme.bean.criteria.Parameter;
+import io.github.plizzzhealme.bean.criteria.SearchCriteria;
 import io.github.plizzzhealme.controller.command.Command;
 import io.github.plizzzhealme.controller.util.ControllerUtil;
 import io.github.plizzzhealme.service.ServiceFactory;
@@ -22,8 +22,8 @@ public class ToCategoryPageCommand implements Command {
         String id = request.getParameter(ControllerUtil.CATEGORY_ID);
         String categoryName = request.getParameter("category_name");
 
-        Criteria criteria = new Criteria();
-        criteria.addParameter(Column.SURVEYS_CATEGORY_ID, id);
+        SearchCriteria criteria = new SearchCriteria();
+        criteria.addParameter(Parameter.SURVEY_CATEGORY_ID, id);
 
         List<Survey> surveys = ServiceFactory.INSTANCE.getSurveyService().search(criteria);
         request.setAttribute("surveys", surveys);

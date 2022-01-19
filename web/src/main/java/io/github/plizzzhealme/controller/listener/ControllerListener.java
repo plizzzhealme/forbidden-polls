@@ -8,9 +8,7 @@ import org.apache.logging.log4j.Logger;
 
 import javax.servlet.ServletContextEvent;
 import javax.servlet.ServletContextListener;
-import javax.servlet.annotation.WebListener;
 
-@WebListener("/controller")
 public class ControllerListener implements ServletContextListener {
 
     private static final Logger logger = LogManager.getLogger(ControllerListener.class);
