@@ -26,6 +26,7 @@ public final class Util {
     public static final String PROFILE_JSP = "/WEB-INF/jsp/profile.jsp";
     public static final String CATEGORIES_JSP = "/WEB-INF/jsp/categories.jsp";
     public static final String CATEGORY_JSP = "/WEB-INF/jsp/category.jsp";
+    public static final String SURVEY_PASSED_JSP = "/WEB-INF/jsp/surveyPassed.jsp";
 
     // redirects
     public static final String TO_USER_PAGE_REDIRECT = "controller?command=to_user_page";
@@ -64,10 +65,14 @@ public final class Util {
     public static final String TO_PROFILE_PAGE_COMMAND = "to_profile_page";
     public static final String TO_CATEGORIES_PAGE_COMMAND = "to_categories_page";
     public static final String TO_CATEGORY_PAGE_COMMAND = "to_category_page";
+    public static final String TO_SURVEY_PASSED_PAGE = "to_survey_passed_page";
+
     public static final String SURVEY = "survey";
     public static final String CATEGORY_LIST = "category_list";
     public static final String SURVEY_LIST = "survey_list";
     public static final String QUESTION_INDEX = "question_index";
+    public static final String OPTION = "option";
+
 
     private Util() {
     }

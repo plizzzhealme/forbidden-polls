@@ -28,6 +28,8 @@ public final class CommandProvider {
         commands.put(Util.TO_CATEGORIES_PAGE_COMMAND, new ToCategoriesPageCommand());
         commands.put(Util.TO_CATEGORY_PAGE_COMMAND, new ToCategoryPageCommand());
         commands.put(Util.START_SURVEY_COMMAND, new StartSurveyCommand());
+        commands.put(Util.ANSWER_COMMAND, new AnswerCommand());
+        commands.put(Util.TO_SURVEY_PASSED_PAGE, new ToSurveyPassedPageCommand());
     }
 
     public Command getCommand(String commandName) {
