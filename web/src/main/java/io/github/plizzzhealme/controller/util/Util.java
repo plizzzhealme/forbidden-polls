@@ -53,6 +53,8 @@ public final class Util {
     public static final String UNKNOWN_COMMAND = "unknown";
     public static final String SIGN_OUT_COMMAND = "sign_out";
     public static final String START_SURVEY_COMMAND = "start_survey";
+    public static final String ANSWER_COMMAND = "answer";
+
     // navigation
     public static final String TO_SIGN_IN_PAGE_COMMAND = "to_sign_in_page";
     public static final String TO_SIGN_UP_PAGE_COMMAND = "to_sign_up_page";

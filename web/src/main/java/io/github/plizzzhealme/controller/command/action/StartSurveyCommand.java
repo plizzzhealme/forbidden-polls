@@ -9,7 +9,6 @@ import io.github.plizzzhealme.service.exception.ServiceException;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -39,12 +38,10 @@ public class StartSurveyCommand implements Command {
             SurveyService surveyService = ServiceFactory.INSTANCE.getSurveyService();
             Survey survey = surveyService.takeSurvey(surveyId);
             HttpSession session = request.getSession();
-            System.out.println(survey);
             session.setAttribute(Util.SURVEY, survey);
             session.setAttribute(Util.QUESTION_INDEX, 0);
 
-            RequestDispatcher dispatcher = request.getRequestDispatcher(Util.SURVEY_JSP);
-            dispatcher.forward(request, response);
+            response.sendRedirect("controller?command=to_survey_page");
         }
     }
 }

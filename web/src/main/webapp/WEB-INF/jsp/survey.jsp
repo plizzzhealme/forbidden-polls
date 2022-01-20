@@ -10,39 +10,43 @@
 <p>
     <%@include file="../jspf/header.jspf" %>
 </p>
-<p>${requestScope.survey.name}</p>
 
-<p>${requestScope.survey.description}</p>
+<%-- before survey start --%>
+<c:if test="${sessionScope.survey == null}">
+    <p>${requestScope.survey.name}</p>
+    <p>${requestScope.survey.description}</p>
 
-<c:choose>
-    <c:when test="${sessionScope.survey != null}">
-        <c:set var="button_text" value="next"/>
-        <c:set var="button_command" value="next_question"/>
-    </c:when>
-    <c:otherwise>
-        <c:set var="button_text" value="start"/>
-        <c:set var="button_command" value="${Util.START_SURVEY_COMMAND}"/>
-    </c:otherwise>
-</c:choose>
+    <c:set var="submit_button_text" value="${start_survey}"/>
+    <c:set var="submit_button_command" value="${Util.START_SURVEY_COMMAND}"/>
+</c:if>
 
+
+<%-- after survey was started --%>
 <c:if test="${sessionScope.survey != null}">
     <c:set var="i" value="${sessionScope.question_index}"/>
-
-    <c:set var="question" value="${sessionScope.survey.questions[sessionScope.question_index]}"/>
-
-    <c:out value="${question.body}"/>
-
+    <c:set var="question" value="${sessionScope.survey.questions[i]}"/>
     <c:set var="options" value="${question.options}"/>
 
+    <c:set var="submit_button_text" value="${answer}"/>
+    <c:set var="submit_button_command" value="${Util.ANSWER_COMMAND}"/>
+</c:if>
+
+<%-- print question --%>
+<p><c:out value="${question.body}"/></p>
+
+<form action="${Util.CONTROLLER}" method="post">
+
+    <%-- print options --%>
     <c:forEach var="option" items="${options}">
-        <p>${option.body}</p>
+        <p><label>
+            <input type="radio" name="option" value="${option.id}"> ${option.body}
+        </label></p>
     </c:forEach>
 
-</c:if>
-<form action="${Util.CONTROLLER}" method="post">
-    <input type="hidden" name="${Util.COMMAND}" value="${button_command}">
+
+    <input type="hidden" name="${Util.COMMAND}" value="${submit_button_command}">
     <input type="hidden" name="${Util.SURVEY_ID}" value="${requestScope.survey.id}">
-    <input type="submit" value="${button_text}">
+    <input type="submit" value="${submit_button_text}">
 </form>
 
 
