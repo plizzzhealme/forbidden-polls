@@ -22,7 +22,7 @@ public final class Util {
     public static final String USER_JSP = "/WEB-INF/jsp/user.jsp";
     public static final String PAGE_NOT_FOUND_JSP = "error/pageNotFound.jsp";
     public static final String SERVER_ERROR_JSP = "error/serverError.jsp";
-    public static final String SURVEY_JSP = "/WEB-INF/jsp/surveyStart.jsp";
+    public static final String SURVEY_JSP = "/WEB-INF/jsp/survey.jsp";
     public static final String PROFILE_JSP = "/WEB-INF/jsp/profile.jsp";
     public static final String CATEGORIES_JSP = "/WEB-INF/jsp/categories.jsp";
     public static final String CATEGORY_JSP = "/WEB-INF/jsp/category.jsp";
@@ -52,18 +52,20 @@ public final class Util {
     public static final String CHANGE_LOCALE_COMMAND = "change_locale";
     public static final String UNKNOWN_COMMAND = "unknown";
     public static final String SIGN_OUT_COMMAND = "sign_out";
+    public static final String START_SURVEY_COMMAND = "start_survey";
     // navigation
     public static final String TO_SIGN_IN_PAGE_COMMAND = "to_sign_in_page";
     public static final String TO_SIGN_UP_PAGE_COMMAND = "to_sign_up_page";
     public static final String TO_START_PAGE_COMMAND = "to_start_page";
     public static final String TO_USER_PAGE_COMMAND = "to_user_page";
-    public static final String TO_SURVEY_START_PAGE_COMMAND = "to_survey_start_page";
+    public static final String TO_SURVEY_PAGE_COMMAND = "to_survey_page";
     public static final String TO_PROFILE_PAGE_COMMAND = "to_profile_page";
     public static final String TO_CATEGORIES_PAGE_COMMAND = "to_categories_page";
     public static final String TO_CATEGORY_PAGE_COMMAND = "to_category_page";
     public static final String SURVEY = "survey";
     public static final String CATEGORY_LIST = "category_list";
     public static final String SURVEY_LIST = "survey_list";
+    public static final String QUESTION_INDEX = "question_index";
 
     private Util() {
     }

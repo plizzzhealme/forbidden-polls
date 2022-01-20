@@ -10,16 +10,24 @@ import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import java.io.IOException;
 
-public class ToSurveyStartPageCommand implements Command {
+public class ToSurveyPageCommand implements Command {
 
     @Override
     public void execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException, ServiceException {
-        int id = Integer.parseInt(request.getParameter(Util.SURVEY_ID));
+        HttpSession session = request.getSession();
+        Survey survey = (Survey) session.getAttribute(Util.SURVEY);
 
-        Survey survey = ServiceFactory.INSTANCE.getSurveyService().takeSurvey(id);
-        request.setAttribute(Util.SURVEY, survey);
+        if (survey == null) {
+            int surveyId = Integer.parseInt(request.getParameter(Util.SURVEY_ID));
+            survey = ServiceFactory.INSTANCE.getSurveyService().takeSurvey(surveyId);
+            request.setAttribute(Util.SURVEY, survey);
+        } else {
+            request.setAttribute(Util.SURVEY, survey);
+        }
+
 
         RequestDispatcher dispatcher = request.getRequestDispatcher(Util.SURVEY_JSP);
         dispatcher.forward(request, response);

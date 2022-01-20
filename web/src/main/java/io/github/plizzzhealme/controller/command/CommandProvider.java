@@ -23,10 +23,11 @@ public final class CommandProvider {
         commands.put(Util.SIGN_UP_COMMAND, new RegistrationCommand());
         commands.put(Util.CHANGE_LOCALE_COMMAND, new ChangeLocaleCommand());
         commands.put(Util.SIGN_OUT_COMMAND, new SignOutCommand());
-        commands.put(Util.TO_SURVEY_START_PAGE_COMMAND, new ToSurveyStartPageCommand());
+        commands.put(Util.TO_SURVEY_PAGE_COMMAND, new ToSurveyPageCommand());
         commands.put(Util.TO_PROFILE_PAGE_COMMAND, new ToProfilePageCommand());
         commands.put(Util.TO_CATEGORIES_PAGE_COMMAND, new ToCategoriesPageCommand());
         commands.put(Util.TO_CATEGORY_PAGE_COMMAND, new ToCategoryPageCommand());
+        commands.put(Util.START_SURVEY_COMMAND, new StartSurveyCommand());
     }
 
     public Command getCommand(String commandName) {
