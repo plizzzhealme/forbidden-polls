@@ -20,14 +20,14 @@ public class ToCategoryPageCommand implements Command {
     @Override
     public void execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException, ServiceException {
         String id = request.getParameter(Util.CATEGORY_ID);
-        String categoryName = request.getParameter("category_name");
+        String categoryName = request.getParameter(Util.CATEGORY_NAME);
 
         SearchCriteria criteria = new SearchCriteria();
         criteria.addParameter(Parameter.SURVEY_CATEGORY_ID, id);
 
         List<Survey> surveys = ServiceFactory.INSTANCE.getSurveyService().search(criteria);
-        request.setAttribute("surveys", surveys);
-        request.setAttribute("category_name", categoryName);
+        request.setAttribute(Util.SURVEY_LIST, surveys);
+        request.setAttribute(Util.CATEGORY_NAME, categoryName);
 
         RequestDispatcher dispatcher = request.getRequestDispatcher(Util.CATEGORY_JSP);
         dispatcher.forward(request, response);

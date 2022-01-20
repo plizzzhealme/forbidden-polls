@@ -13,7 +13,7 @@
 
 <p><c:out value="Surveys from category: ${requestScope.category_name}"/></p>
 
-<c:forEach var="survey" items="${requestScope.surveys}">
+<c:forEach var="survey" items="${requestScope.survey_list}">
     <p><a href="${Util.CONTROLLER}?${Util.COMMAND}=${Util.TO_SURVEY_START_PAGE_COMMAND}&${Util.SURVEY_ID}=${survey.id}">
         <c:out value="${survey.name}"/>
     </a></p>

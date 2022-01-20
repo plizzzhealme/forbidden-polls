@@ -23,7 +23,7 @@ public class ToCategoriesPageCommand implements Command {
         CategoryService categoryService = ServiceFactory.INSTANCE.getCategoryService();
         List<Category> categories = categoryService.findAll();
 
-        request.setAttribute("categories", categories);
+        request.setAttribute(Util.CATEGORY_LIST, categories);
 
         RequestDispatcher dispatcher = request.getRequestDispatcher(Util.CATEGORIES_JSP);
         dispatcher.forward(request, response);

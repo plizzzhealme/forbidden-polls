@@ -61,6 +61,9 @@ public final class Util {
     public static final String TO_PROFILE_PAGE_COMMAND = "to_profile_page";
     public static final String TO_CATEGORIES_PAGE_COMMAND = "to_categories_page";
     public static final String TO_CATEGORY_PAGE_COMMAND = "to_category_page";
+    public static final String SURVEY = "survey";
+    public static final String CATEGORY_LIST = "category_list";
+    public static final String SURVEY_LIST = "survey_list";
 
     private Util() {
     }
