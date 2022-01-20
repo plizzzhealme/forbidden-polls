@@ -1,5 +1,6 @@
 package io.github.plizzzhealme.bean;
 
+import java.io.Serial;
 import java.io.Serializable;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -7,9 +8,8 @@ import java.util.Objects;
 
 public class User implements Serializable {
 
-    public static final String FEMALE = "female";
-    public static final String MALE = "male";
-    public static final String OTHER = "other";
+    @Serial
+    private static final long serialVersionUID = 6985791175479557902L;
 
     private int id;
     private String name;

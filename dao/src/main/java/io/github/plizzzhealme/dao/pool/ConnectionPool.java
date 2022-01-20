@@ -16,26 +16,46 @@ public enum ConnectionPool {
     INSTANCE;
 
     private static final Logger logger = LogManager.getLogger(ConnectionPool.class);
+
+    private final String driverName;
+    private final String url;
+    private final String user;
+    private final String password;
+
     private BlockingQueue<Connection> connectionQueue;
     private BlockingQueue<Connection> givenAwayConQueue;
+    private int poolSize;
+
+    ConnectionPool() {
+        DBResourceManager dbResourceManager = DBResourceManager.getInstance();
+        this.driverName = dbResourceManager.getValue(DBParameter.DB_DRIVER);
+        this.url = dbResourceManager.getValue(DBParameter.DB_URL);
+        this.user = dbResourceManager.getValue(DBParameter.DB_USER);
+        this.password = dbResourceManager.getValue(DBParameter.DB_PASSWORD);
+
+        try {
+            this.poolSize = Integer.parseInt(dbResourceManager.getValue(DBParameter.DB_POOL_SIZE));
+        } catch (NumberFormatException e) {
+            poolSize = 5;
+        }
+    }
 
     public void initPoolData() throws DaoException {
-        if (connectionQueue == null) {
-            try {
-                Class.forName(DatabaseInfo.DRIVER);
-                givenAwayConQueue = new ArrayBlockingQueue<>(DatabaseInfo.POOL_SIZE);
-                connectionQueue = new ArrayBlockingQueue<>(DatabaseInfo.POOL_SIZE);
+        try {
+            Class.forName(driverName);
+            givenAwayConQueue = new ArrayBlockingQueue<>(poolSize);
+            connectionQueue = new ArrayBlockingQueue<>(poolSize);
 
-                for (int i = 0; i < DatabaseInfo.POOL_SIZE; i++) {
-                    Connection connection = DriverManager.getConnection(DatabaseInfo.URL, DatabaseInfo.USER, DatabaseInfo.PASSWORD);
-                    PooledConnection pooledConnection = new PooledConnection(connection);
-                    connectionQueue.add(pooledConnection);
-                }
-            } catch (SQLException e) {
-                throw new DaoException("SQLException in ConnectionPool", e);
-            } catch (ClassNotFoundException e) {
-                throw new DaoException("Can't find database driver class", e);
+            for (int i = 0; i < poolSize; i++) {
+                @SuppressWarnings("all") // to supress warning about not closed connection
+                Connection connection = DriverManager.getConnection(url, user, password);
+                PooledConnection pooledConnection = new PooledConnection(connection);
+                connectionQueue.add(pooledConnection);
             }
+        } catch (SQLException e) {
+            throw new DaoException("SQLException in ConnectionPool", e);
+        } catch (ClassNotFoundException e) {
+            throw new DaoException("Can't find database driver class", e);
         }
     }
 
@@ -48,10 +68,6 @@ public enum ConnectionPool {
             closeConnectionsQueue(givenAwayConQueue);
             closeConnectionsQueue(connectionQueue);
         } catch (SQLException e) {
-            /*
-            Here and below we can don't throw the exception to the
-            upper layers, because it is not critical for a user
-             */
             logger.error("Error clothing the connection.", e);
         }
     }
@@ -77,6 +93,7 @@ public enum ConnectionPool {
         } catch (SQLException e) {
             logger.error("Connection isn't returned to the pool.", e);
         }
+
         try {
             if (rs != null) {
                 rs.close();
@@ -84,6 +101,7 @@ public enum ConnectionPool {
         } catch (SQLException e) {
             logger.error("ResultSet isn't closed.", e);
         }
+
         try {
             if (st != null) {
                 st.close();
@@ -101,6 +119,7 @@ public enum ConnectionPool {
         } catch (SQLException e) {
             logger.error("Connection isn't return to the pool.", e);
         }
+
         try {
             if (st != null) {
                 st.close();

@@ -9,12 +9,12 @@ import io.github.plizzzhealme.service.exception.ServiceException;
 
 public class UserServiceImpl implements UserService {
 
-    public User authorize(String email, String password) throws ServiceException {
+    public int authorize(String email, String password) throws ServiceException {
 
         UserDao userDao = DaoFactory.INSTANCE.getUserDao();
 
         try {
-            return userDao.authorize(email, password);
+            return userDao.signIn(email, password);
         } catch (DaoException e) {
             throw new ServiceException("Authorization error", e);
         }
@@ -27,6 +27,15 @@ public class UserServiceImpl implements UserService {
             return userDao.create(user, password);
         } catch (DaoException e) {
             throw new ServiceException("Registration error", e);
+        }
+    }
+
+    @Override
+    public User read(int id) throws ServiceException {
+        try {
+            return DaoFactory.INSTANCE.getUserDao().find(id);
+        } catch (DaoException e) {
+            throw new ServiceException("Error getting user info", e);
         }
     }
 }

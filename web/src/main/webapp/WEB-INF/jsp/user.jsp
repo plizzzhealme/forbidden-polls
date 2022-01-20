@@ -1,17 +1,28 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page contentType="text/html;charset=UTF-8" %>
-<!DOCTYPE html>
-<html lang="eu" xml:lang="eu">
-
+<%@ include file="../jspf/localization.jspf" %>
+<!DOCTYPE>
+<html xml:lang="eu">
 <head>
     <title>home</title>
 </head>
 <body>
-<jsp:include page="header.jsp"/>
-<c:set var="name" value="${sessionScope.user.name}"/>
-<p><c:out value="Hello, ${name}! Now you are logged in, and you can take our surveys."/></p>
-<c:forEach items="${sessionScope.values()}" var="elem">
-    <c:out value="${elem}"/>
-</c:forEach>
+<p>
+    <%@include file="../jspf/header.jspf" %>
+</p>
+
+<p><a href="${Util.CONTROLLER}?${Util.COMMAND}=${Util.TO_PROFILE_PAGE_COMMAND}">
+    see profile
+</a></p>
+
+<p><a href="${Util.CONTROLLER}?${Util.COMMAND}=${Util.TO_CATEGORIES_PAGE_COMMAND}">
+    see survey categories
+</a></p>
+
+<form action="${Util.CONTROLLER}" method="post">
+    <input type="hidden" name="${Util.COMMAND}" value="${Util.SIGN_OUT_COMMAND}">
+
+    <input type="submit" value="${sign_out}">
+</form>
 </body>
 </html>

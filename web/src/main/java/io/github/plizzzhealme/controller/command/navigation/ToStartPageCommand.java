@@ -1,7 +1,7 @@
 package io.github.plizzzhealme.controller.command.navigation;
 
 import io.github.plizzzhealme.controller.command.Command;
-import io.github.plizzzhealme.controller.util.ControllerUtil;
+import io.github.plizzzhealme.controller.util.Util;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -13,9 +13,7 @@ public class ToStartPageCommand implements Command {
 
     @Override
     public void execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        ControllerUtil.saveUrlToSession(request);
-
-        RequestDispatcher dispatcher = request.getRequestDispatcher(ControllerUtil.START_JSP);
+        RequestDispatcher dispatcher = request.getRequestDispatcher(Util.START_JSP);
         dispatcher.forward(request, response);
     }
 }

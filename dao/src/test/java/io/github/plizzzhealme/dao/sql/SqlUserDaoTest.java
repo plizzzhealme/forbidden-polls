@@ -1,6 +1,8 @@
 package io.github.plizzzhealme.dao.sql;
 
 import io.github.plizzzhealme.bean.User;
+import io.github.plizzzhealme.bean.criteria.Parameter;
+import io.github.plizzzhealme.bean.criteria.SearchCriteria;
 import io.github.plizzzhealme.dao.DaoFactory;
 import io.github.plizzzhealme.dao.UserDao;
 import io.github.plizzzhealme.dao.exception.DaoException;
@@ -9,64 +11,40 @@ import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
+import java.time.LocalDate;
+import java.util.List;
+
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 class SqlUserDaoTest {
 
     @BeforeAll
-    static void start() {
-        try {
-            ConnectionPool.INSTANCE.initPoolData();
-        } catch (DaoException e) {
-            e.printStackTrace();
-        }
+    static void connect() throws DaoException {
+        ConnectionPool.INSTANCE.initPoolData();
     }
 
     @AfterAll
-    static void finish() {
+    static void disconnect() {
         ConnectionPool.INSTANCE.dispose();
     }
 
     @Test
-    void correctAuthorization() {
-        String email = "plizzz.healme@gmail.com";
-        String password = "1q2w3e";
+    void readWithExistingID() throws DaoException {
+        UserDao userDao = DaoFactory.INSTANCE.getUserDao();
 
-        int expectedID = 1;
-        int actualID;
-
-        try {
-            User user = DaoFactory.INSTANCE.getUserDao().authorize(email, password);
-            actualID = user.getId();
-        } catch (DaoException e) {
-            actualID = 0;
-        }
-
-        assertEquals(expectedID, actualID);
-    }
-
-    @Test
-    void readWithExistingID() {
-        int id = 1;
-
+        int existingID = 1;
         String expected = "plizzz.healme@gmail.com";
-        String actual;
-
-
-        try {
-            User user = DaoFactory.INSTANCE.getUserDao().read(id);
-            actual = user.getEmail();
-        } catch (DaoException e) {
-            e.printStackTrace();
-            actual = null;
-        }
+        String actual = userDao.find(existingID).getEmail();
 
         assertEquals(expected, actual);
     }
 
     @Test
-    void create() {
+    void create() throws DaoException {
+        UserDao dao = DaoFactory.INSTANCE.getUserDao();
+
+        String password = "1q2w3e";
         User user = new User();
         user.setEmail("plizzzehesalme@gmail.com");
         user.setName("Dzianis");
@@ -74,16 +52,23 @@ class SqlUserDaoTest {
         user.setGender("male");
         user.setUserRole("admin");
 
-        UserDao dao = DaoFactory.INSTANCE.getUserDao();
-
-        boolean isCreated = false;
-
-        try {
-            isCreated = dao.create(user, "1q2w3e");
-        } catch (DaoException e) {
-            e.printStackTrace();
-        }
+        boolean isCreated = dao.create(user, password);
 
         assertTrue(isCreated);
     }
+
+
+    @Test
+    void testSearch() throws DaoException {
+
+        UserDao userDao = DaoFactory.INSTANCE.getUserDao();
+        LocalDate date = LocalDate.of(1989, 9, 5);
+
+        SearchCriteria criteria = new SearchCriteria();
+        criteria.addParameter(Parameter.USER_BIRTHDAY, date);
+        List<User> users = userDao.search(criteria);
+
+        assertEquals(date, users.get(0).getBirthday());
+    }
+
 }

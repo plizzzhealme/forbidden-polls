@@ -116,9 +116,10 @@ CREATE TABLE IF NOT EXISTS `forbidden_polls`.`questions`
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `forbidden_polls`.`options`
 (
-    `id`          INT         NOT NULL AUTO_INCREMENT,
-    `body`        VARCHAR(45) NULL,
-    `question_id` INT         NOT NULL,
+    `id`           INT         NOT NULL AUTO_INCREMENT,
+    `body`         VARCHAR(45) NULL,
+    `index_number` INT         NOT NULL,
+    `question_id`  INT         NOT NULL,
     PRIMARY KEY (`id`),
     UNIQUE INDEX `id_UNIQUE` (`id` ASC) VISIBLE,
     INDEX `fk_possible_answers_questions1_idx` (`question_id` ASC) VISIBLE,
@@ -568,14 +569,14 @@ START TRANSACTION;
 INSERT INTO forbidden_polls.surveys (name, creation_date, description, instructions, image_url, category_id)
 VALUES ('Poll about smoking', '2022-01-05 11:27:52', null, null, null, 2);
 
-INSERT INTO forbidden_polls.questions (index_number, body, image_url, question_description, survey_id, option_type_id)
+INSERT INTO forbidden_polls.questions (index_number, body, image_url, description, survey_id, option_type_id)
 VALUES (1, 'Do you smoke?', null, null, 1, 1);
 
-INSERT INTO forbidden_polls.options (body, question_id)
-VALUES ('yes', 1);
+INSERT INTO forbidden_polls.options (index_number, body, question_id)
+VALUES (1, 'yes', 1);
 
-INSERT INTO forbidden_polls.options (body, question_id)
-VALUES ('no', 1);
+INSERT INTO forbidden_polls.options (index_number, body, question_id)
+VALUES (2, 'no', 1);
 
 
 COMMIT;

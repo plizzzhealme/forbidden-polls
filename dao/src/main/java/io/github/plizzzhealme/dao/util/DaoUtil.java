@@ -1,11 +1,16 @@
 package io.github.plizzzhealme.dao.util;
 
 import com.lambdaworks.crypto.SCryptUtil;
+import io.github.plizzzhealme.bean.criteria.Parameter;
+import io.github.plizzzhealme.bean.criteria.SearchCriteria;
 
 import java.sql.Date;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
 import java.sql.Timestamp;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.stream.Collectors;
 
 public final class DaoUtil {
 
@@ -54,5 +59,23 @@ public final class DaoUtil {
             return SCryptUtil.check(password, hashedPassword);
         }
         return false;
+    }
+
+    public static String buildSearchSql(SearchCriteria searchCriteria, String table) {
+        return searchCriteria.getSearchParameters().keySet()
+                .stream()
+                .map(parameter -> SqlParameter.getSqlParameter(parameter) + " = ?")
+                .collect(Collectors.joining(" AND ", "SELECT * FROM " + table + " WHERE ", ""));
+    }
+
+    public static void setSearchParameters(SearchCriteria searchCriteria, PreparedStatement preparedStatement)
+            throws SQLException {
+
+        int i = 1;
+
+        for (Parameter parameter : searchCriteria.getSearchParameters().keySet()) {
+            preparedStatement.setObject(i, searchCriteria.getSearchParameters().get(parameter));
+            i++;
+        }
     }
 }
