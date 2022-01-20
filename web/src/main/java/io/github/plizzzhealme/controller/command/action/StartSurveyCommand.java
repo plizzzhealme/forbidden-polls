@@ -2,7 +2,7 @@ package io.github.plizzzhealme.controller.command.action;
 
 import io.github.plizzzhealme.bean.Survey;
 import io.github.plizzzhealme.controller.command.Command;
-import io.github.plizzzhealme.controller.util.ControllerUtil;
+import io.github.plizzzhealme.controller.util.Util;
 import io.github.plizzzhealme.service.ServiceFactory;
 import io.github.plizzzhealme.service.SurveyService;
 import io.github.plizzzhealme.service.exception.ServiceException;
@@ -23,7 +23,7 @@ public class StartSurveyCommand implements Command {
         Survey survey = surveyService.takeSurvey(Integer.parseInt(request.getParameter("survey_id")));
         request.setAttribute("status", "1");
 
-        RequestDispatcher dispatcher = request.getRequestDispatcher(ControllerUtil.SURVEY_JSP);
+        RequestDispatcher dispatcher = request.getRequestDispatcher(Util.SURVEY_JSP);
         dispatcher.forward(request, response);
     }
 }

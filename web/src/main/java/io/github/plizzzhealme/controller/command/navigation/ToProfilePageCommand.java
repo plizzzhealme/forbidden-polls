@@ -2,7 +2,7 @@ package io.github.plizzzhealme.controller.command.navigation;
 
 import io.github.plizzzhealme.bean.User;
 import io.github.plizzzhealme.controller.command.Command;
-import io.github.plizzzhealme.controller.util.ControllerUtil;
+import io.github.plizzzhealme.controller.util.Util;
 import io.github.plizzzhealme.service.ServiceFactory;
 import io.github.plizzzhealme.service.exception.ServiceException;
 
@@ -20,12 +20,12 @@ public class ToProfilePageCommand implements Command {
             throws ServletException, IOException, ServiceException {
         HttpSession session = request.getSession();
 
-        int id = (int) session.getAttribute(ControllerUtil.USER_ID);
+        int id = (int) session.getAttribute(Util.USER_ID);
 
         User user = ServiceFactory.INSTANCE.getUserService().read(id);
-        request.setAttribute(ControllerUtil.USER, user);
+        request.setAttribute(Util.USER, user);
 
-        RequestDispatcher dispatcher = request.getRequestDispatcher(ControllerUtil.PROFILE_JSP);
+        RequestDispatcher dispatcher = request.getRequestDispatcher(Util.PROFILE_JSP);
         dispatcher.forward(request, response);
     }
 }

@@ -11,18 +11,16 @@
     <%@include file="../jspf/header.jspf" %>
 </p>
 
-<table>
-    <caption>surveys</caption>
-    <th scope="col">category</th>
-    <c:forEach var="category" items="${requestScope.categories}">
-        <tr>
-            <td><a href="controller?command=to_category_page&category_id=${category.id}&category_name=${category.name}">
-                    ${category.name}
-            </a></td>
-        </tr>
-    </c:forEach>
-</table>
 
-<p><a href="controller?command=to_user_page">${back}</a></p>
+<c:forEach var="category" items="${requestScope.categories}">
+    <p><a href="${Util.CONTROLLER}
+                ?${Util.COMMAND}=${Util.TO_CATEGORY_PAGE_COMMAND}
+                &${Util.CATEGORY_ID}=${category.id}
+                &${Util.CATEGORY_NAME}=${category.name}">
+            ${category.name}
+    </a></p>
+</c:forEach>
+
+<p><a href="${Util.CONTROLLER}?${Util.COMMAND}=${Util.TO_USER_PAGE_COMMAND}">${back}</a></p>
 </body>
 </html>

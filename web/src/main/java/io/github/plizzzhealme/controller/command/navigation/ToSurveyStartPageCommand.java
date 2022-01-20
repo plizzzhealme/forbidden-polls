@@ -2,7 +2,7 @@ package io.github.plizzzhealme.controller.command.navigation;
 
 import io.github.plizzzhealme.bean.Survey;
 import io.github.plizzzhealme.controller.command.Command;
-import io.github.plizzzhealme.controller.util.ControllerUtil;
+import io.github.plizzzhealme.controller.util.Util;
 import io.github.plizzzhealme.service.ServiceFactory;
 import io.github.plizzzhealme.service.exception.ServiceException;
 
@@ -21,7 +21,7 @@ public class ToSurveyStartPageCommand implements Command {
         Survey survey = ServiceFactory.INSTANCE.getSurveyService().takeSurvey(id);
         request.setAttribute("survey", survey);
 
-        RequestDispatcher dispatcher = request.getRequestDispatcher(ControllerUtil.SURVEY_JSP);
+        RequestDispatcher dispatcher = request.getRequestDispatcher(Util.SURVEY_JSP);
         dispatcher.forward(request, response);
     }
 }

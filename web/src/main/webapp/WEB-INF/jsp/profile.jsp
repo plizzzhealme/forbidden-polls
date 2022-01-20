@@ -41,13 +41,13 @@
         </c:otherwise>
     </c:choose></p>
 
-    <%-- birthday --%>
-    <c:out value="${birthday}: ${requestScope.user.birthday}"/>
+        <%-- birthday --%>
+        <c:out value="${birthday}: ${requestScope.user.birthday}"/>
 
-    <%-- country --%>
-    <p><c:out value="${country}: ${requestScope.user.country}"/></p>
+        <%-- country --%>
+        <p><c:out value="${country}: ${requestScope.user.country}"/></p>
 </div>
 
-<p><a href="controller?command=to_user_page">${back}</a></p>
+<p><a href="${Util.CONTROLLER}?${Util.COMMAND}=${Util.TO_USER_PAGE_COMMAND}">${back}</a></p>
 </body>
 </html>

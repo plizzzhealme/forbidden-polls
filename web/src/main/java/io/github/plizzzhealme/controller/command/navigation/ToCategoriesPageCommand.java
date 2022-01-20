@@ -2,7 +2,7 @@ package io.github.plizzzhealme.controller.command.navigation;
 
 import io.github.plizzzhealme.bean.Category;
 import io.github.plizzzhealme.controller.command.Command;
-import io.github.plizzzhealme.controller.util.ControllerUtil;
+import io.github.plizzzhealme.controller.util.Util;
 import io.github.plizzzhealme.service.CategoryService;
 import io.github.plizzzhealme.service.ServiceFactory;
 import io.github.plizzzhealme.service.exception.ServiceException;
@@ -25,7 +25,7 @@ public class ToCategoriesPageCommand implements Command {
 
         request.setAttribute("categories", categories);
 
-        RequestDispatcher dispatcher = request.getRequestDispatcher(ControllerUtil.CATEGORIES_JSP);
+        RequestDispatcher dispatcher = request.getRequestDispatcher(Util.CATEGORIES_JSP);
         dispatcher.forward(request, response);
     }
 }

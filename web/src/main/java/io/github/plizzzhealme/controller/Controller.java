@@ -3,7 +3,7 @@ package io.github.plizzzhealme.controller;
 import io.github.plizzzhealme.controller.command.Command;
 import io.github.plizzzhealme.controller.command.CommandProvider;
 import io.github.plizzzhealme.controller.exception.ControllerException;
-import io.github.plizzzhealme.controller.util.ControllerUtil;
+import io.github.plizzzhealme.controller.util.Util;
 import io.github.plizzzhealme.service.exception.ServiceException;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -36,7 +36,7 @@ public class Controller extends HttpServlet {
     }
 
     private void processRequest(HttpServletRequest request, HttpServletResponse response) {
-        String commandName = request.getParameter(CommandProvider.COMMAND);
+        String commandName = request.getParameter(Util.COMMAND);
         Command command = commandProvider.getCommand(commandName);
 
         try {
@@ -45,7 +45,7 @@ public class Controller extends HttpServlet {
             logger.error(MessageFormat.format("Error processing a request for a command {0}.", commandName), e);
 
             try {
-                response.sendRedirect(ControllerUtil.SERVER_ERROR_JSP);
+                response.sendRedirect(Util.SERVER_ERROR_JSP);
             } catch (IOException ex) {
                 logger.error("Error while redirecting to the error page.", ex);
 

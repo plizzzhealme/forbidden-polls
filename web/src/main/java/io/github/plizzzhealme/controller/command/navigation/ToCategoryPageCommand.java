@@ -4,7 +4,7 @@ import io.github.plizzzhealme.bean.Survey;
 import io.github.plizzzhealme.bean.criteria.Parameter;
 import io.github.plizzzhealme.bean.criteria.SearchCriteria;
 import io.github.plizzzhealme.controller.command.Command;
-import io.github.plizzzhealme.controller.util.ControllerUtil;
+import io.github.plizzzhealme.controller.util.Util;
 import io.github.plizzzhealme.service.ServiceFactory;
 import io.github.plizzzhealme.service.exception.ServiceException;
 
@@ -19,7 +19,7 @@ public class ToCategoryPageCommand implements Command {
 
     @Override
     public void execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException, ServiceException {
-        String id = request.getParameter(ControllerUtil.CATEGORY_ID);
+        String id = request.getParameter(Util.CATEGORY_ID);
         String categoryName = request.getParameter("category_name");
 
         SearchCriteria criteria = new SearchCriteria();
@@ -29,7 +29,7 @@ public class ToCategoryPageCommand implements Command {
         request.setAttribute("surveys", surveys);
         request.setAttribute("category_name", categoryName);
 
-        RequestDispatcher dispatcher = request.getRequestDispatcher(ControllerUtil.CATEGORY_JSP);
+        RequestDispatcher dispatcher = request.getRequestDispatcher(Util.CATEGORY_JSP);
         dispatcher.forward(request, response);
     }
 }

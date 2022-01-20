@@ -1,7 +1,7 @@
 package io.github.plizzzhealme.controller.command.action;
 
 import io.github.plizzzhealme.controller.command.Command;
-import io.github.plizzzhealme.controller.util.ControllerUtil;
+import io.github.plizzzhealme.controller.util.Util;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -14,6 +14,6 @@ public class SignOutCommand implements Command {
 
         request.getSession().invalidate();
 
-        response.sendRedirect(ControllerUtil.TO_SIGN_IN_PAGE_REDIRECT);
+        response.sendRedirect(Util.TO_SIGN_IN_PAGE_REDIRECT);
     }
 }

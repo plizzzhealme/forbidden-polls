@@ -1,6 +1,8 @@
 package io.github.plizzzhealme.controller.util;
 
-public final class ControllerUtil {
+public final class Util {
+
+    public static final String CONTROLLER = "controller";
 
     // user parameters
     public static final String USER = "user";
@@ -40,7 +42,26 @@ public final class ControllerUtil {
     public static final String URL = "url";
     public static final String LOCALE = "locale";
     public static final String CATEGORY_ID = "category_id";
+    public static final String CATEGORY_NAME = "category_name";
+    public static final String COMMAND = "command";
+    public static final String SURVEY_ID = "survey_id";
 
-    private ControllerUtil() {
+    // actions
+    public static final String SIGN_IN_COMMAND = "sign_in";
+    public static final String SIGN_UP_COMMAND = "sign_up";
+    public static final String CHANGE_LOCALE_COMMAND = "change_locale";
+    public static final String UNKNOWN_COMMAND = "unknown";
+    public static final String SIGN_OUT_COMMAND = "sign_out";
+    // navigation
+    public static final String TO_SIGN_IN_PAGE_COMMAND = "to_sign_in_page";
+    public static final String TO_SIGN_UP_PAGE_COMMAND = "to_sign_up_page";
+    public static final String TO_START_PAGE_COMMAND = "to_start_page";
+    public static final String TO_USER_PAGE_COMMAND = "to_user_page";
+    public static final String TO_SURVEY_START_PAGE_COMMAND = "to_survey_start_page";
+    public static final String TO_PROFILE_PAGE_COMMAND = "to_profile_page";
+    public static final String TO_CATEGORIES_PAGE_COMMAND = "to_categories_page";
+    public static final String TO_CATEGORY_PAGE_COMMAND = "to_category_page";
+
+    private Util() {
     }
 }

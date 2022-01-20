@@ -1,5 +1,5 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
-<%@ page import="io.github.plizzzhealme.controller.util.ControllerUtil" %>
+<%@ page import="io.github.plizzzhealme.controller.util.Util" %>
 <fmt:setLocale value="${sessionScope.locale}"/>
 
 <fmt:setBundle basename="locale" var="locale"/>

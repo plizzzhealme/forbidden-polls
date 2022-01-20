@@ -11,11 +11,16 @@
     <%@include file="../jspf/header.jspf" %>
 </p>
 
-<p><a href="controller?command=to_profile_page">see profile</a></p>
-<p><a href="controller?command=to_categories_page">see survey categories</a></p>
+<p><a href="${Util.CONTROLLER}?${Util.COMMAND}=${Util.TO_PROFILE_PAGE_COMMAND}">
+    see profile
+</a></p>
 
-<form action="controller" method="post">
-    <input type="hidden" name="command" value="sign_out">
+<p><a href="${Util.CONTROLLER}?${Util.COMMAND}=${Util.TO_CATEGORIES_PAGE_COMMAND}">
+    see survey categories
+</a></p>
+
+<form action="${Util.CONTROLLER}" method="post">
+    <input type="hidden" name="${Util.COMMAND}" value="${Util.SIGN_OUT_COMMAND}">
 
     <input type="submit" value="${sign_out}">
 </form>

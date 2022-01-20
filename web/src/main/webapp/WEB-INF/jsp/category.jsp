@@ -11,14 +11,14 @@
     <%@include file="../jspf/header.jspf" %>
 </p>
 
-<p><c:out value="surveys from category ${requestScope.category_name}"/></p>
+<p><c:out value="Surveys from category: ${requestScope.category_name}"/></p>
 
 <c:forEach var="survey" items="${requestScope.surveys}">
-    <a href="controller?command=to_survey_start_page&survey_id=${survey.id}">
+    <p><a href="${Util.CONTROLLER}?${Util.COMMAND}=${Util.TO_SURVEY_START_PAGE_COMMAND}&${Util.SURVEY_ID}=${survey.id}">
         <c:out value="${survey.name}"/>
-    </a>
+    </a></p>
 </c:forEach>
 
-<p><a href="controller?command=to_categories_page">${back}</a></p>
+<p><a href="${Util.CONTROLLER}?${Util.COMMAND}=${Util.TO_CATEGORIES_PAGE_COMMAND}">${back}</a></p>
 </body>
 </html>

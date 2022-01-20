@@ -1,7 +1,7 @@
 package io.github.plizzzhealme.controller.command.navigation;
 
 import io.github.plizzzhealme.controller.command.Command;
-import io.github.plizzzhealme.controller.util.ControllerUtil;
+import io.github.plizzzhealme.controller.util.Util;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -13,7 +13,7 @@ public class ToSignInPageCommand implements Command {
 
     @Override
     public void execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        RequestDispatcher dispatcher = request.getRequestDispatcher(ControllerUtil.SIGN_IN_JSP);
+        RequestDispatcher dispatcher = request.getRequestDispatcher(Util.SIGN_IN_JSP);
         dispatcher.forward(request, response);
     }
 }

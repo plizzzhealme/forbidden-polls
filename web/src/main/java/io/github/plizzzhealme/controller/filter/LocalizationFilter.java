@@ -1,7 +1,6 @@
 package io.github.plizzzhealme.controller.filter;
 
-import io.github.plizzzhealme.controller.command.CommandProvider;
-import io.github.plizzzhealme.controller.util.ControllerUtil;
+import io.github.plizzzhealme.controller.util.Util;
 
 import javax.servlet.*;
 import javax.servlet.http.HttpServletRequest;
@@ -19,20 +18,20 @@ public class LocalizationFilter implements Filter {
 
     @Override
     public void init(FilterConfig filterConfig) {
-        commandsToBeSaved.add(CommandProvider.TO_USER_PAGE_COMMAND);
-        commandsToBeSaved.add(CommandProvider.TO_SIGN_IN_PAGE_COMMAND);
-        commandsToBeSaved.add(CommandProvider.TO_START_PAGE_COMMAND);
-        commandsToBeSaved.add(CommandProvider.TO_SIGN_UP_PAGE_COMMAND);
-        commandsToBeSaved.add(CommandProvider.TO_PROFILE_PAGE_COMMAND);
-        commandsToBeSaved.add(CommandProvider.TO_CATEGORIES_PAGE_COMMAND);
-        commandsToBeSaved.add(CommandProvider.TO_CATEGORY_PAGE_COMMAND);
+        commandsToBeSaved.add(Util.TO_USER_PAGE_COMMAND);
+        commandsToBeSaved.add(Util.TO_SIGN_IN_PAGE_COMMAND);
+        commandsToBeSaved.add(Util.TO_START_PAGE_COMMAND);
+        commandsToBeSaved.add(Util.TO_SIGN_UP_PAGE_COMMAND);
+        commandsToBeSaved.add(Util.TO_PROFILE_PAGE_COMMAND);
+        commandsToBeSaved.add(Util.TO_CATEGORIES_PAGE_COMMAND);
+        commandsToBeSaved.add(Util.TO_CATEGORY_PAGE_COMMAND);
     }
 
     @Override
     public void doFilter(ServletRequest servletRequest, ServletResponse servletResponse, FilterChain filterChain)
             throws ServletException, IOException {
 
-        String command = servletRequest.getParameter(CommandProvider.COMMAND);
+        String command = servletRequest.getParameter(Util.COMMAND);
 
         if (commandsToBeSaved.contains(command)) {
             saveUrlToSession((HttpServletRequest) servletRequest);
@@ -49,6 +48,6 @@ public class LocalizationFilter implements Filter {
                 .map(p -> p + "=" + request.getParameter(p))
                 .collect(Collectors.joining("&", request.getRequestURL().append("?"), ""));
 
-        session.setAttribute(ControllerUtil.URL, url);
+        session.setAttribute(Util.URL, url);
     }
 }
