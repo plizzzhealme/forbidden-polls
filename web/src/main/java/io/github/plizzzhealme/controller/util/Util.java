@@ -26,11 +26,9 @@ public final class Util {
     public static final String PROFILE_JSP = "/WEB-INF/jsp/profile.jsp";
     public static final String CATEGORIES_JSP = "/WEB-INF/jsp/categories.jsp";
     public static final String CATEGORY_JSP = "/WEB-INF/jsp/category.jsp";
-    public static final String SURVEY_PASSED_JSP = "/WEB-INF/jsp/surveyPassed.jsp";
+    public static final String SURVEY_END_JSP = "/WEB-INF/jsp/surveyEnd.jsp";
+    public static final String SURVEY_BEGIN_JSP = "/WEB-INF/jsp/surveyBegin.jsp";
 
-    // redirects
-    public static final String TO_USER_PAGE_REDIRECT = "controller?command=to_user_page";
-    public static final String TO_SIGN_IN_PAGE_REDIRECT = "controller?command=to_sign_in_page";
 
     // errors
     public static final String ERROR_MESSAGE = "error_message";
@@ -65,13 +63,16 @@ public final class Util {
     public static final String TO_PROFILE_PAGE_COMMAND = "to_profile_page";
     public static final String TO_CATEGORIES_PAGE_COMMAND = "to_categories_page";
     public static final String TO_CATEGORY_PAGE_COMMAND = "to_category_page";
-    public static final String TO_SURVEY_PASSED_PAGE = "to_survey_passed_page";
+    public static final String TO_SURVEY_END_PAGE_COMMAND = "to_survey_end_page";
+    public static final String TO_SURVEY_BEGIN_PAGE_COMMAND = "to_survey_begin_page";
 
     public static final String SURVEY = "survey";
     public static final String CATEGORY_LIST = "category_list";
     public static final String SURVEY_LIST = "survey_list";
     public static final String QUESTION_INDEX = "question_index";
     public static final String OPTION = "option";
+
+    public static final String REDIRECT_URL_PATTERN = CONTROLLER + "?" + COMMAND + "=";
 
 
     private Util() {

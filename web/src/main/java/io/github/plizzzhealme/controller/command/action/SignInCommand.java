@@ -13,7 +13,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
-public class AuthorizationCommand implements Command {
+public class SignInCommand implements Command {
 
     @Override
     public void execute(HttpServletRequest request, HttpServletResponse response)
@@ -39,7 +39,7 @@ public class AuthorizationCommand implements Command {
             } else { // if ok
                 request.getSession().setAttribute(Util.USER_ID, userID);
 
-                response.sendRedirect(Util.TO_USER_PAGE_REDIRECT);
+                response.sendRedirect(Util.REDIRECT_URL_PATTERN + Util.TO_USER_PAGE_COMMAND);
             }
         }
     }

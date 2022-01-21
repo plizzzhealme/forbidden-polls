@@ -15,7 +15,7 @@ import java.io.IOException;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 
-public class RegistrationCommand implements Command {
+public class SignUpCommand implements Command {
 
     @Override
     public void execute(HttpServletRequest request, HttpServletResponse response) throws IOException, ServiceException, ServletException {
@@ -57,7 +57,7 @@ public class RegistrationCommand implements Command {
                     int userID = ServiceFactory.INSTANCE.getUserService().authorize(email, password);
                     request.getSession().setAttribute(Util.USER_ID, userID);
 
-                    response.sendRedirect(Util.TO_USER_PAGE_REDIRECT);
+                    response.sendRedirect(Util.REDIRECT_URL_PATTERN + Util.TO_USER_PAGE_COMMAND);
                 } else {
                     request.setAttribute(Util.ERROR_MESSAGE, Util.EMAIL_IS_BUSY_ERROR);
 

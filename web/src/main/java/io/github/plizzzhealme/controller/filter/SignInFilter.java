@@ -24,7 +24,8 @@ public class SignInFilter implements Filter {
         commandsRequiringToBeSignedIn.add(Util.SIGN_OUT_COMMAND);
         commandsRequiringToBeSignedIn.add(Util.START_SURVEY_COMMAND);
         commandsRequiringToBeSignedIn.add(Util.ANSWER_COMMAND);
-        commandsRequiringToBeSignedIn.add(Util.TO_SURVEY_PASSED_PAGE);
+        commandsRequiringToBeSignedIn.add(Util.TO_SURVEY_END_PAGE_COMMAND);
+        commandsRequiringToBeSignedIn.add(Util.TO_SURVEY_BEGIN_PAGE_COMMAND);
     }
 
     @Override
@@ -37,7 +38,7 @@ public class SignInFilter implements Filter {
             HttpSession session = ((HttpServletRequest) servletRequest).getSession();
 
             if (session.getAttribute(Util.USER_ID) == null) {
-                ((HttpServletResponse) servletResponse).sendRedirect(Util.TO_SIGN_IN_PAGE_REDIRECT);
+                ((HttpServletResponse) servletResponse).sendRedirect(Util.REDIRECT_URL_PATTERN + Util.TO_SIGN_IN_PAGE_COMMAND);
             } else {
                 filterChain.doFilter(servletRequest, servletResponse);
             }

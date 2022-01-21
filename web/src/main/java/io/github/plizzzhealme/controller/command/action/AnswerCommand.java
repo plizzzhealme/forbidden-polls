@@ -18,16 +18,24 @@ public class AnswerCommand implements Command {
             throws ServletException, IOException, ServiceException {
         HttpSession session = request.getSession();
         Survey survey = (Survey) session.getAttribute(Util.SURVEY);
-        // int optionId = Integer.parseInt(request.getParameter(Util.OPTION));
         int questionIndex = (int) session.getAttribute(Util.QUESTION_INDEX);
 
         questionIndex++;
 
         if (questionIndex < survey.getQuestions().size()) {
             session.setAttribute(Util.QUESTION_INDEX, questionIndex);
-            response.sendRedirect("controller?command=to_survey_page");
+            response.sendRedirect(Util.REDIRECT_URL_PATTERN + Util.TO_SURVEY_PAGE_COMMAND);
         } else {
-            response.sendRedirect("controller?command=to_survey_passed_page");
+
+            finishSurvey(request, response);
+            response.sendRedirect(Util.REDIRECT_URL_PATTERN + Util.TO_SURVEY_END_PAGE_COMMAND);
         }
+    }
+
+    private void finishSurvey(HttpServletRequest request, HttpServletResponse response) {
+        //todo save result
+        HttpSession session = request.getSession();
+        session.removeAttribute(Util.QUESTION_INDEX);
+        session.removeAttribute(Util.SURVEY);
     }
 }

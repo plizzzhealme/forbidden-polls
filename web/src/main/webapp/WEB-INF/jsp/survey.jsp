@@ -11,24 +11,10 @@
     <%@include file="../jspf/header.jspf" %>
 </p>
 
-<%-- before survey start --%>
-<c:if test="${sessionScope.survey == null}">
-    <p>${requestScope.survey.name}</p>
-    <p>${requestScope.survey.description}</p>
-
-    <c:set var="submit_button_text" value="${start_survey}"/>
-    <c:set var="submit_button_command" value="${Util.START_SURVEY_COMMAND}"/>
-</c:if>
-
-
-<%-- after survey was started --%>
 <c:if test="${sessionScope.survey != null}">
     <c:set var="i" value="${sessionScope.question_index}"/>
     <c:set var="question" value="${sessionScope.survey.questions[i]}"/>
     <c:set var="options" value="${question.options}"/>
-
-    <c:set var="submit_button_text" value="${answer}"/>
-    <c:set var="submit_button_command" value="${Util.ANSWER_COMMAND}"/>
 </c:if>
 
 <%-- print question --%>
@@ -43,12 +29,8 @@
         </label></p>
     </c:forEach>
 
-
-    <input type="hidden" name="${Util.COMMAND}" value="${submit_button_command}">
-    <input type="hidden" name="${Util.SURVEY_ID}" value="${requestScope.survey.id}">
-    <input type="submit" value="${submit_button_text}">
+    <input type="hidden" name="${Util.COMMAND}" value="${Util.ANSWER_COMMAND}">
+    <input type="submit" value="${answer}">
 </form>
-
-
 </body>
 </html>

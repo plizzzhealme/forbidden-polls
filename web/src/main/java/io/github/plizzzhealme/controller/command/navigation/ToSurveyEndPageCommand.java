@@ -9,12 +9,13 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
-public class ToSurveyPassedPageCommand implements Command {
+public class ToSurveyEndPageCommand implements Command {
 
     @Override
-    public void execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException, ServiceException {
+    public void execute(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException, ServiceException {
 
-        request.getRequestDispatcher(Util.SURVEY_PASSED_JSP).forward(request, response);
+        request.getRequestDispatcher(Util.SURVEY_END_JSP).forward(request, response);
 
     }
 }
