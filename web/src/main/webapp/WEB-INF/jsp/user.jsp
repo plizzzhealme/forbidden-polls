@@ -4,7 +4,7 @@
 <!DOCTYPE>
 <html xml:lang="eu">
 <head>
-    <title>home</title>
+    <title>${home}</title>
 </head>
 <body>
 <p>
@@ -12,11 +12,11 @@
 </p>
 
 <p><a href="${Util.CONTROLLER}?${Util.COMMAND}=${Util.TO_PROFILE_PAGE_COMMAND}">
-    see profile
+    ${profile}
 </a></p>
 
 <p><a href="${Util.CONTROLLER}?${Util.COMMAND}=${Util.TO_CATEGORIES_PAGE_COMMAND}">
-    see survey categories
+    ${survey_categories}
 </a></p>
 
 <form action="${Util.CONTROLLER}" method="post">
