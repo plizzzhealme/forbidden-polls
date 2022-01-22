@@ -10,12 +10,15 @@
 <p>
     <%@include file="../jspf/header.jspf" %>
 </p>
-YOU PASSED
-<a href="${Util.CONTROLLER}?${Util.COMMAND}=${Util.TO_PROFILE_PAGE_COMMAND}">
-    ${profile}
-</a>
-<a href="${Util.CONTROLLER}?${Util.COMMAND}=${Util.TO_CATEGORIES_PAGE_COMMAND}">
-    ${survey_categories}
-</a>
+
+<p>
+    ${passed_survey_message}
+</p>
+
+<p>
+    <a href="${Util.CONTROLLER}?${Util.COMMAND}=${Util.TO_PROFILE_PAGE_COMMAND}">
+        ${to_profile_page}
+    </a>
+</p>
 </body>
 </html>
