@@ -57,7 +57,7 @@ public class SignUpCommand implements Command {
                     int userID = ServiceFactory.INSTANCE.getUserService().authorize(email, password);
                     request.getSession().setAttribute(Util.USER_ID, userID);
 
-                    response.sendRedirect(Util.REDIRECT_URL_PATTERN + Util.TO_USER_PAGE_COMMAND);
+                    response.sendRedirect(Util.REDIRECT_URL_PATTERN + Util.TO_PROFILE_PAGE_COMMAND);
                 } else {
                     request.setAttribute(Util.ERROR_MESSAGE, Util.EMAIL_IS_BUSY_ERROR);
 

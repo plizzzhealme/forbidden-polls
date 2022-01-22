@@ -16,9 +16,9 @@ public class SignInFilter implements Filter {
 
     @Override
     public void init(FilterConfig filterConfig) {
-        commandsRequiringToBeSignedIn.add(Util.TO_USER_PAGE_COMMAND);
-        commandsRequiringToBeSignedIn.add(Util.TO_SURVEY_PAGE_COMMAND);
         commandsRequiringToBeSignedIn.add(Util.TO_PROFILE_PAGE_COMMAND);
+        commandsRequiringToBeSignedIn.add(Util.TO_SURVEY_PAGE_COMMAND);
+        commandsRequiringToBeSignedIn.add(Util.TO_PROFILE_INFO_PAGE_COMMAND);
         commandsRequiringToBeSignedIn.add(Util.TO_CATEGORIES_PAGE_COMMAND);
         commandsRequiringToBeSignedIn.add(Util.TO_CATEGORY_PAGE_COMMAND);
         commandsRequiringToBeSignedIn.add(Util.SIGN_OUT_COMMAND);

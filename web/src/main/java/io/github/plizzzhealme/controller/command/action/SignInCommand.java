@@ -39,7 +39,7 @@ public class SignInCommand implements Command {
             } else { // if ok
                 request.getSession().setAttribute(Util.USER_ID, userID);
 
-                response.sendRedirect(Util.REDIRECT_URL_PATTERN + Util.TO_USER_PAGE_COMMAND);
+                response.sendRedirect(Util.REDIRECT_URL_PATTERN + Util.TO_PROFILE_PAGE_COMMAND);
             }
         }
     }
