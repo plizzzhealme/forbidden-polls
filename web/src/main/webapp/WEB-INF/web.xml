@@ -35,15 +35,15 @@
 
     <filter-mapping>
         <filter-name>LocalizationFilter</filter-name>
-        <url-pattern>/controller</url-pattern>
+        <servlet-name>Controller</servlet-name>
     </filter-mapping>
     <filter-mapping>
         <filter-name>SignInFilter</filter-name>
-        <url-pattern>/controller</url-pattern>
+        <servlet-name>Controller</servlet-name>
     </filter-mapping>
     <filter-mapping>
         <filter-name>CharsetFilter</filter-name>
-        <url-pattern>/controller</url-pattern>
+        <servlet-name>Controller</servlet-name>
     </filter-mapping>
     <filter-mapping>
         <filter-name>LoggerFilter</filter-name>
