@@ -4,7 +4,7 @@
 <!DOCTYPE>
 <html xml:lang="eu">
 <head>
-    <title>home</title>
+    <title>${profile}</title>
 </head>
 <body>
 <p>
@@ -20,10 +20,10 @@
 
     <%-- gender --%>
     <p><c:choose>
-        <c:when test="${requestScope.user.gender == 'male'}">
+        <c:when test="${requestScope.user.gender == Util.MALE}">
             <c:out value="${gender}:  ${male}"/>
         </c:when>
-        <c:when test="${requestScope.user.gender == 'female'}">
+        <c:when test="${requestScope.user.gender == Util.FEMALE}">
             <c:out value="${gender}:  ${female}"/>
         </c:when>
         <c:otherwise>
@@ -33,19 +33,19 @@
 
     <%-- role --%>
     <p><c:choose>
-        <c:when test="${requestScope.user.userRole == 'user'}">
-            <c:out value="${role}:  ${user}"/>
+        <c:when test="${requestScope.user.userRole == Util.ADMIN}">
+            <c:out value="${role}:  ${admin}"/>
         </c:when>
         <c:otherwise>
-            <c:out value="${role}:  ${admin}"/>
+            <c:out value="${role}:  ${user}"/>
         </c:otherwise>
     </c:choose></p>
 
-        <%-- birthday --%>
-        <c:out value="${birthday}: ${requestScope.user.birthday}"/>
+    <%-- birthday --%>
+    <p><c:out value="${birthday}: ${requestScope.user.birthday}"/></p>
 
-        <%-- country --%>
-        <p><c:out value="${country}: ${requestScope.user.country}"/></p>
+    <%-- country --%>
+    <p><c:out value="${country}: ${requestScope.user.country}"/></p>
 </div>
 
 <p><a href="${Util.CONTROLLER}?${Util.COMMAND}=${Util.TO_USER_PAGE_COMMAND}">${back}</a></p>

@@ -14,6 +14,9 @@ public final class Util {
     public static final String CONFIRM_PASSWORD = "confirm_password";
     public static final String GENDER = "gender";
     public static final String COUNTRY = "country";
+    public static final String MALE = "male";
+    public static final String FEMALE = "female";
+    public static final String ADMIN = "admin";
 
     // pages
     public static final String SIGN_IN_JSP = "/WEB-INF/jsp/signIn.jsp";
