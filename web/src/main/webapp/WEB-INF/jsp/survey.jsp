@@ -4,7 +4,7 @@
 <!DOCTYPE>
 <html xml:lang="eu">
 <head>
-    <title>Survey</title>
+    <title>${sessionScope.survey.name}</title>
 </head>
 <body>
 <p>
@@ -25,7 +25,7 @@
     <%-- print options --%>
     <c:forEach var="option" items="${options}">
         <p><label>
-            <input type="radio" name="option" value="${option.id}"> ${option.body}
+            <input type="radio" name="option" value="${option.id}" checked> ${option.body}
         </label></p>
     </c:forEach>
 
