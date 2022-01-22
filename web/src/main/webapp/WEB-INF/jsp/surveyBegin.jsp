@@ -4,14 +4,14 @@
 <!DOCTYPE>
 <html xml:lang="eu">
 <head>
-    <title>Survey</title>
+    <title>${requestScope.survey.name}</title>
 </head>
 <body>
 <p>
     <%@include file="../jspf/header.jspf" %>
 </p>
 <p>${requestScope.survey.name}</p>
-<p>Created: ${requestScope.survey.creationDate}</p>
+<p>${created}: ${requestScope.survey.creationDate}</p>
 <p>${requestScope.survey.description}</p>
 <p>${requestScope.survey.instructions}</p>
 <img src="${requestScope.survey.imageUrl}" alt=""/>

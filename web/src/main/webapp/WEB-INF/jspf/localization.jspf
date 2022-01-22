@@ -39,3 +39,4 @@
 <fmt:message bundle="${locale}" key="home" var="home"/>
 <fmt:message bundle="${locale}" key="message.select-category" var="select_category_message"/>
 <fmt:message bundle="${locale}" key="category" var="category"/>
+<fmt:message bundle="${locale}" key="created" var="created"/>
