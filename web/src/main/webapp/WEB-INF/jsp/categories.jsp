@@ -4,14 +4,14 @@
 <!DOCTYPE>
 <html xml:lang="eu">
 <head>
-    <title>Title</title>
+    <title>${survey_categories}</title>
 </head>
 <body>
 <p>
     <%@include file="../jspf/header.jspf" %>
 </p>
 
-
+<p>${select_category_message}:</p>
 <c:forEach var="category" items="${requestScope.category_list}">
     <p>
         <a href="${Util.CONTROLLER}?${Util.COMMAND}=${Util.TO_CATEGORY_PAGE_COMMAND}&${Util.CATEGORY_ID}=${category.id}&${Util.CATEGORY_NAME}=${category.name}">
