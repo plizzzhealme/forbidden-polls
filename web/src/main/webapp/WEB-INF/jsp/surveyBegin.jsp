@@ -11,7 +11,11 @@
     <%@include file="../jspf/header.jspf" %>
 </p>
 <p>${requestScope.survey.name}</p>
+<p>Created: ${requestScope.survey.creationDate}</p>
 <p>${requestScope.survey.description}</p>
+<p>${requestScope.survey.instructions}</p>
+<img src="${requestScope.survey.imageUrl}" alt=""/>
+
 <form action="${Util.CONTROLLER}" method="post">
     <input type="hidden" name="${Util.COMMAND}" value="${Util.START_SURVEY_COMMAND}">
     <input type="hidden" name="${Util.SURVEY_ID}" value="${requestScope.survey.id}">
