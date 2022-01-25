@@ -17,6 +17,7 @@ public class Question implements Serializable {
     private String description;
     private List<Option> options;
     private String optionType;
+    private int answerIndex;
 
     public int getId() {
         return id;
@@ -74,29 +75,24 @@ public class Question implements Serializable {
         this.optionType = optionType;
     }
 
+    public int getAnswerIndex() {
+        return answerIndex;
+    }
+
+    public void setAnswerIndex(int answerIndex) {
+        this.answerIndex = answerIndex;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Question question = (Question) o;
-        return id == question.id && index == question.index && Objects.equals(body, question.body) && Objects.equals(imageUrl, question.imageUrl) && Objects.equals(description, question.description) && Objects.equals(options, question.options) && Objects.equals(optionType, question.optionType);
+        return id == question.id && index == question.index && answerIndex == question.answerIndex && Objects.equals(body, question.body) && Objects.equals(imageUrl, question.imageUrl) && Objects.equals(description, question.description) && Objects.equals(options, question.options) && Objects.equals(optionType, question.optionType);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, index, body, imageUrl, description, options, optionType);
-    }
-
-    @Override
-    public String toString() {
-        return "Question{" +
-                "id=" + id +
-                ", index=" + index +
-                ", body='" + body + '\'' +
-                ", imageUrl='" + imageUrl + '\'' +
-                ", description='" + description + '\'' +
-                ", options=" + options +
-                ", optionType='" + optionType + '\'' +
-                '}';
+        return Objects.hash(id, index, body, imageUrl, description, options, optionType, answerIndex);
     }
 }

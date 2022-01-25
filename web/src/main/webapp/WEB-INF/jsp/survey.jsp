@@ -23,9 +23,12 @@
 <form action="${Util.CONTROLLER}" method="post">
 
     <%-- print options --%>
-    <c:forEach var="option" items="${options}">
+    <c:forEach var="option" items="${options}" varStatus="loop">
         <p><label>
-            <input type="radio" name="option" value="${option.id}" checked> ${option.body}
+            <input type="radio"
+                   name="option"
+                   value="${loop.index}"
+                   <c:if test="${loop.index == 0}">checked</c:if> >${option.body}
         </label></p>
     </c:forEach>
 
