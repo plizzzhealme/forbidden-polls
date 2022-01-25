@@ -11,4 +11,6 @@ public interface SurveyDao {
     Survey find(int id) throws DaoException;
 
     List<Survey> search(SearchCriteria searchCriteria) throws DaoException;
+
+    void addSurveyResult(Survey survey, int id) throws DaoException;
 }

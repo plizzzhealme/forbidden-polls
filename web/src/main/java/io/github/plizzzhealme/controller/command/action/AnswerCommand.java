@@ -3,6 +3,7 @@ package io.github.plizzzhealme.controller.command.action;
 import io.github.plizzzhealme.bean.Survey;
 import io.github.plizzzhealme.controller.command.Command;
 import io.github.plizzzhealme.controller.util.Util;
+import io.github.plizzzhealme.service.ServiceFactory;
 import io.github.plizzzhealme.service.exception.ServiceException;
 
 import javax.servlet.ServletException;
@@ -33,10 +34,15 @@ public class AnswerCommand implements Command {
         }
     }
 
-    private void finishSurvey(HttpServletRequest request) {
-        //todo save result
+    private void finishSurvey(HttpServletRequest request) throws ServiceException {
         HttpSession session = request.getSession();
+
+        Survey survey = (Survey) session.getAttribute(Util.SURVEY);
+        int userId = (int) session.getAttribute(Util.USER_ID);
         session.removeAttribute(Util.QUESTION_INDEX);
         session.removeAttribute(Util.SURVEY);
+
+        ServiceFactory.INSTANCE.getSurveyService().completeSurvey(survey, userId);
+
     }
 }

@@ -46,4 +46,13 @@ public class SurveyServiceImpl implements SurveyService {
             throw new ServiceException("", e);
         }
     }
+
+    @Override
+    public void completeSurvey(Survey survey, int userId) throws ServiceException {
+        try {
+            DaoFactory.INSTANCE.getSurveyDao().addSurveyResult(survey, userId);
+        } catch (DaoException e) {
+            throw new ServiceException("Failed to complete survey", e);
+        }
+    }
 }
