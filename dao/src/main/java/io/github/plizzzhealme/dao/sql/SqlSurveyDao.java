@@ -172,7 +172,7 @@ public class SqlSurveyDao implements SurveyDao {
             preparedStatement.setInt(1, userId);
             resultSet = preparedStatement.executeQuery();
 
-            if (resultSet.next()) {
+            while (resultSet.next()) {
                 int surveyId = resultSet.getInt(1);
                 Survey survey = find(surveyId);
                 result.add(survey);

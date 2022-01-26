@@ -21,5 +21,6 @@
     <input type="hidden" name="${Util.SURVEY_ID}" value="${requestScope.survey.id}">
     <input type="submit" value="${start_survey}">
 </form>
+
 </body>
 </html>

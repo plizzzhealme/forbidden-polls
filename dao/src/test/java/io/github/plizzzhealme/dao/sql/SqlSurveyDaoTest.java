@@ -56,7 +56,7 @@ class SqlSurveyDaoTest {
     void searchCompleted() throws DaoException {
         SurveyDao surveyDao = DaoFactory.INSTANCE.getSurveyDao();
 
-        List<Survey> completedSurveys = surveyDao.searchCompleted(2);
+        List<Survey> completedSurveys = surveyDao.searchCompleted(1);
         System.out.println(completedSurveys);
     }
 }
