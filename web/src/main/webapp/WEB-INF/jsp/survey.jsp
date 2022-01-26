@@ -19,6 +19,8 @@
 
 <%-- print question --%>
 <p><c:out value="${question.body}"/></p>
+<p><c:out value="${question.description}"/></p>
+<img src="${question.imageUrl}" alt=""/>
 
 <form action="${Util.CONTROLLER}" method="post">
 

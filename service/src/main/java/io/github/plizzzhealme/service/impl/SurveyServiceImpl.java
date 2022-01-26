@@ -55,4 +55,17 @@ public class SurveyServiceImpl implements SurveyService {
             throw new ServiceException("Failed to complete survey", e);
         }
     }
+
+    @Override
+    public List<Survey> searchCompletedSurveys(int userId) throws ServiceException {
+        DaoFactory daoFactory = DaoFactory.INSTANCE;
+        SurveyDao surveyDao = daoFactory.getSurveyDao();
+
+        try {
+            return surveyDao.searchCompleted(userId);
+        } catch (DaoException e) {
+            e.printStackTrace();
+            throw new ServiceException("", e);
+        }
+    }
 }

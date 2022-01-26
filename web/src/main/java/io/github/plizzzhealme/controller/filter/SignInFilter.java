@@ -26,6 +26,7 @@ public class SignInFilter implements Filter {
         commandsRequiringToBeSignedIn.add(Util.ANSWER_COMMAND);
         commandsRequiringToBeSignedIn.add(Util.TO_SURVEY_END_PAGE_COMMAND);
         commandsRequiringToBeSignedIn.add(Util.TO_SURVEY_BEGIN_PAGE_COMMAND);
+        commandsRequiringToBeSignedIn.add(Util.TO_COMPLETED_SURVEYS_PAGE_COMMAND);
     }
 
     @Override

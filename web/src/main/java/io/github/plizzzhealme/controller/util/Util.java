@@ -31,6 +31,7 @@ public final class Util {
     public static final String CATEGORY_JSP = "/WEB-INF/jsp/category.jsp";
     public static final String SURVEY_END_JSP = "/WEB-INF/jsp/surveyEnd.jsp";
     public static final String SURVEY_BEGIN_JSP = "/WEB-INF/jsp/surveyBegin.jsp";
+    public static final String COMPLETED_SURVEYS_JSP = "/WEB-INF/jsp/completedSurveys.jsp";
 
 
     // errors
@@ -68,6 +69,7 @@ public final class Util {
     public static final String TO_CATEGORY_PAGE_COMMAND = "to_category_page";
     public static final String TO_SURVEY_END_PAGE_COMMAND = "to_survey_end_page";
     public static final String TO_SURVEY_BEGIN_PAGE_COMMAND = "to_survey_begin_page";
+    public static final String TO_COMPLETED_SURVEYS_PAGE_COMMAND = "to_completed_surveys_page";
 
     public static final String SURVEY = "survey";
     public static final String CATEGORY_LIST = "category_list";

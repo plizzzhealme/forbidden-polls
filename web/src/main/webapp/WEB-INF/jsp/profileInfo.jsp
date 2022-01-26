@@ -41,12 +41,15 @@
         </c:otherwise>
     </c:choose></p>
 
-    <%-- birthday --%>
-    <p><c:out value="${birthday}: ${requestScope.user.birthday}"/></p>
+        <%-- birthday --%>
+        <p><c:out value="${birthday}: ${requestScope.user.birthday}"/></p>
 
-    <%-- country --%>
-    <p><c:out value="${country}: ${requestScope.user.country}"/></p>
+        <%-- country --%>
+        <p><c:out value="${country}: ${requestScope.user.country}"/></p>
 </div>
+
+<p><a href="${Util.CONTROLLER}?${Util.COMMAND}=${Util.TO_COMPLETED_SURVEYS_PAGE_COMMAND}">Completed</a></p>
+
 
 <p><a href="${Util.CONTROLLER}?${Util.COMMAND}=${Util.TO_PROFILE_PAGE_COMMAND}">${back}</a></p>
 </body>

@@ -51,4 +51,12 @@ class SqlSurveyDaoTest {
 
         assertEquals(expectedName, actualName);
     }
+
+    @Test
+    void searchCompleted() throws DaoException {
+        SurveyDao surveyDao = DaoFactory.INSTANCE.getSurveyDao();
+
+        List<Survey> completedSurveys = surveyDao.searchCompleted(2);
+        System.out.println(completedSurveys);
+    }
 }

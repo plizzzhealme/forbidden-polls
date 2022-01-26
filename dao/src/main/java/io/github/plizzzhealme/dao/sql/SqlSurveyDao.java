@@ -41,6 +41,16 @@ public class SqlSurveyDao implements SurveyDao {
             "INSERT INTO forbidden_polls.picked_options " +
             "(answer_text, user_id, option_id) " +
             "VALUES (?, ?, ?)";
+    private static final String CHECK_IF_SURVEY_COMPLETED_BY_USER = "" +
+            "SELECT EXISTS(" +
+            "SELECT id " +
+            "FROM forbidden_polls.passed_surveys " +
+            "WHERE passed_surveys.survey_id = ? " +
+            "AND passed_surveys.user_id = ?)";
+    private static final String SELECT_COMPLETED_SQL = "" +
+            "SELECT passed_surveys.survey_id " +
+            "FROM passed_surveys " +
+            "WHERE passed_surveys.user_id = ?";
 
 
     @Override
@@ -127,6 +137,53 @@ public class SqlSurveyDao implements SurveyDao {
         } finally {
             pool.closeConnection(connection);
         }
+    }
+
+    @Override
+    public boolean isCompleted(int surveyId, int userId) throws DaoException {
+        Connection connection = pool.takeConnection();
+        PreparedStatement preparedStatement = null;
+        ResultSet resultSet = null;
+
+        try {
+            preparedStatement = connection.prepareStatement(CHECK_IF_SURVEY_COMPLETED_BY_USER);
+            preparedStatement.setInt(1, surveyId);
+            preparedStatement.setInt(2, userId);
+            resultSet = preparedStatement.executeQuery();
+            resultSet.next();
+
+            return resultSet.getBoolean(1);
+        } catch (SQLException e) {
+            throw new DaoException("Error while checking record existence", e);
+        } finally {
+            pool.closeConnection(connection, preparedStatement, resultSet);
+        }
+    }
+
+    @Override
+    public List<Survey> searchCompleted(int userId) throws DaoException {
+        Connection connection = pool.takeConnection();
+        List<Survey> result = new ArrayList<>();
+        PreparedStatement preparedStatement = null;
+        ResultSet resultSet = null;
+
+        try {
+            preparedStatement = connection.prepareStatement(SELECT_COMPLETED_SQL);
+            preparedStatement.setInt(1, userId);
+            resultSet = preparedStatement.executeQuery();
+
+            if (resultSet.next()) {
+                int surveyId = resultSet.getInt(1);
+                Survey survey = find(surveyId);
+                result.add(survey);
+            }
+        } catch (SQLException e) {
+            throw new DaoException("Error while reading survey by id from database", e);
+        } finally {
+            pool.closeConnection(connection, preparedStatement, resultSet);
+        }
+
+        return result;
     }
 
     private void addSurvey(Connection connection, Survey survey, int userId) throws DaoException {

@@ -28,6 +28,7 @@ public class LocalizationFilter implements Filter {
         commandsToBeSaved.add(Util.TO_SURVEY_PAGE_COMMAND);
         commandsToBeSaved.add(Util.TO_SURVEY_END_PAGE_COMMAND);
         commandsToBeSaved.add(Util.TO_SURVEY_BEGIN_PAGE_COMMAND);
+        commandsToBeSaved.add(Util.TO_COMPLETED_SURVEYS_PAGE_COMMAND);
     }
 
     @Override
