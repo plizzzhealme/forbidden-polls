@@ -31,15 +31,15 @@
         </c:otherwise>
     </c:choose></p>
 
-    <%-- role --%>
-    <p><c:choose>
-        <c:when test="${requestScope.user.userRole == Util.ADMIN}">
-            <c:out value="${role}:  ${admin}"/>
-        </c:when>
-        <c:otherwise>
-            <c:out value="${role}:  ${user}"/>
-        </c:otherwise>
-    </c:choose></p>
+        <%-- role --%>
+        <p><c:choose>
+            <c:when test="${requestScope.user.userRole == Util.ADMIN}">
+                <c:out value="${role}:  ${admin}"/>
+            </c:when>
+            <c:otherwise>
+                <c:out value="${role}:  ${user}"/>
+            </c:otherwise>
+        </c:choose></p>
 
         <%-- birthday --%>
         <p><c:out value="${birthday}: ${requestScope.user.birthday}"/></p>

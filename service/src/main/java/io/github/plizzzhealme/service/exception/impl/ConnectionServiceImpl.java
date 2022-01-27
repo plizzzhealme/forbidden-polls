@@ -1,4 +1,4 @@
-package io.github.plizzzhealme.service.impl;
+package io.github.plizzzhealme.service.exception.impl;
 
 import io.github.plizzzhealme.dao.DaoFactory;
 import io.github.plizzzhealme.dao.exception.DaoException;

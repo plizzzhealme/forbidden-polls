@@ -12,6 +12,7 @@ import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.util.List;
 
@@ -21,11 +22,13 @@ public class ToCategoryPageCommand implements Command {
     public void execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException, ServiceException {
         String id = request.getParameter(Util.CATEGORY_ID);
         String categoryName = request.getParameter(Util.CATEGORY_NAME);
+        HttpSession session = request.getSession();
+        int userId = (int) session.getAttribute(Util.USER_ID);
 
         SearchCriteria criteria = new SearchCriteria();
         criteria.addParameter(Parameter.SURVEY_CATEGORY_ID, id);
 
-        List<Survey> surveys = ServiceFactory.INSTANCE.getSurveyService().search(criteria);
+        List<Survey> surveys = ServiceFactory.INSTANCE.getSurveyService().searchAvailableSurveys(criteria, userId);
         request.setAttribute(Util.SURVEY_LIST, surveys);
         request.setAttribute(Util.CATEGORY_NAME, categoryName);
 

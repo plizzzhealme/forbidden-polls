@@ -127,7 +127,6 @@ public class SqlSurveyDao implements SurveyDao {
         try {
             connection.setAutoCommit(false);
 
-
             addSurvey(connection, survey, userId);
             addAnswers(userId, connection, survey.getQuestions());
             connection.commit();

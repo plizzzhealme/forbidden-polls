@@ -1,4 +1,4 @@
-package io.github.plizzzhealme.service.impl;
+package io.github.plizzzhealme.service.exception.impl;
 
 import io.github.plizzzhealme.bean.Question;
 import io.github.plizzzhealme.bean.Survey;
@@ -11,6 +11,7 @@ import io.github.plizzzhealme.dao.exception.DaoException;
 import io.github.plizzzhealme.service.SurveyService;
 import io.github.plizzzhealme.service.exception.ServiceException;
 
+import java.util.Iterator;
 import java.util.List;
 
 public class SurveyServiceImpl implements SurveyService {
@@ -48,6 +49,30 @@ public class SurveyServiceImpl implements SurveyService {
     }
 
     @Override
+    public List<Survey> searchAvailableSurveys(SearchCriteria criteria, int userId) throws ServiceException {
+        DaoFactory daoFactory = DaoFactory.INSTANCE;
+        SurveyDao surveyDao = daoFactory.getSurveyDao();
+
+        try {
+            List<Survey> surveys = surveyDao.search(criteria);
+
+            Iterator<Survey> surveyIterator = surveys.iterator();
+
+            while (surveyIterator.hasNext()) {
+                Survey survey = surveyIterator.next();
+
+                if (surveyDao.isCompleted(survey.getId(), userId)) {
+                    surveyIterator.remove();
+                }
+            }
+
+            return surveys;
+        } catch (DaoException e) {
+            throw new ServiceException("", e);
+        }
+    }
+
+    @Override
     public void completeSurvey(Survey survey, int userId) throws ServiceException {
         try {
             DaoFactory.INSTANCE.getSurveyDao().addSurveyResult(survey, userId);
@@ -64,7 +89,6 @@ public class SurveyServiceImpl implements SurveyService {
         try {
             return surveyDao.searchCompleted(userId);
         } catch (DaoException e) {
-            e.printStackTrace();
             throw new ServiceException("", e);
         }
     }

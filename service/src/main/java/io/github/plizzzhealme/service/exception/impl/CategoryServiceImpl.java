@@ -1,4 +1,4 @@
-package io.github.plizzzhealme.service.impl;
+package io.github.plizzzhealme.service.exception.impl;
 
 import io.github.plizzzhealme.bean.Category;
 import io.github.plizzzhealme.dao.CategoryDao;

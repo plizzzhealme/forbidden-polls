@@ -17,6 +17,7 @@ public class AnswerCommand implements Command {
     @Override
     public void execute(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException, ServiceException {
+
         HttpSession session = request.getSession();
         Survey survey = (Survey) session.getAttribute(Util.SURVEY);
         int questionIndex = (int) session.getAttribute(Util.QUESTION_INDEX);
@@ -27,9 +28,11 @@ public class AnswerCommand implements Command {
 
         if (questionIndex < survey.getQuestions().size()) {
             session.setAttribute(Util.QUESTION_INDEX, questionIndex);
+
             response.sendRedirect(Util.REDIRECT_URL_PATTERN + Util.TO_SURVEY_PAGE_COMMAND);
         } else {
             finishSurvey(request);
+
             response.sendRedirect(Util.REDIRECT_URL_PATTERN + Util.TO_SURVEY_END_PAGE_COMMAND);
         }
     }
@@ -43,6 +46,5 @@ public class AnswerCommand implements Command {
         session.removeAttribute(Util.SURVEY);
 
         ServiceFactory.INSTANCE.getSurveyService().completeSurvey(survey, userId);
-
     }
 }
