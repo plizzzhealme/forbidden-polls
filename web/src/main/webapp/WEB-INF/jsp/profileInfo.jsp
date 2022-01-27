@@ -48,8 +48,7 @@
         <p><c:out value="${country}: ${requestScope.user.country}"/></p>
 </div>
 
-<p><a href="${Util.CONTROLLER}?${Util.COMMAND}=${Util.TO_COMPLETED_SURVEYS_PAGE_COMMAND}">Completed</a></p>
-
+<p><a href="${Util.CONTROLLER}?${Util.COMMAND}=${Util.TO_COMPLETED_SURVEYS_PAGE_COMMAND}">${passed_surveys}</a></p>
 
 <p><a href="${Util.CONTROLLER}?${Util.COMMAND}=${Util.TO_PROFILE_PAGE_COMMAND}">${back}</a></p>
 </body>

@@ -42,3 +42,4 @@
 <fmt:message bundle="${locale}" key="created" var="created"/>
 <fmt:message bundle="${locale}" key="to-profile-page" var="to_profile_page"/>
 <fmt:message bundle="${locale}" key="message.passed-survey" var="passed_survey_message"/>
+<fmt:message bundle="${locale}" key="passed-surveys" var="passed_surveys"/>
