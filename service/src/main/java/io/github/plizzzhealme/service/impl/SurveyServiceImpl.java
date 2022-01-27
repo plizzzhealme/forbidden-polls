@@ -1,4 +1,4 @@
-package io.github.plizzzhealme.service.exception.impl;
+package io.github.plizzzhealme.service.impl;
 
 import io.github.plizzzhealme.bean.Question;
 import io.github.plizzzhealme.bean.Survey;
@@ -67,6 +67,15 @@ public class SurveyServiceImpl implements SurveyService {
             }
 
             return surveys;
+        } catch (DaoException e) {
+            throw new ServiceException("", e);
+        }
+    }
+
+    @Override
+    public boolean addNewSurvey(Survey survey) throws ServiceException {
+        try {
+            return DaoFactory.INSTANCE.getSurveyDao().create(survey);
         } catch (DaoException e) {
             throw new ServiceException("", e);
         }

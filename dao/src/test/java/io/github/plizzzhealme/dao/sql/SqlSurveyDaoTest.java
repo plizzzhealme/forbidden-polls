@@ -59,4 +59,10 @@ class SqlSurveyDaoTest {
         List<Survey> completedSurveys = surveyDao.searchCompleted(1);
         System.out.println(completedSurveys);
     }
+
+    @Test
+    void create() {
+
+
+    }
 }

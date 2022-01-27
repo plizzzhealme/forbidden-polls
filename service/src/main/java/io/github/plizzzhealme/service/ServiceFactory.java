@@ -1,9 +1,9 @@
 package io.github.plizzzhealme.service;
 
-import io.github.plizzzhealme.service.exception.impl.CategoryServiceImpl;
-import io.github.plizzzhealme.service.exception.impl.ConnectionServiceImpl;
-import io.github.plizzzhealme.service.exception.impl.SurveyServiceImpl;
-import io.github.plizzzhealme.service.exception.impl.UserServiceImpl;
+import io.github.plizzzhealme.service.impl.CategoryServiceImpl;
+import io.github.plizzzhealme.service.impl.ConnectionServiceImpl;
+import io.github.plizzzhealme.service.impl.SurveyServiceImpl;
+import io.github.plizzzhealme.service.impl.UserServiceImpl;
 
 public enum ServiceFactory {
 
