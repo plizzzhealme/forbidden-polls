@@ -51,6 +51,10 @@ public class SqlSurveyDao implements SurveyDao {
             "SELECT passed_surveys.survey_id " +
             "FROM passed_surveys " +
             "WHERE passed_surveys.user_id = ?";
+    private static final String ADD_NEW_SURVEY_SQL = "" +
+            "INSERT INTO forbidden_polls.surveys " +
+            "(name, creation_date, description, instructions, image_url, category_id) " +
+            "VALUES (?, ?, ?, ?, ?, (SELECT id FROM forbidden_polls.categories WHERE categories.name = ?))";
 
 
     @Override
@@ -127,7 +131,7 @@ public class SqlSurveyDao implements SurveyDao {
         try {
             connection.setAutoCommit(false);
 
-            addSurvey(connection, survey, userId);
+            addPassedSurvey(connection, survey, userId);
             addAnswers(userId, connection, survey.getQuestions());
             connection.commit();
 
@@ -185,7 +189,42 @@ public class SqlSurveyDao implements SurveyDao {
         return result;
     }
 
-    private void addSurvey(Connection connection, Survey survey, int userId) throws DaoException {
+    @Override
+    public boolean create(Survey survey) throws DaoException {
+        Connection connection = pool.takeConnection();
+        List<Question> questions = survey.getQuestions();
+        //PreparedStatement preparedStatement = null;
+        ResultSet resultSet = null;
+
+        int notAdded = 0;
+
+        try (PreparedStatement preparedStatement = connection.prepareStatement(ADD_NEW_SURVEY_SQL)) {
+            // preparedStatement.setString(survey.getName());
+
+            if (preparedStatement.executeUpdate() == notAdded) {
+                throw new DaoException("Failed to add passed survey");
+            }
+        } catch (SQLException e) {
+            throw new DaoException("Failed to add passed survey", e);
+        }
+
+        for (Question question : questions) {
+            //todo insert question
+
+            List<Option> options = question.getOptions();
+
+            for (int i = 0; i < options.size(); i++) {
+
+            }
+
+
+        }
+
+
+        return false;
+    }
+
+    private void addPassedSurvey(Connection connection, Survey survey, int userId) throws DaoException {
         int notAdded = 0;
 
         try (PreparedStatement preparedStatement = connection.prepareStatement(ADD_NEW_SURVEY_RESULT_SQL)) {

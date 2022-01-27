@@ -8,6 +8,8 @@ import java.util.List;
 
 public interface SurveyDao {
 
+    boolean create(Survey survey) throws DaoException;
+
     Survey find(int id) throws DaoException;
 
     List<Survey> search(SearchCriteria searchCriteria) throws DaoException;
