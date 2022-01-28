@@ -28,6 +28,8 @@ public class SignInFilter implements Filter {
         commandsRequiringToBeSignedIn.add(Util.TO_SURVEY_BEGIN_PAGE_COMMAND);
         commandsRequiringToBeSignedIn.add(Util.TO_COMPLETED_SURVEYS_PAGE_COMMAND);
         commandsRequiringToBeSignedIn.add(Util.TO_SURVEY_CREATION_PAGE_COMMAND);
+        commandsRequiringToBeSignedIn.add(Util.CREATE_SURVEY_HEADER_COMMAND);
+        commandsRequiringToBeSignedIn.add(Util.TO_SURVEY_QUESTIONS_CREATION_PAGE_COMMAND);
     }
 
     @Override

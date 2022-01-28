@@ -29,10 +29,10 @@
     <input type="hidden" name="${Util.COMMAND}" value="${Util.SIGN_IN_COMMAND}">
 
     <label for="email">${email}:</label><br/>
-    <input id="email" type="email" name="${Util.EMAIL}"><br/>
+    <input id="email" type="email" name="${Util.USER_EMAIL}"><br/>
 
     <label for="password">${password}:</label><br/>
-    <input id="password" type="password" name="${Util.PASSWORD}"><br/>
+    <input id="password" type="password" name="${Util.USER_PASSWORD}"><br/>
 
     <input type="submit" value="${sign_in}">
 </form>

@@ -32,29 +32,29 @@
     <input type="hidden" name="${Util.COMMAND}" value="${Util.SIGN_UP_COMMAND}">
 
     <label for="email">${email}:</label><br/>
-    <input id="email" type="email" name="${Util.EMAIL}"><br/>
+    <input id="email" type="email" name="${Util.USER_EMAIL}"><br/>
 
     <label for="name">${name}:</label><br/>
-    <input id="name" type="text" name="${Util.NAME}"><br/>
+    <input id="name" type="text" name="${Util.USER_NAME}"><br/>
 
     <label for="password">${password}:</label><br/>
-    <input id="password" type="password" name="${Util.PASSWORD}"><br/>
+    <input id="password" type="password" name="${Util.USER_PASSWORD}"><br/>
 
     <label for="confirm_password">${confirm_password}:</label><br/>
-    <input id="confirm_password" type="password" name="${Util.CONFIRM_PASSWORD}"><br/>
+    <input id="confirm_password" type="password" name="${Util.USER_CONFIRM_PASSWORD}"><br/>
 
     <label for="birthday">${birthday}:</label><br/>
-    <input id="birthday" type="date" name="${Util.BIRTHDAY}"/><br/>
+    <input id="birthday" type="date" name="${Util.USER_BIRTHDAY}"/><br/>
 
     <label for="gender">${gender}:</label><br/>
-    <select id="gender" name="${Util.GENDER}">
+    <select id="gender" name="${Util.USER_GENDER}">
         <option value="female">${female}</option>
         <option value="male">${male}</option>
         <option value="other">${other}</option>
     </select><br/>
 
     <label for="country">${country}:</label><br/>
-    <select id="country" name="${Util.COUNTRY}">
+    <select id="country" name="${Util.USER_COUNTRY}">
         <option value="AF">Afghanistan</option>
         <option value="AX">Aland Islands</option>
         <option value="AL">Albania</option>

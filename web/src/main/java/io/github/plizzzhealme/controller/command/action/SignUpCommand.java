@@ -20,15 +20,15 @@ public class SignUpCommand implements Command {
 
     @Override
     public void execute(HttpServletRequest request, HttpServletResponse response) throws IOException, ServiceException, ServletException {
-        String email = request.getParameter(Util.EMAIL);
-        String name = request.getParameter(Util.NAME);
-        String password = request.getParameter(Util.PASSWORD);
-        String confirmPassword = request.getParameter(Util.CONFIRM_PASSWORD);
+        String email = request.getParameter(Util.USER_EMAIL);
+        String name = request.getParameter(Util.USER_NAME);
+        String password = request.getParameter(Util.USER_PASSWORD);
+        String confirmPassword = request.getParameter(Util.USER_CONFIRM_PASSWORD);
         LocalDateTime registrationDate = LocalDateTime.now();
-        String birthday = request.getParameter(Util.BIRTHDAY);
+        String birthday = request.getParameter(Util.USER_BIRTHDAY);
         String userRole = Util.USER;
-        String country = request.getParameter(Util.COUNTRY);
-        String gender = request.getParameter(Util.GENDER);
+        String country = request.getParameter(Util.USER_COUNTRY);
+        String gender = request.getParameter(Util.USER_GENDER);
 
         if (StringUtils.isAnyBlank(email, name, password, confirmPassword, birthday, country, gender)) {
             request.setAttribute(Util.ERROR_MESSAGE, Util.EMPTY_FIELDS_ERROR);

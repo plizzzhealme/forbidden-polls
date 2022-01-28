@@ -7,16 +7,31 @@ public final class Util {
     // user parameters
     public static final String USER = "user";
     public static final String USER_ID = "user_id";
-    public static final String NAME = "name";
-    public static final String EMAIL = "email";
-    public static final String PASSWORD = "password";
-    public static final String BIRTHDAY = "birthday";
-    public static final String CONFIRM_PASSWORD = "confirm_password";
-    public static final String GENDER = "gender";
-    public static final String COUNTRY = "country";
+    public static final String USER_NAME = "user_name";
+    public static final String USER_EMAIL = "user_email";
+    public static final String USER_PASSWORD = "user_password";
+    public static final String USER_BIRTHDAY = "user_birthday";
+    public static final String USER_CONFIRM_PASSWORD = "user_confirm_password";
+    public static final String USER_GENDER = "user_gender";
+    public static final String USER_COUNTRY = "user_country";
+    public static final String USER_ROLE = "user_role";
     public static final String MALE = "male";
     public static final String FEMALE = "female";
     public static final String ADMIN = "admin";
+
+    // survey parameters
+    public static final String SURVEY = "survey";
+    public static final String NEW_SURVEY = "new_survey";
+    public static final String SURVEY_LIST = "survey_list";
+    public static final String SURVEY_ID = "survey_id";
+    public static final String SURVEY_NAME = "survey_name";
+    public static final String SURVEY_DESCRIPTION = "survey_description";
+    public static final String SURVEY_INSTRUCTIONS = "survey_instructions";
+    public static final String SURVEY_IMAGE_URL = "survey_image_url";
+    public static final String SURVEY_CATEGORY = "survey_category";
+
+    // question parameters
+    public static final String QUESTION = "question";
 
     // pages
     public static final String SIGN_IN_JSP = "/WEB-INF/jsp/signIn.jsp";
@@ -33,7 +48,7 @@ public final class Util {
     public static final String SURVEY_BEGIN_JSP = "/WEB-INF/jsp/surveyBegin.jsp";
     public static final String COMPLETED_SURVEYS_JSP = "/WEB-INF/jsp/completedSurveys.jsp";
     public static final String CREATE_SURVEY_HEADER_JSP = "/WEB-INF/jsp/createSurveyHeader.jsp";
-
+    public static final String CREATE_SURVEY_QUESTIONS_JSP = "/WEB-INF/jsp/createSurveyQuestions.jsp";
 
     // errors
     public static final String ERROR_MESSAGE = "error_message";
@@ -48,7 +63,7 @@ public final class Util {
     public static final String CATEGORY_ID = "category_id";
     public static final String CATEGORY_NAME = "category_name";
     public static final String COMMAND = "command";
-    public static final String SURVEY_ID = "survey_id";
+
 
     // actions
     public static final String SIGN_IN_COMMAND = "sign_in";
@@ -73,15 +88,14 @@ public final class Util {
     public static final String TO_SURVEY_BEGIN_PAGE_COMMAND = "to_survey_begin_page";
     public static final String TO_COMPLETED_SURVEYS_PAGE_COMMAND = "to_completed_surveys_page";
     public static final String TO_SURVEY_CREATION_PAGE_COMMAND = "to_survey_creation_page";
+    public static final String TO_SURVEY_QUESTIONS_CREATION_PAGE_COMMAND = "to_survey_questions_creation_page";
 
-    public static final String SURVEY = "survey";
+
     public static final String CATEGORY_LIST = "category_list";
-    public static final String SURVEY_LIST = "survey_list";
     public static final String QUESTION_INDEX = "question_index";
     public static final String OPTION = "option";
 
     public static final String REDIRECT_URL_PATTERN = CONTROLLER + "?" + COMMAND + "=";
-    public static final String USER_ROLE = "user_role";
 
 
     private Util() {

@@ -21,8 +21,8 @@ public class SignInCommand implements Command {
     public void execute(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException, ServiceException {
 
-        String email = request.getParameter(Util.EMAIL);
-        String password = request.getParameter(Util.PASSWORD);
+        String email = request.getParameter(Util.USER_EMAIL);
+        String password = request.getParameter(Util.USER_PASSWORD);
 
         if (StringUtils.isAnyBlank(email, password)) { // if email or password are not entered
             request.setAttribute(Util.ERROR_MESSAGE, Util.EMPTY_FIELDS_ERROR);
