@@ -24,7 +24,9 @@ public class SqlUserDao implements UserDao {
     private static final String CHECK_IF_USER_EXISTS = "" +
             "SELECT EXISTS(SELECT id FROM forbidden_polls.users WHERE email = ?)";
     private static final String SELECT_USER_BY_EMAIL_SQL = "" +
-            "SELECT users.id, users.hashed_password FROM forbidden_polls.users WHERE  users.email = ?";
+            "SELECT * FROM forbidden_polls.users " +
+            "JOIN forbidden_polls.user_roles ON users.user_role_id = user_roles.id " +
+            "WHERE  users.email = ?";
     private static final String SELECT_USER_BY_ID_SQL = "" +
             "SELECT users.name, users.email, users.registration_date, users.birthday, " +
             "user_roles.name, countries.name, genders.name " +
@@ -97,7 +99,6 @@ public class SqlUserDao implements UserDao {
                 user.setUserRole(resultSet.getString(ROLE_NAME));
                 user.setCountry(resultSet.getString(COUNTRY_NAME));
                 user.setGender(resultSet.getString(GENDER_NAME));
-
             }
         } catch (SQLException e) {
             throw new DaoException("Error while reading user data from database", e);
@@ -109,9 +110,9 @@ public class SqlUserDao implements UserDao {
     }
 
     @Override
-    public int signIn(String email, String password) throws DaoException {
+    public User signIn(String email, String password) throws DaoException {
         if (!isPresent(email)) {
-            return 0;
+            return null;
         }
 
         Connection connection = pool.takeConnection();
@@ -128,13 +129,15 @@ public class SqlUserDao implements UserDao {
                 boolean isCorrectPassword = DaoUtil.isCorrectPassword(password, hashedPassword);
 
                 if (!isCorrectPassword) {
-                    return 0;
+                    return null;
                 } else {
-                    return resultSet.getInt(SqlParameter.USERS_ID);
+                    User user = new User();
+                    user.setId(resultSet.getInt(SqlParameter.USERS_ID));
+                    user.setUserRole(resultSet.getString(ROLE_NAME));
+                    return user;
                 }
-
             } else {
-                return 0;
+                return null;
             }
         } catch (SQLException e) {
             throw new DaoException("Error while reading from database", e);

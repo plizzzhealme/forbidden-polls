@@ -11,6 +11,7 @@ import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -54,8 +55,10 @@ public class SignUpCommand implements Command {
                 boolean isRegistered = ServiceFactory.INSTANCE.getUserService().register(user, password);
 
                 if (isRegistered) {
-                    int userID = ServiceFactory.INSTANCE.getUserService().authorize(email, password);
-                    request.getSession().setAttribute(Util.USER_ID, userID);
+                    user = ServiceFactory.INSTANCE.getUserService().authorize(email, password);
+                    HttpSession session = request.getSession();
+                    session.setAttribute(Util.USER_ID, user.getId());
+                    session.setAttribute(Util.USER_ROLE, user.getUserRole());
 
                     response.sendRedirect(Util.REDIRECT_URL_PATTERN + Util.TO_PROFILE_PAGE_COMMAND);
                 } else {

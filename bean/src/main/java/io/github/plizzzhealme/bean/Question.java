@@ -95,4 +95,18 @@ public class Question implements Serializable {
     public int hashCode() {
         return Objects.hash(id, index, body, imageUrl, description, options, optionType, answerIndex);
     }
+
+    @Override
+    public String toString() {
+        return "Question{" +
+                "id=" + id +
+                ", index=" + index +
+                ", body='" + body + '\'' +
+                ", imageUrl='" + imageUrl + '\'' +
+                ", description='" + description + '\'' +
+                ", options=" + options +
+                ", optionType='" + optionType + '\'' +
+                ", answerIndex=" + answerIndex +
+                '}';
+    }
 }

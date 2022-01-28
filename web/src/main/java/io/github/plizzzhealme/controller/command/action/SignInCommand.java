@@ -1,5 +1,6 @@
 package io.github.plizzzhealme.controller.command.action;
 
+import io.github.plizzzhealme.bean.User;
 import io.github.plizzzhealme.controller.command.Command;
 import io.github.plizzzhealme.controller.util.Util;
 import io.github.plizzzhealme.service.ServiceFactory;
@@ -11,6 +12,7 @@ import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import java.io.IOException;
 
 public class SignInCommand implements Command {
@@ -29,15 +31,18 @@ public class SignInCommand implements Command {
             dispatcher.forward(request, response);
         } else { // if entered
             UserService userService = ServiceFactory.INSTANCE.getUserService();
-            int userID = userService.authorize(email, password);
+            User user = userService.authorize(email, password);
+            //int userID = user.getId();
 
-            if (userID == 0) { // if invalid email or password
+            if (user == null) { // if invalid email or password
                 request.setAttribute(Util.ERROR_MESSAGE, Util.INVALID_CREDENTIALS_ERROR);
 
                 RequestDispatcher dispatcher = request.getRequestDispatcher(Util.SIGN_IN_JSP);
                 dispatcher.forward(request, response);
             } else { // if ok
-                request.getSession().setAttribute(Util.USER_ID, userID);
+                HttpSession session = request.getSession();
+                session.setAttribute(Util.USER_ID, user.getId());
+                session.setAttribute(Util.USER_ROLE, user.getUserRole());
 
                 response.sendRedirect(Util.REDIRECT_URL_PATTERN + Util.TO_PROFILE_PAGE_COMMAND);
             }

@@ -32,6 +32,7 @@ public final class Util {
     public static final String SURVEY_END_JSP = "/WEB-INF/jsp/surveyEnd.jsp";
     public static final String SURVEY_BEGIN_JSP = "/WEB-INF/jsp/surveyBegin.jsp";
     public static final String COMPLETED_SURVEYS_JSP = "/WEB-INF/jsp/completedSurveys.jsp";
+    public static final String CREATE_SURVEY_HEADER_JSP = "/WEB-INF/jsp/createSurveyHeader.jsp";
 
 
     // errors
@@ -57,6 +58,7 @@ public final class Util {
     public static final String SIGN_OUT_COMMAND = "sign_out";
     public static final String START_SURVEY_COMMAND = "start_survey";
     public static final String ANSWER_COMMAND = "answer";
+    public static final String CREATE_SURVEY_HEADER_COMMAND = "create_survey_header";
 
     // navigation
     public static final String TO_SIGN_IN_PAGE_COMMAND = "to_sign_in_page";
@@ -70,6 +72,7 @@ public final class Util {
     public static final String TO_SURVEY_END_PAGE_COMMAND = "to_survey_end_page";
     public static final String TO_SURVEY_BEGIN_PAGE_COMMAND = "to_survey_begin_page";
     public static final String TO_COMPLETED_SURVEYS_PAGE_COMMAND = "to_completed_surveys_page";
+    public static final String TO_SURVEY_CREATION_PAGE_COMMAND = "to_survey_creation_page";
 
     public static final String SURVEY = "survey";
     public static final String CATEGORY_LIST = "category_list";
@@ -78,6 +81,7 @@ public final class Util {
     public static final String OPTION = "option";
 
     public static final String REDIRECT_URL_PATTERN = CONTROLLER + "?" + COMMAND + "=";
+    public static final String USER_ROLE = "user_role";
 
 
     private Util() {

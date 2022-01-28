@@ -19,6 +19,13 @@
     ${survey_categories}
 </a></p>
 
+<c:if test="${sessionScope.user_role == Util.ADMIN}">
+    <p><a href="${Util.CONTROLLER}?${Util.COMMAND}=${Util.TO_SURVEY_CREATION_PAGE_COMMAND}">
+        create survey
+    </a></p>
+</c:if>
+
+
 <form action="${Util.CONTROLLER}" method="post">
     <input type="hidden" name="${Util.COMMAND}" value="${Util.SIGN_OUT_COMMAND}">
 

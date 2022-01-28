@@ -10,10 +10,7 @@ import io.github.plizzzhealme.dao.pool.ConnectionPool;
 import io.github.plizzzhealme.dao.util.DaoUtil;
 import io.github.plizzzhealme.dao.util.SqlParameter;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.*;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -146,15 +143,20 @@ public class SqlSurveyDao implements SurveyDao {
             connection.commit();
 
         } catch (SQLException e) {
+            try {
+                connection.rollback();
+            } catch (SQLException ex) {
+                throw new DaoException("", e);
+            }
             throw new DaoException("Failed to add survey result", e);
         } finally {
+            pool.closeConnection(connection);
+
             try {
                 connection.setAutoCommit(true);
             } catch (SQLException e) {
-                e.printStackTrace();
-                //todo add log
+                // todo log error
             }
-            pool.closeConnection(connection);
         }
     }
 
@@ -221,7 +223,14 @@ public class SqlSurveyDao implements SurveyDao {
                     createOption(connection, questionId, option);
                 }
             }
+
+            connection.commit();
         } catch (SQLException e) {
+            try {
+                connection.rollback();
+            } catch (SQLException ex) {
+                ex.printStackTrace();
+            }
             e.printStackTrace();
         } finally {
             try {
@@ -236,8 +245,8 @@ public class SqlSurveyDao implements SurveyDao {
         return false;
     }
 
-    private int createSurvey(Connection connection, Survey survey) throws DaoException {
-        try (PreparedStatement preparedStatement = connection.prepareStatement(ADD_NEW_SURVEY_SQL)) {
+    private int createSurvey(Connection connection, Survey survey) throws SQLException {
+        try (PreparedStatement preparedStatement = connection.prepareStatement(ADD_NEW_SURVEY_SQL, Statement.RETURN_GENERATED_KEYS)) {
             preparedStatement.setString(1, survey.getName());
             preparedStatement.setTimestamp(2, DaoUtil.toSqlTime(survey.getCreationDate()));
             preparedStatement.setString(3, survey.getDescription());
@@ -248,17 +257,17 @@ public class SqlSurveyDao implements SurveyDao {
             preparedStatement.executeUpdate();
 
             ResultSet resultSet = preparedStatement.getGeneratedKeys();
+            resultSet.next();
             int surveyId = resultSet.getInt(1);
             resultSet.close();
 
             return surveyId;
-        } catch (SQLException e) {
-            throw new DaoException("Failed to create survey", e);
         }
     }
 
-    private int createQuestion(Connection connection, int surveyId, Question question) throws DaoException {
-        try (PreparedStatement preparedStatement = connection.prepareStatement(ADD_NEW_QUESTION_SQL)) {
+    private int createQuestion(Connection connection, int surveyId, Question question) throws SQLException {
+        try (PreparedStatement preparedStatement
+                     = connection.prepareStatement(ADD_NEW_QUESTION_SQL, Statement.RETURN_GENERATED_KEYS)) {
             preparedStatement.setInt(1, question.getIndex());
             preparedStatement.setString(2, question.getBody());
             preparedStatement.setString(3, question.getImageUrl());
@@ -269,24 +278,21 @@ public class SqlSurveyDao implements SurveyDao {
             preparedStatement.executeUpdate();
 
             ResultSet resultSet = preparedStatement.getGeneratedKeys();
+            resultSet.next();
             int questionId = resultSet.getInt(1);
             resultSet.close();
 
             return questionId;
-        } catch (SQLException e) {
-            throw new DaoException("Failed to create question", e);
         }
     }
 
-    private void createOption(Connection connection, int questionId, Option option) throws DaoException {
+    private void createOption(Connection connection, int questionId, Option option) throws SQLException {
         try (PreparedStatement preparedStatement = connection.prepareStatement(ADD_NEW_OPTION_SQL)) {
             preparedStatement.setString(1, option.getBody());
             preparedStatement.setInt(2, option.getIndex());
             preparedStatement.setInt(3, questionId);
 
             preparedStatement.executeUpdate();
-        } catch (SQLException e) {
-            throw new DaoException("Failed to create question", e);
         }
     }
 
