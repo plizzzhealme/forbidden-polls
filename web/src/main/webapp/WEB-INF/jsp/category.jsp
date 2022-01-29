@@ -4,6 +4,7 @@
 <!DOCTYPE>
 <html xml:lang="eu">
 <head>
+    <meta charset="UTF-8">
     <title>${requestScope.category_name}</title>
 </head>
 <body>

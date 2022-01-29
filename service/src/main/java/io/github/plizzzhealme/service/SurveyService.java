@@ -18,5 +18,5 @@ public interface SurveyService {
 
     List<Survey> searchAvailableSurveys(SearchCriteria criteria, int userId) throws ServiceException;
 
-    boolean addNewSurvey(Survey survey) throws ServiceException;
+    void addNewSurvey(Survey survey) throws ServiceException;
 }

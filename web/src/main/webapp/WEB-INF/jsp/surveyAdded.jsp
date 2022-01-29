@@ -13,7 +13,7 @@
 </p>
 
 <p>
-    ${passed_survey_message}
+    Survey is added!
 </p>
 
 <p>

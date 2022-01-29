@@ -31,6 +31,7 @@ public class LocalizationFilter implements Filter {
         commandsToBeSaved.add(Util.TO_COMPLETED_SURVEYS_PAGE_COMMAND);
         commandsToBeSaved.add(Util.TO_SURVEY_CREATION_PAGE_COMMAND);
         commandsToBeSaved.add(Util.TO_SURVEY_QUESTIONS_CREATION_PAGE_COMMAND);
+        commandsToBeSaved.add(Util.TO_SURVEY_ADDED_PAGE_COMMAND);
     }
 
     @Override

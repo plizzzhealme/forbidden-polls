@@ -208,7 +208,7 @@ public class SqlSurveyDao implements SurveyDao {
     }
 
     @Override
-    public boolean create(Survey survey) throws DaoException {
+    public void create(Survey survey) throws DaoException {
         Connection connection = pool.takeConnection();
 
         try {
@@ -228,21 +228,19 @@ public class SqlSurveyDao implements SurveyDao {
         } catch (SQLException e) {
             try {
                 connection.rollback();
+                throw new DaoException("", e);
             } catch (SQLException ex) {
-                ex.printStackTrace();
+                throw new DaoException("", e);
             }
-            e.printStackTrace();
         } finally {
             try {
                 connection.setAutoCommit(true);
             } catch (SQLException e) {
-                e.printStackTrace();
                 //todo add log
             }
 
             pool.closeConnection(connection);
         }
-        return false;
     }
 
     private int createSurvey(Connection connection, Survey survey) throws SQLException {

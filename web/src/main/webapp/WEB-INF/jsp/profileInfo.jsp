@@ -3,6 +3,7 @@
 <%@ include file="../jspf/localization.jspf" %>
 <!DOCTYPE>
 <html xml:lang="eu">
+<meta charset="UTF-8">
 <head>
     <title>${profile_info}</title>
 </head>

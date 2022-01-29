@@ -5,6 +5,7 @@
 
 <!DOCTYPE>
 <html xml:lang="eu">
+<meta charset="UTF-8">
 <head>
     <title>${project_name}</title>
     <link href="${pageContext.request.contextPath}/css/style.css" rel="stylesheet">
@@ -16,13 +17,13 @@
 
 <p>${start_page_message}</p>
 
-<form action="${Util.CONTROLLER}" method="post" class="st">
+<form action="${Util.CONTROLLER}" class="st">
     <input type="hidden" name="${Util.COMMAND}" value="${Util.TO_SIGN_IN_PAGE_COMMAND}"/>
 
     <input type="submit" value="${sign_in}"/>
 </form>
 
-<form action="${Util.CONTROLLER}" method="post" class="st">
+<form action="${Util.CONTROLLER}" class="st">
     <input type="hidden" name="${Util.COMMAND}" value="${Util.TO_SIGN_UP_PAGE_COMMAND}"/>
 
     <input type="submit" value="${sign_up}"/>

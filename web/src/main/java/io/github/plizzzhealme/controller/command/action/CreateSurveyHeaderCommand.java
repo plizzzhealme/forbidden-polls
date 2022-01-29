@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
+import java.util.ArrayList;
 
 public class CreateSurveyHeaderCommand implements Command {
 
@@ -27,6 +28,7 @@ public class CreateSurveyHeaderCommand implements Command {
         survey.setInstructions(surveyInstructions);
         survey.setImageUrl(surveyImageUrl);
         survey.setCategory(surveyCategory);
+        survey.setQuestions(new ArrayList<>());
 
         HttpSession session = request.getSession();
         session.setAttribute(Util.NEW_SURVEY, survey);

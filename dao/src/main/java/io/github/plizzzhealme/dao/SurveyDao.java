@@ -8,7 +8,7 @@ import java.util.List;
 
 public interface SurveyDao {
 
-    boolean create(Survey survey) throws DaoException;
+    void create(Survey survey) throws DaoException;
 
     Survey find(int id) throws DaoException;
 

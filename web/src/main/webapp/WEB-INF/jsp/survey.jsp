@@ -3,6 +3,7 @@
 <%@ include file="../jspf/localization.jspf" %>
 <!DOCTYPE>
 <html xml:lang="eu">
+<meta charset="UTF-8">
 <head>
     <title>${sessionScope.survey.name}</title>
 </head>
@@ -22,7 +23,7 @@
 <p><c:out value="${question.description}"/></p>
 <img src="${question.imageUrl}" alt=""/>
 
-<form action="${Util.CONTROLLER}" method="post">
+<form action="${Util.CONTROLLER}">
 
     <%-- print options --%>
     <c:forEach var="option" items="${options}" varStatus="loop">

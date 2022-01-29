@@ -4,7 +4,8 @@
 <!DOCTYPE>
 <html xml:lang="eu">
 <head>
-    <title>111</title>
+    <meta charset="UTF-8">
+    <title>Completed</title>
 </head>
 <body>
 <p>

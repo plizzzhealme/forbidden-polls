@@ -73,9 +73,9 @@ public class SurveyServiceImpl implements SurveyService {
     }
 
     @Override
-    public boolean addNewSurvey(Survey survey) throws ServiceException {
+    public void addNewSurvey(Survey survey) throws ServiceException {
         try {
-            return DaoFactory.INSTANCE.getSurveyDao().create(survey);
+            DaoFactory.INSTANCE.getSurveyDao().create(survey);
         } catch (DaoException e) {
             throw new ServiceException("", e);
         }

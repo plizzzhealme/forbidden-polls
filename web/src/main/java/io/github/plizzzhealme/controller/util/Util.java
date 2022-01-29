@@ -32,6 +32,9 @@ public final class Util {
 
     // question parameters
     public static final String QUESTION = "question";
+    public static final String QUESTION_DESCRIPTION = "question_description";
+    public static final String QUESTION_IMAGE_URL = "question_image_url";
+    public static final String QUESTION_INDEX = "question_index";
 
     // pages
     public static final String SIGN_IN_JSP = "/WEB-INF/jsp/signIn.jsp";
@@ -49,6 +52,7 @@ public final class Util {
     public static final String COMPLETED_SURVEYS_JSP = "/WEB-INF/jsp/completedSurveys.jsp";
     public static final String CREATE_SURVEY_HEADER_JSP = "/WEB-INF/jsp/createSurveyHeader.jsp";
     public static final String CREATE_SURVEY_QUESTIONS_JSP = "/WEB-INF/jsp/createSurveyQuestions.jsp";
+    public static final String SURVEY_ADDED_JSP = "/WEB-INF/jsp/surveyAdded.jsp";
 
     // errors
     public static final String ERROR_MESSAGE = "error_message";
@@ -74,6 +78,7 @@ public final class Util {
     public static final String START_SURVEY_COMMAND = "start_survey";
     public static final String ANSWER_COMMAND = "answer";
     public static final String CREATE_SURVEY_HEADER_COMMAND = "create_survey_header";
+    public static final String ADD_QUESTION_COMMAND = "add_question";
 
     // navigation
     public static final String TO_SIGN_IN_PAGE_COMMAND = "to_sign_in_page";
@@ -92,10 +97,12 @@ public final class Util {
 
 
     public static final String CATEGORY_LIST = "category_list";
-    public static final String QUESTION_INDEX = "question_index";
     public static final String OPTION = "option";
 
     public static final String REDIRECT_URL_PATTERN = CONTROLLER + "?" + COMMAND + "=";
+    public static final String OPTIONS_NUMBER = "options_number";
+    public static final String ADD_SURVEY_COMMAND = "add_survey";
+    public static final String TO_SURVEY_ADDED_PAGE_COMMAND = "to_survey_added_page";
 
 
     private Util() {

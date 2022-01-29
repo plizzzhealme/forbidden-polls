@@ -4,54 +4,75 @@
 <!DOCTYPE>
 <html xml:lang="eu">
 <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
     <title>${requestScope.survey.name}</title>
-
     <script type='text/javascript'>
-        function addFields(){
-            // Number of inputs to create
-            var number = document.getElementById("options_number").value;
-            // Container <div> where dynamic content will be placed
-            var container = document.getElementById("container");
-            // Clear previous contents of the container
+        function addOptionFields() {
+            const number = document.getElementById("options_number").value;
+            const container = document.getElementById("options");
+
             while (container.hasChildNodes()) {
                 container.removeChild(container.lastChild);
             }
-            for (i=0;i<number;i++){
-                // Append a node with a random text
-                container.appendChild(document.createTextNode("Option " + (i+1)));
+
+            for (let i = 0; i < number; i++) {
+                container.appendChild(document.createElement("p"));
+                container.appendChild(document.createTextNode("Option " + (i + 1) + ":"));
                 container.appendChild(document.createElement("br"));
-                // Create an <input> element, set its type and name attributes
-                var input = document.createElement("input");
+
+                const input = document.createElement("input");
                 input.type = "text";
                 input.name = "option" + i;
+
                 container.appendChild(input);
-                // Append a line break
-                container.appendChild(document.createElement("br"));
             }
         }
-
     </script>
 </head>
 <body>
 <p>
     <%@include file="../jspf/header.jspf" %>
 </p>
-<form action="${Util.CONTROLLER}" method="post">
-    <input type="hidden" name="${Util.COMMAND}" value="${Util.CREATE_SURVEY_HEADER_COMMAND}">
+<form action="${Util.CONTROLLER}">
+    <input type="hidden" name="${Util.COMMAND}" value="${Util.ADD_QUESTION_COMMAND}">
 
-    <label for="question">Question:</label><br/>
-    <input id="question" type="text" name="${Util.QUESTION}"><br/>
+    <p>
+        <label for="question">Question:</label><br/>
+        <textarea id="question" name="${Util.QUESTION}" rows="2" cols="44"></textarea>
+    </p>
 
-    <label for="options_number">Options number:</label><br/>
-    <input type="number" min="0" max="10" step="1" id="options_number" name="options_number" value=""><br/>
-    <a href="#" id="add_options" onclick="addFields()">Add</a>
+    <p>
+        <label for="description">Description:</label><br/>
+        <textarea id="description" name="${Util.QUESTION_DESCRIPTION}" rows="7" cols="44"></textarea>
+    </p>
 
-    <div id="container"></div>
-    <br/>
-    <input type="submit" value="add">
+    <p>
+        <label for="image_url">Image url:</label><br/>
+        <input id="image_url" type="url" name="${Util.QUESTION_IMAGE_URL}">
+    </p>
+
+    <p>
+        <label for="options_number">Options number:</label><br/>
+        <input type="number"
+               min="0" max="10"
+               step="1"
+               id="options_number"
+               name="options_number"
+               value=""> <a href="#" id="add_options" onclick="addOptionFields()">Add options</a>
+    </p>
+
+
+    <div id="options"></div>
+
+    <p>
+        <input type="submit" value="add question">
+    </p>
+
 </form>
 
-<a href="controller?command=finish">add survey</a>
+<p><a href="${Util.CONTROLLER}?${Util.COMMAND}=${Util.ADD_SURVEY_COMMAND}">
+    create survey
+</a></p>
 
 
 </body>

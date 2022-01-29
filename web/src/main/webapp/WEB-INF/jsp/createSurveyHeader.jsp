@@ -1,9 +1,11 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@ page contentType="text/html; charset=UTF-8" %>
 <%@ include file="../jspf/localization.jspf" %>
-<!DOCTYPE>
-<html xml:lang="eu">
+<%@page pageEncoding="UTF-8" contentType="text/html; charset=UTF-8" %>
+
+<!DOCTYPE html>
+<html lang="ee">
 <head>
+    <meta content='text/html; charset=UTF-8'/>
     <title>${requestScope.survey.name}</title>
 </head>
 <body>
@@ -11,7 +13,7 @@
     <%@include file="../jspf/header.jspf" %>
 </p>
 
-<form action="${Util.CONTROLLER}" method="post">
+<form action="${Util.CONTROLLER}">
     <input type="hidden" name="${Util.COMMAND}" value="${Util.CREATE_SURVEY_HEADER_COMMAND}">
 
     <label for="name">Name:</label><br/>

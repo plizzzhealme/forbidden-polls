@@ -35,6 +35,9 @@ public final class CommandProvider {
         commands.put(Util.TO_SURVEY_CREATION_PAGE_COMMAND, new ToSurveyCreationPageCommand());
         commands.put(Util.CREATE_SURVEY_HEADER_COMMAND, new CreateSurveyHeaderCommand());
         commands.put(Util.TO_SURVEY_QUESTIONS_CREATION_PAGE_COMMAND, new ToSurveyQuestionsCreationPageCommand());
+        commands.put(Util.ADD_QUESTION_COMMAND, new AddQuestionCommand());
+        commands.put(Util.ADD_SURVEY_COMMAND, new AddSurveyCommand());
+        commands.put(Util.TO_SURVEY_ADDED_PAGE_COMMAND, new ToSurveyAddedPageCommand());
     }
 
     public Command getCommand(String commandName) {

@@ -16,9 +16,10 @@ public class LoggerFilter implements Filter {
     public void doFilter(ServletRequest servletRequest, ServletResponse servletResponse, FilterChain filterChain)
             throws IOException, ServletException {
 
-        Collections.list(servletRequest.getParameterNames())
+         Collections.list(servletRequest.getParameterNames())
                 .forEach(param -> logger.info(MessageFormat.format("{0} = {1}",
                         param,
+
                         servletRequest.getParameter(param))));
 
         filterChain.doFilter(servletRequest, servletResponse);

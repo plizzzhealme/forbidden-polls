@@ -1,9 +1,10 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
-<%@ page contentType="text/html;charset=UTF-8" %>
+<%@ page contentType="text/html;charset=UTF-8" pageEncoding="UTF-8" %>
 <%@include file="../jspf/localization.jspf" %>
 <!DOCTYPE>
 <html xml:lang="eu">
+<meta charset="UTF-8">
 <head>
     <title>${registration}</title>
 </head>
@@ -28,7 +29,7 @@
 
 <p>${error}</p>
 
-<form action="${Util.CONTROLLER}" method="post">
+<form action="${Util.CONTROLLER}" method="post" accept-charset="UTF-8">
     <input type="hidden" name="${Util.COMMAND}" value="${Util.SIGN_UP_COMMAND}">
 
     <label for="email">${email}:</label><br/>

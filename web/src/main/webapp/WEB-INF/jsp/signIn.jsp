@@ -4,6 +4,7 @@
 <%@ include file="../jspf/localization.jspf" %>
 <!DOCTYPE>
 <html xml:lang="eu">
+<meta charset="UTF-8">
 <head>
     <title>${authorization}</title>
 </head>
@@ -25,7 +26,7 @@
 
 <p>${error}</p>
 
-<form action="${Util.CONTROLLER}" method="post">
+<form action="${Util.CONTROLLER}">
     <input type="hidden" name="${Util.COMMAND}" value="${Util.SIGN_IN_COMMAND}">
 
     <label for="email">${email}:</label><br/>
