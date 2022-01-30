@@ -86,15 +86,36 @@ public class Survey implements Serializable {
 
     @Override
     public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
+        if (this == o) {
+            return true;
+        }
+
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
+
         Survey survey = (Survey) o;
-        return id == survey.id && Objects.equals(category, survey.category) && Objects.equals(name, survey.name) && Objects.equals(description, survey.description) && Objects.equals(instructions, survey.instructions) && Objects.equals(imageUrl, survey.imageUrl) && Objects.equals(questions, survey.questions) && Objects.equals(creationDate, survey.creationDate);
+
+        return getId() == survey.getId()
+                && Objects.equals(getName(), survey.getName())
+                && Objects.equals(getCreationDate(), survey.getCreationDate())
+                && Objects.equals(getDescription(), survey.getDescription())
+                && Objects.equals(getInstructions(), survey.getInstructions())
+                && Objects.equals(getImageUrl(), survey.getImageUrl())
+                && Objects.equals(getCategory(), survey.getCategory())
+                && Objects.equals(getQuestions(), survey.getQuestions());
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, category, name, description, instructions, imageUrl, questions, creationDate);
+        return Objects.hash(getId(),
+                getName(),
+                getCreationDate(),
+                getDescription(),
+                getInstructions(),
+                getImageUrl(),
+                getCategory(),
+                getQuestions());
     }
 
     @Override

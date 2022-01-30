@@ -89,15 +89,36 @@ public class Question implements Serializable {
 
     @Override
     public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
+        if (this == o) {
+            return true;
+        }
+
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
+
         Question question = (Question) o;
-        return id == question.id && index == question.index && answerIndex == question.answerIndex && Objects.equals(body, question.body) && Objects.equals(imageUrl, question.imageUrl) && Objects.equals(description, question.description) && Objects.equals(options, question.options) && Objects.equals(optionType, question.optionType);
+
+        return getId() == question.getId()
+                && getIndex() == question.getIndex()
+                && getAnswerIndex() == question.getAnswerIndex()
+                && Objects.equals(getBody(), question.getBody())
+                && Objects.equals(getImageUrl(), question.getImageUrl())
+                && Objects.equals(getDescription(), question.getDescription())
+                && Objects.equals(getOptions(), question.getOptions())
+                && Objects.equals(getOptionType(), question.getOptionType());
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, index, body, imageUrl, description, options, optionType, answerIndex);
+        return Objects.hash(getId(),
+                getIndex(),
+                getBody(),
+                getImageUrl(),
+                getDescription(),
+                getOptions(),
+                getOptionType(),
+                getAnswerIndex());
     }
 
     @Override
