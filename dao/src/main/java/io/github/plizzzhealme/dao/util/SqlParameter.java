@@ -6,6 +6,7 @@ import java.util.EnumMap;
 
 public final class SqlParameter {
 
+    public static final String USERS = "forbidden_polls.users";
     public static final String USERS_ID = "users.id";
     public static final String USERS_EMAIL = "users.email";
     public static final String USERS_NAME = "users.name";
@@ -20,8 +21,11 @@ public final class SqlParameter {
     public static final String SURVEYS_CREATION_DATE = "surveys.creation_date";
     public static final String SURVEYS_DESCRIPTION = "surveys.description";
     public static final String SURVEYS_CATEGORY_ID = "surveys.category_id";
-    public static final String USERS = "forbidden_polls.users";
+
+    public static final String CATEGORIES_NAME = "categories.name";
+
     private static final EnumMap<Parameter, String> PARAMETERS = new EnumMap<>(Parameter.class);
+    public static final String CATEGORIES_ID = "categories.id";
 
     static {
         PARAMETERS.put(Parameter.USER_ID, USERS_ID);
