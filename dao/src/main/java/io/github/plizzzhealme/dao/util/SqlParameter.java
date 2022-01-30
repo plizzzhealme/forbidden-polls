@@ -23,7 +23,14 @@ public final class SqlParameter {
     public static final String SURVEYS_DESCRIPTION = "surveys.description";
     public static final String SURVEYS_CATEGORY_ID = "surveys.category_id";
 
+    public static final String CATEGORIES_ID = "categories.id";
     public static final String CATEGORIES_NAME = "categories.name";
+
+    public static final String USER_ROLES_NAME = "user_roles.name";
+
+    public static final String COUNTRIES_NAME = "countries.name";
+
+    public static final String GENDERS_NAME = "genders.name";
 
     public static final String OPTIONS_ID = "options.id";
     public static final String OPTIONS_INDEX_NUMBER = "options.index_number";
@@ -37,9 +44,7 @@ public final class SqlParameter {
 
     public static final String OPTION_TYPES_TYPE = "option_types.type";
 
-
     private static final EnumMap<Parameter, String> PARAMETERS = new EnumMap<>(Parameter.class);
-    public static final String CATEGORIES_ID = "categories.id";
 
     static {
         PARAMETERS.put(Parameter.USER_ID, USERS_ID);
