@@ -5,8 +5,8 @@ import io.github.plizzzhealme.bean.criteria.SearchCriteria;
 import io.github.plizzzhealme.dao.UserDao;
 import io.github.plizzzhealme.dao.exception.DaoException;
 import io.github.plizzzhealme.dao.pool.ConnectionPool;
-import io.github.plizzzhealme.dao.util.DaoUtil;
 import io.github.plizzzhealme.dao.util.SqlParameter;
+import io.github.plizzzhealme.dao.util.Util;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -60,9 +60,9 @@ public class SqlUserDao implements UserDao {
 
             preparedStatement.setString(1, user.getName());
             preparedStatement.setString(2, user.getEmail());
-            preparedStatement.setString(3, DaoUtil.hashPassword(password));
-            preparedStatement.setTimestamp(4, DaoUtil.toSqlTime(user.getRegistrationDate()));
-            preparedStatement.setDate(5, DaoUtil.toSqlTime(user.getBirthday()));
+            preparedStatement.setString(3, Util.hashPassword(password));
+            preparedStatement.setTimestamp(4, Util.toSqlTime(user.getRegistrationDate()));
+            preparedStatement.setDate(5, Util.toSqlTime(user.getBirthday()));
             preparedStatement.setString(6, user.getUserRole());
             preparedStatement.setString(7, user.getCountry());
             preparedStatement.setString(8, user.getGender());
@@ -94,8 +94,8 @@ public class SqlUserDao implements UserDao {
                 user.setId(id);
                 user.setName(resultSet.getString(SqlParameter.USERS_NAME));
                 user.setEmail(resultSet.getString(SqlParameter.USERS_EMAIL));
-                user.setRegistrationDate(DaoUtil.toJavaTime(resultSet.getTimestamp(SqlParameter.USERS_REGISTRATION_DATE)));
-                user.setBirthday(DaoUtil.toJavaTime(resultSet.getDate(SqlParameter.USERS_BIRTHDAY)));
+                user.setRegistrationDate(Util.toJavaTime(resultSet.getTimestamp(SqlParameter.USERS_REGISTRATION_DATE)));
+                user.setBirthday(Util.toJavaTime(resultSet.getDate(SqlParameter.USERS_BIRTHDAY)));
                 user.setUserRole(resultSet.getString(ROLE_NAME));
                 user.setCountry(resultSet.getString(COUNTRY_NAME));
                 user.setGender(resultSet.getString(GENDER_NAME));
@@ -126,7 +126,7 @@ public class SqlUserDao implements UserDao {
 
             if (resultSet.next()) {
                 String hashedPassword = resultSet.getString(SqlParameter.USERS_HASHED_PASSWORD);
-                boolean isCorrectPassword = DaoUtil.isCorrectPassword(password, hashedPassword);
+                boolean isCorrectPassword = Util.isCorrectPassword(password, hashedPassword);
 
                 if (!isCorrectPassword) {
                     return null;
@@ -151,7 +151,7 @@ public class SqlUserDao implements UserDao {
 
         List<User> result = new ArrayList<>();
 
-        String sql = DaoUtil.buildSearchSql(searchCriteria, SqlParameter.USERS);
+        String sql = Util.buildSearchSql(searchCriteria, SqlParameter.USERS);
 
         PreparedStatement preparedStatement = null;
         ResultSet resultSet = null;
@@ -159,7 +159,7 @@ public class SqlUserDao implements UserDao {
         try {
             preparedStatement = connection.prepareStatement(sql);
 
-            DaoUtil.setSearchParameters(searchCriteria, preparedStatement);
+            Util.setSearchParameters(searchCriteria, preparedStatement);
 
             resultSet = preparedStatement.executeQuery();
 
@@ -169,8 +169,8 @@ public class SqlUserDao implements UserDao {
                 user.setId(resultSet.getInt(SqlParameter.USERS_ID));
                 user.setName(resultSet.getString(SqlParameter.USERS_NAME));
                 user.setEmail(resultSet.getString(SqlParameter.USERS_EMAIL));
-                user.setRegistrationDate(DaoUtil.toJavaTime(resultSet.getTimestamp(SqlParameter.USERS_REGISTRATION_DATE)));
-                user.setBirthday(DaoUtil.toJavaTime(resultSet.getDate(SqlParameter.USERS_BIRTHDAY)));
+                user.setRegistrationDate(Util.toJavaTime(resultSet.getTimestamp(SqlParameter.USERS_REGISTRATION_DATE)));
+                user.setBirthday(Util.toJavaTime(resultSet.getDate(SqlParameter.USERS_BIRTHDAY)));
 
                 result.add(user);
             }

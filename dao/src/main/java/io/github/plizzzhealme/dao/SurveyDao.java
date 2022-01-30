@@ -16,7 +16,7 @@ public interface SurveyDao {
 
     void addSurveyResult(Survey survey, int id) throws DaoException;
 
-    boolean isCompleted(int surveyId, int userId) throws DaoException;
+    boolean isSurveyPassedByUser(int surveyId, int userId) throws DaoException;
 
-    List<Survey> searchCompleted(int userId) throws DaoException;
+    List<Survey> searchSurveysPassedByUser(int userId) throws DaoException;
 }

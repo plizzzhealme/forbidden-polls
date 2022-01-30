@@ -14,6 +14,7 @@ public final class SqlParameter {
     public static final String USERS_REGISTRATION_DATE = "users.registration_date";
     public static final String USERS_HASHED_PASSWORD = "users.hashed_password";
 
+    public static final String SURVEYS = "forbidden_polls.surveys";
     public static final String SURVEYS_ID = "surveys.id";
     public static final String SURVEYS_NAME = "surveys.name";
     public static final String SURVEYS_IMAGE_URL = "surveys.image_url";
@@ -31,9 +32,11 @@ public final class SqlParameter {
     public static final String QUESTIONS_ID = "questions.id";
     public static final String QUESTIONS_BODY = "questions.body";
     public static final String QUESTIONS_INDEX_NUMBER = "questions.index_number";
-    public static final String OPTION_TYPES_TYPE = "option_types.type";
     public static final String QUESTIONS_IMAGE_URL = "questions.image_url";
     public static final String QUESTIONS_DESCRIPTION = "questions.description";
+
+    public static final String OPTION_TYPES_TYPE = "option_types.type";
+
 
     private static final EnumMap<Parameter, String> PARAMETERS = new EnumMap<>(Parameter.class);
     public static final String CATEGORIES_ID = "categories.id";

@@ -58,7 +58,7 @@ public class SurveyServiceImpl implements SurveyService {
             while (surveyIterator.hasNext()) {
                 Survey survey = surveyIterator.next();
 
-                if (surveyDao.isCompleted(survey.getId(), userId)) {
+                if (surveyDao.isSurveyPassedByUser(survey.getId(), userId)) {
                     surveyIterator.remove();
                 }
             }
@@ -102,7 +102,7 @@ public class SurveyServiceImpl implements SurveyService {
         SurveyDao surveyDao = daoFactory.getSurveyDao();
 
         try {
-            return surveyDao.searchCompleted(userId);
+            return surveyDao.searchSurveysPassedByUser(userId);
         } catch (DaoException e) {
             throw new ServiceException("", e);
         }
