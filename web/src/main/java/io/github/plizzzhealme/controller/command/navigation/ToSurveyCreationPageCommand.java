@@ -14,7 +14,7 @@ public class ToSurveyCreationPageCommand implements Command {
 
     @Override
     public void execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException, ServiceException {
-        RequestDispatcher dispatcher = request.getRequestDispatcher(Util.CREATE_SURVEY_HEADER_JSP);
+        RequestDispatcher dispatcher = request.getRequestDispatcher(Util.ADD_SURVEY_HEADER_JSP);
         dispatcher.forward(request, response);
     }
 }

@@ -44,6 +44,6 @@ public class AddQuestionCommand implements Command {
         System.out.println(survey);
 
 
-        response.sendRedirect(Util.REDIRECT_URL_PATTERN + Util.TO_SURVEY_QUESTIONS_CREATION_PAGE_COMMAND);
+        response.sendRedirect(Util.REDIRECT_URL_PATTERN + Util.TO_ADD_SURVEY_QUESTION_PAGE_COMMAND);
     }
 }

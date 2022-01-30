@@ -12,7 +12,7 @@ import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.util.ArrayList;
 
-public class CreateSurveyHeaderCommand implements Command {
+public class AddHeaderCommand implements Command {
 
     @Override
     public void execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException, ServiceException {
@@ -33,6 +33,6 @@ public class CreateSurveyHeaderCommand implements Command {
         HttpSession session = request.getSession();
         session.setAttribute(Util.NEW_SURVEY, survey);
 
-        response.sendRedirect(Util.REDIRECT_URL_PATTERN + Util.TO_SURVEY_QUESTIONS_CREATION_PAGE_COMMAND);
+        response.sendRedirect(Util.REDIRECT_URL_PATTERN + Util.TO_ADD_SURVEY_QUESTION_PAGE_COMMAND);
     }
 }
