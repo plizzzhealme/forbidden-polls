@@ -22,7 +22,7 @@
 
 <c:if test="${sessionScope.user_role == Util.ADMIN}">
     <p><a href="${Util.CONTROLLER}?${Util.COMMAND}=${Util.TO_SURVEY_CREATION_PAGE_COMMAND}">
-        create survey
+        ${create_survey}
     </a></p>
 </c:if>
 

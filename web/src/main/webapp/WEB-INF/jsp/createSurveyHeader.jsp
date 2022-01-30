@@ -16,22 +16,34 @@
 <form action="${Util.CONTROLLER}">
     <input type="hidden" name="${Util.COMMAND}" value="${Util.CREATE_SURVEY_HEADER_COMMAND}">
 
-    <label for="name">Name:</label><br/>
-    <input id="name" type="text" name="${Util.SURVEY_NAME}"><br/>
+    <p>
+        <label for="name">${survey_title}:</label><br/>
+        <input id="name" type="text" name="${Util.SURVEY_NAME}">
+    </p>
 
-    <label for="category">Category:</label><br/>
-    <input id="category" type="text" name="${Util.SURVEY_CATEGORY}"><br/>
+    <p>
+        <label for="category">${survey_category}:</label><br/>
+        <input id="category" type="text" name="${Util.SURVEY_CATEGORY}">
+    </p>
 
-    <label for="description">Description:</label><br/>
-    <textarea id="description" name="${Util.SURVEY_DESCRIPTION}" rows="7" cols="44"></textarea><br/>
+    <p>
+        <label for="description">${survey_description}:</label><br/>
+        <textarea id="description" name="${Util.SURVEY_DESCRIPTION}" rows="7" cols="44"></textarea>
+    </p>
 
-    <label for="instructions">Instructions:</label><br/>
-    <textarea id="instructions" name="${Util.SURVEY_INSTRUCTIONS}" rows="7" cols="44"></textarea><br/>
+    <p>
+        <label for="instructions">${survey_instructions}:</label><br/>
+        <textarea id="instructions" name="${Util.SURVEY_INSTRUCTIONS}" rows="7" cols="44"></textarea>
+    </p>
 
-    <label for="image_url">Image url:</label><br/>
-    <input id="image_url" type="url" name="${Util.SURVEY_IMAGE_URL}"><br/>
+    <p>
+        <label for="image_url">${survey_image_url}:</label><br/>
+        <input id="image_url" type="url" name="${Util.SURVEY_IMAGE_URL}">
+    </p>
 
-    <input type="submit" value="next">
+    <p>
+        <input type="submit" value="${add_survey_header}">
+    </p>
 </form>
 </body>
 </html>

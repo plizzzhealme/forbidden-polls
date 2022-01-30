@@ -17,7 +17,6 @@ import java.util.List;
 
 public class SqlSurveyDao implements SurveyDao {
 
-
     public static final String CATEGORIES_NAME = "categories.name";
     public static final String FORBIDDEN_POLLS_SURVEYS = "forbidden_polls.surveys";
     private static final ConnectionPool pool = ConnectionPool.INSTANCE;

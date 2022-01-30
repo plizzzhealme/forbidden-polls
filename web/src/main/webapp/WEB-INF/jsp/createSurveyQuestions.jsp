@@ -17,7 +17,7 @@
 
             for (let i = 0; i < number; i++) {
                 container.appendChild(document.createElement("p"));
-                container.appendChild(document.createTextNode("Option " + (i + 1) + ":"));
+                container.appendChild(document.createTextNode("${question_option} " + (i + 1) + ":"));
                 container.appendChild(document.createElement("br"));
 
                 const input = document.createElement("input");
@@ -37,41 +37,41 @@
     <input type="hidden" name="${Util.COMMAND}" value="${Util.ADD_QUESTION_COMMAND}">
 
     <p>
-        <label for="question">Question:</label><br/>
+        <label for="question">${question}:</label><br/>
         <textarea id="question" name="${Util.QUESTION}" rows="2" cols="44"></textarea>
     </p>
 
     <p>
-        <label for="description">Description:</label><br/>
+        <label for="description">${question_description}:</label><br/>
         <textarea id="description" name="${Util.QUESTION_DESCRIPTION}" rows="7" cols="44"></textarea>
     </p>
 
     <p>
-        <label for="image_url">Image url:</label><br/>
+        <label for="image_url">${question_image_url}:</label><br/>
         <input id="image_url" type="url" name="${Util.QUESTION_IMAGE_URL}">
     </p>
 
     <p>
-        <label for="options_number">Options number:</label><br/>
+        <label for="options_number">${question_options_number}:</label><br/>
         <input type="number"
                min="0" max="10"
                step="1"
                id="options_number"
                name="options_number"
-               value=""> <a href="#" id="add_options" onclick="addOptionFields()">Add options</a>
+               value=""> <a href="#" id="add_options" onclick="addOptionFields()">${add}</a>
     </p>
 
 
     <div id="options"></div>
 
     <p>
-        <input type="submit" value="add question">
+        <input type="submit" value="${add_question}">
     </p>
 
 </form>
 
 <p><a href="${Util.CONTROLLER}?${Util.COMMAND}=${Util.ADD_SURVEY_COMMAND}">
-    create survey
+    ${complete}
 </a></p>
 
 
