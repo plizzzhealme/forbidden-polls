@@ -24,6 +24,10 @@ public final class SqlParameter {
 
     public static final String CATEGORIES_NAME = "categories.name";
 
+    public static final String OPTIONS_ID = "options.id";
+    public static final String OPTIONS_INDEX_NUMBER = "options.index_number";
+    public static final String OPTIONS_BODY = "options.body";
+
     private static final EnumMap<Parameter, String> PARAMETERS = new EnumMap<>(Parameter.class);
     public static final String CATEGORIES_ID = "categories.id";
 
