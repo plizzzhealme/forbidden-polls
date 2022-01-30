@@ -1,5 +1,7 @@
 package io.github.plizzzhealme.controller.util;
 
+import org.apache.commons.lang3.StringUtils;
+
 public final class Util {
 
     public static final String CONTROLLER = "controller";
@@ -55,11 +57,11 @@ public final class Util {
     public static final String SURVEY_ADDED_JSP = "/WEB-INF/jsp/surveyAdded.jsp";
 
     // errors
-    public static final String ERROR_MESSAGE = "error_message";
-    public static final String EMPTY_FIELDS_ERROR = "empty_fields";
-    public static final String INVALID_CREDENTIALS_ERROR = "invalid_credentials";
-    public static final String PASSWORD_MISMATCH_ERROR = "password_mismatch";
-    public static final String EMAIL_IS_BUSY_ERROR = "email_is_busy";
+    public static final String ERROR = "error";
+    public static final String EMPTY_FIELDS_ERROR = "empty_fields_error";
+    public static final String INVALID_CREDENTIALS_ERROR = "invalid_credentials_error";
+    public static final String PASSWORD_MISMATCH_ERROR = "password_mismatch_error";
+    public static final String EMAIL_IS_BUSY_ERROR = "email_is_busy_error";
 
     // not classified
     public static final String URL = "url";
@@ -103,7 +105,10 @@ public final class Util {
     public static final String REDIRECT_URL_PATTERN = CONTROLLER + "?" + COMMAND + "=";
     public static final String OPTIONS_NUMBER = "options_number";
 
-
     private Util() {
+    }
+
+    public static boolean isAnyBlank(String... params) {
+        return StringUtils.isAnyBlank(params);
     }
 }

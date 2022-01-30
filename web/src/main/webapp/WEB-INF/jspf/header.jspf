@@ -1,2 +1,14 @@
-<p><a href="controller?command=change_locale&locale=ru_RU">[ru]</a> | <a
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ page import="io.github.plizzzhealme.controller.util.Util" %>
+<%@ page contentType="text/html; charset=UTF-8" %>
+
+<p><a href="controller?command=change_locale&locale=ru_RU">[ру]</a> | <a
         href="controller?command=change_locale&locale=en_US">[us]</a></p>
+<p>
+    <c:choose>
+        <c:when test="${requestScope.error == Util.EMPTY_FIELDS_ERROR}">${empty_fields}</c:when>
+        <c:when test="${requestScope.error == Util.INVALID_CREDENTIALS_ERROR}">${invalid_credentials}</c:when>
+        <c:when test="${requestScope.error eq Util.PASSWORD_MISMATCH_ERROR}">${password_mismatch}</c:when>
+        <c:when test="${requestScope.error == Util.EMAIL_IS_BUSY_ERROR}">${email_is_busy}</c:when>
+    </c:choose>
+</p>

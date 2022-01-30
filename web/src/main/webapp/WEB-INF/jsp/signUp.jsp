@@ -1,6 +1,6 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
-<%@ page contentType="text/html;charset=UTF-8" pageEncoding="UTF-8" %>
+<%@ page contentType="text/html; charset=UTF-8" %>
 <%@include file="../jspf/localization.jspf" %>
 <!DOCTYPE>
 <html xml:lang="eu">
@@ -12,22 +12,6 @@
 <p>
     <%@include file="../jspf/header.jspf" %>
 </p>
-
-<c:set var="error_message" value="${requestScope.error_message}"/>
-
-<c:if test="${error_message == Util.EMPTY_FIELDS_ERROR}">
-    <c:set var="error" value="${empty_fields}"/>
-</c:if>
-
-<c:if test="${error_message == Util.PASSWORD_MISMATCH_ERROR}">
-    <c:set var="error" value="${password_mismatch}"/>
-</c:if>
-
-<c:if test="${error_message == Util.EMAIL_IS_BUSY_ERROR}">
-    <c:set var="error" value="${email_is_busy}"/>
-</c:if>
-
-<p>${error}</p>
 
 <form action="${Util.CONTROLLER}" method="post" accept-charset="UTF-8">
     <input type="hidden" name="${Util.COMMAND}" value="${Util.SIGN_UP_COMMAND}">

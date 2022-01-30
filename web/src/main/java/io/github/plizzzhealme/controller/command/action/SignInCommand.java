@@ -6,7 +6,6 @@ import io.github.plizzzhealme.controller.util.Util;
 import io.github.plizzzhealme.service.ServiceFactory;
 import io.github.plizzzhealme.service.UserService;
 import io.github.plizzzhealme.service.exception.ServiceException;
-import org.apache.commons.lang3.StringUtils;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -24,18 +23,17 @@ public class SignInCommand implements Command {
         String email = request.getParameter(Util.USER_EMAIL);
         String password = request.getParameter(Util.USER_PASSWORD);
 
-        if (StringUtils.isAnyBlank(email, password)) { // if email or password are not entered
-            request.setAttribute(Util.ERROR_MESSAGE, Util.EMPTY_FIELDS_ERROR);
+        if (Util.isAnyBlank(email, password)) { // if email or password are not entered
+            request.setAttribute(Util.ERROR, Util.EMPTY_FIELDS_ERROR);
 
             RequestDispatcher dispatcher = request.getRequestDispatcher(Util.SIGN_IN_JSP);
             dispatcher.forward(request, response);
         } else { // if entered
             UserService userService = ServiceFactory.INSTANCE.getUserService();
             User user = userService.authorize(email, password);
-            //int userID = user.getId();
 
             if (user == null) { // if invalid email or password
-                request.setAttribute(Util.ERROR_MESSAGE, Util.INVALID_CREDENTIALS_ERROR);
+                request.setAttribute(Util.ERROR, Util.INVALID_CREDENTIALS_ERROR);
 
                 RequestDispatcher dispatcher = request.getRequestDispatcher(Util.SIGN_IN_JSP);
                 dispatcher.forward(request, response);

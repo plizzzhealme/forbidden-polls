@@ -31,13 +31,13 @@ public class SignUpCommand implements Command {
         String gender = request.getParameter(Util.USER_GENDER);
 
         if (StringUtils.isAnyBlank(email, name, password, confirmPassword, birthday, country, gender)) {
-            request.setAttribute(Util.ERROR_MESSAGE, Util.EMPTY_FIELDS_ERROR);
+            request.setAttribute(Util.ERROR, Util.EMPTY_FIELDS_ERROR);
 
             RequestDispatcher dispatcher = request.getRequestDispatcher(Util.SIGN_UP_JSP);
             dispatcher.forward(request, response);
         } else { // if entered
             if (!StringUtils.equals(password, confirmPassword)) {
-                request.setAttribute(Util.ERROR_MESSAGE, Util.PASSWORD_MISMATCH_ERROR);
+                request.setAttribute(Util.ERROR, Util.PASSWORD_MISMATCH_ERROR);
 
                 RequestDispatcher dispatcher = request.getRequestDispatcher(Util.SIGN_UP_JSP);
                 dispatcher.forward(request, response);
@@ -62,7 +62,7 @@ public class SignUpCommand implements Command {
 
                     response.sendRedirect(Util.REDIRECT_URL_PATTERN + Util.TO_PROFILE_PAGE_COMMAND);
                 } else {
-                    request.setAttribute(Util.ERROR_MESSAGE, Util.EMAIL_IS_BUSY_ERROR);
+                    request.setAttribute(Util.ERROR, Util.EMAIL_IS_BUSY_ERROR);
 
                     RequestDispatcher dispatcher = request.getRequestDispatcher(Util.SIGN_UP_JSP);
                     dispatcher.forward(request, response);
