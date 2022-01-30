@@ -4,6 +4,7 @@ import io.github.plizzzhealme.bean.Question;
 import io.github.plizzzhealme.dao.QuestionDao;
 import io.github.plizzzhealme.dao.exception.DaoException;
 import io.github.plizzzhealme.dao.pool.ConnectionPool;
+import io.github.plizzzhealme.dao.util.SqlParameter;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -14,20 +15,9 @@ import java.util.List;
 
 public class SqlQuestionDao implements QuestionDao {
 
-    public static final String QUESTIONS_ID = "questions.id";
-    public static final String QUESTIONS_BODY = "questions.body";
-    public static final String QUESTIONS_INDEX_NUMBER = "questions.index_number";
-    public static final String OPTION_TYPES_TYPE = "option_types.type";
-    public static final String QUESTIONS_IMAGE_URL = "questions.image_url";
-    public static final String QUESTIONS_DESCRIPTION = "questions.description";
     private static final ConnectionPool pool = ConnectionPool.INSTANCE;
-    private static final String SELECT_QUESTIONS_BY_SURVEY_ID = "" +
-            "SELECT questions.id, questions.index_number, questions.body, questions.image_url, " +
-            "questions.description, option_types.type " +
-            "FROM forbidden_polls.questions " +
-            "JOIN forbidden_polls.option_types ON option_types.id = questions.option_type_id " +
-            "WHERE questions.survey_id = ? " +
-            "ORDER BY questions.index_number";
+
+    private static final String SELECT_QUESTIONS_BY_SURVEY_ID = "" + "SELECT questions.id, questions.index_number, questions.body, questions.image_url, " + "questions.description, option_types.type " + "FROM forbidden_polls.questions " + "JOIN forbidden_polls.option_types ON option_types.id = questions.option_type_id " + "WHERE questions.survey_id = ? " + "ORDER BY questions.index_number";
 
     @Override
     public List<Question> search(int surveyId) throws DaoException {
@@ -35,6 +25,7 @@ public class SqlQuestionDao implements QuestionDao {
 
         PreparedStatement preparedStatement = null;
         ResultSet resultSet = null;
+
         List<Question> questions = new ArrayList<>();
 
         try {
@@ -45,23 +36,21 @@ public class SqlQuestionDao implements QuestionDao {
             while (resultSet.next()) {
                 Question question = new Question();
 
-                int questionId = resultSet.getInt(QUESTIONS_ID);
-                question.setId(questionId);
-                question.setIndex(resultSet.getInt(QUESTIONS_INDEX_NUMBER));
-                question.setBody(resultSet.getString(QUESTIONS_BODY));
-                question.setImageUrl(resultSet.getString(QUESTIONS_IMAGE_URL));
-                question.setDescription(resultSet.getString(QUESTIONS_DESCRIPTION));
-                question.setOptionType(resultSet.getString(OPTION_TYPES_TYPE));
+                question.setId(resultSet.getInt(SqlParameter.QUESTIONS_ID));
+                question.setIndex(resultSet.getInt(SqlParameter.QUESTIONS_INDEX_NUMBER));
+                question.setBody(resultSet.getString(SqlParameter.QUESTIONS_BODY));
+                question.setImageUrl(resultSet.getString(SqlParameter.QUESTIONS_IMAGE_URL));
+                question.setDescription(resultSet.getString(SqlParameter.QUESTIONS_DESCRIPTION));
+                question.setOptionType(resultSet.getString(SqlParameter.OPTION_TYPES_TYPE));
 
                 questions.add(question);
-
             }
+
+            return questions;
         } catch (SQLException e) {
-            throw new DaoException("Error while reading question data from database", e);
+            throw new DaoException("Error while reading question data from database.", e);
         } finally {
             pool.closeConnection(connection, preparedStatement, resultSet);
         }
-
-        return questions;
     }
 }

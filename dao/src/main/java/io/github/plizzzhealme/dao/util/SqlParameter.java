@@ -28,6 +28,13 @@ public final class SqlParameter {
     public static final String OPTIONS_INDEX_NUMBER = "options.index_number";
     public static final String OPTIONS_BODY = "options.body";
 
+    public static final String QUESTIONS_ID = "questions.id";
+    public static final String QUESTIONS_BODY = "questions.body";
+    public static final String QUESTIONS_INDEX_NUMBER = "questions.index_number";
+    public static final String OPTION_TYPES_TYPE = "option_types.type";
+    public static final String QUESTIONS_IMAGE_URL = "questions.image_url";
+    public static final String QUESTIONS_DESCRIPTION = "questions.description";
+
     private static final EnumMap<Parameter, String> PARAMETERS = new EnumMap<>(Parameter.class);
     public static final String CATEGORIES_ID = "categories.id";
 
