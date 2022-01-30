@@ -3,10 +3,7 @@ package io.github.plizzzhealme.service.impl;
 import io.github.plizzzhealme.bean.Question;
 import io.github.plizzzhealme.bean.Survey;
 import io.github.plizzzhealme.bean.criteria.SearchCriteria;
-import io.github.plizzzhealme.dao.DaoFactory;
-import io.github.plizzzhealme.dao.OptionDao;
-import io.github.plizzzhealme.dao.QuestionDao;
-import io.github.plizzzhealme.dao.SurveyDao;
+import io.github.plizzzhealme.dao.*;
 import io.github.plizzzhealme.dao.exception.DaoException;
 import io.github.plizzzhealme.service.SurveyService;
 import io.github.plizzzhealme.service.exception.ServiceException;
@@ -74,10 +71,19 @@ public class SurveyServiceImpl implements SurveyService {
 
     @Override
     public void addNewSurvey(Survey survey) throws ServiceException {
+        DaoFactory daoFactory = DaoFactory.INSTANCE;
+        CategoryDao categoryDao = daoFactory.getCategoryDao();
+        SurveyDao surveyDao = daoFactory.getSurveyDao();
+        String category = survey.getCategory();
+
         try {
-            DaoFactory.INSTANCE.getSurveyDao().create(survey);
+            if (!categoryDao.isPresent(category)) {
+                categoryDao.create(category);
+            }
+
+            surveyDao.create(survey);
         } catch (DaoException e) {
-            throw new ServiceException("", e);
+            throw new ServiceException("Failed to add new survey", e);
         }
     }
 

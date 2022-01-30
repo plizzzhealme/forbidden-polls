@@ -1,6 +1,5 @@
 package io.github.plizzzhealme.dao.sql;
 
-import io.github.plizzzhealme.bean.Category;
 import io.github.plizzzhealme.dao.CategoryDao;
 import io.github.plizzzhealme.dao.DaoFactory;
 import io.github.plizzzhealme.dao.exception.DaoException;
@@ -29,7 +28,7 @@ class SqlCategoryDaoTest {
     void findAll() throws DaoException {
         CategoryDao categoryDao = DaoFactory.INSTANCE.getCategoryDao();
 
-        List<Category> actual = categoryDao.findAll();
+        List<String> actual = categoryDao.findAll();
         int expectedSize = 3;
         int actualSize = actual.size();
 

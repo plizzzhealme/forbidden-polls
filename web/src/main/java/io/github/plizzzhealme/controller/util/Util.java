@@ -5,7 +5,7 @@ import org.apache.commons.lang3.StringUtils;
 public final class Util {
 
     public static final String CONTROLLER = "controller";
-
+    public static final String CATEGORY = "category";
     // user parameters
     public static final String USER = "user";
     public static final String USER_ID = "user_id";
