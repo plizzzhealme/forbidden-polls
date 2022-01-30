@@ -22,7 +22,7 @@
 
                 const input = document.createElement("input");
                 input.type = "text";
-                input.name = "option" + i;
+                input.name = "option";
 
                 container.appendChild(input);
             }

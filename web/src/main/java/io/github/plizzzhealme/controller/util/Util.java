@@ -70,7 +70,6 @@ public final class Util {
     public static final String CATEGORY_NAME = "category_name";
     public static final String COMMAND = "command";
 
-
     // actions
     public static final String SIGN_IN_COMMAND = "sign_in";
     public static final String SIGN_UP_COMMAND = "sign_up";
@@ -103,7 +102,7 @@ public final class Util {
     public static final String OPTION = "option";
 
     public static final String REDIRECT_URL_PATTERN = CONTROLLER + "?" + COMMAND + "=";
-    public static final String OPTIONS_NUMBER = "options_number";
+    public static final String QUESTION_OPTION = "option";
 
     private Util() {
     }

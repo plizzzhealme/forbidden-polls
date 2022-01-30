@@ -17,17 +17,15 @@ public class AddHeaderCommand implements Command {
 
     @Override
     public void execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException, ServiceException {
-        HttpSession session = request.getSession();
 
-        // required
+        // required field
         String surveyName = request.getParameter(Util.SURVEY_NAME);
         String surveyCategory = request.getParameter(Util.SURVEY_CATEGORY);
 
-        // optional
+        // optional fields
         String surveyDescription = request.getParameter(Util.SURVEY_DESCRIPTION);
         String surveyInstructions = request.getParameter(Util.SURVEY_INSTRUCTIONS);
         String surveyImageUrl = request.getParameter(Util.SURVEY_IMAGE_URL);
-
 
         if (Util.isAnyBlank(surveyName, surveyCategory)) {
             request.setAttribute(Util.ERROR, Util.EMPTY_FIELDS_ERROR);
@@ -35,6 +33,8 @@ public class AddHeaderCommand implements Command {
             RequestDispatcher dispatcher = request.getRequestDispatcher(Util.ADD_SURVEY_HEADER_JSP);
             dispatcher.forward(request, response);
         } else {
+            HttpSession session = request.getSession();
+
             Survey survey = new Survey();
             survey.setName(surveyName);
             survey.setDescription(surveyDescription);

@@ -39,12 +39,10 @@ public class AnswerCommand implements Command {
 
     private void finishSurvey(HttpServletRequest request) throws ServiceException {
         HttpSession session = request.getSession();
-
         Survey survey = (Survey) session.getAttribute(Util.SURVEY);
         int userId = (int) session.getAttribute(Util.USER_ID);
         session.removeAttribute(Util.QUESTION_INDEX);
         session.removeAttribute(Util.SURVEY);
-
         ServiceFactory.INSTANCE.getSurveyService().completeSurvey(survey, userId);
     }
 }
