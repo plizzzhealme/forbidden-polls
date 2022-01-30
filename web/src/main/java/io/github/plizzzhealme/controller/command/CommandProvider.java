@@ -32,9 +32,9 @@ public final class CommandProvider {
         commands.put(Util.TO_SURVEY_END_PAGE_COMMAND, new ToSurveyEndPageCommand());
         commands.put(Util.TO_SURVEY_BEGIN_PAGE_COMMAND, new ToSurveyBeginPageCommand());
         commands.put(Util.TO_COMPLETED_SURVEYS_PAGE_COMMAND, new ToCompletedSurveysPageCommand());
-        commands.put(Util.TO_ADD_SURVEY_HEADER_PAGE_COMMAND, new ToSurveyCreationPageCommand());
+        commands.put(Util.TO_ADD_SURVEY_HEADER_PAGE_COMMAND, new ToAddSurveyHeaderPageCommand());
         commands.put(Util.ADD_HEADER_COMMAND, new AddHeaderCommand());
-        commands.put(Util.TO_ADD_SURVEY_QUESTION_PAGE_COMMAND, new ToSurveyQuestionsCreationPageCommand());
+        commands.put(Util.TO_ADD_SURVEY_QUESTION_PAGE_COMMAND, new ToAddSurveyQuestionPageCommand());
         commands.put(Util.ADD_QUESTION_COMMAND, new AddQuestionCommand());
         commands.put(Util.ADD_SURVEY_COMMAND, new AddSurveyCommand());
         commands.put(Util.TO_SURVEY_ADDED_PAGE_COMMAND, new ToSurveyAddedPageCommand());
