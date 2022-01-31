@@ -8,6 +8,8 @@ import java.util.Objects;
 public class Question implements Serializable {
 
     public static final String SELECT = "select";
+    public static final String MULTI_SELECT = "multi_select";
+    public static final String CUSTOM = "custom";
 
     @Serial
     private static final long serialVersionUID = 7809120840553064347L;

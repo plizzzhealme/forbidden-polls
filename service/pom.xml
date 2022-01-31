@@ -21,6 +21,7 @@
         <!-- modules -->
         <bean.version>1.0-SNAPSHOT</bean.version>
         <dao.version>1.0-SNAPSHOT</dao.version>
+        <commons-validator.version>1.7</commons-validator.version>
     </properties>
 
     <dependencies>
@@ -37,6 +38,12 @@
             <artifactId>dao</artifactId>
             <version>${dao.version}</version>
             <scope>compile</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>commons-validator</groupId>
+            <artifactId>commons-validator</artifactId>
+            <version>${commons-validator.version}</version>
         </dependency>
     </dependencies>
 </project>
