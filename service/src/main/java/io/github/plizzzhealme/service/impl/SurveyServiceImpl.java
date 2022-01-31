@@ -3,14 +3,12 @@ package io.github.plizzzhealme.service.impl;
 import io.github.plizzzhealme.bean.Question;
 import io.github.plizzzhealme.bean.Survey;
 import io.github.plizzzhealme.bean.criteria.SearchCriteria;
-import io.github.plizzzhealme.dao.DaoFactory;
-import io.github.plizzzhealme.dao.OptionDao;
-import io.github.plizzzhealme.dao.QuestionDao;
-import io.github.plizzzhealme.dao.SurveyDao;
+import io.github.plizzzhealme.dao.*;
 import io.github.plizzzhealme.dao.exception.DaoException;
 import io.github.plizzzhealme.service.SurveyService;
 import io.github.plizzzhealme.service.exception.ServiceException;
 
+import java.util.Iterator;
 import java.util.List;
 
 public class SurveyServiceImpl implements SurveyService {
@@ -42,6 +40,69 @@ public class SurveyServiceImpl implements SurveyService {
     public List<Survey> search(SearchCriteria searchCriteria) throws ServiceException {
         try {
             return DaoFactory.INSTANCE.getSurveyDao().search(searchCriteria);
+        } catch (DaoException e) {
+            throw new ServiceException("", e);
+        }
+    }
+
+    @Override
+    public List<Survey> searchAvailableSurveys(SearchCriteria criteria, int userId) throws ServiceException {
+        DaoFactory daoFactory = DaoFactory.INSTANCE;
+        SurveyDao surveyDao = daoFactory.getSurveyDao();
+
+        try {
+            List<Survey> surveys = surveyDao.search(criteria);
+
+            Iterator<Survey> surveyIterator = surveys.iterator();
+
+            while (surveyIterator.hasNext()) {
+                Survey survey = surveyIterator.next();
+
+                if (surveyDao.isSurveyPassedByUser(survey.getId(), userId)) {
+                    surveyIterator.remove();
+                }
+            }
+
+            return surveys;
+        } catch (DaoException e) {
+            throw new ServiceException("", e);
+        }
+    }
+
+    @Override
+    public void addNewSurvey(Survey survey) throws ServiceException {
+        DaoFactory daoFactory = DaoFactory.INSTANCE;
+        CategoryDao categoryDao = daoFactory.getCategoryDao();
+        SurveyDao surveyDao = daoFactory.getSurveyDao();
+        String category = survey.getCategory();
+
+        try {
+            if (!categoryDao.isPresent(category)) {
+                categoryDao.create(category);
+            }
+
+            surveyDao.create(survey);
+        } catch (DaoException e) {
+            throw new ServiceException("Failed to add new survey", e);
+        }
+    }
+
+    @Override
+    public void completeSurvey(Survey survey, int userId) throws ServiceException {
+        try {
+            DaoFactory.INSTANCE.getSurveyDao().addSurveyResult(survey, userId);
+        } catch (DaoException e) {
+            throw new ServiceException("Failed to complete survey", e);
+        }
+    }
+
+    @Override
+    public List<Survey> searchCompletedSurveys(int userId) throws ServiceException {
+        DaoFactory daoFactory = DaoFactory.INSTANCE;
+        SurveyDao surveyDao = daoFactory.getSurveyDao();
+
+        try {
+            return surveyDao.searchSurveysPassedByUser(userId);
         } catch (DaoException e) {
             throw new ServiceException("", e);
         }

@@ -1,53 +1,36 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@ page contentType="text/html;charset=UTF-8" %>
+<%@ page contentType="text/html; charset=UTF-8" %>
 <%@ include file="../jspf/localization.jspf" %>
 <!DOCTYPE>
 <html xml:lang="eu">
+<meta charset="UTF-8">
 <head>
-    <title>home</title>
+    <title>${profile}</title>
 </head>
 <body>
 <p>
     <%@include file="../jspf/header.jspf" %>
 </p>
 
-<div>
-    <%-- name --%>
-    <p><c:out value="${name}: ${requestScope.user.name}"/></p>
+<p><a href="${Util.CONTROLLER}?${Util.COMMAND}=${Util.TO_PROFILE_INFO_PAGE_COMMAND}">
+    ${profile_info}
+</a></p>
 
-    <%-- email --%>
-    <p><c:out value="${email}: ${requestScope.user.email}"/></p>
+<p><a href="${Util.CONTROLLER}?${Util.COMMAND}=${Util.TO_CATEGORIES_PAGE_COMMAND}">
+    ${survey_categories}
+</a></p>
 
-    <%-- gender --%>
-    <p><c:choose>
-        <c:when test="${requestScope.user.gender == 'male'}">
-            <c:out value="${gender}:  ${male}"/>
-        </c:when>
-        <c:when test="${requestScope.user.gender == 'female'}">
-            <c:out value="${gender}:  ${female}"/>
-        </c:when>
-        <c:otherwise>
-            <c:out value="${gender}:  ${other}"/>
-        </c:otherwise>
-    </c:choose></p>
+<c:if test="${sessionScope.user_role == Util.ADMIN}">
+    <p><a href="${Util.CONTROLLER}?${Util.COMMAND}=${Util.TO_ADD_SURVEY_HEADER_PAGE_COMMAND}">
+            ${create_survey}
+    </a></p>
+</c:if>
 
-    <%-- role --%>
-    <p><c:choose>
-        <c:when test="${requestScope.user.userRole == 'user'}">
-            <c:out value="${role}:  ${user}"/>
-        </c:when>
-        <c:otherwise>
-            <c:out value="${role}:  ${admin}"/>
-        </c:otherwise>
-    </c:choose></p>
 
-        <%-- birthday --%>
-        <c:out value="${birthday}: ${requestScope.user.birthday}"/>
+<form action="${Util.CONTROLLER}">
+    <input type="hidden" name="${Util.COMMAND}" value="${Util.SIGN_OUT_COMMAND}">
 
-        <%-- country --%>
-        <p><c:out value="${country}: ${requestScope.user.country}"/></p>
-</div>
-
-<p><a href="${Util.CONTROLLER}?${Util.COMMAND}=${Util.TO_USER_PAGE_COMMAND}">${back}</a></p>
+    <input type="submit" value="${sign_out}">
+</form>
 </body>
 </html>

@@ -8,7 +8,15 @@ import java.util.List;
 
 public interface SurveyDao {
 
+    void create(Survey survey) throws DaoException;
+
     Survey find(int id) throws DaoException;
 
     List<Survey> search(SearchCriteria searchCriteria) throws DaoException;
+
+    void addSurveyResult(Survey survey, int id) throws DaoException;
+
+    boolean isSurveyPassedByUser(int surveyId, int userId) throws DaoException;
+
+    List<Survey> searchSurveysPassedByUser(int userId) throws DaoException;
 }

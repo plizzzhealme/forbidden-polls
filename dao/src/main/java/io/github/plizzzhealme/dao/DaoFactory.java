@@ -8,7 +8,6 @@ public enum DaoFactory {
 
     private final UserDao userDao = new SqlUserDao();
     private final ConnectionDao connectionDao = new SqlConnectionDao();
-    private final UserRoleDao userRoleDao = new SqlUserRoleDao();
     private final SurveyDao surveyDao = new SqlSurveyDao();
     private final QuestionDao questionDao = new SqlQuestionDao();
     private final OptionDao optionDao = new SqlOptionDao();
@@ -20,10 +19,6 @@ public enum DaoFactory {
 
     public ConnectionDao getConnectionDao() {
         return connectionDao;
-    }
-
-    public UserRoleDao getUserRoleDao() {
-        return userRoleDao;
     }
 
     public SurveyDao getSurveyDao() {

@@ -64,13 +64,13 @@ CREATE TABLE IF NOT EXISTS `forbidden_polls`.`option_types`
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `forbidden_polls`.`surveys`
 (
-    `id`            INT         NOT NULL AUTO_INCREMENT,
-    `name`          VARCHAR(45) NOT NULL,
-    `creation_date` DATETIME    NULL,
-    `description`   VARCHAR(45) NULL,
-    `instructions`  VARCHAR(45) NULL,
-    `image_url`     VARCHAR(45) NULL,
-    `category_id`   INT         NOT NULL,
+    `id`            INT          NOT NULL AUTO_INCREMENT,
+    `name`          VARCHAR(200) NOT NULL,
+    `creation_date` DATETIME     NULL,
+    `description`   VARCHAR(200) NULL,
+    `instructions`  VARCHAR(200) NULL,
+    `image_url`     VARCHAR(200) NULL,
+    `category_id`   INT          NOT NULL,
     PRIMARY KEY (`id`),
     UNIQUE INDEX `id_UNIQUE` (`id` ASC) VISIBLE,
     INDEX `fk_surveys_categories1_idx` (`category_id` ASC) VISIBLE,
@@ -89,13 +89,13 @@ CREATE TABLE IF NOT EXISTS `forbidden_polls`.`surveys`
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `forbidden_polls`.`questions`
 (
-    `id`                   INT         NOT NULL AUTO_INCREMENT,
-    `index_number`         INT         NOT NULL,
-    `body`                 VARCHAR(45) NOT NULL,
-    `image_url`            VARCHAR(45) NULL,
-    `question_description` VARCHAR(45) NULL,
-    `survey_id`            INT         NOT NULL,
-    `option_type_id`       INT         NOT NULL,
+    `id`             INT          NOT NULL AUTO_INCREMENT,
+    `index_number`   INT          NOT NULL,
+    `body`           VARCHAR(200) NOT NULL,
+    `image_url`      VARCHAR(200) NULL,
+    `description`    VARCHAR(200) NULL,
+    `survey_id`      INT          NOT NULL,
+    `option_type_id` INT          NOT NULL,
     PRIMARY KEY (`id`),
     UNIQUE INDEX `id_UNIQUE` (`id` ASC) VISIBLE,
     INDEX `fk_question_surveys1_idx` (`survey_id` ASC) VISIBLE,
@@ -116,10 +116,10 @@ CREATE TABLE IF NOT EXISTS `forbidden_polls`.`questions`
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `forbidden_polls`.`options`
 (
-    `id`           INT         NOT NULL AUTO_INCREMENT,
-    `body`         VARCHAR(45) NULL,
-    `index_number` INT         NOT NULL,
-    `question_id`  INT         NOT NULL,
+    `id`           INT          NOT NULL AUTO_INCREMENT,
+    `body`         VARCHAR(200) NULL,
+    `index_number` INT          NOT NULL,
+    `question_id`  INT          NOT NULL,
     PRIMARY KEY (`id`),
     UNIQUE INDEX `id_UNIQUE` (`id` ASC) VISIBLE,
     INDEX `fk_possible_answers_questions1_idx` (`question_id` ASC) VISIBLE,
@@ -165,8 +165,8 @@ CREATE TABLE IF NOT EXISTS `forbidden_polls`.`genders`
 CREATE TABLE IF NOT EXISTS `forbidden_polls`.`users`
 (
     `id`                INT          NOT NULL AUTO_INCREMENT,
-    `name`              VARCHAR(45)  NULL,
-    `email`             VARCHAR(45)  NOT NULL,
+    `name`              VARCHAR(100) NULL,
+    `email`             VARCHAR(100) NOT NULL,
     `hashed_password`   VARCHAR(222) NOT NULL,
     `registration_date` DATETIME     NULL,
     `birthday`          DATE         NULL,
@@ -224,10 +224,10 @@ CREATE TABLE IF NOT EXISTS `forbidden_polls`.`passed_surveys`
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `forbidden_polls`.`picked_options`
 (
-    `id`          INT         NOT NULL AUTO_INCREMENT,
-    `answer_text` VARCHAR(45) NULL,
-    `user_id`     INT         NOT NULL,
-    `option_id`   INT         NOT NULL,
+    `id`          INT          NOT NULL AUTO_INCREMENT,
+    `answer_text` VARCHAR(100) NULL,
+    `user_id`     INT          NOT NULL,
+    `option_id`   INT          NOT NULL,
     PRIMARY KEY (`id`),
     INDEX `fk_picked_options_users1_idx` (`user_id` ASC) VISIBLE,
     INDEX `fk_picked_options_options1_idx` (`option_id` ASC) VISIBLE,
@@ -567,7 +567,7 @@ VALUES ('sport');
 -- add polls
 START TRANSACTION;
 INSERT INTO forbidden_polls.surveys (name, creation_date, description, instructions, image_url, category_id)
-VALUES ('Poll about smoking', '2022-01-05 11:27:52', null, null, null, 2);
+VALUES ('Bad habits', '2022-01-05 11:27:52', 'Tell about your habits.', 'Just answer yes or no.', null, 2);
 
 INSERT INTO forbidden_polls.questions (index_number, body, image_url, description, survey_id, option_type_id)
 VALUES (1, 'Do you smoke?', null, null, 1, 1);
@@ -578,8 +578,40 @@ VALUES (1, 'yes', 1);
 INSERT INTO forbidden_polls.options (index_number, body, question_id)
 VALUES (2, 'no', 1);
 
+INSERT INTO forbidden_polls.questions (index_number, body, image_url, description, survey_id, option_type_id)
+VALUES (2, 'Do you drink alcohol?', null, 'Beer does not count.', 1, 1);
+
+INSERT INTO forbidden_polls.options (index_number, body, question_id)
+VALUES (1, 'yes', 2);
+
+INSERT INTO forbidden_polls.options (index_number, body, question_id)
+VALUES (2, 'no', 2);
 
 COMMIT;
+
+
+INSERT INTO forbidden_polls.surveys (id, name, creation_date, description, instructions, image_url, category_id)
+VALUES (6, 'Последствия ковид-19', '2022-01-05 11:27:52', 'Расскажите', 'Выберите', null, 2);
+
+INSERT INTO forbidden_polls.questions (id, index_number, body, image_url, description, survey_id, option_type_id)
+VALUES (5, 1, 'Теряли ли Вы запахи?', null, null, 6, 1);
+
+INSERT INTO forbidden_polls.options (index_number, body, question_id)
+VALUES (1, 'Да', 5);
+
+INSERT INTO forbidden_polls.options (index_number, body, question_id)
+VALUES (2, 'Нет', 5);
+
+INSERT INTO forbidden_polls.questions (id, index_number, body, image_url, description, survey_id, option_type_id)
+VALUES (6, 2, 'Умерли ли Вы?', null, null, 6, 1);
+
+INSERT INTO forbidden_polls.options (index_number, body, question_id)
+VALUES (1, 'Да', 6);
+
+INSERT INTO forbidden_polls.options (index_number, body, question_id)
+VALUES (2, 'Нет', 6);
+
+
 
 
 

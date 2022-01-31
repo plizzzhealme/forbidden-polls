@@ -85,6 +85,16 @@ public enum ConnectionPool {
         return connection;
     }
 
+    public void closeConnection(Connection con) {
+        try {
+            if (con != null) {
+                con.close();
+            }
+        } catch (SQLException e) {
+            logger.error("Connection isn't returned to the pool.", e);
+        }
+    }
+
     public void closeConnection(Connection con, Statement st, ResultSet rs) {
         try {
             if (con != null) {

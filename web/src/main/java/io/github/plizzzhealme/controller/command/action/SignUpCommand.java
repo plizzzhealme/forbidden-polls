@@ -11,32 +11,33 @@ import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 
-public class RegistrationCommand implements Command {
+public class SignUpCommand implements Command {
 
     @Override
     public void execute(HttpServletRequest request, HttpServletResponse response) throws IOException, ServiceException, ServletException {
-        String email = request.getParameter(Util.EMAIL);
-        String name = request.getParameter(Util.NAME);
-        String password = request.getParameter(Util.PASSWORD);
-        String confirmPassword = request.getParameter(Util.CONFIRM_PASSWORD);
+        String email = request.getParameter(Util.USER_EMAIL);
+        String name = request.getParameter(Util.USER_NAME);
+        String password = request.getParameter(Util.USER_PASSWORD);
+        String confirmPassword = request.getParameter(Util.USER_CONFIRM_PASSWORD);
         LocalDateTime registrationDate = LocalDateTime.now();
-        String birthday = request.getParameter(Util.BIRTHDAY);
+        String birthday = request.getParameter(Util.USER_BIRTHDAY);
         String userRole = Util.USER;
-        String country = request.getParameter(Util.COUNTRY);
-        String gender = request.getParameter(Util.GENDER);
+        String country = request.getParameter(Util.USER_COUNTRY);
+        String gender = request.getParameter(Util.USER_GENDER);
 
         if (StringUtils.isAnyBlank(email, name, password, confirmPassword, birthday, country, gender)) {
-            request.setAttribute(Util.ERROR_MESSAGE, Util.EMPTY_FIELDS_ERROR);
+            request.setAttribute(Util.ERROR, Util.EMPTY_FIELDS_ERROR);
 
             RequestDispatcher dispatcher = request.getRequestDispatcher(Util.SIGN_UP_JSP);
             dispatcher.forward(request, response);
         } else { // if entered
             if (!StringUtils.equals(password, confirmPassword)) {
-                request.setAttribute(Util.ERROR_MESSAGE, Util.PASSWORD_MISMATCH_ERROR);
+                request.setAttribute(Util.ERROR, Util.PASSWORD_MISMATCH_ERROR);
 
                 RequestDispatcher dispatcher = request.getRequestDispatcher(Util.SIGN_UP_JSP);
                 dispatcher.forward(request, response);
@@ -54,12 +55,14 @@ public class RegistrationCommand implements Command {
                 boolean isRegistered = ServiceFactory.INSTANCE.getUserService().register(user, password);
 
                 if (isRegistered) {
-                    int userID = ServiceFactory.INSTANCE.getUserService().authorize(email, password);
-                    request.getSession().setAttribute(Util.USER_ID, userID);
+                    user = ServiceFactory.INSTANCE.getUserService().authorize(email, password);
+                    HttpSession session = request.getSession();
+                    session.setAttribute(Util.USER_ID, user.getId());
+                    session.setAttribute(Util.USER_ROLE, user.getUserRole());
 
-                    response.sendRedirect(Util.TO_USER_PAGE_REDIRECT);
+                    response.sendRedirect(Util.REDIRECT_URL_PATTERN + Util.TO_PROFILE_PAGE_COMMAND);
                 } else {
-                    request.setAttribute(Util.ERROR_MESSAGE, Util.EMAIL_IS_BUSY_ERROR);
+                    request.setAttribute(Util.ERROR, Util.EMAIL_IS_BUSY_ERROR);
 
                     RequestDispatcher dispatcher = request.getRequestDispatcher(Util.SIGN_UP_JSP);
                     dispatcher.forward(request, response);

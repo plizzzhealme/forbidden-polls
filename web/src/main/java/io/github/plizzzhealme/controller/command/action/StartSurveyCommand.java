@@ -41,7 +41,7 @@ public class StartSurveyCommand implements Command {
             session.setAttribute(Util.SURVEY, survey);
             session.setAttribute(Util.QUESTION_INDEX, 0);
 
-            response.sendRedirect("controller?command=to_survey_page");
+            response.sendRedirect(Util.REDIRECT_URL_PATTERN + Util.TO_SURVEY_PAGE_COMMAND);
         }
     }
 }

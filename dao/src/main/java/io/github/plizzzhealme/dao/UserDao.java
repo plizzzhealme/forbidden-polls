@@ -12,7 +12,7 @@ public interface UserDao {
 
     User find(int id) throws DaoException;
 
-    int signIn(String email, String password) throws DaoException;
+    User signIn(String email, String password) throws DaoException;
 
     List<User> search(SearchCriteria criteria) throws DaoException;
 

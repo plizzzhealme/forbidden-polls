@@ -7,6 +7,10 @@ import java.util.Objects;
 
 public class Question implements Serializable {
 
+    public static final String SELECT = "select";
+    public static final String MULTI_SELECT = "multi_select";
+    public static final String CUSTOM = "custom";
+
     @Serial
     private static final long serialVersionUID = 7809120840553064347L;
 
@@ -17,6 +21,7 @@ public class Question implements Serializable {
     private String description;
     private List<Option> options;
     private String optionType;
+    private int answerIndex;
 
     public int getId() {
         return id;
@@ -74,17 +79,46 @@ public class Question implements Serializable {
         this.optionType = optionType;
     }
 
+    public int getAnswerIndex() {
+        return answerIndex;
+    }
+
+    public void setAnswerIndex(int answerIndex) {
+        this.answerIndex = answerIndex;
+    }
+
     @Override
     public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
+        if (this == o) {
+            return true;
+        }
+
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
+
         Question question = (Question) o;
-        return id == question.id && index == question.index && Objects.equals(body, question.body) && Objects.equals(imageUrl, question.imageUrl) && Objects.equals(description, question.description) && Objects.equals(options, question.options) && Objects.equals(optionType, question.optionType);
+
+        return getId() == question.getId()
+                && getIndex() == question.getIndex()
+                && getAnswerIndex() == question.getAnswerIndex()
+                && Objects.equals(getBody(), question.getBody())
+                && Objects.equals(getImageUrl(), question.getImageUrl())
+                && Objects.equals(getDescription(), question.getDescription())
+                && Objects.equals(getOptions(), question.getOptions())
+                && Objects.equals(getOptionType(), question.getOptionType());
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, index, body, imageUrl, description, options, optionType);
+        return Objects.hash(getId(),
+                getIndex(),
+                getBody(),
+                getImageUrl(),
+                getDescription(),
+                getOptions(),
+                getOptionType(),
+                getAnswerIndex());
     }
 
     @Override
@@ -97,6 +131,7 @@ public class Question implements Serializable {
                 ", description='" + description + '\'' +
                 ", options=" + options +
                 ", optionType='" + optionType + '\'' +
+                ", answerIndex=" + answerIndex +
                 '}';
     }
 }

@@ -14,20 +14,30 @@ public final class CommandProvider {
     public CommandProvider() {
         commands = new HashMap<>();
 
-        commands.put(Util.SIGN_IN_COMMAND, new AuthorizationCommand());
+        commands.put(Util.SIGN_IN_COMMAND, new SignInCommand());
         commands.put(Util.TO_SIGN_IN_PAGE_COMMAND, new ToSignInPageCommand());
         commands.put(Util.TO_SIGN_UP_PAGE_COMMAND, new ToSignUpPageCommand());
         commands.put(Util.TO_START_PAGE_COMMAND, new ToStartPageCommand());
-        commands.put(Util.TO_USER_PAGE_COMMAND, new ToUserPageCommand());
+        commands.put(Util.TO_PROFILE_PAGE_COMMAND, new ToProfilePageCommand());
         commands.put(Util.UNKNOWN_COMMAND, new UnknownCommand());
-        commands.put(Util.SIGN_UP_COMMAND, new RegistrationCommand());
+        commands.put(Util.SIGN_UP_COMMAND, new SignUpCommand());
         commands.put(Util.CHANGE_LOCALE_COMMAND, new ChangeLocaleCommand());
         commands.put(Util.SIGN_OUT_COMMAND, new SignOutCommand());
         commands.put(Util.TO_SURVEY_PAGE_COMMAND, new ToSurveyPageCommand());
-        commands.put(Util.TO_PROFILE_PAGE_COMMAND, new ToProfilePageCommand());
+        commands.put(Util.TO_PROFILE_INFO_PAGE_COMMAND, new ToProfileInfoPageCommand());
         commands.put(Util.TO_CATEGORIES_PAGE_COMMAND, new ToCategoriesPageCommand());
         commands.put(Util.TO_CATEGORY_PAGE_COMMAND, new ToCategoryPageCommand());
         commands.put(Util.START_SURVEY_COMMAND, new StartSurveyCommand());
+        commands.put(Util.ANSWER_COMMAND, new AnswerCommand());
+        commands.put(Util.TO_SURVEY_END_PAGE_COMMAND, new ToSurveyEndPageCommand());
+        commands.put(Util.TO_SURVEY_BEGIN_PAGE_COMMAND, new ToSurveyBeginPageCommand());
+        commands.put(Util.TO_COMPLETED_SURVEYS_PAGE_COMMAND, new ToCompletedSurveysPageCommand());
+        commands.put(Util.TO_ADD_SURVEY_HEADER_PAGE_COMMAND, new ToAddSurveyHeaderPageCommand());
+        commands.put(Util.ADD_HEADER_COMMAND, new AddHeaderCommand());
+        commands.put(Util.TO_ADD_SURVEY_QUESTION_PAGE_COMMAND, new ToAddSurveyQuestionPageCommand());
+        commands.put(Util.ADD_QUESTION_COMMAND, new AddQuestionCommand());
+        commands.put(Util.ADD_SURVEY_COMMAND, new AddSurveyCommand());
+        commands.put(Util.TO_SURVEY_ADDED_PAGE_COMMAND, new ToSurveyAddedPageCommand());
     }
 
     public Command getCommand(String commandName) {

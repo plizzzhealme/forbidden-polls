@@ -3,52 +3,40 @@
 <%@ include file="../jspf/localization.jspf" %>
 <!DOCTYPE>
 <html xml:lang="eu">
+<meta charset="UTF-8">
 <head>
-    <title>Survey</title>
+    <title>${sessionScope.survey.name}</title>
 </head>
 <body>
 <p>
     <%@include file="../jspf/header.jspf" %>
 </p>
 
-<%-- before survey start --%>
-<c:if test="${sessionScope.survey == null}">
-    <p>${requestScope.survey.name}</p>
-    <p>${requestScope.survey.description}</p>
-
-    <c:set var="submit_button_text" value="${start_survey}"/>
-    <c:set var="submit_button_command" value="${Util.START_SURVEY_COMMAND}"/>
-</c:if>
-
-
-<%-- after survey was started --%>
 <c:if test="${sessionScope.survey != null}">
     <c:set var="i" value="${sessionScope.question_index}"/>
     <c:set var="question" value="${sessionScope.survey.questions[i]}"/>
     <c:set var="options" value="${question.options}"/>
-
-    <c:set var="submit_button_text" value="${answer}"/>
-    <c:set var="submit_button_command" value="${Util.ANSWER_COMMAND}"/>
 </c:if>
 
 <%-- print question --%>
 <p><c:out value="${question.body}"/></p>
+<p><c:out value="${question.description}"/></p>
+<img src="${question.imageUrl}" alt=""/>
 
-<form action="${Util.CONTROLLER}" method="post">
+<form action="${Util.CONTROLLER}">
 
     <%-- print options --%>
-    <c:forEach var="option" items="${options}">
+    <c:forEach var="option" items="${options}" varStatus="loop">
         <p><label>
-            <input type="radio" name="option" value="${option.id}"> ${option.body}
+            <input type="radio"
+                   name="option"
+                   value="${loop.index}"
+                   <c:if test="${loop.index == 0}">checked</c:if> >${option.body}
         </label></p>
     </c:forEach>
 
-
-    <input type="hidden" name="${Util.COMMAND}" value="${submit_button_command}">
-    <input type="hidden" name="${Util.SURVEY_ID}" value="${requestScope.survey.id}">
-    <input type="submit" value="${submit_button_text}">
+    <input type="hidden" name="${Util.COMMAND}" value="${Util.ANSWER_COMMAND}">
+    <input type="submit" value="${answer}">
 </form>
-
-
 </body>
 </html>

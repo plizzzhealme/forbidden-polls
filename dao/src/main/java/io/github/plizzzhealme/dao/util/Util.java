@@ -12,13 +12,13 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.stream.Collectors;
 
-public final class DaoUtil {
+public final class Util {
 
     private static final int CPU_COST_PARAM = 16;
     private static final int MEMORY_COST_PARAM = 16;
     private static final int PARALLELIZATION_PARAM = 16;
 
-    private DaoUtil() {
+    private Util() {
     }
 
     public static LocalDateTime toJavaTime(Timestamp sqlTime) {

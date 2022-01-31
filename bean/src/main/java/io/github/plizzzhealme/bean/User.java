@@ -90,9 +90,11 @@ public class User implements Serializable {
             return true;
         }
 
-        if (!(o instanceof User user)) {
+        if (o == null || getClass() != o.getClass()) {
             return false;
         }
+
+        User user = (User) o;
 
         return getId() == user.getId()
                 && Objects.equals(getName(), user.getName())

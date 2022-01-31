@@ -39,15 +39,24 @@ public class Option implements Serializable {
 
     @Override
     public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
+        if (this == o) {
+            return true;
+        }
+
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
+
         Option option = (Option) o;
-        return id == option.id && index == option.index && Objects.equals(body, option.body);
+
+        return getId() == option.getId()
+                && getIndex() == option.getIndex()
+                && Objects.equals(getBody(), option.getBody());
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, index, body);
+        return Objects.hash(getId(), getBody(), getIndex());
     }
 
     @Override
