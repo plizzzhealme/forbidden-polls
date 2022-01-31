@@ -25,7 +25,7 @@ public class AddQuestionCommand implements Command {
         String body = request.getParameter(Util.QUESTION);
 
         // optional
-        String description = request.getParameter(Util.QUESTION_OPTION);
+        String description = request.getParameter(Util.QUESTION_DESCRIPTION);
         String imageUrl = request.getParameter(Util.QUESTION_IMAGE_URL);
 
         List<Option> options = new ArrayList<>();

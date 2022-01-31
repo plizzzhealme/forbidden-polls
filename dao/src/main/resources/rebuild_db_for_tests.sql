@@ -64,13 +64,13 @@ CREATE TABLE IF NOT EXISTS `forbidden_polls`.`option_types`
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `forbidden_polls`.`surveys`
 (
-    `id`            INT         NOT NULL AUTO_INCREMENT,
-    `name`          VARCHAR(45) NOT NULL,
-    `creation_date` DATETIME    NULL,
-    `description`   VARCHAR(45) NULL,
-    `instructions`  VARCHAR(45) NULL,
-    `image_url`     VARCHAR(45) NULL,
-    `category_id`   INT         NOT NULL,
+    `id`            INT          NOT NULL AUTO_INCREMENT,
+    `name`          VARCHAR(200) NOT NULL,
+    `creation_date` DATETIME     NULL,
+    `description`   VARCHAR(200) NULL,
+    `instructions`  VARCHAR(200) NULL,
+    `image_url`     VARCHAR(200) NULL,
+    `category_id`   INT          NOT NULL,
     PRIMARY KEY (`id`),
     UNIQUE INDEX `id_UNIQUE` (`id` ASC) VISIBLE,
     INDEX `fk_surveys_categories1_idx` (`category_id` ASC) VISIBLE,
@@ -91,9 +91,9 @@ CREATE TABLE IF NOT EXISTS `forbidden_polls`.`questions`
 (
     `id`             INT          NOT NULL AUTO_INCREMENT,
     `index_number`   INT          NOT NULL,
-    `body`           VARCHAR(333) NOT NULL,
-    `image_url`      VARCHAR(45)  NULL,
-    `description`    VARCHAR(333) NULL,
+    `body`           VARCHAR(200) NOT NULL,
+    `image_url`      VARCHAR(200) NULL,
+    `description`    VARCHAR(200) NULL,
     `survey_id`      INT          NOT NULL,
     `option_type_id` INT          NOT NULL,
     PRIMARY KEY (`id`),
@@ -117,7 +117,7 @@ CREATE TABLE IF NOT EXISTS `forbidden_polls`.`questions`
 CREATE TABLE IF NOT EXISTS `forbidden_polls`.`options`
 (
     `id`           INT          NOT NULL AUTO_INCREMENT,
-    `body`         VARCHAR(222) NULL,
+    `body`         VARCHAR(200) NULL,
     `index_number` INT          NOT NULL,
     `question_id`  INT          NOT NULL,
     PRIMARY KEY (`id`),
@@ -165,8 +165,8 @@ CREATE TABLE IF NOT EXISTS `forbidden_polls`.`genders`
 CREATE TABLE IF NOT EXISTS `forbidden_polls`.`users`
 (
     `id`                INT          NOT NULL AUTO_INCREMENT,
-    `name`              VARCHAR(45)  NULL,
-    `email`             VARCHAR(45)  NOT NULL,
+    `name`              VARCHAR(100) NULL,
+    `email`             VARCHAR(100) NOT NULL,
     `hashed_password`   VARCHAR(222) NOT NULL,
     `registration_date` DATETIME     NULL,
     `birthday`          DATE         NULL,
@@ -224,10 +224,10 @@ CREATE TABLE IF NOT EXISTS `forbidden_polls`.`passed_surveys`
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `forbidden_polls`.`picked_options`
 (
-    `id`          INT         NOT NULL AUTO_INCREMENT,
-    `answer_text` VARCHAR(45) NULL,
-    `user_id`     INT         NOT NULL,
-    `option_id`   INT         NOT NULL,
+    `id`          INT          NOT NULL AUTO_INCREMENT,
+    `answer_text` VARCHAR(100) NULL,
+    `user_id`     INT          NOT NULL,
+    `option_id`   INT          NOT NULL,
     PRIMARY KEY (`id`),
     INDEX `fk_picked_options_users1_idx` (`user_id` ASC) VISIBLE,
     INDEX `fk_picked_options_options1_idx` (`option_id` ASC) VISIBLE,
