@@ -7,7 +7,7 @@ import io.github.plizzzhealme.service.exception.ValidationException;
 
 public interface UserService {
 
-    User authorize(String email, String password) throws ServiceException;
+    User signIn(String email, String password) throws ServiceException;
 
     void signUp(User user) throws ServiceException, ValidationException, EmailIsBusyException;
 

@@ -12,12 +12,9 @@ import io.github.plizzzhealme.service.validator.UserValidator;
 
 public class UserServiceImpl implements UserService {
 
-    public User authorize(String email, String password) throws ServiceException {
-
-        UserDao userDao = DaoFactory.INSTANCE.getUserDao();
-
+    public User signIn(String email, String password) throws ServiceException {
         try {
-            return userDao.signIn(email, password);
+            return DaoFactory.INSTANCE.getUserDao().signIn(email, password);
         } catch (DaoException e) {
             throw new ServiceException("Authorization error", e);
         }
