@@ -14,17 +14,22 @@
     <%@include file="../jspf/header.jspf" %>
 </p>
 
-
 <form action="${Util.CONTROLLER}">
     <input type="hidden" name="${Util.COMMAND}" value="${Util.SIGN_IN_COMMAND}">
 
-    <label for="email">${email}:</label><br/>
-    <input id="email" type="email" name="${Util.USER_EMAIL}"><br/>
+    <p>
+        <label for="email">${email}:</label><br/>
+        <input id="email" type="email" name="${Util.USER_EMAIL}">
+    </p>
 
-    <label for="password">${password}:</label><br/>
-    <input id="password" type="password" name="${Util.USER_PASSWORD}"><br/>
+    <p>
+        <label for="password">${password}:</label><br/>
+        <input id="password" type="password" name="${Util.USER_PASSWORD}">
+    </p>
 
-    <input type="submit" value="${sign_in}">
+    <p>
+        <input type="submit" value="${sign_in}">
+    </p>
 </form>
 
 <p>
