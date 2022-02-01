@@ -12,9 +12,7 @@
     <%@include file="../jspf/header.jspf" %>
 </p>
 
-<p>
-    ${passed_survey_message}
-</p>
+<p>${passed_survey_message}</p>
 
 <p>
     <a href="${Util.CONTROLLER}?${Util.COMMAND}=${Util.TO_PROFILE_PAGE_COMMAND}">

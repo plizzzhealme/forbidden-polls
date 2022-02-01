@@ -28,6 +28,7 @@ public enum ConnectionPool {
 
     ConnectionPool() {
         DBResourceManager dbResourceManager = DBResourceManager.getInstance();
+
         this.driverName = dbResourceManager.getValue(DBParameter.DB_DRIVER);
         this.url = dbResourceManager.getValue(DBParameter.DB_URL);
         this.user = dbResourceManager.getValue(DBParameter.DB_USER);
@@ -47,7 +48,7 @@ public enum ConnectionPool {
             connectionQueue = new ArrayBlockingQueue<>(poolSize);
 
             for (int i = 0; i < poolSize; i++) {
-                @SuppressWarnings("all") // to supress warning about not closed connection
+                @SuppressWarnings("all")
                 Connection connection = DriverManager.getConnection(url, user, password);
                 PooledConnection pooledConnection = new PooledConnection(connection);
                 connectionQueue.add(pooledConnection);

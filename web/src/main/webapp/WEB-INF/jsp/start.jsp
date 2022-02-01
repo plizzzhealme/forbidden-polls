@@ -20,13 +20,13 @@
 <form action="${Util.CONTROLLER}" class="st">
     <input type="hidden" name="${Util.COMMAND}" value="${Util.TO_SIGN_IN_PAGE_COMMAND}"/>
 
-    <input type="submit" value="${sign_in}"/>
+    <p><input type="submit" value="${sign_in}"/></p>
 </form>
 
 <form action="${Util.CONTROLLER}" class="st">
     <input type="hidden" name="${Util.COMMAND}" value="${Util.TO_SIGN_UP_PAGE_COMMAND}"/>
 
-    <input type="submit" value="${sign_up}"/>
+    <p><input type="submit" value="${sign_up}"/></p>
 </form>
 </body>
 </html>

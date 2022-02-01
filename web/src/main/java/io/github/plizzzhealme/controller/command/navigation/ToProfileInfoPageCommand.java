@@ -22,7 +22,7 @@ public class ToProfileInfoPageCommand implements Command {
 
         int id = (int) session.getAttribute(Util.USER_ID);
 
-        User user = ServiceFactory.INSTANCE.getUserService().read(id);
+        User user = ServiceFactory.INSTANCE.getUserService().readUserInfo(id);
         request.setAttribute(Util.USER, user);
 
         RequestDispatcher dispatcher = request.getRequestDispatcher(Util.PROFILE_INFO_JSP);

@@ -21,9 +21,11 @@
 </a></p>
 
 <c:if test="${sessionScope.user_role == Util.ADMIN}">
-    <p><a href="${Util.CONTROLLER}?${Util.COMMAND}=${Util.TO_ADD_SURVEY_HEADER_PAGE_COMMAND}">
-            ${create_survey}
-    </a></p>
+    <p>
+        <a href="${Util.CONTROLLER}?${Util.COMMAND}=${Util.TO_ADD_SURVEY_HEADER_PAGE_COMMAND}">
+                ${create_survey}
+        </a>
+    </p>
 </c:if>
 
 

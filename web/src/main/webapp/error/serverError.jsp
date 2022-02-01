@@ -7,7 +7,7 @@
     <title>Error</title>
 </head>
 <body>
-<p><c:out value="${sessionScope.error_message}"/></p>
-<p>//todo add kitten image for Olga loyalty</p>
+<p>Internal server error. <a href="${pageContext.request.contextPath}/controller?command=to_start_page">To start
+    page.</a></p>
 </body>
 </html>

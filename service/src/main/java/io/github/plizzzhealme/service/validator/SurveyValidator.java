@@ -4,33 +4,19 @@ import io.github.plizzzhealme.bean.Option;
 import io.github.plizzzhealme.bean.Question;
 import io.github.plizzzhealme.bean.Survey;
 import org.apache.commons.lang3.StringUtils;
-import org.apache.commons.validator.routines.EmailValidator;
 
 import java.util.List;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
-public class Validator {
+public class SurveyValidator {
 
     public static final int MIN_OPTIONS_NUMBER = 2;
-    private static final Validator INSTANCE = new Validator();
-    private static final String PASSWORD_REGEX = "^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%^&+=])(?=\\S+$).{8,}$";
-    private static final Pattern PASSWORD_PATTERN = Pattern.compile(PASSWORD_REGEX);
+    private static final SurveyValidator INSTANCE = new SurveyValidator();
 
-    private Validator() {
+    private SurveyValidator() {
     }
 
-    public static Validator getInstance() {
+    public static SurveyValidator getInstance() {
         return INSTANCE;
-    }
-
-    public boolean isValidEmail(String email) {
-        return EmailValidator.getInstance().isValid(email);
-    }
-
-    public boolean isValidPassword(String password) {
-        Matcher m = PASSWORD_PATTERN.matcher(password);
-        return m.matches();
     }
 
     public boolean isValidSurvey(Survey survey) {

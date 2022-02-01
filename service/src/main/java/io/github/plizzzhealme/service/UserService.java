@@ -1,13 +1,15 @@
 package io.github.plizzzhealme.service;
 
 import io.github.plizzzhealme.bean.User;
+import io.github.plizzzhealme.service.exception.EmailIsBusyException;
 import io.github.plizzzhealme.service.exception.ServiceException;
+import io.github.plizzzhealme.service.exception.ValidatorException;
 
 public interface UserService {
 
-    User authorize(String email, String password) throws ServiceException;
+    User signIn(String email, String password) throws ServiceException;
 
-    boolean register(User user, String password) throws ServiceException;
+    void signUp(User user) throws ServiceException, ValidatorException, EmailIsBusyException;
 
-    User read(int id) throws ServiceException;
+    User readUserInfo(int id) throws ServiceException;
 }

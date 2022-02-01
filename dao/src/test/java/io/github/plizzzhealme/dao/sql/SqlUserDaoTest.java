@@ -15,7 +15,6 @@ import java.time.LocalDate;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertTrue;
 
 class SqlUserDaoTest {
 
@@ -44,17 +43,15 @@ class SqlUserDaoTest {
     void create() throws DaoException {
         UserDao dao = DaoFactory.INSTANCE.getUserDao();
 
-        String password = "1q2w3e";
         User user = new User();
+        user.setPassword("1q2w3e");
         user.setEmail("plizzzehesalme@gmail.com");
         user.setName("Dzianis");
         user.setCountry("Belarus");
         user.setGender("male");
         user.setUserRole("admin");
 
-        boolean isCreated = dao.create(user, password);
-
-        assertTrue(isCreated);
+        dao.create(user);
     }
 
 

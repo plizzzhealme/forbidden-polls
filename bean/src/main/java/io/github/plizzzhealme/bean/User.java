@@ -8,12 +8,17 @@ import java.util.Objects;
 
 public class User implements Serializable {
 
+    public static final String MALE = "male";
+    public static final String FEMALE = "female";
+    public static final String OTHER = "other";
+
     @Serial
     private static final long serialVersionUID = 6985791175479557902L;
 
     private int id;
     private String name;
     private String email;
+    private String password;
     private LocalDateTime registrationDate;
     private LocalDate birthday;
     private String gender;
@@ -42,6 +47,14 @@ public class User implements Serializable {
 
     public void setEmail(String email) {
         this.email = email;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
     }
 
     public LocalDateTime getRegistrationDate() {
@@ -86,36 +99,15 @@ public class User implements Serializable {
 
     @Override
     public boolean equals(Object o) {
-        if (this == o) {
-            return true;
-        }
-
-        if (o == null || getClass() != o.getClass()) {
-            return false;
-        }
-
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
         User user = (User) o;
-
-        return getId() == user.getId()
-                && Objects.equals(getName(), user.getName())
-                && Objects.equals(getEmail(), user.getEmail())
-                && Objects.equals(getRegistrationDate(), user.getRegistrationDate())
-                && Objects.equals(getBirthday(), user.getBirthday())
-                && Objects.equals(getGender(), user.getGender())
-                && Objects.equals(getUserRole(), user.getUserRole())
-                && Objects.equals(getCountry(), user.getCountry());
+        return getId() == user.getId() && Objects.equals(getName(), user.getName()) && Objects.equals(getEmail(), user.getEmail()) && Objects.equals(getPassword(), user.getPassword()) && Objects.equals(getRegistrationDate(), user.getRegistrationDate()) && Objects.equals(getBirthday(), user.getBirthday()) && Objects.equals(getGender(), user.getGender()) && Objects.equals(getUserRole(), user.getUserRole()) && Objects.equals(getCountry(), user.getCountry());
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(getId(),
-                getName(),
-                getEmail(),
-                getRegistrationDate(),
-                getBirthday(),
-                getGender(),
-                getUserRole(),
-                getCountry());
+        return Objects.hash(getId(), getName(), getEmail(), getPassword(), getRegistrationDate(), getBirthday(), getGender(), getUserRole(), getCountry());
     }
 
     @Override
@@ -124,6 +116,7 @@ public class User implements Serializable {
                 "id=" + id +
                 ", name='" + name + '\'' +
                 ", email='" + email + '\'' +
+                ", password='" + password + '\'' +
                 ", registrationDate=" + registrationDate +
                 ", birthday=" + birthday +
                 ", gender='" + gender + '\'' +

@@ -8,7 +8,7 @@ import java.util.List;
 
 public interface UserDao {
 
-    boolean create(User user, String password) throws DaoException;
+    void create(User user) throws DaoException;
 
     User find(int id) throws DaoException;
 

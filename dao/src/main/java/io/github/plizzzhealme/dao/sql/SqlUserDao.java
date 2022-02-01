@@ -45,12 +45,9 @@ public class SqlUserDao implements UserDao {
     private static final ConnectionPool pool = ConnectionPool.INSTANCE;
 
     @Override
-    public boolean create(User user, String password) throws DaoException {
-        if (isPresent(user.getEmail())) {
-            return false;
-        }
-
+    public void create(User user) throws DaoException {
         Connection connection = pool.takeConnection();
+
         PreparedStatement preparedStatement = null;
 
         try {
@@ -58,16 +55,16 @@ public class SqlUserDao implements UserDao {
 
             preparedStatement.setString(1, user.getName());
             preparedStatement.setString(2, user.getEmail());
-            preparedStatement.setString(3, Util.hashPassword(password));
+            preparedStatement.setString(3, Util.hashPassword(user.getPassword()));
             preparedStatement.setTimestamp(4, Util.toSqlTime(user.getRegistrationDate()));
             preparedStatement.setDate(5, Util.toSqlTime(user.getBirthday()));
             preparedStatement.setString(6, user.getUserRole());
             preparedStatement.setString(7, user.getCountry());
             preparedStatement.setString(8, user.getGender());
 
-            return preparedStatement.executeUpdate() > 0;
+            preparedStatement.executeUpdate();
         } catch (SQLException e) {
-            throw new DaoException("Profile creation error.", e);
+            throw new DaoException("User creation error.", e);
         } finally {
             pool.closeConnection(connection, preparedStatement);
         }

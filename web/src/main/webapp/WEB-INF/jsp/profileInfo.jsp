@@ -20,33 +20,37 @@
     <p><c:out value="${email}: ${requestScope.user.email}"/></p>
 
     <%-- gender --%>
-    <p><c:choose>
-        <c:when test="${requestScope.user.gender == Util.MALE}">
-            <c:out value="${gender}:  ${male}"/>
-        </c:when>
-        <c:when test="${requestScope.user.gender == Util.FEMALE}">
-            <c:out value="${gender}:  ${female}"/>
-        </c:when>
-        <c:otherwise>
-            <c:out value="${gender}:  ${other}"/>
-        </c:otherwise>
-    </c:choose></p>
+    <p>
+        <c:choose>
+            <c:when test="${requestScope.user.gender == Util.MALE}">
+                <c:out value="${gender}:  ${male}"/>
+            </c:when>
+            <c:when test="${requestScope.user.gender == Util.FEMALE}">
+                <c:out value="${gender}:  ${female}"/>
+            </c:when>
+            <c:otherwise>
+                <c:out value="${gender}:  ${other}"/>
+            </c:otherwise>
+        </c:choose>
+    </p>
 
-        <%-- role --%>
-        <p><c:choose>
+    <%-- role --%>
+    <p>
+        <c:choose>
             <c:when test="${requestScope.user.userRole == Util.ADMIN}">
                 <c:out value="${role}:  ${admin}"/>
             </c:when>
             <c:otherwise>
                 <c:out value="${role}:  ${user}"/>
             </c:otherwise>
-        </c:choose></p>
+        </c:choose>
+    </p>
 
-        <%-- birthday --%>
-        <p><c:out value="${birthday}: ${requestScope.user.birthday}"/></p>
+    <%-- birthday --%>
+    <p><c:out value="${birthday}: ${requestScope.user.birthday}"/></p>
 
-        <%-- country --%>
-        <p><c:out value="${country}: ${requestScope.user.country}"/></p>
+    <%-- country --%>
+    <p><c:out value="${country}: ${requestScope.user.country}"/></p>
 </div>
 
 <p><a href="${Util.CONTROLLER}?${Util.COMMAND}=${Util.TO_COMPLETED_SURVEYS_PAGE_COMMAND}">${passed_surveys}</a></p>
