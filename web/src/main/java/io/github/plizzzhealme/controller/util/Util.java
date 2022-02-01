@@ -55,6 +55,7 @@ public final class Util {
     public static final String ADD_SURVEY_HEADER_JSP = "/WEB-INF/jsp/addSurveyHeader.jsp";
     public static final String ADD_SURVEY_QUESTION_JSP = "/WEB-INF/jsp/addSurveyQuestion.jsp";
     public static final String SURVEY_ADDED_JSP = "/WEB-INF/jsp/surveyAdded.jsp";
+    public static final String EDIT_JSP = "/WEB-INF/jsp/edit.jsp";
 
     // errors
     public static final String ERROR = "error";
@@ -81,6 +82,7 @@ public final class Util {
     public static final String ADD_HEADER_COMMAND = "add_header";
     public static final String ADD_QUESTION_COMMAND = "add_question";
     public static final String ADD_SURVEY_COMMAND = "add_survey";
+    public static final String EDIT_SURVEY_COMMAND = "edit_survey";
 
     // navigation
     public static final String TO_SIGN_IN_PAGE_COMMAND = "to_sign_in_page";
@@ -103,6 +105,7 @@ public final class Util {
 
     public static final String REDIRECT_URL_PATTERN = CONTROLLER + "?" + COMMAND + "=";
     public static final String QUESTION_OPTION = "option";
+
 
     private Util() {
     }

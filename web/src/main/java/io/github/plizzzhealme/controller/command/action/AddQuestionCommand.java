@@ -48,18 +48,52 @@ public class AddQuestionCommand implements Command {
         } else {
             HttpSession session = request.getSession();
             Survey survey = (Survey) session.getAttribute(Util.NEW_SURVEY);
+            List<Question> questions = survey.getQuestions();
 
-            Question question = new Question();
 
-            question.setBody(body);
-            question.setDescription(description);
-            question.setImageUrl(imageUrl);
-            question.setOptionType(Question.SELECT);
-            question.setOptions(options);
+            String editIndex = (String) session.getAttribute("edit_index");
 
-            survey.getQuestions().add(question);
+            if (editIndex != null) {
+                editQuestion(editIndex, body, description, imageUrl, options, questions);
+            } else {
+                addNewQuestion(body, description, imageUrl, options, questions);
+            }
+
 
             response.sendRedirect(Util.REDIRECT_URL_PATTERN + Util.TO_ADD_SURVEY_QUESTION_PAGE_COMMAND);
         }
+    }
+
+    private void addNewQuestion(String body,
+                                String description,
+                                String imageUrl,
+                                List<Option> options,
+                                List<Question> questions) {
+        Question question;
+        question = new Question();
+        question.setIndex(questions.size());
+        question.setBody(body);
+        question.setDescription(description);
+        question.setImageUrl(imageUrl);
+        question.setOptionType(Question.SELECT);
+        question.setOptions(options);
+
+        questions.add(question);
+    }
+
+    private void editQuestion(String editIndex,
+                              String body,
+                              String description,
+                              String imageUrl,
+                              List<Option> options,
+                              List<Question> questions) {
+        Question question;
+        question = questions.get(Integer.parseInt(editIndex));
+
+        question.setBody(body);
+        question.setDescription(description);
+        question.setImageUrl(imageUrl);
+        question.setOptionType(Question.SELECT);
+        question.setOptions(options);
     }
 }

@@ -38,6 +38,7 @@ public final class CommandProvider {
         commands.put(Util.ADD_QUESTION_COMMAND, new AddQuestionCommand());
         commands.put(Util.ADD_SURVEY_COMMAND, new AddSurveyCommand());
         commands.put(Util.TO_SURVEY_ADDED_PAGE_COMMAND, new ToSurveyAddedPageCommand());
+        commands.put(Util.EDIT_SURVEY_COMMAND, new EditSurveyCommand());
     }
 
     public Command getCommand(String commandName) {

@@ -7,6 +7,8 @@ import io.github.plizzzhealme.dao.*;
 import io.github.plizzzhealme.dao.exception.DaoException;
 import io.github.plizzzhealme.service.SurveyService;
 import io.github.plizzzhealme.service.exception.ServiceException;
+import io.github.plizzzhealme.service.exception.ValidatorException;
+import io.github.plizzzhealme.service.validator.SurveyValidator;
 
 import java.util.Iterator;
 import java.util.List;
@@ -70,23 +72,20 @@ public class SurveyServiceImpl implements SurveyService {
     }
 
     @Override
-    public void addNewSurvey(Survey survey) throws ServiceException {
-
-
-        // validator
-
+    public void addNewSurvey(Survey survey) throws ServiceException, ValidatorException {
+        SurveyValidator.getInstance().validateSurvey(survey);
 
         DaoFactory daoFactory = DaoFactory.INSTANCE;
         CategoryDao categoryDao = daoFactory.getCategoryDao();
-        SurveyDao surveyDao = daoFactory.getSurveyDao();
+
         String category = survey.getCategory();
 
         try {
             if (!categoryDao.isPresent(category)) {
-                categoryDao.create(category);
+                categoryDao.create(category); // create category if not exists
             }
 
-            surveyDao.create(survey);
+            daoFactory.getSurveyDao().create(survey);
         } catch (DaoException e) {
             throw new ServiceException("Failed to add new survey", e);
         }

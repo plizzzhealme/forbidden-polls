@@ -34,16 +34,20 @@ public class AddHeaderCommand implements Command {
             dispatcher.forward(request, response);
         } else {
             HttpSession session = request.getSession();
+            Survey survey = (Survey) session.getAttribute(Util.NEW_SURVEY);
 
-            Survey survey = new Survey();
+            if (survey == null) {
+                survey = new Survey();
+                session.setAttribute(Util.NEW_SURVEY, survey);
+                survey.setQuestions(new ArrayList<>());
+            }
+
             survey.setName(surveyName);
             survey.setDescription(surveyDescription);
             survey.setInstructions(surveyInstructions);
             survey.setImageUrl(surveyImageUrl);
             survey.setCategory(surveyCategory);
-            survey.setQuestions(new ArrayList<>());
 
-            session.setAttribute(Util.NEW_SURVEY, survey);
 
             response.sendRedirect(Util.REDIRECT_URL_PATTERN + Util.TO_ADD_SURVEY_QUESTION_PAGE_COMMAND);
         }

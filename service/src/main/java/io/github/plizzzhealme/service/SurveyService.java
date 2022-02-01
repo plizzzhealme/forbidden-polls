@@ -3,6 +3,7 @@ package io.github.plizzzhealme.service;
 import io.github.plizzzhealme.bean.Survey;
 import io.github.plizzzhealme.bean.criteria.SearchCriteria;
 import io.github.plizzzhealme.service.exception.ServiceException;
+import io.github.plizzzhealme.service.exception.ValidatorException;
 
 import java.util.List;
 
@@ -18,5 +19,5 @@ public interface SurveyService {
 
     List<Survey> searchAvailableSurveys(SearchCriteria criteria, int userId) throws ServiceException;
 
-    void addNewSurvey(Survey survey) throws ServiceException;
+    void addNewSurvey(Survey survey) throws ServiceException, ValidatorException;
 }
