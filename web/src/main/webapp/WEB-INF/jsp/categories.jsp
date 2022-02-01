@@ -13,11 +13,13 @@
 </p>
 
 <p>${select_category_message}:</p>
+
 <c:forEach var="category" items="${requestScope.category_list}">
     <p>
         <a href="${Util.CONTROLLER}?${Util.COMMAND}=${Util.TO_CATEGORY_PAGE_COMMAND}&${Util.CATEGORY}=${category}">
                 ${category}
-        </a></p>
+        </a>
+    </p>
 </c:forEach>
 
 <p><a href="${Util.CONTROLLER}?${Util.COMMAND}=${Util.TO_PROFILE_PAGE_COMMAND}">${back}</a></p>
