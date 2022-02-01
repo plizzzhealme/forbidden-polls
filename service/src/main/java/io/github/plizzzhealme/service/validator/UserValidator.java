@@ -1,7 +1,7 @@
 package io.github.plizzzhealme.service.validator;
 
 import io.github.plizzzhealme.bean.User;
-import io.github.plizzzhealme.service.exception.ValidationException;
+import io.github.plizzzhealme.service.exception.ValidatorException;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.validator.routines.EmailValidator;
 
@@ -21,33 +21,33 @@ public class UserValidator {
         return INSTANCE;
     }
 
-    public void validateUser(User user) throws ValidationException {
+    public void validateUser(User user) throws ValidatorException {
         if (user == null) {
-            throw new ValidationException("Invalid user data");
+            throw new ValidatorException("Invalid user data");
         }
 
         if (!isValidEmail(user.getEmail())) {
-            throw new ValidationException("Invalid email");
+            throw new ValidatorException("Invalid email");
         }
 
         if (!isValidPassword(user.getPassword())) {
-            throw new ValidationException("Invalid password");
+            throw new ValidatorException("Invalid password");
         }
 
         if (!isValidGender(user.getGender())) {
-            throw new ValidationException("Invalid gender");
+            throw new ValidatorException("Invalid gender");
         }
 
         if (!isValidBirthday(user.getBirthday())) {
-            throw new ValidationException("Invalid birthday");
+            throw new ValidatorException("Invalid birthday");
         }
 
         if (!isValidName(user.getName())) {
-            throw new ValidationException("Invalid name");
+            throw new ValidatorException("Invalid name");
         }
 
         if (!isValidCountyCode(user.getCountry())) {
-            throw new ValidationException("Invalid country");
+            throw new ValidatorException("Invalid country");
         }
     }
 

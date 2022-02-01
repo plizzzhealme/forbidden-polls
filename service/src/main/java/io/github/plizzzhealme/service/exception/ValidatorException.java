@@ -2,24 +2,24 @@ package io.github.plizzzhealme.service.exception;
 
 import java.io.Serial;
 
-public class ValidationException extends Exception {
+public class ValidatorException extends Exception {
 
     @Serial
     private static final long serialVersionUID = -8865901317327696978L;
 
-    public ValidationException() {
+    public ValidatorException() {
         super();
     }
 
-    public ValidationException(String message) {
+    public ValidatorException(String message) {
         super(message);
     }
 
-    public ValidationException(String message, Throwable cause) {
+    public ValidatorException(String message, Throwable cause) {
         super(message, cause);
     }
 
-    public ValidationException(Throwable cause) {
+    public ValidatorException(Throwable cause) {
         super(cause);
     }
 }

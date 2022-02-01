@@ -8,7 +8,7 @@ import io.github.plizzzhealme.controller.validator.EmptyInputValidator;
 import io.github.plizzzhealme.service.ServiceFactory;
 import io.github.plizzzhealme.service.exception.EmailIsBusyException;
 import io.github.plizzzhealme.service.exception.ServiceException;
-import io.github.plizzzhealme.service.exception.ValidationException;
+import io.github.plizzzhealme.service.exception.ValidatorException;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -39,7 +39,7 @@ public class SignUpCommand implements Command {
 
             ServiceFactory.INSTANCE.getUserService().signUp(user);
             response.sendRedirect(Util.REDIRECT_URL_PATTERN + Util.TO_SIGN_IN_PAGE_COMMAND);
-        } catch (ValidationException e) {
+        } catch (ValidatorException e) {
             request.setAttribute(Util.ERROR, e.getMessage());
 
             RequestDispatcher dispatcher = request.getRequestDispatcher(Util.SIGN_UP_JSP);
@@ -63,6 +63,7 @@ public class SignUpCommand implements Command {
                                   String birthday,
                                   String country,
                                   String gender) {
+
         User user = new User();
 
         user.setEmail(email);

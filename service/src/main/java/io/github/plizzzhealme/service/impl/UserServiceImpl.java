@@ -7,7 +7,7 @@ import io.github.plizzzhealme.dao.exception.DaoException;
 import io.github.plizzzhealme.service.UserService;
 import io.github.plizzzhealme.service.exception.EmailIsBusyException;
 import io.github.plizzzhealme.service.exception.ServiceException;
-import io.github.plizzzhealme.service.exception.ValidationException;
+import io.github.plizzzhealme.service.exception.ValidatorException;
 import io.github.plizzzhealme.service.validator.UserValidator;
 
 public class UserServiceImpl implements UserService {
@@ -20,7 +20,7 @@ public class UserServiceImpl implements UserService {
         }
     }
 
-    public void signUp(User user) throws ServiceException, ValidationException, EmailIsBusyException {
+    public void signUp(User user) throws ServiceException, ValidatorException, EmailIsBusyException {
         UserValidator.getInstance().validateUser(user);
 
         UserDao userDao = DaoFactory.INSTANCE.getUserDao();
@@ -39,7 +39,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public User read(int id) throws ServiceException {
+    public User readUserInfo(int id) throws ServiceException {
         try {
             return DaoFactory.INSTANCE.getUserDao().find(id);
         } catch (DaoException e) {
