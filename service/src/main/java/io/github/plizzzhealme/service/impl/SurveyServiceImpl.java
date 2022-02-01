@@ -71,6 +71,11 @@ public class SurveyServiceImpl implements SurveyService {
 
     @Override
     public void addNewSurvey(Survey survey) throws ServiceException {
+
+
+        // validator
+
+
         DaoFactory daoFactory = DaoFactory.INSTANCE;
         CategoryDao categoryDao = daoFactory.getCategoryDao();
         SurveyDao surveyDao = daoFactory.getSurveyDao();

@@ -25,9 +25,6 @@
     <label for="password">${password}:</label><br/>
     <input id="password" type="password" name="${Util.USER_PASSWORD}"><br/>
 
-    <label for="confirm_password">${confirm_password}:</label><br/>
-    <input id="confirm_password" type="password" name="${Util.USER_CONFIRM_PASSWORD}"><br/>
-
     <label for="birthday">${birthday}:</label><br/>
     <input id="birthday" type="date" name="${Util.USER_BIRTHDAY}"/><br/>
 

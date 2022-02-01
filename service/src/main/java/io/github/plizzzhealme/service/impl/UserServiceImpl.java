@@ -5,7 +5,10 @@ import io.github.plizzzhealme.dao.DaoFactory;
 import io.github.plizzzhealme.dao.UserDao;
 import io.github.plizzzhealme.dao.exception.DaoException;
 import io.github.plizzzhealme.service.UserService;
+import io.github.plizzzhealme.service.exception.EmailIsBusyException;
 import io.github.plizzzhealme.service.exception.ServiceException;
+import io.github.plizzzhealme.service.exception.ValidationException;
+import io.github.plizzzhealme.service.validator.UserValidator;
 
 public class UserServiceImpl implements UserService {
 
@@ -20,13 +23,21 @@ public class UserServiceImpl implements UserService {
         }
     }
 
-    public boolean register(User user, String password) throws ServiceException {
+    public void signUp(User user) throws ServiceException, ValidationException, EmailIsBusyException {
+        UserValidator.getInstance().validateUser(user);
+
         UserDao userDao = DaoFactory.INSTANCE.getUserDao();
 
         try {
-            return userDao.create(user, password);
+            boolean userExists = userDao.isPresent(user.getEmail());
+
+            if (userExists) {
+                throw new EmailIsBusyException("Email " + user.getEmail() + " is busy.");
+            } else {
+                userDao.create(user);
+            }
         } catch (DaoException e) {
-            throw new ServiceException("Registration error", e);
+            throw new ServiceException("Registration error.", e);
         }
     }
 
