@@ -13,32 +13,40 @@
     <%@include file="../jspf/header.jspf" %>
 </p>
 
+<c:set var="survey" value="${sessionScope.new_survey}"/>
+
 <form action="${Util.CONTROLLER}">
     <input type="hidden" name="${Util.COMMAND}" value="${Util.ADD_HEADER_COMMAND}">
 
     <p>
         <label for="name">${survey_title}:</label><br/>
-        <input id="name" type="text" name="${Util.SURVEY_NAME}">
+        <input id="name" type="text" name="${Util.SURVEY_NAME}" value="${survey.name}">
     </p>
 
     <p>
         <label for="category">${survey_category}:</label><br/>
-        <input id="category" type="text" name="${Util.SURVEY_CATEGORY}">
+        <input id="category" type="text" name="${Util.SURVEY_CATEGORY}" value="${survey.category}">
     </p>
 
     <p>
         <label for="description">${survey_description}:</label><br/>
-        <textarea id="description" name="${Util.SURVEY_DESCRIPTION}" rows="7" cols="44"></textarea>
+        <textarea id="description"
+                  name="${Util.SURVEY_DESCRIPTION}"
+                  rows="7"
+                  cols="44">${survey.description}</textarea>
     </p>
 
     <p>
         <label for="instructions">${survey_instructions}:</label><br/>
-        <textarea id="instructions" name="${Util.SURVEY_INSTRUCTIONS}" rows="7" cols="44"></textarea>
+        <textarea id="instructions"
+                  name="${Util.SURVEY_INSTRUCTIONS}"
+                  rows="7"
+                  cols="44">${survey.instructions}</textarea>
     </p>
 
     <p>
         <label for="image_url">${survey_image_url}:</label><br/>
-        <input id="image_url" type="url" name="${Util.SURVEY_IMAGE_URL}">
+        <input id="image_url" type="url" name="${Util.SURVEY_IMAGE_URL}" value="${survey.imageUrl}">
     </p>
 
     <p>

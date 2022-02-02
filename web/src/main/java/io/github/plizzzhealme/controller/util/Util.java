@@ -34,6 +34,7 @@ public final class Util {
 
     // question parameters
     public static final String QUESTION = "question";
+    public static final String QUESTION_BODY = "question_body";
     public static final String QUESTION_DESCRIPTION = "question_description";
     public static final String QUESTION_IMAGE_URL = "question_image_url";
     public static final String QUESTION_INDEX = "question_index";
@@ -99,6 +100,7 @@ public final class Util {
     public static final String TO_ADD_SURVEY_HEADER_PAGE_COMMAND = "to_add_survey_header_page";
     public static final String TO_ADD_SURVEY_QUESTION_PAGE_COMMAND = "to_add_survey_question_page";
     public static final String TO_SURVEY_ADDED_PAGE_COMMAND = "to_survey_added_page";
+    public static final String TO_EDIT_SURVEY_PAGE_COMMAND = "to_edit_survey_page";
 
     public static final String CATEGORY_LIST = "category_list";
     public static final String OPTION = "option";

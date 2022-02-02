@@ -25,7 +25,7 @@ public class AddQuestionCommand implements Command {
     public void execute(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException, ServiceException {
 
-        String body = request.getParameter(Util.QUESTION);
+        String body = request.getParameter(Util.QUESTION_BODY);
         String description = request.getParameter(Util.QUESTION_DESCRIPTION);
         String imageUrl = request.getParameter(Util.QUESTION_IMAGE_URL);
         String[] optionValues = ArrayUtils.nullToEmpty(request.getParameterValues(Util.OPTION));
@@ -51,6 +51,7 @@ public class AddQuestionCommand implements Command {
 
             if (editIndex != null) {
                 editQuestion(editIndex, body, description, imageUrl, options, questions);
+                session.removeAttribute(Util.EDIT_INDEX);
             } else {
                 addQuestion(body, description, imageUrl, options, questions);
             }

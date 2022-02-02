@@ -10,6 +10,7 @@
 <p>
     <%@include file="../jspf/header.jspf" %>
 </p>
+
 <c:set var="questions" value="${sessionScope.new_survey.questions}"/>
 
 <form action="controller" method="post">
@@ -33,6 +34,11 @@
     <p>
         <input type="submit" value="edit">
     </p>
+</form>
+
+<form action="${Util.CONTROLLER}" method="post">
+    <input type="hidden" name="${Util.COMMAND}" value="${Util.ADD_SURVEY_COMMAND}">
+    <input type="submit" value="save">
 </form>
 </body>
 </html>

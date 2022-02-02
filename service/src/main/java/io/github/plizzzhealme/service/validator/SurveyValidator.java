@@ -65,7 +65,7 @@ public class SurveyValidator {
                 Question.MULTI_SELECT,
                 Question.CUSTOM)) {
 
-            throw new ValidatorException("Invalid option type in question " + question.getBody());
+            throw new ValidatorException("Invalid option type in question: " + question.getBody());
         }
 
         List<Option> options = question.getOptions();

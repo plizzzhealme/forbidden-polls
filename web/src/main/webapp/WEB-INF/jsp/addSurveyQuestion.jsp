@@ -33,22 +33,30 @@
 <p>
     <%@include file="../jspf/header.jspf" %>
 </p>
+<c:set var="edit_question" value="${sessionScope.new_survey.questions[sessionScope.edit_index]}"/>
+
 <form action="${Util.CONTROLLER}">
     <input type="hidden" name="${Util.COMMAND}" value="${Util.ADD_QUESTION_COMMAND}">
 
     <p>
         <label for="question">${question}:</label><br/>
-        <textarea id="question" name="${Util.QUESTION}" rows="2" cols="44"></textarea>
+        <textarea id="question"
+                  name="${Util.QUESTION_BODY}"
+                  rows="2"
+                  cols="44">${edit_question.body}</textarea>
     </p>
 
     <p>
         <label for="description">${question_description}:</label><br/>
-        <textarea id="description" name="${Util.QUESTION_DESCRIPTION}" rows="7" cols="44"></textarea>
+        <textarea id="description"
+                  name="${Util.QUESTION_DESCRIPTION}"
+                  rows="7"
+                  cols="44">${edit_question.description}</textarea>
     </p>
 
     <p>
         <label for="image_url">${question_image_url}:</label><br/>
-        <input id="image_url" type="url" name="${Util.QUESTION_IMAGE_URL}">
+        <input id="image_url" type="url" name="${Util.QUESTION_IMAGE_URL}" value="${edit_question.imageUrl}">
     </p>
 
     <p>
@@ -58,7 +66,7 @@
                step="1"
                id="options_number"
                name="options_number"
-               value=""> <a href="#" id="add_options" onclick="addOptionFields()">${add}</a>
+               value="0"> <a href="#" id="add_options" onclick="addOptionFields()">${add}</a>
     </p>
 
 
@@ -70,7 +78,7 @@
 
 </form>
 
-<p><a href="${Util.CONTROLLER}?${Util.COMMAND}=${Util.ADD_SURVEY_COMMAND}">
+<p><a href="${Util.CONTROLLER}?${Util.COMMAND}=${Util.TO_EDIT_SURVEY_PAGE_COMMAND}">
     ${complete}
 </a></p>
 
