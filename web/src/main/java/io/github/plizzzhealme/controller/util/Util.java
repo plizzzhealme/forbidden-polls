@@ -105,6 +105,7 @@ public final class Util {
 
     public static final String REDIRECT_URL_PATTERN = CONTROLLER + "?" + COMMAND + "=";
     public static final String QUESTION_OPTION = "option";
+    public static final String EDIT_INDEX = "edit_index";
 
 
     private Util() {

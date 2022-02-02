@@ -16,7 +16,7 @@ public class EmptyInputValidator {
 
     public void validateEmptyInput(String... params) throws EmptyInputException {
         if (StringUtils.isAnyBlank(params)) {
-            throw new EmptyInputException("empty fields");
+            throw new EmptyInputException("Empty fields");
         }
     }
 }

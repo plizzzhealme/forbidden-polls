@@ -4,8 +4,11 @@ import io.github.plizzzhealme.bean.Option;
 import io.github.plizzzhealme.bean.Question;
 import io.github.plizzzhealme.bean.Survey;
 import io.github.plizzzhealme.controller.command.Command;
+import io.github.plizzzhealme.controller.exception.EmptyInputException;
 import io.github.plizzzhealme.controller.util.Util;
+import io.github.plizzzhealme.controller.validator.EmptyInputValidator;
 import io.github.plizzzhealme.service.exception.ServiceException;
+import org.apache.commons.lang3.ArrayUtils;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -19,58 +22,55 @@ import java.util.List;
 public class AddQuestionCommand implements Command {
 
     @Override
-    public void execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException, ServiceException {
+    public void execute(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException, ServiceException {
 
-        // required
         String body = request.getParameter(Util.QUESTION);
-
-        // optional
         String description = request.getParameter(Util.QUESTION_DESCRIPTION);
         String imageUrl = request.getParameter(Util.QUESTION_IMAGE_URL);
+        String[] optionValues = ArrayUtils.nullToEmpty(request.getParameterValues(Util.OPTION));
 
-        List<Option> options = new ArrayList<>();
-        String[] optionValues = request.getParameterValues(Util.OPTION);
+        try {
+            EmptyInputValidator validator = EmptyInputValidator.getInstance();
+            validator.validateEmptyInput(body);
+            validator.validateEmptyInput(optionValues);
 
-        if (optionValues != null) {
-            for (int i = 0; i < optionValues.length; i++) {
+            List<Option> options = new ArrayList<>();
+
+            for (String optionValue : optionValues) {
                 Option option = new Option();
-                option.setIndex(i);
-                option.setBody(optionValues[i]);
+                option.setIndex(options.size());
+                option.setBody(optionValue);
                 options.add(option);
             }
-        }
 
-        if (Util.isAnyBlank(body) || Util.isAnyBlank(optionValues)) {
-            request.setAttribute(Util.ERROR, Util.EMPTY_FIELDS_ERROR);
-
-            RequestDispatcher dispatcher = request.getRequestDispatcher(Util.ADD_SURVEY_QUESTION_JSP);
-            dispatcher.forward(request, response);
-        } else {
             HttpSession session = request.getSession();
             Survey survey = (Survey) session.getAttribute(Util.NEW_SURVEY);
             List<Question> questions = survey.getQuestions();
-
-
-            String editIndex = (String) session.getAttribute("edit_index");
+            String editIndex = (String) session.getAttribute(Util.EDIT_INDEX);
 
             if (editIndex != null) {
                 editQuestion(editIndex, body, description, imageUrl, options, questions);
             } else {
-                addNewQuestion(body, description, imageUrl, options, questions);
+                addQuestion(body, description, imageUrl, options, questions);
             }
 
-
             response.sendRedirect(Util.REDIRECT_URL_PATTERN + Util.TO_ADD_SURVEY_QUESTION_PAGE_COMMAND);
+        } catch (EmptyInputException e) {
+            request.setAttribute(Util.ERROR, Util.EMPTY_FIELDS_ERROR);
+
+            RequestDispatcher dispatcher = request.getRequestDispatcher(Util.ADD_SURVEY_QUESTION_JSP);
+            dispatcher.forward(request, response);
         }
     }
 
-    private void addNewQuestion(String body,
-                                String description,
-                                String imageUrl,
-                                List<Option> options,
-                                List<Question> questions) {
-        Question question;
-        question = new Question();
+    private void addQuestion(String body,
+                             String description,
+                             String imageUrl,
+                             List<Option> options,
+                             List<Question> questions) {
+        Question question = new Question();
+
         question.setIndex(questions.size());
         question.setBody(body);
         question.setDescription(description);
@@ -87,8 +87,8 @@ public class AddQuestionCommand implements Command {
                               String imageUrl,
                               List<Option> options,
                               List<Question> questions) {
-        Question question;
-        question = questions.get(Integer.parseInt(editIndex));
+
+        Question question = questions.get(Integer.parseInt(editIndex));
 
         question.setBody(body);
         question.setDescription(description);
