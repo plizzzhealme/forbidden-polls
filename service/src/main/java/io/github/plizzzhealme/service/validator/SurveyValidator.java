@@ -65,13 +65,13 @@ public class SurveyValidator {
                 Question.MULTI_SELECT,
                 Question.CUSTOM)) {
 
-            throw new ValidatorException("Invalid option type");
+            throw new ValidatorException("Invalid option type in question " + question.getBody());
         }
 
         List<Option> options = question.getOptions();
 
         if (options == null) {
-            throw new ValidatorException("Empty options");
+            throw new ValidatorException("Empty options in question " + question.getBody());
         }
 
         int optionsNumber = options.size();
@@ -79,7 +79,7 @@ public class SurveyValidator {
         if (StringUtils.equalsAnyIgnoreCase(optionType, Question.SELECT, Question.MULTI_SELECT)
                 && optionsNumber < MIN_OPTIONS_NUMBER) {
 
-            throw new ValidatorException("Invalid number of options");
+            throw new ValidatorException("Invalid number of options in question " + question.getBody());
         }
 
     }

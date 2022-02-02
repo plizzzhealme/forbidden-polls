@@ -18,7 +18,7 @@ public class AddHeaderCommand implements Command {
     @Override
     public void execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException, ServiceException {
 
-        // required field
+        // required fields
         String surveyName = request.getParameter(Util.SURVEY_NAME);
         String surveyCategory = request.getParameter(Util.SURVEY_CATEGORY);
 
@@ -47,7 +47,6 @@ public class AddHeaderCommand implements Command {
             survey.setInstructions(surveyInstructions);
             survey.setImageUrl(surveyImageUrl);
             survey.setCategory(surveyCategory);
-
 
             response.sendRedirect(Util.REDIRECT_URL_PATTERN + Util.TO_ADD_SURVEY_QUESTION_PAGE_COMMAND);
         }
