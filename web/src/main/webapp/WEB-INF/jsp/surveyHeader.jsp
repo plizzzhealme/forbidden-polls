@@ -18,7 +18,7 @@
 <img src="${requestScope.survey.imageUrl}" alt=""/>
 
 <form action="${Util.CONTROLLER}" method="post">
-    <input type="hidden" name="${Util.COMMAND}" value="${Util.START_SURVEY_COMMAND}">
+    <input type="hidden" name="${Util.COMMAND}" value="${Util.TAKE_SURVEY_COMMAND}">
     <input type="hidden" name="${Util.SURVEY_ID}" value="${requestScope.survey.id}">
     <p><input type="submit" value="${start_survey}"></p>
 </form>

@@ -19,7 +19,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class AddQuestionCommand implements Command {
+public class AddSurveyQuestionCommand implements Command {
 
     @Override
     public void execute(HttpServletRequest request, HttpServletResponse response)

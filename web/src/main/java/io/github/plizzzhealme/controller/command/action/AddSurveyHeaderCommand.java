@@ -15,7 +15,7 @@ import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.util.ArrayList;
 
-public class AddHeaderCommand implements Command {
+public class AddSurveyHeaderCommand implements Command {
 
     @Override
     public void execute(HttpServletRequest request, HttpServletResponse response)

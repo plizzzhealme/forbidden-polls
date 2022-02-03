@@ -42,21 +42,21 @@ public final class Util {
     // pages
     public static final String SIGN_IN_JSP = "/WEB-INF/jsp/signIn.jsp";
     public static final String SIGN_UP_JSP = "/WEB-INF/jsp/signUp.jsp";
-    public static final String START_JSP = "/WEB-INF/jsp/start.jsp";
+    public static final String HOME_JSP = "/WEB-INF/jsp/home.jsp";
     public static final String PROFILE_JSP = "/WEB-INF/jsp/profile.jsp";
     public static final String PAGE_NOT_FOUND_JSP = "error/pageNotFound.jsp";
     public static final String SERVER_ERROR_JSP = "error/serverError.jsp";
-    public static final String SURVEY_JSP = "/WEB-INF/jsp/survey.jsp";
+    public static final String SURVEY_QUESTION_JSP = "/WEB-INF/jsp/surveyQuestion.jsp";
     public static final String PROFILE_INFO_JSP = "/WEB-INF/jsp/profileInfo.jsp";
     public static final String CATEGORIES_JSP = "/WEB-INF/jsp/categories.jsp";
     public static final String CATEGORY_JSP = "/WEB-INF/jsp/category.jsp";
-    public static final String SURVEY_END_JSP = "/WEB-INF/jsp/surveyEnd.jsp";
-    public static final String SURVEY_BEGIN_JSP = "/WEB-INF/jsp/surveyBegin.jsp";
+    public static final String SURVEY_COMPLETED_JSP = "/WEB-INF/jsp/surveyCompleted.jsp";
+    public static final String SURVEY_HEADER_JSP = "/WEB-INF/jsp/surveyHeader.jsp";
     public static final String COMPLETED_SURVEYS_JSP = "/WEB-INF/jsp/completedSurveys.jsp";
     public static final String ADD_SURVEY_HEADER_JSP = "/WEB-INF/jsp/addSurveyHeader.jsp";
     public static final String ADD_SURVEY_QUESTION_JSP = "/WEB-INF/jsp/addSurveyQuestion.jsp";
     public static final String SURVEY_ADDED_JSP = "/WEB-INF/jsp/surveyAdded.jsp";
-    public static final String EDIT_JSP = "/WEB-INF/jsp/edit.jsp";
+    public static final String ADD_SURVEY_JSP = "/WEB-INF/jsp/addSurvey.jsp";
 
     // errors
     public static final String ERROR = "error";
@@ -78,29 +78,29 @@ public final class Util {
     public static final String CHANGE_LOCALE_COMMAND = "change_locale";
     public static final String UNKNOWN_COMMAND = "unknown";
     public static final String SIGN_OUT_COMMAND = "sign_out";
-    public static final String START_SURVEY_COMMAND = "start_survey";
-    public static final String ANSWER_COMMAND = "answer";
-    public static final String ADD_HEADER_COMMAND = "add_header";
-    public static final String ADD_QUESTION_COMMAND = "add_question";
+    public static final String TAKE_SURVEY_COMMAND = "take_survey";
+    public static final String ANSWER_SURVEY_QUESTION_COMMAND = "answer_survey_question";
+    public static final String ADD_SURVEY_HEADER_COMMAND = "add_survey_header";
+    public static final String ADD_SURVEY_QUESTION_COMMAND = "add_survey_question";
     public static final String ADD_SURVEY_COMMAND = "add_survey";
     public static final String EDIT_SURVEY_COMMAND = "edit_survey";
 
     // navigation
     public static final String TO_SIGN_IN_PAGE_COMMAND = "to_sign_in_page";
     public static final String TO_SIGN_UP_PAGE_COMMAND = "to_sign_up_page";
-    public static final String TO_START_PAGE_COMMAND = "to_start_page";
+    public static final String TO_HOME_PAGE_COMMAND = "to_home_page";
     public static final String TO_PROFILE_PAGE_COMMAND = "to_profile_page";
-    public static final String TO_SURVEY_PAGE_COMMAND = "to_survey_page";
+    public static final String TO_SURVEY_QUESTION_PAGE_COMMAND = "to_survey_question_page";
     public static final String TO_PROFILE_INFO_PAGE_COMMAND = "to_profile_info_page";
     public static final String TO_CATEGORIES_PAGE_COMMAND = "to_categories_page";
     public static final String TO_CATEGORY_PAGE_COMMAND = "to_category_page";
-    public static final String TO_SURVEY_END_PAGE_COMMAND = "to_survey_end_page";
-    public static final String TO_SURVEY_BEGIN_PAGE_COMMAND = "to_survey_begin_page";
+    public static final String TO_SURVEY_COMPLETED_PAGE_COMMAND = "to_survey_completed_page";
+    public static final String TO_SURVEY_HEADER_PAGE_COMMAND = "to_survey_header_page";
     public static final String TO_COMPLETED_SURVEYS_PAGE_COMMAND = "to_completed_surveys_page";
     public static final String TO_ADD_SURVEY_HEADER_PAGE_COMMAND = "to_add_survey_header_page";
     public static final String TO_ADD_SURVEY_QUESTION_PAGE_COMMAND = "to_add_survey_question_page";
     public static final String TO_SURVEY_ADDED_PAGE_COMMAND = "to_survey_added_page";
-    public static final String TO_EDIT_SURVEY_PAGE_COMMAND = "to_edit_survey_page";
+    public static final String TO_ADD_SURVEY_PAGE_COMMAND = "to_add_survey_page";
 
     public static final String CATEGORY_LIST = "category_list";
     public static final String OPTION = "option";

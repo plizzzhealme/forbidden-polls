@@ -32,7 +32,7 @@ public class AddSurveyCommand implements Command {
         } catch (ValidatorException e) {
             request.setAttribute(Util.ERROR, e.getMessage());
 
-            RequestDispatcher dispatcher = request.getRequestDispatcher(Util.EDIT_JSP);
+            RequestDispatcher dispatcher = request.getRequestDispatcher(Util.ADD_SURVEY_JSP);
             dispatcher.forward(request, response);
         }
     }

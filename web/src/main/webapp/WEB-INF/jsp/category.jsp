@@ -15,9 +15,10 @@
 <p><c:out value="${category}: ${requestScope.category_name}"/></p>
 
 <c:forEach var="survey" items="${requestScope.survey_list}">
-    <p><a href="${Util.CONTROLLER}?${Util.COMMAND}=${Util.TO_SURVEY_BEGIN_PAGE_COMMAND}&${Util.SURVEY_ID}=${survey.id}">
-        <c:out value="${survey.name}"/>
-    </a></p>
+    <p>
+        <a href="${Util.CONTROLLER}?${Util.COMMAND}=${Util.TO_SURVEY_HEADER_PAGE_COMMAND}&${Util.SURVEY_ID}=${survey.id}">
+            <c:out value="${survey.name}"/>
+        </a></p>
 </c:forEach>
 
 <p><a href="${Util.CONTROLLER}?${Util.COMMAND}=${Util.TO_CATEGORIES_PAGE_COMMAND}">${back}</a></p>
