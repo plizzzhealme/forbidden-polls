@@ -1,5 +1,6 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page contentType="text/html; charset=UTF-8" %>
+<%@ include file="../jspf/localization.jspf" %>
 <!DOCTYPE>
 <html lang="ee">
 <head>
@@ -17,28 +18,25 @@
     <input type="hidden" name="${Util.COMMAND}" value="${Util.EDIT_SURVEY_COMMAND}">
 
     <p>
-        <label for="edit">Edit</label>
+        <label for="edit"></label>
         <select id="edit" name="edit">
-            <optgroup label="Header">
-                <option value="header">Edit survey header</option>
+            <optgroup label="${survey_header}">
+                <option value="header">${edit_survey_header}</option>
             </optgroup>
 
-            <optgroup label="Questions">
+            <optgroup label="${question}">
                 <c:forEach var="q" items="${questions}">
                     <option value="${q.index}">${q.index + 1}. ${q.body}</option>
                 </c:forEach>
             </optgroup>
         </select>
-    </p>
-
-    <p>
-        <input type="submit" value="edit">
+        <input type="submit" value="${edit}">
     </p>
 </form>
 
 <form action="${Util.CONTROLLER}" method="post">
     <input type="hidden" name="${Util.COMMAND}" value="${Util.ADD_SURVEY_COMMAND}">
-    <input type="submit" value="save">
+    <input type="submit" value="${add}">
 </form>
 </body>
 </html>

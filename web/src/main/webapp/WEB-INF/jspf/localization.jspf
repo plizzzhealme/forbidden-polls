@@ -48,6 +48,9 @@
 <fmt:message bundle="${locale}" key="add" var="add"/>
 <fmt:message bundle="${locale}" key="add-question" var="add_question"/>
 <fmt:message bundle="${locale}" key="complete" var="complete"/>
+<fmt:message bundle="${locale}" key="edit" var="edit"/>
+<fmt:message bundle="${locale}" key="edit.header" var="edit_survey_header"/>
+<fmt:message bundle="${locale}" key="message.survey-added" var="survey_added"/>
 
 <fmt:message bundle="${locale}" key="survey" var="survey"/>
 <fmt:message bundle="${locale}" key="survey.tittle" var="survey_title"/>
@@ -55,6 +58,7 @@
 <fmt:message bundle="${locale}" key="survey.description" var="survey_description"/>
 <fmt:message bundle="${locale}" key="survey.instructions" var="survey_instructions"/>
 <fmt:message bundle="${locale}" key="survey.image-url" var="survey_image_url"/>
+<fmt:message bundle="${locale}" key="survey.header" var="survey_header"/>
 
 <fmt:message bundle="${locale}" key="question" var="question"/>
 <fmt:message bundle="${locale}" key="question.description" var="question_description"/>
