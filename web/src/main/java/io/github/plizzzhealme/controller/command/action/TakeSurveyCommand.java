@@ -15,9 +15,9 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
 
-public class StartSurveyCommand implements Command {
+public class TakeSurveyCommand implements Command {
 
-    private static final Logger logger = LogManager.getLogger(StartSurveyCommand.class);
+    private static final Logger logger = LogManager.getLogger(TakeSurveyCommand.class);
 
     @Override
     public void execute(HttpServletRequest request, HttpServletResponse response)
@@ -41,7 +41,7 @@ public class StartSurveyCommand implements Command {
             session.setAttribute(Util.SURVEY, survey);
             session.setAttribute(Util.QUESTION_INDEX, 0);
 
-            response.sendRedirect(Util.REDIRECT_URL_PATTERN + Util.TO_SURVEY_PAGE_COMMAND);
+            response.sendRedirect(Util.REDIRECT_URL_PATTERN + Util.TO_SURVEY_QUESTION_PAGE_COMMAND);
         }
     }
 }

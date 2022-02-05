@@ -12,7 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
 
-public class AnswerCommand implements Command {
+public class AnswerSurveyQuestionCommand implements Command {
 
     @Override
     public void execute(HttpServletRequest request, HttpServletResponse response)
@@ -29,11 +29,11 @@ public class AnswerCommand implements Command {
         if (questionIndex < survey.getQuestions().size()) {
             session.setAttribute(Util.QUESTION_INDEX, questionIndex);
 
-            response.sendRedirect(Util.REDIRECT_URL_PATTERN + Util.TO_SURVEY_PAGE_COMMAND);
+            response.sendRedirect(Util.REDIRECT_URL_PATTERN + Util.TO_SURVEY_QUESTION_PAGE_COMMAND);
         } else {
             finishSurvey(request);
 
-            response.sendRedirect(Util.REDIRECT_URL_PATTERN + Util.TO_SURVEY_END_PAGE_COMMAND);
+            response.sendRedirect(Util.REDIRECT_URL_PATTERN + Util.TO_SURVEY_COMPLETED_PAGE_COMMAND);
         }
     }
 

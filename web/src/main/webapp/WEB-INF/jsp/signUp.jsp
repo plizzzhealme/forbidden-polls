@@ -309,7 +309,7 @@
 </form>
 
 <p>
-    <a href="${Util.CONTROLLER}?${Util.COMMAND}=${Util.TO_START_PAGE_COMMAND}">
+    <a href="${Util.CONTROLLER}?${Util.COMMAND}=${Util.TO_HOME_PAGE_COMMAND}">
         ${back}
     </a>
 </p>

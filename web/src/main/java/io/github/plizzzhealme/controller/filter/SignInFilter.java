@@ -17,22 +17,24 @@ public class SignInFilter implements Filter {
     @Override
     public void init(FilterConfig filterConfig) {
         commandsRequiringToBeSignedIn.add(Util.TO_PROFILE_PAGE_COMMAND);
-        commandsRequiringToBeSignedIn.add(Util.TO_SURVEY_PAGE_COMMAND);
+        commandsRequiringToBeSignedIn.add(Util.TO_SURVEY_QUESTION_PAGE_COMMAND);
         commandsRequiringToBeSignedIn.add(Util.TO_PROFILE_INFO_PAGE_COMMAND);
         commandsRequiringToBeSignedIn.add(Util.TO_CATEGORIES_PAGE_COMMAND);
         commandsRequiringToBeSignedIn.add(Util.TO_CATEGORY_PAGE_COMMAND);
         commandsRequiringToBeSignedIn.add(Util.SIGN_OUT_COMMAND);
-        commandsRequiringToBeSignedIn.add(Util.START_SURVEY_COMMAND);
-        commandsRequiringToBeSignedIn.add(Util.ANSWER_COMMAND);
-        commandsRequiringToBeSignedIn.add(Util.TO_SURVEY_END_PAGE_COMMAND);
-        commandsRequiringToBeSignedIn.add(Util.TO_SURVEY_BEGIN_PAGE_COMMAND);
+        commandsRequiringToBeSignedIn.add(Util.TAKE_SURVEY_COMMAND);
+        commandsRequiringToBeSignedIn.add(Util.ANSWER_SURVEY_QUESTION_COMMAND);
+        commandsRequiringToBeSignedIn.add(Util.TO_SURVEY_COMPLETED_PAGE_COMMAND);
+        commandsRequiringToBeSignedIn.add(Util.TO_SURVEY_HEADER_PAGE_COMMAND);
         commandsRequiringToBeSignedIn.add(Util.TO_COMPLETED_SURVEYS_PAGE_COMMAND);
         commandsRequiringToBeSignedIn.add(Util.TO_ADD_SURVEY_HEADER_PAGE_COMMAND);
-        commandsRequiringToBeSignedIn.add(Util.ADD_HEADER_COMMAND);
+        commandsRequiringToBeSignedIn.add(Util.ADD_SURVEY_HEADER_COMMAND);
         commandsRequiringToBeSignedIn.add(Util.TO_ADD_SURVEY_QUESTION_PAGE_COMMAND);
-        commandsRequiringToBeSignedIn.add(Util.ADD_QUESTION_COMMAND);
+        commandsRequiringToBeSignedIn.add(Util.ADD_SURVEY_QUESTION_COMMAND);
         commandsRequiringToBeSignedIn.add(Util.ADD_SURVEY_COMMAND);
         commandsRequiringToBeSignedIn.add(Util.TO_SURVEY_ADDED_PAGE_COMMAND);
+        commandsRequiringToBeSignedIn.add(Util.EDIT_SURVEY_COMMAND);
+        commandsRequiringToBeSignedIn.add(Util.TO_ADD_SURVEY_PAGE_COMMAND);
     }
 
     @Override

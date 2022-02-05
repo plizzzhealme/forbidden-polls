@@ -1,2 +1,3 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<c:redirect url="controller?command=to_start_page"/>
+<%@ page import="io.github.plizzzhealme.controller.util.Util" %>
+<c:redirect url="${Util.CONTROLLER}?${Util.COMMAND}=${Util.TO_HOME_PAGE_COMMAND}"/>
