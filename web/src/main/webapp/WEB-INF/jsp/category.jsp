@@ -9,19 +9,26 @@
     <link href="${pageContext.request.contextPath}/css/style.css" rel="stylesheet">
 </head>
 <body>
-<p>
-    <%@include file="../jspf/header.jspf" %>
-</p>
+<%@include file="../jspf/header.jspf" %>
 
-<p><c:out value="${category}: ${requestScope.category_name}"/></p>
+<div class="grid-container-1">
+    <div class="grid-item">${category}: ${requestScope.category_name}</div>
+</div>
 
-<c:forEach var="survey" items="${requestScope.survey_list}">
-    <p>
-        <a href="${Util.CONTROLLER}?${Util.COMMAND}=${Util.TO_SURVEY_HEADER_PAGE_COMMAND}&${Util.SURVEY_ID}=${survey.id}">
-            <c:out value="${survey.name}"/>
-        </a></p>
-</c:forEach>
+<div class="grid-container-1">
+    <c:forEach var="survey" items="${requestScope.survey_list}">
+        <div class="grid-item">
+            <a href="${Util.CONTROLLER}?${Util.COMMAND}=${Util.TO_SURVEY_HEADER_PAGE_COMMAND}&${Util.SURVEY_ID}=${survey.id}">
+                <c:out value="${survey.name}"/>
+            </a>
+        </div>
+    </c:forEach>
+</div>
 
-<p><a class="btn" href="${Util.CONTROLLER}?${Util.COMMAND}=${Util.TO_CATEGORIES_PAGE_COMMAND}">${back}</a></p>
+<div class="grid-container-1">
+    <div class="grid-item">
+        <a class="classic" href="${Util.CONTROLLER}?${Util.COMMAND}=${Util.TO_CATEGORIES_PAGE_COMMAND}">${back}</a>
+    </div>
+</div>
 </body>
 </html>

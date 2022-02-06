@@ -17,73 +17,86 @@
             }
 
             for (let i = 0; i < number; i++) {
-                container.appendChild(document.createElement("p"));
-                container.appendChild(document.createTextNode("${question_option} " + (i + 1) + ":"));
-                container.appendChild(document.createElement("br"));
-
+                const inputArea = document.createElement("div");
+                inputArea.className = "grid-item";
                 const input = document.createElement("input");
                 input.type = "text";
                 input.name = "option";
+                input.className = "classic"
 
-                container.appendChild(input);
+                inputArea.appendChild(input);
+                container.appendChild(inputArea);
             }
         }
     </script>
 </head>
 <body>
-<p>
-    <%@include file="../jspf/header.jspf" %>
-</p>
+<%@include file="../jspf/header.jspf" %>
 
 <c:set var="edit_question" value="${sessionScope.new_survey.questions[sessionScope.edit_index]}"/>
 
 <form action="${Util.CONTROLLER}">
     <input type="hidden" name="${Util.COMMAND}" value="${Util.ADD_SURVEY_QUESTION_COMMAND}">
 
-    <p>
-        <label for="question">${question}:</label><br/>
-        <textarea id="question"
-                  name="${Util.QUESTION_BODY}"
-                  rows="2"
-                  cols="44">${pageScope.edit_question.body}</textarea>
-    </p>
+    <div class="grid-container-1">
+        <div class="grid-item"><label for="question">${question}:</label></div>
+        <div class="grid-item">
+            <textarea id="question"
+                      class="classic"
+                      name="${Util.QUESTION_BODY}"
+                      rows="2"
+                      cols="44">${pageScope.edit_question.body}</textarea>
+        </div>
 
-    <p>
-        <label for="description">${question_description}:</label><br/>
-        <textarea id="description"
-                  name="${Util.QUESTION_DESCRIPTION}"
-                  rows="7"
-                  cols="44">${pageScope.edit_question.description}</textarea>
-    </p>
+        <div class="grid-item"><label for="description">${question_description}:</label></div>
+        <div class="grid-item">
+            <textarea id="description"
+                      class="classic"
+                      name="${Util.QUESTION_DESCRIPTION}"
+                      rows="7"
+                      cols="44">${pageScope.edit_question.description}</textarea>
+        </div>
 
-    <p>
-        <label for="image_url">${question_image_url}:</label><br/>
-        <input id="image_url" type="url" name="${Util.QUESTION_IMAGE_URL}" value="${pageScope.edit_question.imageUrl}">
-    </p>
+        <div class="grid-item"><label for="image_url">${question_image_url}:</label></div>
+        <div class="grid-item">
+            <input id="image_url"
+                   class="classic"
+                   type="url"
+                   name="${Util.QUESTION_IMAGE_URL}"
+                   value="${pageScope.edit_question.imageUrl}">
+        </div>
+    </div>
 
-    <p>
-        <label for="options_number">${question_options_number}:</label><br/>
-        <input type="number"
-               min="0" max="10"
-               step="1"
-               id="options_number"
-               name="options_number"
-               value="0"> <a href="#" id="add_options" onclick="addOptionFields()">${add}</a>
-    </p>
+    <div class="grid-container-1">
+        <div class="grid-item">
+            <label for="options_number">${question_options_number}:</label>
+        </div>
+    </div>
 
+    <div class="grid-container-2">
+        <div class="grid-item">
+            <input id="options_number"
+                   class="classic"
+                   type="number"
+                   min="0" max="10"
+                   step="1"
 
-    <div id="options"></div>
+                   name="options_number"
+                   value="0" onclick="addOptionFields()">
+        </div>
+        <div class="grid-item"><a class="classic" href="#" id="add_options" onclick="addOptionFields()">${add}</a></div>
+    </div>
 
-    <p>
-        <input class="btn" type="submit" value="${add_question}">
-    </p>
+    <div class="grid-container-1" id="options"></div>
 
+    <div class="grid-container-2">
+        <div class="grid-item"><input class="classic" type="submit" value="${add_question}"></div>
+        <div class="grid-item">
+            <a class="classic" href="${Util.CONTROLLER}?${Util.COMMAND}=${Util.TO_ADD_SURVEY_PAGE_COMMAND}">
+                ${complete}
+            </a>
+        </div>
+    </div>
 </form>
-
-<p><a class="btn" href="${Util.CONTROLLER}?${Util.COMMAND}=${Util.TO_ADD_SURVEY_PAGE_COMMAND}">
-    ${complete}
-</a></p>
-
-
 </body>
 </html>

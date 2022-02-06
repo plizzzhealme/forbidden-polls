@@ -9,20 +9,26 @@
     <link href="${pageContext.request.contextPath}/css/style.css" rel="stylesheet">
 </head>
 <body>
-<p>
-    <%@include file="../jspf/header.jspf" %>
-</p>
+<%@include file="../jspf/header.jspf" %>
 
-<p>${select_category_message}:</p>
+<div class="grid-container-1">
+    <div class="grid-item">${select_category_message}:</div>
+</div>
 
-<c:forEach var="category" items="${requestScope.category_list}">
-    <p>
-        <a href="${Util.CONTROLLER}?${Util.COMMAND}=${Util.TO_CATEGORY_PAGE_COMMAND}&${Util.CATEGORY}=${category}">
-                ${category}
-        </a>
-    </p>
-</c:forEach>
+<div class="grid-container-5">
+    <c:forEach var="category" items="${requestScope.category_list}">
+        <div class="grid-item">
+            <a href="${Util.CONTROLLER}?${Util.COMMAND}=${Util.TO_CATEGORY_PAGE_COMMAND}&${Util.CATEGORY}=${category}">
+                    ${category}
+            </a>
+        </div>
+    </c:forEach>
+</div>
 
-<p><a class="btn" href="${Util.CONTROLLER}?${Util.COMMAND}=${Util.TO_PROFILE_PAGE_COMMAND}">${back}</a></p>
+<div class="grid-container-1">
+    <div class="grid-item">
+        <a class="classic" href="${Util.CONTROLLER}?${Util.COMMAND}=${Util.TO_PROFILE_PAGE_COMMAND}">${back}</a>
+    </div>
+</div>
 </body>
 </html>

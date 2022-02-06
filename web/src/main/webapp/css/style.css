@@ -3,13 +3,11 @@
     padding: 5px;
 }
 
-.btn {
+.classic {
     display: inline-block;
-    text-align: center;
     border-radius: 2px;
     line-height: 19px;
     cursor: pointer;
-    margin-left: -1px;
     padding: 4px 4px;
     box-shadow: 0 1px 1px rgba(0, 0, 0, 0.1);
     background-image: -webkit-linear-gradient(top, #f8f8f8, #f1f1f1);
@@ -18,24 +16,30 @@
     text-decoration: none;
 }
 
-.btn:hover {
+.classic:hover {
 }
 
-.btn:active {
+.classic:active {
     background-color: #f6f6f6;
     background-image: -webkit-linear-gradient(top, #f6f6f6, #f1f1f1);
     box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.1);
 }
 
-.grid-container-2-columns {
+.grid-container-2 {
     display: grid;
     grid-template-columns: fit-content(100%) fit-content(100%);
     padding: 1px;
 }
 
-.grid-container-1-column {
+.grid-container-1 {
     display: grid;
     grid-template-columns: fit-content(100%);
+    padding: 1px;
+}
+
+.grid-container-5 {
+    display: grid;
+    grid-template-columns: fit-content(100%) fit-content(100%) fit-content(100%) fit-content(100%) fit-content(100%);
     padding: 1px;
 }
 
@@ -44,4 +48,12 @@
     margin: 1px;
     text-align: left;
     vertical-align: center;
+}
+
+.grid-item-error {
+    padding: 1px;
+    margin: 1px;
+    text-align: left;
+    vertical-align: center;
+    color: red;
 }

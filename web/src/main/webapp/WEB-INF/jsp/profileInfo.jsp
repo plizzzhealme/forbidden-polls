@@ -9,10 +9,9 @@
     <link href="${pageContext.request.contextPath}/css/style.css" rel="stylesheet">
 </head>
 <body>
-<p>
-    <%@include file="../jspf/header.jspf" %>
-</p>
-<div class="grid-container-2-columns">
+<%@include file="../jspf/header.jspf" %>
+
+<div class="grid-container-2">
     <div class="grid-item">${name}</div>
     <div class="grid-item">${requestScope.user.name}</div>
 
@@ -43,10 +42,10 @@
     <div class="grid-item">${requestScope.user.country}</div>
 </div>
 
-<div class="grid-container-2-columns">
-    <div class="grid-item"><a class="btn" href="controller?command=to_edit_profile_info_page">${edit}</a></div>
+<div class="grid-container-2">
+    <div class="grid-item"><a class="classic" href="controller?command=to_edit_profile_info_page">${edit}</a></div>
     <div class="grid-item">
-        <a class="btn" href="${Util.CONTROLLER}?${Util.COMMAND}=${Util.TO_PROFILE_PAGE_COMMAND}">${back}</a>
+        <a class="classic" href="${Util.CONTROLLER}?${Util.COMMAND}=${Util.TO_PROFILE_PAGE_COMMAND}">${back}</a>
     </div>
 </div>
 </body>

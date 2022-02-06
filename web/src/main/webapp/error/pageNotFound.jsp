@@ -7,7 +7,11 @@
     <title>404</title>
 </head>
 <body>
-<p>Page is not found. <a href="${pageContext.request.contextPath}/controller?command=to_start_page">To start page.</a>
+<p>
+    Page is not found.
+    <a href="${pageContext.request.contextPath}/${Util.CONTROLLER}?${Util.COMMAND}=${Util.TO_HOME_PAGE_COMMAND}">
+        To home page
+    </a>
 </p>
 </body>
 </html>

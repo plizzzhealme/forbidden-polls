@@ -9,16 +9,18 @@
     <link href="${pageContext.request.contextPath}/css/style.css" rel="stylesheet">
 </head>
 <body>
-<p>
-    <%@include file="../jspf/header.jspf" %>
-</p>
+<%@include file="../jspf/header.jspf" %>
 
-<p>${passed_survey_message}</p>
+<div class="grid-container-1">
+    <div class="grid-item">${passed_survey_message}</div>
+</div>
 
-<p>
-    <a class="btn" href="${Util.CONTROLLER}?${Util.COMMAND}=${Util.TO_PROFILE_PAGE_COMMAND}">
-        ${to_profile_page}
-    </a>
-</p>
+<div class="grid-container-1">
+    <div class="grid-item">
+        <a class="classic" href="${Util.CONTROLLER}?${Util.COMMAND}=${Util.TO_PROFILE_PAGE_COMMAND}">
+            ${to_profile_page}
+        </a>
+    </div>
+</div>
 </body>
 </html>

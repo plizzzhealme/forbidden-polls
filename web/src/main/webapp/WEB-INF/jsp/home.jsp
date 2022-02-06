@@ -11,21 +11,18 @@
     <link href="${pageContext.request.contextPath}/css/style.css" rel="stylesheet">
 </head>
 <body>
-<p>
-    <%@include file="../jspf/header.jspf" %>
-</p>
+<%@include file="../jspf/header.jspf" %>
 
-
-<div class="grid-container-1-column">
+<div class="grid-container-1">
     <div class="grid-item"><p>${start_page_message}</p></div>
 </div>
 
-<div class="grid-container-2-columns">
+<div class="grid-container-2">
     <div class="grid-item">
-        <a class="btn" href="${Util.CONTROLLER}?${Util.COMMAND}=${Util.TO_SIGN_IN_PAGE_COMMAND}">${sign_in}</a>
+        <a class="classic" href="${Util.CONTROLLER}?${Util.COMMAND}=${Util.TO_SIGN_IN_PAGE_COMMAND}">${sign_in}</a>
     </div>
     <div class="grid-item">
-        <a class="btn" href="${Util.CONTROLLER}?${Util.COMMAND}=${Util.TO_SIGN_UP_PAGE_COMMAND}">${sign_up}</a>
+        <a class="classic" href="${Util.CONTROLLER}?${Util.COMMAND}=${Util.TO_SIGN_UP_PAGE_COMMAND}">${sign_up}</a>
     </div>
 </div>
 

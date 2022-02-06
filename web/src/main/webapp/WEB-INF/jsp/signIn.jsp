@@ -10,28 +10,25 @@
     <link href="${pageContext.request.contextPath}/css/style.css" rel="stylesheet">
 </head>
 <body>
-
-<p>
-    <%@include file="../jspf/header.jspf" %>
-</p>
+<%@include file="../jspf/header.jspf" %>
 
 <form action="${Util.CONTROLLER}">
     <input type="hidden" name="${Util.COMMAND}" value="${Util.SIGN_IN_COMMAND}">
 
-    <div class="grid-container-1-column">
+    <div class="grid-container-1">
         <div class="grid-item"><label for="email">${email}:</label></div>
-        <div class="grid-item"><input id="email" type="email" name="${Util.USER_EMAIL}"></div>
+        <div class="grid-item"><input class="classic" id="email" type="email" name="${Util.USER_EMAIL}"></div>
 
         <div class="grid-item"><label for="password">${password}:</label></div>
-        <div class="grid-item"><input id="password" type="password" name="${Util.USER_PASSWORD}"></div>
+        <div class="grid-item"><input class="classic" id="password" type="password" name="${Util.USER_PASSWORD}"></div>
     </div>
 
-    <div class="grid-container-2-columns">
+    <div class="grid-container-2">
         <div class="grid-item">
-            <input class="btn" type="submit" value="${sign_in}">
+            <input class="classic" type="submit" value="${sign_in}">
         </div>
         <div class="grid-item">
-            <a class="btn" href="${Util.CONTROLLER}?${Util.COMMAND}=${Util.TO_HOME_PAGE_COMMAND}">${back}</a>
+            <a class="classic" href="${Util.CONTROLLER}?${Util.COMMAND}=${Util.TO_HOME_PAGE_COMMAND}">${back}</a>
         </div>
     </div>
 </form>

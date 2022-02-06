@@ -9,29 +9,30 @@
     <link href="${pageContext.request.contextPath}/css/style.css" rel="stylesheet">
 </head>
 <body>
-<p>
-    <%@include file="../jspf/header.jspf" %>
-</p>
+<%@include file="../jspf/header.jspf" %>
 
-<p><a href="${Util.CONTROLLER}?${Util.COMMAND}=${Util.TO_PROFILE_INFO_PAGE_COMMAND}">
-    ${profile_info}
-</a></p>
+<div class="grid-container-1">
+    <div class="grid-item">
+        <a href="${Util.CONTROLLER}?${Util.COMMAND}=${Util.TO_PROFILE_INFO_PAGE_COMMAND}">${profile_info}</a>
+    </div>
 
-<p><a href="${Util.CONTROLLER}?${Util.COMMAND}=${Util.TO_CATEGORIES_PAGE_COMMAND}">
-    ${survey_categories}
-</a></p>
+    <div class="grid-item">
+        <a href="${Util.CONTROLLER}?${Util.COMMAND}=${Util.TO_CATEGORIES_PAGE_COMMAND}">${survey_categories}</a>
+    </div>
 
-<c:if test="${sessionScope.user_role == Util.ADMIN}">
-    <p>
-        <a href="${Util.CONTROLLER}?${Util.COMMAND}=${Util.TO_ADD_SURVEY_HEADER_PAGE_COMMAND}">
-                ${create_survey}
-        </a>
-    </p>
-</c:if>
+    <div class="grid-item">
+        <c:if test="${sessionScope.user_role == Util.ADMIN}">
+            <a href="${Util.CONTROLLER}?${Util.COMMAND}=${Util.TO_ADD_SURVEY_HEADER_PAGE_COMMAND}">${create_survey}</a>
+        </c:if>
+    </div>
 
-<a href="${Util.CONTROLLER}?${Util.COMMAND}=${Util.TO_COMPLETED_SURVEYS_PAGE_COMMAND}">${passed_surveys}</a>
+    <div class="grid-item">
+        <a href="${Util.CONTROLLER}?${Util.COMMAND}=${Util.TO_COMPLETED_SURVEYS_PAGE_COMMAND}">${passed_surveys}</a>
+    </div>
 
-
-<a class="btn" href="${Util.CONTROLLER}?${Util.COMMAND}=${Util.SIGN_OUT_COMMAND}">${sign_out}</a>
+    <div class="grid-item">
+        <a class="classic" href="${Util.CONTROLLER}?${Util.COMMAND}=${Util.SIGN_OUT_COMMAND}">${sign_out}</a>
+    </div>
+</div>
 </body>
 </html>
