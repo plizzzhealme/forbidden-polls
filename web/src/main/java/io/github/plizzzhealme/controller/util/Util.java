@@ -57,6 +57,7 @@ public final class Util {
     public static final String ADD_SURVEY_QUESTION_JSP = "/WEB-INF/jsp/addSurveyQuestion.jsp";
     public static final String SURVEY_ADDED_JSP = "/WEB-INF/jsp/surveyAdded.jsp";
     public static final String ADD_SURVEY_JSP = "/WEB-INF/jsp/addSurvey.jsp";
+    public static final String EDIT_PROFILE_INFO_JSP = "/WEB-INF/jsp/editProfileInfo.jsp";
 
     // errors
     public static final String ERROR = "error";
@@ -84,6 +85,8 @@ public final class Util {
     public static final String ADD_SURVEY_QUESTION_COMMAND = "add_survey_question";
     public static final String ADD_SURVEY_COMMAND = "add_survey";
     public static final String EDIT_SURVEY_COMMAND = "edit_survey";
+    public static final String EDIT_PROFILE_INFO_COMMAND = "edit_profile_info";
+
 
     // navigation
     public static final String TO_SIGN_IN_PAGE_COMMAND = "to_sign_in_page";
@@ -97,6 +100,7 @@ public final class Util {
     public static final String TO_SURVEY_COMPLETED_PAGE_COMMAND = "to_survey_completed_page";
     public static final String TO_SURVEY_HEADER_PAGE_COMMAND = "to_survey_header_page";
     public static final String TO_COMPLETED_SURVEYS_PAGE_COMMAND = "to_completed_surveys_page";
+    public static final String TO_EDIT_PROFILE_INFO_PAGE_COMMAND = "to_edit_profile_info_page";
     public static final String TO_ADD_SURVEY_HEADER_PAGE_COMMAND = "to_add_survey_header_page";
     public static final String TO_ADD_SURVEY_QUESTION_PAGE_COMMAND = "to_add_survey_question_page";
     public static final String TO_SURVEY_ADDED_PAGE_COMMAND = "to_survey_added_page";

@@ -6,6 +6,7 @@
 <head>
     <meta charset="UTF-8">
     <title>${requestScope.category_name}</title>
+    <link href="${pageContext.request.contextPath}/css/style.css" rel="stylesheet">
 </head>
 <body>
 <p>
@@ -21,6 +22,6 @@
         </a></p>
 </c:forEach>
 
-<p><a href="${Util.CONTROLLER}?${Util.COMMAND}=${Util.TO_CATEGORIES_PAGE_COMMAND}">${back}</a></p>
+<p><a class="btn" href="${Util.CONTROLLER}?${Util.COMMAND}=${Util.TO_CATEGORIES_PAGE_COMMAND}">${back}</a></p>
 </body>
 </html>

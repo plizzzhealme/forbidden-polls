@@ -6,6 +6,7 @@
 <head>
     <meta charset="UTF-8">
     <title>Completed</title>
+    <link href="${pageContext.request.contextPath}/css/style.css" rel="stylesheet">
 </head>
 <body>
 <p>
@@ -17,6 +18,6 @@
     <p><c:out value="${survey.name}"/></p>
 </c:forEach>
 
-<p><a href="${Util.CONTROLLER}?${Util.COMMAND}=${Util.TO_PROFILE_PAGE_COMMAND}">${back}</a></p>
+<p><a class="btn" href="${Util.CONTROLLER}?${Util.COMMAND}=${Util.TO_PROFILE_PAGE_COMMAND}">${back}</a></p>
 </body>
 </html>

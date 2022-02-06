@@ -6,6 +6,7 @@
 <meta charset="UTF-8">
 <head>
     <title>${sessionScope.survey.name}</title>
+    <link href="${pageContext.request.contextPath}/css/style.css" rel="stylesheet">
 </head>
 <body>
 <p>
@@ -39,7 +40,7 @@
 
     <input type="hidden" name="${Util.COMMAND}" value="${Util.ANSWER_SURVEY_QUESTION_COMMAND}">
 
-    <p><input type="submit" value="${answer}"></p>
+    <p><input class="btn" type="submit" value="${answer}"></p>
 </form>
 </body>
 </html>

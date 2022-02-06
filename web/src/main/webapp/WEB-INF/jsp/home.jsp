@@ -15,18 +15,19 @@
     <%@include file="../jspf/header.jspf" %>
 </p>
 
-<p>${start_page_message}</p>
 
-<form action="${Util.CONTROLLER}" class="st">
-    <input type="hidden" name="${Util.COMMAND}" value="${Util.TO_SIGN_IN_PAGE_COMMAND}"/>
+<div class="grid-container-1-column">
+    <div class="grid-item"><p>${start_page_message}</p></div>
+</div>
 
-    <p><input type="submit" value="${sign_in}"/></p>
-</form>
+<div class="grid-container-2-columns">
+    <div class="grid-item">
+        <a class="btn" href="${Util.CONTROLLER}?${Util.COMMAND}=${Util.TO_SIGN_IN_PAGE_COMMAND}">${sign_in}</a>
+    </div>
+    <div class="grid-item">
+        <a class="btn" href="${Util.CONTROLLER}?${Util.COMMAND}=${Util.TO_SIGN_UP_PAGE_COMMAND}">${sign_up}</a>
+    </div>
+</div>
 
-<form action="${Util.CONTROLLER}" class="st">
-    <input type="hidden" name="${Util.COMMAND}" value="${Util.TO_SIGN_UP_PAGE_COMMAND}"/>
-
-    <p><input type="submit" value="${sign_up}"/></p>
-</form>
 </body>
 </html>

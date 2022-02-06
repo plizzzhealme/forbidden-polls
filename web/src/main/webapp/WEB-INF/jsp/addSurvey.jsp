@@ -4,8 +4,8 @@
 <!DOCTYPE>
 <html lang="ee">
 <head>
-
-    <title>Title</title>
+    <title></title>
+    <link href="${pageContext.request.contextPath}/css/style.css" rel="stylesheet">
 </head>
 <body>
 <p>
@@ -30,13 +30,13 @@
                 </c:forEach>
             </optgroup>
         </select>
-        <input type="submit" value="${edit}">
+        <input class="btn" type="submit" value="${edit}">
     </p>
 </form>
 
 <form action="${Util.CONTROLLER}" method="post">
     <input type="hidden" name="${Util.COMMAND}" value="${Util.ADD_SURVEY_COMMAND}">
-    <input type="submit" value="${add}">
+    <input class="btn" type="submit" value="${add}">
 </form>
 </body>
 </html>

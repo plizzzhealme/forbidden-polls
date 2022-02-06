@@ -6,7 +6,7 @@
 <html xml:lang="eu">
 <meta charset="UTF-8">
 <head>
-    <title>${registration}</title>
+    <title></title>
     <link href="${pageContext.request.contextPath}/css/style.css" rel="stylesheet">
 </head>
 <body>
@@ -15,26 +15,21 @@
 </p>
 
 <form action="${Util.CONTROLLER}" method="post" accept-charset="UTF-8">
-    <input type="hidden" name="${Util.COMMAND}" value="${Util.SIGN_UP_COMMAND}">
+    <input type="hidden" name="${Util.COMMAND}" value="${Util.EDIT_PROFILE_INFO_COMMAND}">
 
     <p>
         <label for="email">${email}:</label><br/>
-        <input id="email" type="email" name="${Util.USER_EMAIL}">
+        <input id="email" type="email" name="${Util.USER_EMAIL}" value="${requestScope.user.email}">
     </p>
 
     <p>
         <label for="name">${name}:</label><br/>
-        <input id="name" type="text" name="${Util.USER_NAME}">
-    </p>
-
-    <p>
-        <label for="password">${password}:</label><br/>
-        <input id="password" type="password" name="${Util.USER_PASSWORD}">
+        <input id="name" type="text" name="${Util.USER_NAME}" value="${requestScope.user.name}">
     </p>
 
     <p>
         <label for="birthday">${birthday}:</label><br/>
-        <input id="birthday" type="date" name="${Util.USER_BIRTHDAY}"/>
+        <input id="birthday" type="date" name="${Util.USER_BIRTHDAY}" value="${requestScope.user.birthday}"/>
     </p>
 
     <p>
@@ -69,7 +64,7 @@
             <option value="BH">Bahrain</option>
             <option value="BD">Bangladesh</option>
             <option value="BB">Barbados</option>
-            <option value="BY" selected>Belarus</option>
+            <option value="BY">Belarus</option>
             <option value="BE">Belgium</option>
             <option value="BZ">Belize</option>
             <option value="BJ">Benin</option>
@@ -305,12 +300,9 @@
     </p>
 
     <p>
-        <input type="submit" value="${sign_up}">
+        <input class="btn" type="submit" value="${edit}">
+        <a class="btn" href="controller?${Util.COMMAND}=${Util.TO_PROFILE_INFO_PAGE_COMMAND}">${back}</a>
     </p>
 </form>
-
-<p>
-    <a class="btn" href="${Util.CONTROLLER}?${Util.COMMAND}=${Util.TO_HOME_PAGE_COMMAND}">${back}</a>
-</p>
 </body>
 </html>

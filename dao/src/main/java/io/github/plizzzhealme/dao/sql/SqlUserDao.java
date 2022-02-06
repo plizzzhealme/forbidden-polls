@@ -43,6 +43,12 @@ public class SqlUserDao implements UserDao {
             "(SELECT id FROM forbidden_polls.genders WHERE name=?))";
 
     private static final ConnectionPool pool = ConnectionPool.INSTANCE;
+    private static final String UPDATE_USER_SQL = "" +
+            "UPDATE forbidden_polls.users " +
+            "SET users.name=?, users.email=?, users.birthday=?,  " +
+            "users.gender_id=(SELECT id FROM forbidden_polls.genders WHERE genders.name=?), " +
+            "users.country_id=(SELECT id FROM forbidden_polls.countries WHERE countries.iso_code=?) " +
+            "WHERE users.id=?";
 
     @Override
     public void create(User user) throws DaoException {
@@ -65,6 +71,30 @@ public class SqlUserDao implements UserDao {
             preparedStatement.executeUpdate();
         } catch (SQLException e) {
             throw new DaoException("User creation error.", e);
+        } finally {
+            pool.closeConnection(connection, preparedStatement);
+        }
+    }
+
+    @Override
+    public void update(User user) throws DaoException {
+        Connection connection = pool.takeConnection();
+
+        PreparedStatement preparedStatement = null;
+
+        try {
+            preparedStatement = connection.prepareStatement(UPDATE_USER_SQL);
+
+            preparedStatement.setString(1, user.getName());
+            preparedStatement.setString(2, user.getEmail());
+            preparedStatement.setDate(3, Util.toSqlTime(user.getBirthday()));
+            preparedStatement.setString(4, user.getGender());
+            preparedStatement.setString(5, user.getCountry());
+            preparedStatement.setInt(6, user.getId());
+
+            preparedStatement.executeUpdate();
+        } catch (SQLException e) {
+            throw new DaoException("User update error.", e);
         } finally {
             pool.closeConnection(connection, preparedStatement);
         }

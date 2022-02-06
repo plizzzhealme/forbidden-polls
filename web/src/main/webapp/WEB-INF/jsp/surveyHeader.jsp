@@ -6,6 +6,7 @@
 <meta charset="UTF-8">
 <head>
     <title>${requestScope.survey.name}</title>
+    <link href="${pageContext.request.contextPath}/css/style.css" rel="stylesheet">
 </head>
 <body>
 <p>
@@ -20,7 +21,7 @@
 <form action="${Util.CONTROLLER}" method="post">
     <input type="hidden" name="${Util.COMMAND}" value="${Util.TAKE_SURVEY_COMMAND}">
     <input type="hidden" name="${Util.SURVEY_ID}" value="${requestScope.survey.id}">
-    <p><input type="submit" value="${start_survey}"></p>
+    <p><input class="btn" type="submit" value="${start_survey}"></p>
 </form>
 
 </body>

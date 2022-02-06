@@ -12,4 +12,6 @@ public interface UserService {
     void signUp(User user) throws ServiceException, ValidatorException, EmailIsBusyException;
 
     User readUserInfo(int id) throws ServiceException;
+
+    void updateUserInfo(User user) throws ServiceException, ValidatorException;
 }

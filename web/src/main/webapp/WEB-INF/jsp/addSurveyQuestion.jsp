@@ -6,6 +6,7 @@
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
     <title>${requestScope.survey.name}</title>
+    <link href="${pageContext.request.contextPath}/css/style.css" rel="stylesheet">
     <script type='text/javascript'>
         function addOptionFields() {
             const number = document.getElementById("options_number").value;
@@ -74,12 +75,12 @@
     <div id="options"></div>
 
     <p>
-        <input type="submit" value="${add_question}">
+        <input class="btn" type="submit" value="${add_question}">
     </p>
 
 </form>
 
-<p><a href="${Util.CONTROLLER}?${Util.COMMAND}=${Util.TO_ADD_SURVEY_PAGE_COMMAND}">
+<p><a class="btn" href="${Util.CONTROLLER}?${Util.COMMAND}=${Util.TO_ADD_SURVEY_PAGE_COMMAND}">
     ${complete}
 </a></p>
 

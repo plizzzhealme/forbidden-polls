@@ -6,55 +6,48 @@
 <meta charset="UTF-8">
 <head>
     <title>${profile_info}</title>
+    <link href="${pageContext.request.contextPath}/css/style.css" rel="stylesheet">
 </head>
 <body>
 <p>
     <%@include file="../jspf/header.jspf" %>
 </p>
+<div class="grid-container-2-columns">
+    <div class="grid-item">${name}</div>
+    <div class="grid-item">${requestScope.user.name}</div>
 
-<div>
-    <%-- name --%>
-    <p><c:out value="${name}: ${requestScope.user.name}"/></p>
+    <div class="grid-item">${email}</div>
+    <div class="grid-item">${requestScope.user.email}</div>
 
-    <%-- email --%>
-    <p><c:out value="${email}: ${requestScope.user.email}"/></p>
-
-    <%-- gender --%>
-    <p>
+    <div class="grid-item">${gender}</div>
+    <div class="grid-item">
         <c:choose>
-            <c:when test="${requestScope.user.gender == Util.MALE}">
-                <c:out value="${gender}:  ${male}"/>
-            </c:when>
-            <c:when test="${requestScope.user.gender == Util.FEMALE}">
-                <c:out value="${gender}:  ${female}"/>
-            </c:when>
-            <c:otherwise>
-                <c:out value="${gender}:  ${other}"/>
-            </c:otherwise>
+            <c:when test="${requestScope.user.gender == Util.MALE}">${male}</c:when>
+            <c:when test="${requestScope.user.gender == Util.FEMALE}">${female}</c:when>
+            <c:otherwise>${other}</c:otherwise>
         </c:choose>
-    </p>
+    </div>
 
-    <%-- role --%>
-    <p>
+    <div class="grid-item">${role}</div>
+    <div class="grid-item">
         <c:choose>
-            <c:when test="${requestScope.user.userRole == Util.ADMIN}">
-                <c:out value="${role}:  ${admin}"/>
-            </c:when>
-            <c:otherwise>
-                <c:out value="${role}:  ${user}"/>
-            </c:otherwise>
+            <c:when test="${requestScope.user.userRole == Util.ADMIN}">${admin}</c:when>
+            <c:otherwise>${user}</c:otherwise>
         </c:choose>
-    </p>
+    </div>
 
-    <%-- birthday --%>
-    <p><c:out value="${birthday}: ${requestScope.user.birthday}"/></p>
+    <div class="grid-item">${birthday}</div>
+    <div class="grid-item">${requestScope.user.birthday}</div>
 
-    <%-- country --%>
-    <p><c:out value="${country}: ${requestScope.user.country}"/></p>
+    <div class="grid-item">${country}</div>
+    <div class="grid-item">${requestScope.user.country}</div>
 </div>
 
-<p><a href="${Util.CONTROLLER}?${Util.COMMAND}=${Util.TO_COMPLETED_SURVEYS_PAGE_COMMAND}">${passed_surveys}</a></p>
-
-<p><a href="${Util.CONTROLLER}?${Util.COMMAND}=${Util.TO_PROFILE_PAGE_COMMAND}">${back}</a></p>
+<div class="grid-container-2-columns">
+    <div class="grid-item"><a class="btn" href="controller?command=to_edit_profile_info_page">${edit}</a></div>
+    <div class="grid-item">
+        <a class="btn" href="${Util.CONTROLLER}?${Util.COMMAND}=${Util.TO_PROFILE_PAGE_COMMAND}">${back}</a>
+    </div>
+</div>
 </body>
 </html>

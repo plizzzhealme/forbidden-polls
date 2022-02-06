@@ -6,6 +6,7 @@
 <meta charset="UTF-8">
 <head>
     <title>${profile}</title>
+    <link href="${pageContext.request.contextPath}/css/style.css" rel="stylesheet">
 </head>
 <body>
 <p>
@@ -28,11 +29,9 @@
     </p>
 </c:if>
 
+<a href="${Util.CONTROLLER}?${Util.COMMAND}=${Util.TO_COMPLETED_SURVEYS_PAGE_COMMAND}">${passed_surveys}</a>
 
-<form action="${Util.CONTROLLER}">
-    <input type="hidden" name="${Util.COMMAND}" value="${Util.SIGN_OUT_COMMAND}">
 
-    <input type="submit" value="${sign_out}">
-</form>
+<a class="btn" href="${Util.CONTROLLER}?${Util.COMMAND}=${Util.SIGN_OUT_COMMAND}">${sign_out}</a>
 </body>
 </html>

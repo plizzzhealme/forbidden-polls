@@ -6,6 +6,7 @@
 <meta charset="UTF-8">
 <head>
     <title>Title</title>
+    <link href="${pageContext.request.contextPath}/css/style.css" rel="stylesheet">
 </head>
 <body>
 <p>
@@ -15,7 +16,7 @@
 <p>${passed_survey_message}</p>
 
 <p>
-    <a href="${Util.CONTROLLER}?${Util.COMMAND}=${Util.TO_PROFILE_PAGE_COMMAND}">
+    <a class="btn" href="${Util.CONTROLLER}?${Util.COMMAND}=${Util.TO_PROFILE_PAGE_COMMAND}">
         ${to_profile_page}
     </a>
 </p>

@@ -7,6 +7,7 @@
 <head>
     <meta content='text/html; charset=UTF-8'/>
     <title>${requestScope.survey.name}</title>
+    <link href="${pageContext.request.contextPath}/css/style.css" rel="stylesheet">
 </head>
 <body>
 <p>
@@ -50,7 +51,7 @@
     </p>
 
     <p>
-        <input type="submit" value="${add_survey_header}">
+        <input class="btn" type="submit" value="${add_survey_header}">
     </p>
 </form>
 </body>

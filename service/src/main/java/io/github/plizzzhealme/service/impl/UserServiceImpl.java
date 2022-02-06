@@ -46,4 +46,24 @@ public class UserServiceImpl implements UserService {
             throw new ServiceException("Error getting user info", e);
         }
     }
+
+    @Override
+    public void updateUserInfo(User user) throws ServiceException, ValidatorException {
+        UserValidator userValidator = UserValidator.getInstance();
+
+        if (userValidator.isValidName(user.getName())
+                && userValidator.isValidEmail(user.getEmail())
+                && userValidator.isValidGender(user.getGender())
+                && userValidator.isValidCountyCode(user.getCountry())
+                && userValidator.isValidBirthday(user.getBirthday())) {
+
+            try {
+                DaoFactory.INSTANCE.getUserDao().update(user);
+            } catch (DaoException e) {
+                throw new ServiceException("Failed to update user info", e);
+            }
+        } else {
+            throw new ValidatorException("Invalid data, unable to update");
+        }
+    }
 }

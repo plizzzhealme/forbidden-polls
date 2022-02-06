@@ -10,6 +10,8 @@ public interface UserDao {
 
     void create(User user) throws DaoException;
 
+    void update(User user) throws DaoException;
+
     User find(int id) throws DaoException;
 
     User signIn(String email, String password) throws DaoException;

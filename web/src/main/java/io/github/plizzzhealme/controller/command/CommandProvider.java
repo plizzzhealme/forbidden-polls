@@ -19,6 +19,7 @@ public final class CommandProvider {
         commands.put(Util.ADD_SURVEY_QUESTION_COMMAND, new AddSurveyQuestionCommand());
         commands.put(Util.ANSWER_SURVEY_QUESTION_COMMAND, new AnswerSurveyQuestionCommand());
         commands.put(Util.CHANGE_LOCALE_COMMAND, new ChangeLocaleCommand());
+        commands.put(Util.EDIT_PROFILE_INFO_COMMAND, new EditProfileInfoCommand());
         commands.put(Util.EDIT_SURVEY_COMMAND, new EditSurveyCommand());
         commands.put(Util.SIGN_IN_COMMAND, new SignInCommand());
         commands.put(Util.SIGN_OUT_COMMAND, new SignOutCommand());
@@ -32,6 +33,7 @@ public final class CommandProvider {
         commands.put(Util.TO_CATEGORIES_PAGE_COMMAND, new ToCategoriesPageCommand());
         commands.put(Util.TO_CATEGORY_PAGE_COMMAND, new ToCategoryPageCommand());
         commands.put(Util.TO_COMPLETED_SURVEYS_PAGE_COMMAND, new ToCompletedSurveysPageCommand());
+        commands.put(Util.TO_EDIT_PROFILE_INFO_PAGE_COMMAND, new ToEditProfileInfoPageCommand());
         commands.put(Util.TO_HOME_PAGE_COMMAND, new ToHomePageCommand());
         commands.put(Util.TO_PROFILE_INFO_PAGE_COMMAND, new ToProfileInfoPageCommand());
         commands.put(Util.TO_PROFILE_PAGE_COMMAND, new ToProfilePageCommand());
