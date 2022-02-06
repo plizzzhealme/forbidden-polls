@@ -6,18 +6,21 @@
 <meta charset="UTF-8">
 <head>
     <title>Title</title>
+    <link href="${pageContext.request.contextPath}/css/style.css" rel="stylesheet">
 </head>
 <body>
-<p>
-    <%@include file="../jspf/header.jspf" %>
-</p>
+<%@include file="../jspf/header.jspf" %>
 
-<p>${survey_added}</p>
+<div class="grid-container-1">
+    <div class="grid-item">${survey_added}</div>
+</div>
 
-<p>
-    <a href="${Util.CONTROLLER}?${Util.COMMAND}=${Util.TO_PROFILE_PAGE_COMMAND}">
-        ${to_profile_page}
-    </a>
-</p>
+<div class="grid-container-1">
+    <div class="grid-item">
+        <a class="classic" href="${Util.CONTROLLER}?${Util.COMMAND}=${Util.TO_PROFILE_PAGE_COMMAND}">
+            ${to_profile_page}
+        </a>
+    </div>
+</div>
 </body>
 </html>

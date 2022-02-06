@@ -11,22 +11,20 @@
     <link href="${pageContext.request.contextPath}/css/style.css" rel="stylesheet">
 </head>
 <body>
-<p>
-    <%@include file="../jspf/header.jspf" %>
-</p>
+<%@include file="../jspf/header.jspf" %>
 
-<p>${start_page_message}</p>
+<div class="grid-container-1">
+    <div class="grid-item"><p>${start_page_message}</p></div>
+</div>
 
-<form action="${Util.CONTROLLER}" class="st">
-    <input type="hidden" name="${Util.COMMAND}" value="${Util.TO_SIGN_IN_PAGE_COMMAND}"/>
+<div class="grid-container-2">
+    <div class="grid-item">
+        <a class="classic" href="${Util.CONTROLLER}?${Util.COMMAND}=${Util.TO_SIGN_IN_PAGE_COMMAND}">${sign_in}</a>
+    </div>
+    <div class="grid-item">
+        <a class="classic" href="${Util.CONTROLLER}?${Util.COMMAND}=${Util.TO_SIGN_UP_PAGE_COMMAND}">${sign_up}</a>
+    </div>
+</div>
 
-    <p><input type="submit" value="${sign_in}"/></p>
-</form>
-
-<form action="${Util.CONTROLLER}" class="st">
-    <input type="hidden" name="${Util.COMMAND}" value="${Util.TO_SIGN_UP_PAGE_COMMAND}"/>
-
-    <p><input type="submit" value="${sign_up}"/></p>
-</form>
 </body>
 </html>

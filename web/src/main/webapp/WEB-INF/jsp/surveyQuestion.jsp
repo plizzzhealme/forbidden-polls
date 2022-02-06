@@ -6,11 +6,10 @@
 <meta charset="UTF-8">
 <head>
     <title>${sessionScope.survey.name}</title>
+    <link href="${pageContext.request.contextPath}/css/style.css" rel="stylesheet">
 </head>
 <body>
-<p>
-    <%@include file="../jspf/header.jspf" %>
-</p>
+<%@include file="../jspf/header.jspf" %>
 
 <c:if test="${sessionScope.survey != null}">
     <c:set var="i" value="${sessionScope.question_index}"/>
@@ -19,27 +18,33 @@
 </c:if>
 
 <%-- print question --%>
-<p><c:out value="${current_question.body}"/></p>
-<p><c:out value="${current_question.description}"/></p>
-<img src="${current_question.imageUrl}" alt=""/>
+<div class="grid-container-1">
+    <div class="grid-item">${current_question.body}</div>
+    <div class="grid-item">${current_question.description}</div>
+    <div class="grid-item"><img src="${current_question.imageUrl}" alt=""/></div>
+</div>
 
 <form action="${Util.CONTROLLER}">
-
-    <%-- print options --%>
-    <c:forEach var="option" items="${options}" varStatus="loop">
-        <p>
-            <label>
-                <input type="radio"
-                       name="option"
-                       value="${loop.index}"
-                       <c:if test="${loop.index == 0}">checked</c:if> >${option.body}
-            </label>
-        </p>
-    </c:forEach>
-
     <input type="hidden" name="${Util.COMMAND}" value="${Util.ANSWER_SURVEY_QUESTION_COMMAND}">
 
-    <p><input type="submit" value="${answer}"></p>
+    <div class="grid-container-1">
+        <c:forEach var="option" items="${options}" varStatus="loop">
+            <div class="grid-item">
+                <label>
+                    <input class="classic" type="radio"
+                           name="option"
+                           value="${loop.index}"
+                           <c:if test="${loop.index == 0}">checked</c:if> >${option.body}
+                </label>
+            </div>
+        </c:forEach>
+    </div>
+
+    <div class="grid-container-1">
+        <div class="grid-item">
+            <input class="classic" type="submit" value="${answer}">
+        </div>
+    </div>
 </form>
 </body>
 </html>

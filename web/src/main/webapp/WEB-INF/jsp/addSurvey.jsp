@@ -4,39 +4,40 @@
 <!DOCTYPE>
 <html lang="ee">
 <head>
-
-    <title>Title</title>
+    <title></title>
+    <link href="${pageContext.request.contextPath}/css/style.css" rel="stylesheet">
 </head>
 <body>
-<p>
-    <%@include file="../jspf/header.jspf" %>
-</p>
+<%@include file="../jspf/header.jspf" %>
 
 <c:set var="questions" value="${sessionScope.new_survey.questions}"/>
 
 <form action="controller" method="post">
     <input type="hidden" name="${Util.COMMAND}" value="${Util.EDIT_SURVEY_COMMAND}">
 
-    <p>
-        <label for="edit"></label>
-        <select id="edit" name="edit">
-            <optgroup label="${survey_header}">
-                <option value="header">${edit_survey_header}</option>
-            </optgroup>
+    <div class="grid-container-1">
+        <div class="grid-item">
+            <label for="edit"></label>
+            <select class="classic" id="edit" name="edit">
+                <optgroup label="${survey_header}">
+                    <option value="header">${edit_survey_header}</option>
+                </optgroup>
 
-            <optgroup label="${question}">
-                <c:forEach var="q" items="${questions}">
-                    <option value="${q.index}">${q.index + 1}. ${q.body}</option>
-                </c:forEach>
-            </optgroup>
-        </select>
-        <input type="submit" value="${edit}">
-    </p>
-</form>
+                <optgroup label="${question}">
+                    <c:forEach var="q" items="${questions}">
+                        <option value="${q.index}">${q.index + 1}. ${q.body}</option>
+                    </c:forEach>
+                </optgroup>
+            </select>
+        </div>
+    </div>
 
-<form action="${Util.CONTROLLER}" method="post">
-    <input type="hidden" name="${Util.COMMAND}" value="${Util.ADD_SURVEY_COMMAND}">
-    <input type="submit" value="${add}">
+    <div class="grid-container-2">
+        <div class="grid-item"><input class="classic" type="submit" value="${edit}"></div>
+        <div class="grid-item">
+            <a class="classic" href="${Util.CONTROLLER}?${Util.COMMAND}=${Util.ADD_SURVEY_COMMAND}">${add}</a>
+        </div>
+    </div>
 </form>
 </body>
 </html>

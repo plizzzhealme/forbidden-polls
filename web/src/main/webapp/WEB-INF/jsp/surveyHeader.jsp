@@ -6,21 +6,32 @@
 <meta charset="UTF-8">
 <head>
     <title>${requestScope.survey.name}</title>
+    <link href="${pageContext.request.contextPath}/css/style.css" rel="stylesheet">
 </head>
 <body>
-<p>
-    <%@include file="../jspf/header.jspf" %>
-</p>
-<p>${requestScope.survey.name}</p>
-<p>${created}: ${requestScope.survey.creationDate}</p>
-<p>${requestScope.survey.description}</p>
-<p>${requestScope.survey.instructions}</p>
-<img src="${requestScope.survey.imageUrl}" alt=""/>
+<%@include file="../jspf/header.jspf" %>
+
+<div class="grid-container-1">
+    <div class="grid-item">${requestScope.survey.name}</div>
+    <div class="grid-item">${created}: ${requestScope.survey.creationDate}</div>
+    <div class="grid-item">${requestScope.survey.description}</div>
+    <div class="grid-item">${requestScope.survey.instructions}</div>
+    <div class="grid-item"><img src="${requestScope.survey.imageUrl}" alt=""/></div>
+</div>
+
 
 <form action="${Util.CONTROLLER}" method="post">
     <input type="hidden" name="${Util.COMMAND}" value="${Util.TAKE_SURVEY_COMMAND}">
     <input type="hidden" name="${Util.SURVEY_ID}" value="${requestScope.survey.id}">
-    <p><input type="submit" value="${start_survey}"></p>
+
+    <div class="grid-container-2">
+        <div class="grid-item"><input class="classic" type="submit" value="${start_survey}"></div>
+        <div class="grid-item">
+            <a class="classic" href="${Util.CONTROLLER}?${Util.COMMAND}=${Util.TO_CATEGORIES_PAGE_COMMAND}">
+                ${back}
+            </a>
+        </div>
+    </div>
 </form>
 
 </body>

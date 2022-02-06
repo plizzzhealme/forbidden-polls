@@ -6,27 +6,31 @@
 <html xml:lang="eu">
 <meta charset="UTF-8">
 <head>
-    <title>${registration}</title>
+    <title></title>
     <link href="${pageContext.request.contextPath}/css/style.css" rel="stylesheet">
 </head>
 <body>
 <%@include file="../jspf/header.jspf" %>
 
 <form action="${Util.CONTROLLER}" method="post" accept-charset="UTF-8">
-    <input type="hidden" name="${Util.COMMAND}" value="${Util.SIGN_UP_COMMAND}">
+    <input type="hidden" name="${Util.COMMAND}" value="${Util.EDIT_PROFILE_INFO_COMMAND}">
 
     <div class="grid-container-1">
         <div class="grid-item"><label for="email">${email}:</label></div>
-        <div class="grid-item"><input class="classic" id="email" type="email" name="${Util.USER_EMAIL}"></div>
+        <div class="grid-item">
+            <input class="classic" id="email" type="email" name="${Util.USER_EMAIL}" value="${requestScope.user.email}">
+        </div>
 
         <div class="grid-item"><label for="name">${name}:</label></div>
-        <div class="grid-item"><input class="classic" id="name" type="text" name="${Util.USER_NAME}"></div>
-
-        <div class="grid-item"><label for="password">${password}:</label></div>
-        <div class="grid-item"><input class="classic" id="password" type="password" name="${Util.USER_PASSWORD}"></div>
+        <div class="grid-item">
+            <input class="classic" id="name" type="text" name="${Util.USER_NAME}" value="${requestScope.user.name}">
+        </div>
 
         <div class="grid-item"><label for="birthday">${birthday}:</label></div>
-        <div class="grid-item"><input class="classic" id="birthday" type="date" name="${Util.USER_BIRTHDAY}"/></div>
+        <div class="grid-item">
+            <input class="classic" id="birthday" type="date" name="${Util.USER_BIRTHDAY}"
+                   value="${requestScope.user.birthday}"/>
+        </div>
 
         <div class="grid-item"><label for="gender">${gender}:</label></div>
         <div class="grid-item">
@@ -60,7 +64,7 @@
                 <option value="BH">Bahrain</option>
                 <option value="BD">Bangladesh</option>
                 <option value="BB">Barbados</option>
-                <option value="BY" selected>Belarus</option>
+                <option value="BY">Belarus</option>
                 <option value="BE">Belgium</option>
                 <option value="BZ">Belize</option>
                 <option value="BJ">Benin</option>
@@ -297,9 +301,11 @@
     </div>
 
     <div class="grid-container-2">
-        <div class="grid-item"><input class="classic" type="submit" value="${sign_up}"></div>
         <div class="grid-item">
-            <a class="classic" href="${Util.CONTROLLER}?${Util.COMMAND}=${Util.TO_HOME_PAGE_COMMAND}">${back}</a>
+            <input class="classic" type="submit" value="${edit}">
+        </div>
+        <div class="grid-item">
+            <a class="classic" href="controller?${Util.COMMAND}=${Util.TO_PROFILE_INFO_PAGE_COMMAND}">${back}</a>
         </div>
     </div>
 </form>
