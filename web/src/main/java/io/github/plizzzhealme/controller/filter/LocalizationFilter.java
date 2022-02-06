@@ -18,21 +18,22 @@ public class LocalizationFilter implements Filter {
 
     @Override
     public void init(FilterConfig filterConfig) {
-        commandsToBeSaved.add(Util.TO_PROFILE_PAGE_COMMAND);
-        commandsToBeSaved.add(Util.TO_SIGN_IN_PAGE_COMMAND);
-        commandsToBeSaved.add(Util.TO_HOME_PAGE_COMMAND);
-        commandsToBeSaved.add(Util.TO_SIGN_UP_PAGE_COMMAND);
-        commandsToBeSaved.add(Util.TO_PROFILE_INFO_PAGE_COMMAND);
+        commandsToBeSaved.add(Util.TO_ADD_SURVEY_HEADER_PAGE_COMMAND);
+        commandsToBeSaved.add(Util.TO_ADD_SURVEY_PAGE_COMMAND);
+        commandsToBeSaved.add(Util.TO_ADD_SURVEY_QUESTION_PAGE_COMMAND);
         commandsToBeSaved.add(Util.TO_CATEGORIES_PAGE_COMMAND);
         commandsToBeSaved.add(Util.TO_CATEGORY_PAGE_COMMAND);
-        commandsToBeSaved.add(Util.TO_SURVEY_QUESTION_PAGE_COMMAND);
+        commandsToBeSaved.add(Util.TO_COMPLETED_SURVEYS_PAGE_COMMAND);
+        commandsToBeSaved.add(Util.TO_EDIT_PROFILE_INFO_PAGE_COMMAND);
+        commandsToBeSaved.add(Util.TO_HOME_PAGE_COMMAND);
+        commandsToBeSaved.add(Util.TO_PROFILE_INFO_PAGE_COMMAND);
+        commandsToBeSaved.add(Util.TO_PROFILE_PAGE_COMMAND);
+        commandsToBeSaved.add(Util.TO_SIGN_IN_PAGE_COMMAND);
+        commandsToBeSaved.add(Util.TO_SIGN_UP_PAGE_COMMAND);
+        commandsToBeSaved.add(Util.TO_SURVEY_ADDED_PAGE_COMMAND);
         commandsToBeSaved.add(Util.TO_SURVEY_COMPLETED_PAGE_COMMAND);
         commandsToBeSaved.add(Util.TO_SURVEY_HEADER_PAGE_COMMAND);
-        commandsToBeSaved.add(Util.TO_COMPLETED_SURVEYS_PAGE_COMMAND);
-        commandsToBeSaved.add(Util.TO_ADD_SURVEY_HEADER_PAGE_COMMAND);
-        commandsToBeSaved.add(Util.TO_ADD_SURVEY_QUESTION_PAGE_COMMAND);
-        commandsToBeSaved.add(Util.TO_SURVEY_ADDED_PAGE_COMMAND);
-        commandsToBeSaved.add(Util.TO_ADD_SURVEY_PAGE_COMMAND);
+        commandsToBeSaved.add(Util.TO_SURVEY_QUESTION_PAGE_COMMAND);
     }
 
     @Override
