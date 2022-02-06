@@ -58,6 +58,7 @@ public final class Util {
     public static final String SURVEY_ADDED_JSP = "/WEB-INF/jsp/surveyAdded.jsp";
     public static final String ADD_SURVEY_JSP = "/WEB-INF/jsp/addSurvey.jsp";
     public static final String EDIT_PROFILE_INFO_JSP = "/WEB-INF/jsp/editProfileInfo.jsp";
+    public static final String SURVEY_STATISTICS_JSP = "/WEB-INF/jsp/surveyStatistics.jsp";
 
     // errors
     public static final String ERROR = "error";
@@ -105,6 +106,7 @@ public final class Util {
     public static final String TO_ADD_SURVEY_QUESTION_PAGE_COMMAND = "to_add_survey_question_page";
     public static final String TO_SURVEY_ADDED_PAGE_COMMAND = "to_survey_added_page";
     public static final String TO_ADD_SURVEY_PAGE_COMMAND = "to_add_survey_page";
+    public static final String TO_SURVEY_STATISTICS_PAGE_COMMAND = "to_survey_statistics_page";
 
     public static final String CATEGORY_LIST = "category_list";
     public static final String OPTION = "option";

@@ -13,7 +13,11 @@
 
 <div class="grid-container-1">
     <c:forEach var="survey" items="${requestScope.survey_list}">
-        <div class="grid-item">${survey.name}</div>
+        <div class="grid-item">
+            <a href="controller?command=to_survey_statistics_page&survey_id=${survey.id}">
+                    ${survey.name}
+            </a>
+        </div>
     </c:forEach>
 </div>
 

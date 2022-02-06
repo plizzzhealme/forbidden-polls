@@ -12,6 +12,7 @@ public class Option implements Serializable {
     private int id;
     private String body;
     private int index;
+    private int count;
 
     public int getId() {
         return id;
@@ -35,6 +36,14 @@ public class Option implements Serializable {
 
     public void setBody(String body) {
         this.body = body;
+    }
+
+    public int getCount() {
+        return count;
+    }
+
+    public void setCount(int count) {
+        this.count = count;
     }
 
     @Override

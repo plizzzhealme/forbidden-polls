@@ -7,5 +7,7 @@ import java.util.List;
 
 public interface OptionDao {
 
-    List<Option> search(int questionId) throws DaoException;
+    List<Option> searchQuestionOptions(int questionId) throws DaoException;
+
+    int countAnswers(int optionId) throws DaoException;
 }

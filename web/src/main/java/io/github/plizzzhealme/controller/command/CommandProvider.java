@@ -43,8 +43,7 @@ public final class CommandProvider {
         commands.put(Util.TO_SURVEY_COMPLETED_PAGE_COMMAND, new ToSurveyCompletedPageCommand());
         commands.put(Util.TO_SURVEY_HEADER_PAGE_COMMAND, new ToSurveyHeaderPageCommand());
         commands.put(Util.TO_SURVEY_QUESTION_PAGE_COMMAND, new ToSurveyQuestionPageCommand());
-
-
+        commands.put(Util.TO_SURVEY_STATISTICS_PAGE_COMMAND, new ToSurveyStatisticsPageCommand());
     }
 
     public Command getCommand(String commandName) {

@@ -1,5 +1,6 @@
 package io.github.plizzzhealme.service.impl;
 
+import io.github.plizzzhealme.bean.Option;
 import io.github.plizzzhealme.bean.Question;
 import io.github.plizzzhealme.bean.Survey;
 import io.github.plizzzhealme.bean.criteria.SearchCriteria;
@@ -29,7 +30,7 @@ public class SurveyServiceImpl implements SurveyService {
             survey.setQuestions(questions);
 
             for (Question question : questions) {
-                question.setOptions(optionDao.search(question.getId()));
+                question.setOptions(optionDao.searchQuestionOptions(question.getId()));
             }
 
             return survey;
@@ -110,5 +111,28 @@ public class SurveyServiceImpl implements SurveyService {
         } catch (DaoException e) {
             throw new ServiceException("", e);
         }
+    }
+
+    @Override
+    public Survey searchSurveyStatistics(int surveyId) throws ServiceException {
+        Survey survey = takeSurvey(surveyId);
+        OptionDao optionDao = DaoFactory.INSTANCE.getOptionDao();
+
+        List<Question> questions = survey.getQuestions();
+
+        for (Question question : questions) {
+            List<Option> options = question.getOptions();
+
+            for (Option option : options) {
+                try {
+                    int optionCount = optionDao.countAnswers(option.getId());
+                    option.setCount(optionCount);
+                } catch (DaoException e) {
+                    throw new ServiceException("", e);
+                }
+            }
+        }
+
+        return survey;
     }
 }
