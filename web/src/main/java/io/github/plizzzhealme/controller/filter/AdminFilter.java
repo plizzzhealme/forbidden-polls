@@ -1,5 +1,6 @@
 package io.github.plizzzhealme.controller.filter;
 
+import io.github.plizzzhealme.bean.User;
 import io.github.plizzzhealme.controller.util.Util;
 
 import javax.servlet.*;
@@ -33,11 +34,9 @@ public class AdminFilter implements Filter {
         String command = servletRequest.getParameter(Util.COMMAND);
 
         if (adminCommands.contains(command)) {
-            HttpServletRequest request = (HttpServletRequest) servletRequest;
-            HttpSession session = request.getSession();
-            String role = (String) session.getAttribute(Util.USER_ROLE);
+            HttpSession session = ((HttpServletRequest) servletRequest).getSession();
 
-            if (Util.ADMIN.equals(role)) {
+            if (User.ADMIN.equals(session.getAttribute(Util.USER_ROLE))) {
                 filterChain.doFilter(servletRequest, servletResponse);
             } else {
                 HttpServletResponse response = (HttpServletResponse) servletResponse;
