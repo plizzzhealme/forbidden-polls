@@ -36,7 +36,7 @@ public class SqlUserDao implements UserDao {
             "(name, email, hashed_password, registration_date, birthday, user_role_id, country_id, gender_id) " +
             "VALUES (?, ?, ?, ?, ?, " +
             "(SELECT id FROM user_roles WHERE name=? LIMIT 1), " +
-            "(SELECT id FROM countries WHERE countries.iso_code OR countries.name = ? LIMIT 1), " +
+            "(SELECT id FROM countries WHERE countries.iso_code = ? OR countries.name = ? LIMIT 1), " +
             "(SELECT id FROM genders WHERE name=? LIMIT 1))";
 
     private static final ConnectionPool pool = ConnectionPool.INSTANCE;
@@ -44,7 +44,7 @@ public class SqlUserDao implements UserDao {
             "UPDATE users " +
             "SET users.name=?, users.email=?, users.birthday=?,  " +
             "users.gender_id=(SELECT id FROM genders WHERE genders.name=?), " +
-            "users.country_id=(SELECT id FROM countries WHERE countries.iso_code OR countries.name = ?) " +
+            "users.country_id=(SELECT id FROM countries WHERE countries.iso_code = ? OR countries.name = ?) " +
             "WHERE users.id=?";
 
     /**
@@ -106,7 +106,9 @@ public class SqlUserDao implements UserDao {
             preparedStatement.setDate(5, Util.toSqlTime(user.getBirthday()));
             preparedStatement.setString(6, user.getUserRole());
             preparedStatement.setString(7, user.getCountry());
-            preparedStatement.setString(8, user.getGender());
+            preparedStatement.setString(8, user.getCountry());
+            preparedStatement.setString(9, user.getGender());
+
 
             preparedStatement.executeUpdate();
         } catch (SQLException e) {
@@ -185,7 +187,8 @@ public class SqlUserDao implements UserDao {
             preparedStatement.setDate(3, Util.toSqlTime(user.getBirthday()));
             preparedStatement.setString(4, user.getGender());
             preparedStatement.setString(5, user.getCountry());
-            preparedStatement.setInt(6, user.getId());
+            preparedStatement.setString(6, user.getCountry());
+            preparedStatement.setInt(7, user.getId());
 
             preparedStatement.executeUpdate();
         } catch (SQLException e) {
