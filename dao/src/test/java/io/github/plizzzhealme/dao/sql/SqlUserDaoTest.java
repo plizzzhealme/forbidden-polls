@@ -59,11 +59,24 @@ class SqlUserDaoTest {
     void createInvalidUser() {
         User user = new User();
 
-        user.setEmail("user@mail.com");
-        user.setPassword("Simple#666");
+        user.setEmail("user1@mail.com");
+        user.setPassword("Password#666");
         user.setUserRole(User.USER);
         user.setCountry("belarus");
         user.setGender("invalid role");
+
+        assertThrows(DaoException.class, () -> userDao.create(user));
+    }
+
+    @Test
+    void createUserWithDuplicateEmail() {
+        User user = new User();
+
+        user.setEmail("plizzz.healme@gmail.com");
+        user.setPassword("Password#666");
+        user.setUserRole(User.USER);
+        user.setCountry("belarus");
+        user.setGender(User.MALE);
 
         assertThrows(DaoException.class, () -> userDao.create(user));
     }
@@ -74,20 +87,60 @@ class SqlUserDaoTest {
     }
 
     @Test
-    void update() {
+    void findExistingUser() throws DaoException {
+        assertNotNull(userDao.find(1));
     }
 
     @Test
-    void find() {
+    void findNonExistentUser() throws DaoException {
+        assertNull(userDao.find(-1));
     }
 
     @Test
-    void signIn() {
+    void correctUpdate() throws DaoException {
+        User user = new User();
+        user.setId(1);
+        user.setEmail("plizzz.healme@gmail.com");
+        user.setUserRole("admin");
+        user.setGender(User.MALE);
+        user.setCountry("Russian Federation");
+
+        userDao.update(user);
+
+        user = userDao.find(1);
+
+        assertEquals("Russian Federation", user.getCountry());
     }
 
     @Test
-    void search() {
+    void updateWithInvalidParameter() {
+        User user = new User();
+        user.setId(1);
+        user.setEmail("plizzz.healme@gmail.com");
+        user.setUserRole("admin");
+        user.setGender(User.MALE);
+        user.setCountry(null);
+
+        assertThrows(DaoException.class, () -> userDao.update(user));
     }
 
+    @Test
+    void updateNullUser() {
+        assertThrows(DaoException.class, () -> userDao.update(null));
+    }
 
+    @Test
+    void signInWithValidCredentials() throws DaoException {
+        assertNotNull(userDao.signIn("plizzz.healme@gmail.com", "1q2w3e"));
+    }
+
+    @Test
+    void signInWithInvalidCredentials() throws DaoException {
+        assertNull(userDao.signIn("plizzz.healme@gmail.com", "1q2w3e4r"));
+    }
+
+    @Test
+    void signInWithNullParameters() throws DaoException {
+        assertNull(userDao.signIn(null, null));
+    }
 }
