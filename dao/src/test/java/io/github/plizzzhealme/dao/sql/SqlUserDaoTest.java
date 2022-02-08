@@ -1,8 +1,6 @@
 package io.github.plizzzhealme.dao.sql;
 
 import io.github.plizzzhealme.bean.User;
-import io.github.plizzzhealme.bean.criteria.Parameter;
-import io.github.plizzzhealme.bean.criteria.SearchCriteria;
 import io.github.plizzzhealme.dao.DaoFactory;
 import io.github.plizzzhealme.dao.UserDao;
 import io.github.plizzzhealme.dao.exception.DaoException;
@@ -11,12 +9,11 @@ import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
-import java.time.LocalDate;
-import java.util.List;
-
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.*;
 
 class SqlUserDaoTest {
+
+    private final UserDao userDao = DaoFactory.INSTANCE.getUserDao();
 
     @BeforeAll
     static void connect() throws DaoException {
@@ -28,44 +25,69 @@ class SqlUserDaoTest {
         ConnectionPool.INSTANCE.dispose();
     }
 
+
     @Test
-    void readWithExistingID() throws DaoException {
-        UserDao userDao = DaoFactory.INSTANCE.getUserDao();
-
-        int existingID = 1;
-        String expected = "plizzz.healme@gmail.com";
-        String actual = userDao.find(existingID).getEmail();
-
-        assertEquals(expected, actual);
+    void isPresentExistingUser() throws DaoException {
+        assertTrue(userDao.isPresent("plizzz.healme@gmail.com"));
     }
 
     @Test
-    void create() throws DaoException {
-        UserDao dao = DaoFactory.INSTANCE.getUserDao();
+    void isPresentNonExistentUser() throws DaoException {
+        assertFalse(userDao.isPresent("pliz.healme@gmail.com"));
+    }
 
+    @Test
+    void isPresentNull() throws DaoException {
+        assertFalse(userDao.isPresent(null));
+    }
+
+    @Test
+    void createValidUser() throws DaoException {
         User user = new User();
-        user.setPassword("1q2w3e");
-        user.setEmail("plizzzehesalme@gmail.com");
-        user.setName("Dzianis");
-        user.setCountry("Belarus");
-        user.setGender("male");
-        user.setUserRole("admin");
 
-        dao.create(user);
+        user.setEmail("user@mail.com");
+        user.setPassword("Simple#666");
+        user.setUserRole(User.USER);
+        user.setCountry("belarus");
+        user.setGender(User.OTHER);
+        userDao.create(user);
+
+        assertTrue(userDao.isPresent("user@mail.com"));
     }
-
 
     @Test
-    void testSearch() throws DaoException {
+    void createInvalidUser() {
+        User user = new User();
 
-        UserDao userDao = DaoFactory.INSTANCE.getUserDao();
-        LocalDate date = LocalDate.of(1989, 9, 5);
+        user.setEmail("user@mail.com");
+        user.setPassword("Simple#666");
+        user.setUserRole(User.USER);
+        user.setCountry("belarus");
+        user.setGender("invalid role");
 
-        SearchCriteria criteria = new SearchCriteria();
-        criteria.addParameter(Parameter.USER_BIRTHDAY, date);
-        List<User> users = userDao.search(criteria);
-
-        assertEquals(date, users.get(0).getBirthday());
+        assertThrows(DaoException.class, () -> userDao.create(user));
     }
+
+    @Test
+    void createNullUser() {
+        assertThrows(DaoException.class, () -> userDao.create(null));
+    }
+
+    @Test
+    void update() {
+    }
+
+    @Test
+    void find() {
+    }
+
+    @Test
+    void signIn() {
+    }
+
+    @Test
+    void search() {
+    }
+
 
 }

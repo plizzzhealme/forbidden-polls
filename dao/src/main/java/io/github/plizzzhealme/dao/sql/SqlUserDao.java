@@ -38,9 +38,9 @@ public class SqlUserDao implements UserDao {
             "INSERT INTO forbidden_polls.users " +
             "(name, email, hashed_password, registration_date, birthday, user_role_id, country_id, gender_id) " +
             "VALUES (?, ?, ?, ?, ?, " +
-            "(SELECT id FROM forbidden_polls.user_roles WHERE name=?), " +
-            "(SELECT id FROM forbidden_polls.countries WHERE countries.iso_code=?), " +
-            "(SELECT id FROM forbidden_polls.genders WHERE name=?))";
+            "(SELECT id FROM forbidden_polls.user_roles WHERE name=? LIMIT 1), " +
+            "(SELECT id FROM forbidden_polls.countries WHERE countries.iso_code OR countries.name = ? LIMIT 1), " +
+            "(SELECT id FROM forbidden_polls.genders WHERE name=? LIMIT 1))";
 
     private static final ConnectionPool pool = ConnectionPool.INSTANCE;
     private static final String UPDATE_USER_SQL = "" +
@@ -52,6 +52,10 @@ public class SqlUserDao implements UserDao {
 
     @Override
     public void create(User user) throws DaoException {
+        if (user == null) {
+            throw new DaoException("Cannot create null user record");
+        }
+
         Connection connection = pool.takeConnection();
 
         PreparedStatement preparedStatement = null;
@@ -78,6 +82,9 @@ public class SqlUserDao implements UserDao {
 
     @Override
     public void update(User user) throws DaoException {
+        if (user == null) {
+            throw new DaoException("Cannot update null record");
+        }
         Connection connection = pool.takeConnection();
 
         PreparedStatement preparedStatement = null;
