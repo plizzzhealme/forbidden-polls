@@ -67,33 +67,6 @@ public class SqlSurveyDao implements SurveyDao {
             "INSERT INTO forbidden_polls.options " +
             "(body, index_number, question_id) VALUES (?, ?, ?)";
 
-    public static final String SQL = "" +
-            "SELECT options.body, questions.body FROM options " +
-            "JOIN questions ON questions.id = options.question_id " +
-            "JOIN picked_options ON options.id = picked_options.option_id " +
-            "WHERE questions.survey_id = ? ORDER BY question_id";
-
-    public void method(int surveyId) throws DaoException {
-        Connection connection = pool.takeConnection();
-
-        PreparedStatement preparedStatement = null;
-        ResultSet resultSet = null;
-
-        try {
-            preparedStatement = connection.prepareStatement(SQL);
-
-
-            resultSet.next();
-
-            Survey survey = new Survey();
-
-        } catch (SQLException e) {
-            throw new DaoException("Error while reading survey by id from database.", e);
-        } finally {
-            pool.closeConnection(connection, preparedStatement, resultSet);
-        }
-    }
-
     @Override
     public Survey find(int id) throws DaoException {
         Connection connection = pool.takeConnection();

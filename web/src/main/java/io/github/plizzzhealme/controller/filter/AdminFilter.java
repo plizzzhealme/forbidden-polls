@@ -36,7 +36,7 @@ public class AdminFilter implements Filter {
         if (adminCommands.contains(command)) {
             HttpSession session = ((HttpServletRequest) servletRequest).getSession();
 
-            if (User.ADMIN.equals(session.getAttribute(Util.USER_ROLE))) {
+            if (User.ADMIN_ROLE.equals(session.getAttribute(Util.USER_ROLE))) {
                 filterChain.doFilter(servletRequest, servletResponse);
             } else {
                 HttpServletResponse response = (HttpServletResponse) servletResponse;

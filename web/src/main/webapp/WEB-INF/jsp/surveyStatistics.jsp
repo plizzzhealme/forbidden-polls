@@ -16,6 +16,7 @@
 <%@include file="../jspf/header.jspf" %>
 <c:set var="s" value="${requestScope.survey}"/>
 
+<%--suppress ELValidationInspection --%>
 <c:forEach var="q" items="${s.questions}">
     <div class="grid-container-1">
         <div class="grid-item">${q.body}</div>

@@ -2,7 +2,6 @@ package io.github.plizzzhealme.controller.command.navigation;
 
 import io.github.plizzzhealme.controller.command.Command;
 import io.github.plizzzhealme.controller.util.Util;
-import io.github.plizzzhealme.service.exception.ServiceException;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -13,7 +12,7 @@ public class ToSurveyCompletedPageCommand implements Command {
 
     @Override
     public void execute(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException, ServiceException {
+            throws ServletException, IOException {
 
         request.getRequestDispatcher(Util.SURVEY_COMPLETED_JSP).forward(request, response);
 

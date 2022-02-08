@@ -39,6 +39,7 @@ public class SurveyServiceImpl implements SurveyService {
         }
     }
 
+    @SuppressWarnings("unused")
     @Override
     public List<Survey> search(SearchCriteria searchCriteria) throws ServiceException {
         try {

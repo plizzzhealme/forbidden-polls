@@ -6,7 +6,6 @@ import java.util.EnumMap;
 
 public final class SqlParameter {
 
-    public static final String USERS = "forbidden_polls.users";
     public static final String USERS_ID = "users.id";
     public static final String USERS_EMAIL = "users.email";
     public static final String USERS_NAME = "users.name";

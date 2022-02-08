@@ -38,6 +38,7 @@ public class Option implements Serializable {
         this.body = body;
     }
 
+    @SuppressWarnings("unused")
     public int getCount() {
         return count;
     }

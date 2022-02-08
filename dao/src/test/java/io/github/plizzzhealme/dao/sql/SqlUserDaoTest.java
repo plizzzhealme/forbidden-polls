@@ -47,7 +47,7 @@ class SqlUserDaoTest {
 
         user.setEmail("user@mail.com");
         user.setPassword("Simple#666");
-        user.setUserRole(User.USER);
+        user.setUserRole(User.USER_ROLE);
         user.setCountry("belarus");
         user.setGender(User.OTHER);
         userDao.create(user);
@@ -61,7 +61,7 @@ class SqlUserDaoTest {
 
         user.setEmail("user1@mail.com");
         user.setPassword("Password#666");
-        user.setUserRole(User.USER);
+        user.setUserRole(User.USER_ROLE);
         user.setCountry("belarus");
         user.setGender("invalid role");
 
@@ -74,7 +74,7 @@ class SqlUserDaoTest {
 
         user.setEmail("plizzz.healme@gmail.com");
         user.setPassword("Password#666");
-        user.setUserRole(User.USER);
+        user.setUserRole(User.USER_ROLE);
         user.setCountry("belarus");
         user.setGender(User.MALE);
 

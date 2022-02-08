@@ -11,8 +11,8 @@ public class User implements Serializable {
     public static final String MALE = "male";
     public static final String FEMALE = "female";
     public static final String OTHER = "other";
-    public static final String ADMIN = "admin";
-    public static final String USER = "user";
+    public static final String ADMIN_ROLE = "admin";
+    public static final String USER_ROLE = "user";
 
     @Serial
     private static final long serialVersionUID = 6985791175479557902L;

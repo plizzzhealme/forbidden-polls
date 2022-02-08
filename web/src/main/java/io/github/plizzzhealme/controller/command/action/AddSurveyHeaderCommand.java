@@ -5,7 +5,6 @@ import io.github.plizzzhealme.controller.command.Command;
 import io.github.plizzzhealme.controller.exception.EmptyInputException;
 import io.github.plizzzhealme.controller.util.Util;
 import io.github.plizzzhealme.controller.validator.EmptyInputValidator;
-import io.github.plizzzhealme.service.exception.ServiceException;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -19,7 +18,7 @@ public class AddSurveyHeaderCommand implements Command {
 
     @Override
     public void execute(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException, ServiceException {
+            throws ServletException, IOException {
 
         String surveyName = request.getParameter(Util.SURVEY_NAME);
         String surveyCategory = request.getParameter(Util.SURVEY_CATEGORY);

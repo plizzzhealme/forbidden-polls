@@ -1,11 +1,10 @@
 package io.github.plizzzhealme.controller.util;
 
-import org.apache.commons.lang3.StringUtils;
-
 public final class Util {
 
     public static final String CONTROLLER = "controller";
     public static final String CATEGORY = "category";
+
     // user parameters
     public static final String USER = "user";
     public static final String USER_ID = "user_id";
@@ -13,7 +12,6 @@ public final class Util {
     public static final String USER_EMAIL = "user_email";
     public static final String USER_PASSWORD = "user_password";
     public static final String USER_BIRTHDAY = "user_birthday";
-    public static final String USER_CONFIRM_PASSWORD = "user_confirm_password";
     public static final String USER_GENDER = "user_gender";
     public static final String USER_COUNTRY = "user_country";
     public static final String USER_ROLE = "user_role";
@@ -32,8 +30,6 @@ public final class Util {
     public static final String SURVEY_IMAGE_URL = "survey_image_url";
     public static final String SURVEY_CATEGORY = "survey_category";
 
-    // question parameters
-    public static final String QUESTION = "question";
     public static final String QUESTION_BODY = "question_body";
     public static final String QUESTION_DESCRIPTION = "question_description";
     public static final String QUESTION_IMAGE_URL = "question_image_url";
@@ -70,7 +66,6 @@ public final class Util {
     // not classified
     public static final String URL = "url";
     public static final String LOCALE = "locale";
-    public static final String CATEGORY_ID = "category_id";
     public static final String CATEGORY_NAME = "category_name";
     public static final String COMMAND = "command";
 
@@ -112,14 +107,9 @@ public final class Util {
     public static final String OPTION = "option";
 
     public static final String REDIRECT_URL_PATTERN = CONTROLLER + "?" + COMMAND + "=";
-    public static final String QUESTION_OPTION = "option";
     public static final String EDIT_INDEX = "edit_index";
 
 
     private Util() {
-    }
-
-    public static boolean isAnyBlank(String... params) {
-        return StringUtils.isAnyBlank(params);
     }
 }

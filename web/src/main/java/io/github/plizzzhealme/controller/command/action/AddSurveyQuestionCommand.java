@@ -7,7 +7,6 @@ import io.github.plizzzhealme.controller.command.Command;
 import io.github.plizzzhealme.controller.exception.EmptyInputException;
 import io.github.plizzzhealme.controller.util.Util;
 import io.github.plizzzhealme.controller.validator.EmptyInputValidator;
-import io.github.plizzzhealme.service.exception.ServiceException;
 import org.apache.commons.lang3.ArrayUtils;
 
 import javax.servlet.RequestDispatcher;
@@ -23,7 +22,7 @@ public class AddSurveyQuestionCommand implements Command {
 
     @Override
     public void execute(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException, ServiceException {
+            throws ServletException, IOException {
 
         String body = request.getParameter(Util.QUESTION_BODY);
         String description = request.getParameter(Util.QUESTION_DESCRIPTION);
