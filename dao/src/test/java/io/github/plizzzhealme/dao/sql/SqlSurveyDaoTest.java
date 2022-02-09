@@ -16,9 +16,11 @@ import org.junit.jupiter.api.Test;
 import java.util.ArrayList;
 import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.*;
 
 class SqlSurveyDaoTest {
+
+    private final SurveyDao surveyDao = DaoFactory.INSTANCE.getSurveyDao();
 
     @BeforeAll
     static void connect() throws DaoException {
@@ -31,28 +33,53 @@ class SqlSurveyDaoTest {
     }
 
     @Test
-    void read() throws DaoException {
-        SurveyDao surveyDao = DaoFactory.INSTANCE.getSurveyDao();
+    void findExistingSurvey() throws DaoException {
+        int existingId = 1;
 
-        Survey survey = surveyDao.find(1);
-
-        String expected = "Poll about smoking";
-        String actual = survey.getName();
-
-        assertEquals(expected, actual);
+        assertNotNull(surveyDao.find(existingId));
     }
 
     @Test
-    void testCriteriaSearch() throws DaoException {
-        SurveyDao surveyDao = DaoFactory.INSTANCE.getSurveyDao();
+    void findNonExistentSurvey() throws DaoException {
+        int nonExistentId = -1;
 
-        SearchCriteria searchCriteria = new SearchCriteria();
-        String expectedName = "Poll about smoking";
-        searchCriteria.addParameter(Parameter.SURVEY_NAME, expectedName);
-        List<Survey> surveys = surveyDao.search(searchCriteria);
-        String actualName = surveys.get(0).getName();
+        assertNull(surveyDao.find(nonExistentId));
+    }
 
-        assertEquals(expectedName, actualName);
+    @Test
+    void criteriaSearchWithResult() throws DaoException {
+        String existingSurveyName = "bad habits";
+        SearchCriteria criteria = new SearchCriteria();
+        criteria.addParameter(Parameter.SURVEY_NAME, existingSurveyName);
+
+        assertFalse(surveyDao.search(criteria).isEmpty());
+    }
+
+    @Test
+    void criteriaSearchWithoutResult() throws DaoException {
+        String nonExistentSurveyName = "плохие привычки";
+        SearchCriteria criteria = new SearchCriteria();
+        criteria.addParameter(Parameter.SURVEY_NAME, nonExistentSurveyName);
+
+        assertTrue(surveyDao.search(criteria).isEmpty());
+    }
+
+    @Test
+    void nullCriteriaSearch() throws DaoException {
+        assertTrue(surveyDao.search(null).isEmpty());
+    }
+
+    @Test
+    void emptyCriteriaSearch() throws DaoException {
+        assertFalse(surveyDao.search(new SearchCriteria()).isEmpty());
+    }
+
+    @Test
+    void invalidParameterCriteriaSearch() {
+        SearchCriteria criteria = new SearchCriteria();
+        criteria.addParameter(Parameter.USER_EMAIL, "mail@mail.ru");
+
+        assertThrows(DaoException.class, () -> surveyDao.search(criteria));
     }
 
     @Test

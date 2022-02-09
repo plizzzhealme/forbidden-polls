@@ -15,6 +15,7 @@ import org.apache.logging.log4j.Logger;
 import java.sql.*;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 public class SqlSurveyDao implements SurveyDao {
@@ -39,7 +40,7 @@ public class SqlSurveyDao implements SurveyDao {
             "(answer_text, user_id, option_id) " +
             "VALUES (?, ?, ?)";
 
-    private static final String CHECK_IF_SURVEY_PASSED_BY_USER = "" +
+    private static final String CHECK_IF_SURVEY_PASSED_BY_USER_SQL = "" +
             "SELECT EXISTS(" +
             "SELECT id " +
             "FROM passed_surveys " +
@@ -79,17 +80,19 @@ public class SqlSurveyDao implements SurveyDao {
             preparedStatement.setInt(1, id);
             resultSet = preparedStatement.executeQuery();
 
-            resultSet.next();
+            Survey survey = null;
 
-            Survey survey = new Survey();
+            if (resultSet.next()) {
+                survey = new Survey();
 
-            survey.setId(id);
-            survey.setCreationDate(Util.toJavaTime(resultSet.getTimestamp(SqlParameter.SURVEYS_CREATION_DATE)));
-            survey.setName(resultSet.getString(SqlParameter.SURVEYS_NAME));
-            survey.setCategory(resultSet.getString(SqlParameter.CATEGORIES_NAME));
-            survey.setDescription(resultSet.getString(SqlParameter.SURVEYS_DESCRIPTION));
-            survey.setImageUrl(resultSet.getString(SqlParameter.SURVEYS_IMAGE_URL));
-            survey.setInstructions(resultSet.getString(SqlParameter.SURVEYS_INSTRUCTIONS));
+                survey.setId(id);
+                survey.setCreationDate(Util.toJavaTime(resultSet.getTimestamp(SqlParameter.SURVEYS_CREATION_DATE)));
+                survey.setName(resultSet.getString(SqlParameter.SURVEYS_NAME));
+                survey.setCategory(resultSet.getString(SqlParameter.CATEGORIES_NAME));
+                survey.setDescription(resultSet.getString(SqlParameter.SURVEYS_DESCRIPTION));
+                survey.setImageUrl(resultSet.getString(SqlParameter.SURVEYS_IMAGE_URL));
+                survey.setInstructions(resultSet.getString(SqlParameter.SURVEYS_INSTRUCTIONS));
+            }
 
             return survey;
         } catch (SQLException e) {
@@ -101,12 +104,15 @@ public class SqlSurveyDao implements SurveyDao {
 
     @Override
     public List<Survey> search(SearchCriteria searchCriteria) throws DaoException {
+        if (searchCriteria == null) {
+            return Collections.emptyList();
+        }
+
         Connection connection = pool.takeConnection();
-
-        String sql = Util.buildSearchSql(searchCriteria, SqlParameter.SURVEYS);
-
         PreparedStatement preparedStatement = null;
         ResultSet resultSet = null;
+
+        String sql = Util.buildSearchSql(searchCriteria, SqlParameter.SURVEYS);
 
         try {
             preparedStatement = connection.prepareStatement(sql);
@@ -131,90 +137,6 @@ public class SqlSurveyDao implements SurveyDao {
             return result;
         } catch (SQLException e) {
             throw new DaoException("Error searching surveys in database.", e);
-        } finally {
-            pool.closeConnection(connection, preparedStatement, resultSet);
-        }
-    }
-
-    @Override
-    public void addSurveyResult(Survey survey, int userId) throws DaoException {
-        Connection connection = pool.takeConnection();
-
-        try {
-            connection.setAutoCommit(false);
-
-            addPassedSurvey(connection, survey, userId);
-
-            for (Question question : survey.getQuestions()) {
-                addAnswer(question, connection, userId);
-            }
-
-            connection.commit();
-        } catch (SQLException e) {
-            try {
-                connection.rollback();
-            } catch (SQLException ex) {
-                throw new DaoException("Failed to rollback transaction.", e);
-            }
-
-            throw new DaoException("Failed to add survey result.", e);
-        } finally {
-            pool.closeConnection(connection);
-
-            try {
-                connection.setAutoCommit(true);
-            } catch (SQLException e) {
-                logger.error("Failed to turn autocommit on.", e);
-            }
-        }
-    }
-
-    @Override
-    public boolean isSurveyPassedByUser(int surveyId, int userId) throws DaoException {
-        Connection connection = pool.takeConnection();
-
-        PreparedStatement preparedStatement = null;
-        ResultSet resultSet = null;
-
-        try {
-            preparedStatement = connection.prepareStatement(CHECK_IF_SURVEY_PASSED_BY_USER);
-            preparedStatement.setInt(1, surveyId);
-            preparedStatement.setInt(2, userId);
-            resultSet = preparedStatement.executeQuery();
-
-            resultSet.next();
-
-            return resultSet.getBoolean(1);
-        } catch (SQLException e) {
-            throw new DaoException("Error while checking record existence.", e);
-        } finally {
-            pool.closeConnection(connection, preparedStatement, resultSet);
-        }
-    }
-
-    @Override
-    public List<Survey> searchSurveysPassedByUser(int userId) throws DaoException {
-        Connection connection = pool.takeConnection();
-
-        PreparedStatement preparedStatement = null;
-        ResultSet resultSet = null;
-
-        try {
-            preparedStatement = connection.prepareStatement(SELECT_SURVEYS_PASSED_BY_USER_SQL);
-            preparedStatement.setInt(1, userId);
-            resultSet = preparedStatement.executeQuery();
-
-            List<Survey> result = new ArrayList<>();
-
-            while (resultSet.next()) {
-                int surveyId = resultSet.getInt(1);
-                Survey survey = find(surveyId);
-                result.add(survey);
-            }
-
-            return result;
-        } catch (SQLException e) {
-            throw new DaoException("Error searching passed surveys.", e);
         } finally {
             pool.closeConnection(connection, preparedStatement, resultSet);
         }
@@ -308,6 +230,91 @@ public class SqlSurveyDao implements SurveyDao {
             preparedStatement.executeUpdate();
         }
     }
+
+    @Override
+    public void addSurveyResult(Survey survey, int userId) throws DaoException {
+        Connection connection = pool.takeConnection();
+
+        try {
+            connection.setAutoCommit(false);
+
+            addPassedSurvey(connection, survey, userId);
+
+            for (Question question : survey.getQuestions()) {
+                addAnswer(question, connection, userId);
+            }
+
+            connection.commit();
+        } catch (SQLException e) {
+            try {
+                connection.rollback();
+            } catch (SQLException ex) {
+                throw new DaoException("Failed to rollback transaction.", e);
+            }
+
+            throw new DaoException("Failed to add survey result.", e);
+        } finally {
+            pool.closeConnection(connection);
+
+            try {
+                connection.setAutoCommit(true);
+            } catch (SQLException e) {
+                logger.error("Failed to turn autocommit on.", e);
+            }
+        }
+    }
+
+    @Override
+    public boolean isSurveyPassedByUser(int surveyId, int userId) throws DaoException {
+        Connection connection = pool.takeConnection();
+
+        PreparedStatement preparedStatement = null;
+        ResultSet resultSet = null;
+
+        try {
+            preparedStatement = connection.prepareStatement(CHECK_IF_SURVEY_PASSED_BY_USER_SQL);
+            preparedStatement.setInt(1, surveyId);
+            preparedStatement.setInt(2, userId);
+            resultSet = preparedStatement.executeQuery();
+
+            resultSet.next();
+
+            return resultSet.getBoolean(1);
+        } catch (SQLException e) {
+            throw new DaoException("Error while checking record existence.", e);
+        } finally {
+            pool.closeConnection(connection, preparedStatement, resultSet);
+        }
+    }
+
+    @Override
+    public List<Survey> searchSurveysPassedByUser(int userId) throws DaoException {
+        Connection connection = pool.takeConnection();
+
+        PreparedStatement preparedStatement = null;
+        ResultSet resultSet = null;
+
+        try {
+            preparedStatement = connection.prepareStatement(SELECT_SURVEYS_PASSED_BY_USER_SQL);
+            preparedStatement.setInt(1, userId);
+            resultSet = preparedStatement.executeQuery();
+
+            List<Survey> result = new ArrayList<>();
+
+            while (resultSet.next()) {
+                int surveyId = resultSet.getInt(1);
+                Survey survey = find(surveyId);
+                result.add(survey);
+            }
+
+            return result;
+        } catch (SQLException e) {
+            throw new DaoException("Error searching passed surveys.", e);
+        } finally {
+            pool.closeConnection(connection, preparedStatement, resultSet);
+        }
+    }
+
 
     private void addPassedSurvey(Connection connection, Survey survey, int userId) throws DaoException {
         try (PreparedStatement preparedStatement = connection.prepareStatement(ADD_SURVEY_RESULT_SQL)) {
