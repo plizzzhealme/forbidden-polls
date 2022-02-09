@@ -5,7 +5,7 @@ import java.util.Map;
 
 public class SearchCriteria {
 
-    private final EnumMap<Parameter, Object> searchParameters;
+    private final Map<Parameter, Object> searchParameters;
 
     public SearchCriteria() {
         searchParameters = new EnumMap<>(Parameter.class);
