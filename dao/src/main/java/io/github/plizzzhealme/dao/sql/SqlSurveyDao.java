@@ -26,23 +26,23 @@ public class SqlSurveyDao implements SurveyDao {
     private static final String SELECT_SURVEY_BY_ID_SQL = "" +
             "SELECT surveys.name, surveys.creation_date, surveys.description, " +
             "surveys.instructions, surveys.image_url, categories.name " +
-            "FROM forbidden_polls.surveys " +
-            "JOIN forbidden_polls.categories ON categories.id = surveys.category_id " +
+            "FROM surveys " +
+            "JOIN categories ON categories.id = surveys.category_id " +
             "WHERE surveys.id = ?";
 
     private static final String ADD_SURVEY_RESULT_SQL = "" +
-            "INSERT INTO forbidden_polls.passed_surveys " +
+            "INSERT INTO passed_surveys " +
             "(completion_date, survey_id, user_id) VALUES (?, ?, ?)";
 
     private static final String ADD_USER_ANSWERS_SQL = "" +
-            "INSERT INTO forbidden_polls.picked_options " +
+            "INSERT INTO picked_options " +
             "(answer_text, user_id, option_id) " +
             "VALUES (?, ?, ?)";
 
     private static final String CHECK_IF_SURVEY_PASSED_BY_USER = "" +
             "SELECT EXISTS(" +
             "SELECT id " +
-            "FROM forbidden_polls.passed_surveys " +
+            "FROM passed_surveys " +
             "WHERE passed_surveys.survey_id = ? " +
             "AND passed_surveys.user_id = ?)";
 
@@ -52,19 +52,19 @@ public class SqlSurveyDao implements SurveyDao {
             "WHERE passed_surveys.user_id = ?";
 
     private static final String ADD_SURVEY_SQL = "" +
-            "INSERT INTO forbidden_polls.surveys " +
+            "INSERT INTO surveys " +
             "(name, creation_date, description, instructions, image_url, category_id) " +
             "VALUES (?, ?, ?, ?, ?, " +
-            "(SELECT id FROM forbidden_polls.categories WHERE categories.name = ?))";
+            "(SELECT id FROM categories WHERE categories.name = ?))";
 
     private static final String ADD_QUESTION_SQL = "" +
-            "INSERT INTO forbidden_polls.questions " +
+            "INSERT INTO questions " +
             "(index_number, body, image_url, description, survey_id, option_type_id) " +
             "VALUES (?, ?, ?, ?, ?, " +
-            "(SELECT id FROM forbidden_polls.option_types WHERE option_types.type = ?))";
+            "(SELECT id FROM option_types WHERE option_types.type = ?))";
 
     private static final String ADD_OPTION_SQL = "" +
-            "INSERT INTO forbidden_polls.options " +
+            "INSERT INTO options " +
             "(body, index_number, question_id) VALUES (?, ?, ?)";
 
     @Override
