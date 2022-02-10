@@ -196,7 +196,7 @@ public class SqlSurveyDao implements SurveyDao {
         }
     }
 
-    void insertQuestion(Connection connection, Question question, int surveyId) throws SQLException {
+    private void insertQuestion(Connection connection, Question question, int surveyId) throws SQLException {
         PreparedStatement preparedStatement = null;
         ResultSet resultSet = null;
 
