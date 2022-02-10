@@ -148,17 +148,7 @@ public class SqlSurveyDao implements SurveyDao {
 
         try {
             connection.setAutoCommit(false);
-
-            int surveyId = createSurvey(connection, survey);
-
-            for (Question question : survey.getQuestions()) {
-                int questionId = createQuestion(connection, surveyId, question);
-
-                for (Option option : question.getOptions()) {
-                    createOption(connection, questionId, option);
-                }
-            }
-
+            insertSurvey(connection, survey);
             connection.commit();
         } catch (SQLException e) {
             try {
@@ -169,19 +159,22 @@ public class SqlSurveyDao implements SurveyDao {
 
             throw new DaoException("Failed to create survey", e);
         } finally {
-            pool.closeConnection(connection);
-
             try {
                 connection.setAutoCommit(true);
             } catch (SQLException e) {
                 logger.error("Failed to turn autocommit on.", e);
             }
+
+            pool.closeConnection(connection);
         }
     }
 
-    private int createSurvey(Connection connection, Survey survey) throws SQLException {
-        try (PreparedStatement preparedStatement = connection
-                .prepareStatement(ADD_SURVEY_SQL, Statement.RETURN_GENERATED_KEYS)) {
+    private void insertSurvey(Connection connection, Survey survey) throws SQLException {
+        PreparedStatement preparedStatement = null;
+        ResultSet resultSet = null;
+
+        try {
+            preparedStatement = connection.prepareStatement(ADD_SURVEY_SQL, Statement.RETURN_GENERATED_KEYS);
 
             preparedStatement.setString(1, survey.getName());
             preparedStatement.setTimestamp(2, Util.toSqlTime(survey.getCreationDate()));
@@ -189,20 +182,26 @@ public class SqlSurveyDao implements SurveyDao {
             preparedStatement.setString(4, survey.getInstructions());
             preparedStatement.setString(5, survey.getImageUrl());
             preparedStatement.setString(6, survey.getCategory());
+
             preparedStatement.executeUpdate();
 
-            ResultSet resultSet = preparedStatement.getGeneratedKeys();
+            resultSet = preparedStatement.getGeneratedKeys();
             resultSet.next();
-            int surveyId = resultSet.getInt(1);
-            resultSet.close();
 
-            return surveyId;
+            for (Question question : survey.getQuestions()) {
+                insertQuestion(connection, question, resultSet.getInt(1));
+            }
+        } finally {
+            pool.closeConnection(null, preparedStatement, resultSet);
         }
     }
 
-    private int createQuestion(Connection connection, int surveyId, Question question) throws SQLException {
-        try (PreparedStatement preparedStatement = connection
-                .prepareStatement(ADD_QUESTION_SQL, Statement.RETURN_GENERATED_KEYS)) {
+    void insertQuestion(Connection connection, Question question, int surveyId) throws SQLException {
+        PreparedStatement preparedStatement = null;
+        ResultSet resultSet = null;
+
+        try {
+            preparedStatement = connection.prepareStatement(ADD_QUESTION_SQL, Statement.RETURN_GENERATED_KEYS);
 
             preparedStatement.setInt(1, question.getIndex());
             preparedStatement.setString(2, question.getBody());
@@ -210,24 +209,33 @@ public class SqlSurveyDao implements SurveyDao {
             preparedStatement.setString(4, question.getDescription());
             preparedStatement.setInt(5, surveyId);
             preparedStatement.setString(6, question.getOptionType());
+
             preparedStatement.executeUpdate();
 
-            ResultSet resultSet = preparedStatement.getGeneratedKeys();
+            resultSet = preparedStatement.getGeneratedKeys();
             resultSet.next();
-            int questionId = resultSet.getInt(1);
-            resultSet.close();
 
-            return questionId;
+            for (Option option : question.getOptions()) {
+                insertOption(connection, option, resultSet.getInt(1));
+            }
+        } finally {
+            pool.closeConnection(null, preparedStatement, resultSet);
         }
     }
 
-    private void createOption(Connection connection, int questionId, Option option) throws SQLException {
-        try (PreparedStatement preparedStatement = connection.prepareStatement(ADD_OPTION_SQL)) {
+    private void insertOption(Connection connection, Option option, int questionId) throws SQLException {
+        PreparedStatement preparedStatement = null;
+
+        try {
+            preparedStatement = connection.prepareStatement(ADD_OPTION_SQL);
 
             preparedStatement.setString(1, option.getBody());
             preparedStatement.setInt(2, option.getIndex());
             preparedStatement.setInt(3, questionId);
+
             preparedStatement.executeUpdate();
+        } finally {
+            pool.closeConnection(null, preparedStatement);
         }
     }
 

@@ -57,7 +57,7 @@ class SqlSurveyDaoTest {
 
     @Test
     void criteriaSearchWithoutResult() throws DaoException {
-        String nonExistentSurveyName = "плохие привычки";
+        String nonExistentSurveyName = "non-existent survey";
         SearchCriteria criteria = new SearchCriteria();
         criteria.addParameter(Parameter.SURVEY_NAME, nonExistentSurveyName);
 
@@ -103,7 +103,7 @@ class SqlSurveyDaoTest {
 
         Question question1 = new Question();
         question1.setBody("Test question 1?");
-        question1.setOptionType("select");
+        question1.setOptionType(Question.SELECT);
         question1.setIndex(1);
         List<Option> options1 = new ArrayList<>();
         Option option11 = new Option();
