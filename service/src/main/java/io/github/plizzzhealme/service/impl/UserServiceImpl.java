@@ -1,5 +1,6 @@
 package io.github.plizzzhealme.service.impl;
 
+import io.github.plizzzhealme.bean.NullUser;
 import io.github.plizzzhealme.bean.User;
 import io.github.plizzzhealme.dao.DaoFactory;
 import io.github.plizzzhealme.dao.UserDao;
@@ -16,13 +17,11 @@ public class UserServiceImpl implements UserService {
         UserDao userDao = DaoFactory.INSTANCE.getUserDao();
 
         try {
-            User user = null;
-
             if (userDao.isPresent(email)) {
-                user = DaoFactory.INSTANCE.getUserDao().signIn(email, password);
+                return userDao.signIn(email, password);
             }
 
-            return user;
+            return NullUser.getInstance();
         } catch (DaoException e) {
             throw new ServiceException("Authorization error", e);
         }

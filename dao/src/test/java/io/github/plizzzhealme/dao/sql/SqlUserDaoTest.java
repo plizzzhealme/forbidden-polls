@@ -88,12 +88,12 @@ class SqlUserDaoTest {
 
     @Test
     void findExistingUser() throws DaoException {
-        assertNotNull(userDao.find(1));
+        assertFalse(userDao.find(1).isNull());
     }
 
     @Test
     void findNonExistentUser() throws DaoException {
-        assertNull(userDao.find(-1));
+        assertTrue(userDao.find(-1).isNull());
     }
 
     @Test
@@ -131,16 +131,16 @@ class SqlUserDaoTest {
 
     @Test
     void signInWithValidCredentials() throws DaoException {
-        assertNotNull(userDao.signIn("plizzz.healme@gmail.com", "1q2w3e"));
+        assertFalse(userDao.signIn("plizzz.healme@gmail.com", "1q2w3e").isNull());
     }
 
     @Test
     void signInWithInvalidCredentials() throws DaoException {
-        assertNull(userDao.signIn("plizzz.healme@gmail.com", "1q2w3e4r"));
+        assertTrue(userDao.signIn("plizzz.healme@gmail.com", "1q2w3e4r").isNull());
     }
 
     @Test
     void signInWithNullParameters() throws DaoException {
-        assertNull(userDao.signIn(null, null));
+        assertTrue(userDao.signIn(null, null).isNull());
     }
 }

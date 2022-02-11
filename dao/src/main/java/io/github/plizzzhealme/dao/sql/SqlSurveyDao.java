@@ -144,6 +144,8 @@ public class SqlSurveyDao implements SurveyDao {
 
     @Override
     public void create(Survey survey) throws DaoException {
+        surveyNullCheck(survey);
+
         Connection connection = pool.takeConnection();
 
         try {
@@ -347,6 +349,36 @@ public class SqlSurveyDao implements SurveyDao {
             preparedStatement.executeUpdate();
         } catch (SQLException e) {
             throw new DaoException("Failed to add answer.", e);
+        }
+    }
+
+    private void surveyNullCheck(Survey survey) {
+        if (survey == null) {
+            throw new IllegalArgumentException("Null survey");
+        }
+
+        List<Question> questions = survey.getQuestions();
+
+        if (questions == null) {
+            throw new IllegalArgumentException("Null list of questions");
+        }
+
+        for (Question question : questions) {
+            if (question == null) {
+                throw new IllegalArgumentException("Null question");
+            }
+
+            List<Option> options = question.getOptions();
+
+            if (options == null) {
+                throw new IllegalArgumentException("Null list of options");
+            }
+
+            for (Option option : options) {
+                if (option == null) {
+                    throw new IllegalArgumentException("Null option");
+                }
+            }
         }
     }
 }

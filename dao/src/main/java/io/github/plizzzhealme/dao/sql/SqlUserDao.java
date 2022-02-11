@@ -1,5 +1,6 @@
 package io.github.plizzzhealme.dao.sql;
 
+import io.github.plizzzhealme.bean.NullUser;
 import io.github.plizzzhealme.bean.User;
 import io.github.plizzzhealme.dao.UserDao;
 import io.github.plizzzhealme.dao.exception.DaoException;
@@ -138,10 +139,8 @@ public class SqlUserDao implements UserDao {
             preparedStatement.setInt(1, id);
             resultSet = preparedStatement.executeQuery();
 
-            User user = null;
-
             if (resultSet.next()) {
-                user = new User();
+                User user = new User();
 
                 user.setId(id);
                 user.setName(resultSet.getString(SqlParameter.USERS_NAME));
@@ -151,9 +150,11 @@ public class SqlUserDao implements UserDao {
                 user.setUserRole(resultSet.getString(SqlParameter.USER_ROLES_NAME));
                 user.setCountry(resultSet.getString(SqlParameter.COUNTRIES_NAME));
                 user.setGender(resultSet.getString(SqlParameter.GENDERS_NAME));
+
+                return user;
             }
 
-            return user;
+            return NullUser.getInstance();
         } catch (SQLException e) {
             throw new DaoException("Error while reading user data from database.", e);
         } finally {
@@ -211,7 +212,7 @@ public class SqlUserDao implements UserDao {
     @Override
     public User signIn(String email, String password) throws DaoException {
         if (email == null || password == null) {
-            return null;
+            return NullUser.getInstance();
         }
 
         Connection connection = pool.takeConnection();
@@ -224,21 +225,21 @@ public class SqlUserDao implements UserDao {
             preparedStatement.setString(1, email);
             resultSet = preparedStatement.executeQuery();
 
-            User user = null;
-
             if (resultSet.next()) {
                 String hashedPassword = resultSet.getString(SqlParameter.USERS_HASHED_PASSWORD);
                 boolean isCorrectPassword = Util.isCorrectPassword(password, hashedPassword);
 
                 if (isCorrectPassword) {
-                    user = new User();
+                    User user = new User();
 
                     user.setId(resultSet.getInt(SqlParameter.USERS_ID));
                     user.setUserRole(resultSet.getString(SqlParameter.USER_ROLES_NAME));
+
+                    return user;
                 }
             }
 
-            return user;
+            return NullUser.getInstance();
         } catch (SQLException e) {
             throw new DaoException("Error while reading from database", e);
         } finally {

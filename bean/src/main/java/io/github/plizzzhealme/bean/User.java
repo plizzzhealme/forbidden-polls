@@ -99,6 +99,10 @@ public class User implements Serializable {
         this.country = country;
     }
 
+    public boolean isNull() {
+        return false;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;

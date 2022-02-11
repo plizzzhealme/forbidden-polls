@@ -29,19 +29,19 @@ public class SignInCommand implements Command {
 
             User user = ServiceFactory.INSTANCE.getUserService().signIn(email, password);
 
-            if (user != null) { // if signed in
+            if (user.isNull()) {
+                request.setAttribute(Util.ERROR, Util.INVALID_CREDENTIALS_ERROR);
+
+                RequestDispatcher dispatcher = request.getRequestDispatcher(Util.SIGN_IN_JSP);
+                dispatcher.forward(request, response);
+            } else {
                 HttpSession session = request.getSession();
                 session.setAttribute(Util.USER_ID, user.getId());
                 session.setAttribute(Util.USER_ROLE, user.getUserRole());
 
                 response.sendRedirect(Util.REDIRECT_URL_PATTERN + Util.TO_PROFILE_PAGE_COMMAND);
-            } else { // if failed (invalid credentials)
-                request.setAttribute(Util.ERROR, Util.INVALID_CREDENTIALS_ERROR);
-
-                RequestDispatcher dispatcher = request.getRequestDispatcher(Util.SIGN_IN_JSP);
-                dispatcher.forward(request, response);
             }
-        } catch (EmptyInputException e) { // if empty input
+        } catch (EmptyInputException e) {
             request.setAttribute(Util.ERROR, Util.EMPTY_FIELDS_ERROR);
 
             RequestDispatcher dispatcher = request.getRequestDispatcher(Util.SIGN_IN_JSP);
