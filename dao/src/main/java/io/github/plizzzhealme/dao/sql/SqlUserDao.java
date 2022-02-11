@@ -14,8 +14,10 @@ import java.sql.SQLException;
 
 public class SqlUserDao implements UserDao {
 
+    private static final ConnectionPool pool = ConnectionPool.INSTANCE;
+
     private static final String CHECK_IF_USER_EXISTS_SQL = "" +
-            "SELECT EXISTS(SELECT id FROM users WHERE email = ?)";
+            "SELECT EXISTS(SELECT 1 FROM users WHERE users.email = ?)";
 
     private static final String SELECT_USER_BY_EMAIL_SQL = "" +
             "SELECT * FROM users " +
@@ -35,16 +37,15 @@ public class SqlUserDao implements UserDao {
             "INSERT INTO users " +
             "(name, email, hashed_password, registration_date, birthday, user_role_id, country_id, gender_id) " +
             "VALUES (?, ?, ?, ?, ?, " +
-            "(SELECT id FROM user_roles WHERE name=? LIMIT 1), " +
+            "(SELECT id FROM user_roles WHERE user_roles.name=? LIMIT 1), " +
             "(SELECT id FROM countries WHERE countries.iso_code = ? OR countries.name = ? LIMIT 1), " +
-            "(SELECT id FROM genders WHERE name=? LIMIT 1))";
+            "(SELECT id FROM genders WHERE genders.name=? LIMIT 1))";
 
-    private static final ConnectionPool pool = ConnectionPool.INSTANCE;
     private static final String UPDATE_USER_SQL = "" +
             "UPDATE users " +
             "SET users.name=?, users.email=?, users.birthday=?,  " +
-            "users.gender_id=(SELECT id FROM genders WHERE genders.name=?), " +
-            "users.country_id=(SELECT id FROM countries WHERE countries.iso_code = ? OR countries.name = ?) " +
+            "users.gender_id=(SELECT id FROM genders WHERE genders.name=? LIMIT 1), " +
+            "users.country_id=(SELECT id FROM countries WHERE countries.iso_code = ? OR countries.name = ? LIMIT 1) " +
             "WHERE users.id=?";
 
     /**
@@ -95,6 +96,7 @@ public class SqlUserDao implements UserDao {
         Connection connection = pool.takeConnection();
 
         PreparedStatement preparedStatement = null;
+        ResultSet resultSet = null;
 
         try {
             preparedStatement = connection.prepareStatement(CREATE_USER_SQL);
@@ -109,12 +111,11 @@ public class SqlUserDao implements UserDao {
             preparedStatement.setString(8, user.getCountry());
             preparedStatement.setString(9, user.getGender());
 
-
             preparedStatement.executeUpdate();
         } catch (SQLException e) {
             throw new DaoException("User creation error.", e);
         } finally {
-            pool.closeConnection(connection, preparedStatement);
+            pool.closeConnection(connection, preparedStatement, resultSet);
         }
     }
 
