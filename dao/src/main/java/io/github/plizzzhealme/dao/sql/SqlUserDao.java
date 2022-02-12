@@ -1,9 +1,10 @@
 package io.github.plizzzhealme.dao.sql;
 
-import io.github.plizzzhealme.bean.NullUser;
 import io.github.plizzzhealme.bean.User;
 import io.github.plizzzhealme.dao.UserDao;
 import io.github.plizzzhealme.dao.exception.DaoException;
+import io.github.plizzzhealme.dao.exception.EntityNotFoundException;
+import io.github.plizzzhealme.dao.exception.InvalidPasswordException;
 import io.github.plizzzhealme.dao.pool.ConnectionPool;
 import io.github.plizzzhealme.dao.util.SqlParameter;
 import io.github.plizzzhealme.dao.util.Util;
@@ -90,10 +91,6 @@ public class SqlUserDao implements UserDao {
      */
     @Override
     public void create(User user) throws DaoException {
-        if (user == null) {
-            throw new DaoException("Cannot create null user record.");
-        }
-
         Connection connection = pool.takeConnection();
 
         PreparedStatement preparedStatement = null;
@@ -124,11 +121,12 @@ public class SqlUserDao implements UserDao {
      * Searches user by id
      *
      * @param id user id
-     * @return user object if found, null if not
-     * @throws DaoException in a case of SQLException
+     * @return user object if a user with that id exists
+     * @throws DaoException            in case of SQLException
+     * @throws EntityNotFoundException if a user with that id does not exist
      */
     @Override
-    public User find(int id) throws DaoException {
+    public User find(int id) throws DaoException, EntityNotFoundException {
         Connection connection = pool.takeConnection();
 
         PreparedStatement preparedStatement = null;
@@ -154,7 +152,7 @@ public class SqlUserDao implements UserDao {
                 return user;
             }
 
-            return NullUser.getInstance();
+            throw new EntityNotFoundException("User is not found");
         } catch (SQLException e) {
             throw new DaoException("Error while reading user data from database.", e);
         } finally {
@@ -174,9 +172,6 @@ public class SqlUserDao implements UserDao {
      */
     @Override
     public void update(User user) throws DaoException {
-        if (user == null) {
-            throw new DaoException("Cannot update null record");
-        }
         Connection connection = pool.takeConnection();
 
         PreparedStatement preparedStatement = null;
@@ -202,18 +197,19 @@ public class SqlUserDao implements UserDao {
 
     /**
      * Authorizes the user. Reads user by email
-     * and then compares password hashes
+     * and then compares password hashes.
+     * Passing null parameters will produce NPE
      *
      * @param email    user email
      * @param password user password
-     * @return user object if credentials a valid, null if not
-     * @throws DaoException in case of SQLException
+     * @return user object if credentials are correct
+     * @throws DaoException             in case of SQLException
+     * @throws EntityNotFoundException  if the user with the specified email does not exist
+     * @throws InvalidPasswordException if the password is wrong
      */
     @Override
-    public User signIn(String email, String password) throws DaoException {
-        if (email == null || password == null) {
-            return NullUser.getInstance();
-        }
+    public User signIn(String email, String password)
+            throws DaoException, EntityNotFoundException, InvalidPasswordException {
 
         Connection connection = pool.takeConnection();
 
@@ -237,9 +233,11 @@ public class SqlUserDao implements UserDao {
 
                     return user;
                 }
+
+                throw new InvalidPasswordException("Invalid password");
             }
 
-            return NullUser.getInstance();
+            throw new EntityNotFoundException("User is not found");
         } catch (SQLException e) {
             throw new DaoException("Error while reading from database", e);
         } finally {

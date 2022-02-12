@@ -4,6 +4,8 @@ import io.github.plizzzhealme.bean.User;
 import io.github.plizzzhealme.dao.DaoFactory;
 import io.github.plizzzhealme.dao.UserDao;
 import io.github.plizzzhealme.dao.exception.DaoException;
+import io.github.plizzzhealme.dao.exception.EntityNotFoundException;
+import io.github.plizzzhealme.dao.exception.InvalidPasswordException;
 import io.github.plizzzhealme.dao.pool.ConnectionPool;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
@@ -82,22 +84,17 @@ class SqlUserDaoTest {
     }
 
     @Test
-    void createNullUser() {
-        assertThrows(DaoException.class, () -> userDao.create(null));
+    void findExistingUser() throws DaoException, EntityNotFoundException {
+        assertNotNull(userDao.find(1));
     }
 
     @Test
-    void findExistingUser() throws DaoException {
-        assertFalse(userDao.find(1).isNull());
+    void findNonExistentUser() {
+        assertThrows(EntityNotFoundException.class, () -> userDao.find(-1));
     }
 
     @Test
-    void findNonExistentUser() throws DaoException {
-        assertTrue(userDao.find(-1).isNull());
-    }
-
-    @Test
-    void correctUpdate() throws DaoException {
+    void correctUpdate() throws DaoException, EntityNotFoundException {
         User user = new User();
         user.setId(1);
         user.setEmail("plizzz.healme@gmail.com");
@@ -125,22 +122,18 @@ class SqlUserDaoTest {
     }
 
     @Test
-    void updateNullUser() {
-        assertThrows(DaoException.class, () -> userDao.update(null));
+    void signInWithValidCredentials() throws DaoException, InvalidPasswordException, EntityNotFoundException {
+        assertNotNull(userDao.signIn("plizzz.healme@gmail.com", "1q2w3e"));
     }
 
     @Test
-    void signInWithValidCredentials() throws DaoException {
-        assertFalse(userDao.signIn("plizzz.healme@gmail.com", "1q2w3e").isNull());
+    void signInWithInvalidCredentials() {
+        assertThrows(InvalidPasswordException.class,
+                () -> userDao.signIn("plizzz.healme@gmail.com", "1q2w3e4r"));
     }
 
     @Test
-    void signInWithInvalidCredentials() throws DaoException {
-        assertTrue(userDao.signIn("plizzz.healme@gmail.com", "1q2w3e4r").isNull());
-    }
-
-    @Test
-    void signInWithNullParameters() throws DaoException {
-        assertTrue(userDao.signIn(null, null).isNull());
+    void signInWithNullParameters() {
+        assertThrows(EntityNotFoundException.class, () -> userDao.signIn(null, null));
     }
 }
