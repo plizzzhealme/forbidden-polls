@@ -6,6 +6,7 @@ import io.github.plizzzhealme.controller.exception.EmptyInputException;
 import io.github.plizzzhealme.controller.util.Util;
 import io.github.plizzzhealme.controller.validator.EmptyInputValidator;
 import io.github.plizzzhealme.service.ServiceFactory;
+import io.github.plizzzhealme.service.exception.InvalidCredentialsException;
 import io.github.plizzzhealme.service.exception.ServiceException;
 
 import javax.servlet.RequestDispatcher;
@@ -29,18 +30,16 @@ public class SignInCommand implements Command {
 
             User user = ServiceFactory.INSTANCE.getUserService().signIn(email, password);
 
-            if (user.isNull()) {
-                request.setAttribute(Util.ERROR, Util.INVALID_CREDENTIALS_ERROR);
+            HttpSession session = request.getSession();
+            session.setAttribute(Util.USER_ID, user.getId());
+            session.setAttribute(Util.USER_ROLE, user.getUserRole());
 
-                RequestDispatcher dispatcher = request.getRequestDispatcher(Util.SIGN_IN_JSP);
-                dispatcher.forward(request, response);
-            } else {
-                HttpSession session = request.getSession();
-                session.setAttribute(Util.USER_ID, user.getId());
-                session.setAttribute(Util.USER_ROLE, user.getUserRole());
+            response.sendRedirect(Util.REDIRECT_URL_PATTERN + Util.TO_PROFILE_PAGE_COMMAND);
+        } catch (InvalidCredentialsException e) {
+            request.setAttribute(Util.ERROR, Util.INVALID_CREDENTIALS_ERROR);
 
-                response.sendRedirect(Util.REDIRECT_URL_PATTERN + Util.TO_PROFILE_PAGE_COMMAND);
-            }
+            RequestDispatcher dispatcher = request.getRequestDispatcher(Util.SIGN_IN_JSP);
+            dispatcher.forward(request, response);
         } catch (EmptyInputException e) {
             request.setAttribute(Util.ERROR, Util.EMPTY_FIELDS_ERROR);
 
