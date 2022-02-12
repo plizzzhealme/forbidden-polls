@@ -120,20 +120,4 @@ class SqlSurveyDaoTest {
 
         assertDoesNotThrow(() -> surveyDao.create(survey));
     }
-
-    @Test
-    void createNullSurvey() {
-        assertThrows(IllegalArgumentException.class, () -> surveyDao.create(null));
-    }
-
-    @Test
-    void createSurveyWithNullQuestions() {
-        Survey survey = new Survey();
-        survey.setName("test2");
-        survey.setCategory("politics");
-
-        assertThrows(IllegalArgumentException.class, () -> surveyDao.create(survey));
-    }
-
-
 }
