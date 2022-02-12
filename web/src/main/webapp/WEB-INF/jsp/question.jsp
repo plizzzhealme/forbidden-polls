@@ -23,7 +23,6 @@
     <div class="grid-item">${current_question.body}</div>
     <div class="grid-item">${current_question.description}</div>
     <div class="grid-item"><img src="${current_question.imageUrl}" alt=""/></div>
-    ${current_question}
 </div>
 
 <form action="${Util.CONTROLLER}">

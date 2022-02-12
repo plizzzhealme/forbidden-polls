@@ -1,14 +1,9 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%--
-  Created by IntelliJ IDEA.
-  User: analB
-  Date: 07.02.2022
-  Time: 01:20
-  To change this template use File | Settings | File Templates.
---%>
 <%@ page contentType="text/html; charset=UTF-8" %>
+<%@ include file="../jspf/localization.jspf" %>
 <!DOCTYPE>
 <html xml:lang="eu">
+<meta charset="UTF-8">
 <head>
     <title>Title</title>
 </head>
@@ -34,5 +29,13 @@
         </c:forEach>
     </div>
 </c:forEach>
+
+<div class="grid-container-1">
+    <div class="grid-item">
+        <a class="classic" href="${Util.CONTROLLER}?${Util.COMMAND}=${Util.TO_COMPLETED_SURVEYS_PAGE_COMMAND}">
+            ${back}
+        </a>
+    </div>
+</div>
 </body>
 </html>
