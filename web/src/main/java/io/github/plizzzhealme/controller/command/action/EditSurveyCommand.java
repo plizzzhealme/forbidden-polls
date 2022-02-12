@@ -16,11 +16,11 @@ public class EditSurveyCommand implements Command {
         String edit = request.getParameter("edit");
 
         if (edit.equals("header")) {
-            response.sendRedirect(Util.REDIRECT_URL_PATTERN + Util.TO_ADD_SURVEY_HEADER_PAGE_COMMAND);
+            response.sendRedirect(Util.REDIRECT_URL_PATTERN + Util.TO_ADD_HEADER_PAGE_COMMAND);
         } else {
             request.getSession().setAttribute("edit_index", edit);
 
-            response.sendRedirect(Util.REDIRECT_URL_PATTERN + Util.TO_ADD_SURVEY_QUESTION_PAGE_COMMAND);
+            response.sendRedirect(Util.REDIRECT_URL_PATTERN + Util.TO_ADD_QUESTION_PAGE_COMMAND);
         }
     }
 }

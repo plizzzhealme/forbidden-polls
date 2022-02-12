@@ -12,17 +12,17 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
-public class ToSurveyStatisticsPageCommand implements Command {
+public class ToHeaderPageCommand implements Command {
 
     @Override
-    public void execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException, ServiceException {
+    public void execute(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException, ServiceException {
+
         int surveyId = Integer.parseInt(request.getParameter(Util.SURVEY_ID));
-
-        Survey survey = ServiceFactory.INSTANCE.getSurveyService().searchSurveyStatistics(surveyId);
-
+        Survey survey = ServiceFactory.INSTANCE.getSurveyService().takeSurvey(surveyId);
         request.setAttribute(Util.SURVEY, survey);
 
-        RequestDispatcher dispatcher = request.getRequestDispatcher(Util.SURVEY_STATISTICS_JSP);
+        RequestDispatcher dispatcher = request.getRequestDispatcher(Util.HEADER_JSP);
         dispatcher.forward(request, response);
     }
 }

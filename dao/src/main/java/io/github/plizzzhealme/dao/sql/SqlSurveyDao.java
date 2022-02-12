@@ -6,6 +6,7 @@ import io.github.plizzzhealme.bean.Survey;
 import io.github.plizzzhealme.bean.criteria.SearchCriteria;
 import io.github.plizzzhealme.dao.SurveyDao;
 import io.github.plizzzhealme.dao.exception.DaoException;
+import io.github.plizzzhealme.dao.exception.EntityNotFoundException;
 import io.github.plizzzhealme.dao.pool.ConnectionPool;
 import io.github.plizzzhealme.dao.util.SqlParameter;
 import io.github.plizzzhealme.dao.util.Util;
@@ -69,7 +70,7 @@ public class SqlSurveyDao implements SurveyDao {
             "(body, index_number, question_id) VALUES (?, ?, ?)";
 
     @Override
-    public Survey find(int id) throws DaoException {
+    public Survey find(int id) throws DaoException, EntityNotFoundException {
         Connection connection = pool.takeConnection();
 
         PreparedStatement preparedStatement = null;
@@ -80,10 +81,8 @@ public class SqlSurveyDao implements SurveyDao {
             preparedStatement.setInt(1, id);
             resultSet = preparedStatement.executeQuery();
 
-            Survey survey = null;
-
             if (resultSet.next()) {
-                survey = new Survey();
+                Survey survey = new Survey();
 
                 survey.setId(id);
                 survey.setCreationDate(Util.toJavaTime(resultSet.getTimestamp(SqlParameter.SURVEYS_CREATION_DATE)));
@@ -92,9 +91,11 @@ public class SqlSurveyDao implements SurveyDao {
                 survey.setDescription(resultSet.getString(SqlParameter.SURVEYS_DESCRIPTION));
                 survey.setImageUrl(resultSet.getString(SqlParameter.SURVEYS_IMAGE_URL));
                 survey.setInstructions(resultSet.getString(SqlParameter.SURVEYS_INSTRUCTIONS));
+
+                return survey;
             }
 
-            return survey;
+            throw new EntityNotFoundException("Survey is not found");
         } catch (SQLException e) {
             throw new DaoException("Error while reading survey by id from database.", e);
         } finally {
@@ -296,7 +297,7 @@ public class SqlSurveyDao implements SurveyDao {
     }
 
     @Override
-    public List<Survey> searchSurveysPassedByUser(int userId) throws DaoException {
+    public List<Survey> searchSurveysPassedByUser(int userId) throws DaoException, EntityNotFoundException {
         Connection connection = pool.takeConnection();
 
         PreparedStatement preparedStatement = null;

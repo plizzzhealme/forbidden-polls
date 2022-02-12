@@ -15,7 +15,7 @@
 <c:set var="survey" value="${sessionScope.new_survey}"/>
 
 <form action="${Util.CONTROLLER}">
-    <input type="hidden" name="${Util.COMMAND}" value="${Util.ADD_SURVEY_HEADER_COMMAND}">
+    <input type="hidden" name="${Util.COMMAND}" value="${Util.ADD_HEADER_COMMAND}">
 
     <div class="grid-container-1">
         <div class="grid-item"><label for="name">${survey_title}:</label></div>

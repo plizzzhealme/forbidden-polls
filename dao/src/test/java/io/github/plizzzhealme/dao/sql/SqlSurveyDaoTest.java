@@ -8,6 +8,7 @@ import io.github.plizzzhealme.bean.criteria.SearchCriteria;
 import io.github.plizzzhealme.dao.DaoFactory;
 import io.github.plizzzhealme.dao.SurveyDao;
 import io.github.plizzzhealme.dao.exception.DaoException;
+import io.github.plizzzhealme.dao.exception.EntityNotFoundException;
 import io.github.plizzzhealme.dao.pool.ConnectionPool;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
@@ -33,17 +34,18 @@ class SqlSurveyDaoTest {
     }
 
     @Test
-    void findExistingSurvey() throws DaoException {
+    void findExistingSurvey() throws DaoException, EntityNotFoundException {
         int existingId = 1;
-
-        assertNotNull(surveyDao.find(existingId));
+        Survey survey = surveyDao.find(existingId);
+        System.out.println(survey);
+        assertNotNull(survey);
     }
 
     @Test
-    void findNonExistentSurvey() throws DaoException {
+    void findNonExistentSurvey() {
         int nonExistentId = -1;
 
-        assertNull(surveyDao.find(nonExistentId));
+        assertThrows(EntityNotFoundException.class, () -> surveyDao.find(nonExistentId));
     }
 
     @Test

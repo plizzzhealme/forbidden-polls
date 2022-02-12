@@ -22,7 +22,7 @@
 
     <div class="grid-item">
         <c:if test="${sessionScope.user_role == Util.ADMIN}">
-            <a href="${Util.CONTROLLER}?${Util.COMMAND}=${Util.TO_ADD_SURVEY_HEADER_PAGE_COMMAND}">${create_survey}</a>
+            <a href="${Util.CONTROLLER}?${Util.COMMAND}=${Util.TO_ADD_HEADER_PAGE_COMMAND}">${create_survey}</a>
         </c:if>
     </div>
 

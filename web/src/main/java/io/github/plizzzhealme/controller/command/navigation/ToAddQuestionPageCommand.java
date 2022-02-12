@@ -9,11 +9,11 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
-public class ToAddSurveyHeaderPageCommand implements Command {
+public class ToAddQuestionPageCommand implements Command {
 
     @Override
     public void execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        RequestDispatcher dispatcher = request.getRequestDispatcher(Util.ADD_SURVEY_HEADER_JSP);
+        RequestDispatcher dispatcher = request.getRequestDispatcher(Util.ADD_QUESTION_JSP);
         dispatcher.forward(request, response);
     }
 }

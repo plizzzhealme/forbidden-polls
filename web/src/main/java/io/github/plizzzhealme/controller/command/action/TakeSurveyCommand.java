@@ -40,7 +40,7 @@ public class TakeSurveyCommand implements Command {
             session.setAttribute(Util.SURVEY, survey);
             session.setAttribute(Util.QUESTION_INDEX, 0);
 
-            response.sendRedirect(Util.REDIRECT_URL_PATTERN + Util.TO_SURVEY_QUESTION_PAGE_COMMAND);
+            response.sendRedirect(Util.REDIRECT_URL_PATTERN + Util.TO_QUESTION_PAGE_COMMAND);
         }
     }
 }

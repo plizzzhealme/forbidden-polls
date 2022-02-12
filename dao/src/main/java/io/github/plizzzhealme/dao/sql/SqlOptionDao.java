@@ -18,7 +18,7 @@ public class SqlOptionDao implements OptionDao {
     private static final ConnectionPool pool = ConnectionPool.INSTANCE;
 
     private static final String SELECT_OPTIONS_BY_QUESTION_ID = "" +
-            "SELECT options.id, options.index_number, options.body " +
+            "SELECT * " +
             "FROM options " +
             "WHERE options.question_id = ? " +
             "ORDER BY options.index_number";

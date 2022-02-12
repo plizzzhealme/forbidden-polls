@@ -1,6 +1,4 @@
 <%--suppress ELValidationInspection --%>
-<%--suppress ELValidationInspection --%>
-<%--suppress ELValidationInspection --%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page contentType="text/html; charset=UTF-8" %>
 <%@ include file="../jspf/localization.jspf" %>
@@ -16,9 +14,7 @@
 
 <c:if test="${sessionScope.survey != null}">
     <c:set var="i" value="${sessionScope.question_index}"/>
-    <%--suppress ELValidationInspection --%>
     <c:set var="current_question" value="${sessionScope.survey.questions[i]}"/>
-    <%--suppress ELValidationInspection --%>
     <c:set var="options" value="${current_question.options}"/>
 </c:if>
 
@@ -27,10 +23,11 @@
     <div class="grid-item">${current_question.body}</div>
     <div class="grid-item">${current_question.description}</div>
     <div class="grid-item"><img src="${current_question.imageUrl}" alt=""/></div>
+    ${current_question}
 </div>
 
 <form action="${Util.CONTROLLER}">
-    <input type="hidden" name="${Util.COMMAND}" value="${Util.ANSWER_SURVEY_QUESTION_COMMAND}">
+    <input type="hidden" name="${Util.COMMAND}" value="${Util.ANSWER_QUESTION_COMMAND}">
 
     <div class="grid-container-1">
         <c:forEach var="option" items="${options}" varStatus="loop">

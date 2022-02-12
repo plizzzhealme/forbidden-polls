@@ -18,12 +18,12 @@ public class AdminFilter implements Filter {
     @Override
     public void init(FilterConfig filterConfig) {
         adminCommands.add(Util.ADD_SURVEY_COMMAND);
-        adminCommands.add(Util.ADD_SURVEY_HEADER_COMMAND);
-        adminCommands.add(Util.ADD_SURVEY_QUESTION_COMMAND);
+        adminCommands.add(Util.ADD_HEADER_COMMAND);
+        adminCommands.add(Util.ADD_QUESTION_COMMAND);
         adminCommands.add(Util.EDIT_SURVEY_COMMAND);
-        adminCommands.add(Util.TO_ADD_SURVEY_HEADER_PAGE_COMMAND);
+        adminCommands.add(Util.TO_ADD_HEADER_PAGE_COMMAND);
         adminCommands.add(Util.TO_ADD_SURVEY_PAGE_COMMAND);
-        adminCommands.add(Util.TO_ADD_SURVEY_QUESTION_PAGE_COMMAND);
+        adminCommands.add(Util.TO_ADD_QUESTION_PAGE_COMMAND);
         adminCommands.add(Util.TO_SURVEY_ADDED_PAGE_COMMAND);
     }
 

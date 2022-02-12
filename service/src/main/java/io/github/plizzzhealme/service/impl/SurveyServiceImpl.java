@@ -6,6 +6,7 @@ import io.github.plizzzhealme.bean.Survey;
 import io.github.plizzzhealme.bean.criteria.SearchCriteria;
 import io.github.plizzzhealme.dao.*;
 import io.github.plizzzhealme.dao.exception.DaoException;
+import io.github.plizzzhealme.dao.exception.EntityNotFoundException;
 import io.github.plizzzhealme.service.SurveyService;
 import io.github.plizzzhealme.service.exception.ServiceException;
 import io.github.plizzzhealme.service.exception.ValidatorException;
@@ -20,6 +21,7 @@ public class SurveyServiceImpl implements SurveyService {
     public Survey takeSurvey(int id) throws ServiceException {
         try {
             DaoFactory daoFactory = DaoFactory.INSTANCE;
+
             SurveyDao surveyDao = daoFactory.getSurveyDao();
             QuestionDao questionDao = daoFactory.getQuestionDao();
             OptionDao optionDao = daoFactory.getOptionDao();
@@ -34,7 +36,7 @@ public class SurveyServiceImpl implements SurveyService {
             }
 
             return survey;
-        } catch (DaoException e) {
+        } catch (DaoException | EntityNotFoundException e) {
             throw new ServiceException("Error while reading survey from database", e);
         }
     }
@@ -109,8 +111,8 @@ public class SurveyServiceImpl implements SurveyService {
 
         try {
             return surveyDao.searchSurveysPassedByUser(userId);
-        } catch (DaoException e) {
-            throw new ServiceException("", e);
+        } catch (DaoException | EntityNotFoundException e) {
+            throw new ServiceException("Error while searching surveys", e);
         }
     }
 

@@ -11,7 +11,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
 
-public class AnswerSurveyQuestionCommand implements Command {
+public class AnswerQuestionCommand implements Command {
 
     @Override
     public void execute(HttpServletRequest request, HttpServletResponse response)
@@ -28,7 +28,7 @@ public class AnswerSurveyQuestionCommand implements Command {
         if (questionIndex < survey.getQuestions().size()) {
             session.setAttribute(Util.QUESTION_INDEX, questionIndex);
 
-            response.sendRedirect(Util.REDIRECT_URL_PATTERN + Util.TO_SURVEY_QUESTION_PAGE_COMMAND);
+            response.sendRedirect(Util.REDIRECT_URL_PATTERN + Util.TO_QUESTION_PAGE_COMMAND);
         } else {
             finishSurvey(request);
 

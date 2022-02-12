@@ -14,7 +14,7 @@ import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.util.ArrayList;
 
-public class AddSurveyHeaderCommand implements Command {
+public class AddHeaderCommand implements Command {
 
     @Override
     public void execute(HttpServletRequest request, HttpServletResponse response)
@@ -44,11 +44,11 @@ public class AddSurveyHeaderCommand implements Command {
             survey.setImageUrl(surveyImageUrl);
             survey.setCategory(surveyCategory);
 
-            response.sendRedirect(Util.REDIRECT_URL_PATTERN + Util.TO_ADD_SURVEY_QUESTION_PAGE_COMMAND);
+            response.sendRedirect(Util.REDIRECT_URL_PATTERN + Util.TO_ADD_QUESTION_PAGE_COMMAND);
         } catch (EmptyInputException e) {
             request.setAttribute(Util.ERROR, Util.EMPTY_FIELDS_ERROR);
 
-            RequestDispatcher dispatcher = request.getRequestDispatcher(Util.ADD_SURVEY_HEADER_JSP);
+            RequestDispatcher dispatcher = request.getRequestDispatcher(Util.ADD_HEADER_JSP);
             dispatcher.forward(request, response);
         }
     }
