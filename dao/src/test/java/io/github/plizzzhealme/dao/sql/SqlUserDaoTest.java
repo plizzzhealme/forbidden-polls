@@ -51,7 +51,7 @@ class SqlUserDaoTest {
         user.setPassword("Simple#666");
         user.setUserRole(User.USER_ROLE);
         user.setCountry("belarus");
-        user.setGender(User.OTHER);
+        user.setGender(User.OTHER_GENDER);
         userDao.create(user);
 
         assertTrue(userDao.isPresent("user@mail.com"));
@@ -78,7 +78,7 @@ class SqlUserDaoTest {
         user.setPassword("Password#666");
         user.setUserRole(User.USER_ROLE);
         user.setCountry("belarus");
-        user.setGender(User.MALE);
+        user.setGender(User.MALE_GENDER);
 
         assertThrows(DaoException.class, () -> userDao.create(user));
     }
@@ -99,7 +99,7 @@ class SqlUserDaoTest {
         user.setId(1);
         user.setEmail("plizzz.healme@gmail.com");
         user.setUserRole("admin");
-        user.setGender(User.MALE);
+        user.setGender(User.MALE_GENDER);
         user.setCountry("Russian Federation");
 
         userDao.update(user);
@@ -115,7 +115,7 @@ class SqlUserDaoTest {
         user.setId(1);
         user.setEmail("plizzz.healme@gmail.com");
         user.setUserRole("admin");
-        user.setGender(User.MALE);
+        user.setGender(User.MALE_GENDER);
         user.setCountry(null);
 
         assertThrows(DaoException.class, () -> userDao.update(user));

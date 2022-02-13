@@ -11,9 +11,6 @@ public interface SurveyService {
 
     Survey takeSurvey(int id) throws ServiceException;
 
-    @SuppressWarnings("unused")
-    List<Survey> search(SearchCriteria searchCriteria) throws ServiceException;
-
     void completeSurvey(Survey survey, int userId) throws ServiceException;
 
     List<Survey> searchCompletedSurveys(int userId) throws ServiceException;

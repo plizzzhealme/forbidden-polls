@@ -82,19 +82,19 @@ public class SqlUserDao implements UserDao {
     /**
      * Creates a record with user data in the database.
      * User, email, password, role, country and gender
-     * should not be null. Role, country and gender should
-     * have correct values. Email should be unique.
+     * must not be null. Role, country and gender must
+     * have correct values. Email must be unique.
      *
      * @param user object with user data
-     * @throws DaoException if the above requirements are violated
-     *                      and in other cases of SQLException
+     * @throws DaoException         if the above requirements are violated
+     *                              and in other cases of SQLException
+     * @throws NullPointerException if user is null
      */
     @Override
     public void create(User user) throws DaoException {
         Connection connection = pool.takeConnection();
 
         PreparedStatement preparedStatement = null;
-        ResultSet resultSet = null;
 
         try {
             preparedStatement = connection.prepareStatement(CREATE_USER_SQL);
@@ -113,7 +113,7 @@ public class SqlUserDao implements UserDao {
         } catch (SQLException e) {
             throw new DaoException("User creation error.", e);
         } finally {
-            pool.closeConnection(connection, preparedStatement, resultSet);
+            pool.closeConnection(connection, preparedStatement);
         }
     }
 
@@ -162,13 +162,14 @@ public class SqlUserDao implements UserDao {
 
     /**
      * Updates user record the database. Searches user by id.
-     * User, email, role, country and gender should not be null.
-     * Role, country and gender should have correct values.
-     * Email should be unique.
+     * Email, role, country and gender must not be null.
+     * Role, country and gender must have correct values.
+     * Email must be unique.
      *
      * @param user object with user data
      * @throws DaoException if the above requirements are violated
      *                      and in other cases of SQLException
+     * @throws NullPointerException if user is null
      */
     @Override
     public void update(User user) throws DaoException {

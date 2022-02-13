@@ -41,16 +41,6 @@ public class SurveyServiceImpl implements SurveyService {
         }
     }
 
-    @SuppressWarnings("unused")
-    @Override
-    public List<Survey> search(SearchCriteria searchCriteria) throws ServiceException {
-        try {
-            return DaoFactory.INSTANCE.getSurveyDao().search(searchCriteria);
-        } catch (DaoException e) {
-            throw new ServiceException("", e);
-        }
-    }
-
     @Override
     public List<Survey> searchAvailableSurveys(SearchCriteria criteria, int userId) throws ServiceException {
         DaoFactory daoFactory = DaoFactory.INSTANCE;
