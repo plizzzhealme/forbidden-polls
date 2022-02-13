@@ -37,7 +37,7 @@ public enum ConnectionPool {
         try {
             this.poolSize = Integer.parseInt(dbResourceManager.getValue(DBParameter.DB_POOL_SIZE));
         } catch (NumberFormatException e) {
-            poolSize = 5;
+            poolSize = DBParameter.DEFAULT_POOL_SIZE;
         }
     }
 

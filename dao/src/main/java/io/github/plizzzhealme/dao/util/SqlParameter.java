@@ -6,7 +6,6 @@ import java.util.EnumMap;
 
 public final class SqlParameter {
 
-    public static final String USERS = "forbidden_polls.users";
     public static final String USERS_ID = "users.id";
     public static final String USERS_EMAIL = "users.email";
     public static final String USERS_NAME = "users.name";
@@ -14,7 +13,7 @@ public final class SqlParameter {
     public static final String USERS_REGISTRATION_DATE = "users.registration_date";
     public static final String USERS_HASHED_PASSWORD = "users.hashed_password";
 
-    public static final String SURVEYS = "forbidden_polls.surveys";
+    public static final String SURVEYS = "surveys";
     public static final String SURVEYS_ID = "surveys.id";
     public static final String SURVEYS_NAME = "surveys.name";
     public static final String SURVEYS_IMAGE_URL = "surveys.image_url";

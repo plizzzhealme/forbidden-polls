@@ -16,7 +16,7 @@ public class UserFilter implements Filter {
 
     @Override
     public void init(FilterConfig filterConfig) {
-        userCommands.add(Util.ANSWER_SURVEY_QUESTION_COMMAND);
+        userCommands.add(Util.ANSWER_QUESTION_COMMAND);
         userCommands.add(Util.EDIT_PROFILE_INFO_COMMAND);
         userCommands.add(Util.SIGN_OUT_COMMAND);
         userCommands.add(Util.TAKE_SURVEY_COMMAND);
@@ -27,8 +27,8 @@ public class UserFilter implements Filter {
         userCommands.add(Util.TO_PROFILE_INFO_PAGE_COMMAND);
         userCommands.add(Util.TO_PROFILE_PAGE_COMMAND);
         userCommands.add(Util.TO_SURVEY_COMPLETED_PAGE_COMMAND);
-        userCommands.add(Util.TO_SURVEY_HEADER_PAGE_COMMAND);
-        userCommands.add(Util.TO_SURVEY_QUESTION_PAGE_COMMAND);
+        userCommands.add(Util.TO_HEADER_PAGE_COMMAND);
+        userCommands.add(Util.TO_QUESTION_PAGE_COMMAND);
     }
 
     @Override

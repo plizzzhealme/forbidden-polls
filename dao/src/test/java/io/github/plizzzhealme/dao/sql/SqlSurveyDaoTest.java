@@ -8,6 +8,7 @@ import io.github.plizzzhealme.bean.criteria.SearchCriteria;
 import io.github.plizzzhealme.dao.DaoFactory;
 import io.github.plizzzhealme.dao.SurveyDao;
 import io.github.plizzzhealme.dao.exception.DaoException;
+import io.github.plizzzhealme.dao.exception.EntityNotFoundException;
 import io.github.plizzzhealme.dao.pool.ConnectionPool;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
@@ -16,9 +17,11 @@ import org.junit.jupiter.api.Test;
 import java.util.ArrayList;
 import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.*;
 
 class SqlSurveyDaoTest {
+
+    private final SurveyDao surveyDao = DaoFactory.INSTANCE.getSurveyDao();
 
     @BeforeAll
     static void connect() throws DaoException {
@@ -31,94 +34,92 @@ class SqlSurveyDaoTest {
     }
 
     @Test
-    void read() throws DaoException {
-        SurveyDao surveyDao = DaoFactory.INSTANCE.getSurveyDao();
-
-        Survey survey = surveyDao.find(1);
-
-        String expected = "Poll about smoking";
-        String actual = survey.getName();
-
-        assertEquals(expected, actual);
+    void findExistingSurvey() throws DaoException, EntityNotFoundException {
+        int existingId = 1;
+        Survey survey = surveyDao.find(existingId);
+        System.out.println(survey);
+        assertNotNull(survey);
     }
 
     @Test
-    void testCriteriaSearch() throws DaoException {
-        SurveyDao surveyDao = DaoFactory.INSTANCE.getSurveyDao();
+    void findNonExistentSurvey() {
+        int nonExistentId = -1;
 
-        SearchCriteria searchCriteria = new SearchCriteria();
-        String expectedName = "Poll about smoking";
-        searchCriteria.addParameter(Parameter.SURVEY_NAME, expectedName);
-        List<Survey> surveys = surveyDao.search(searchCriteria);
-        String actualName = surveys.get(0).getName();
-
-        assertEquals(expectedName, actualName);
+        assertThrows(EntityNotFoundException.class, () -> surveyDao.find(nonExistentId));
     }
 
     @Test
-    void searchCompleted() throws DaoException {
-        SurveyDao surveyDao = DaoFactory.INSTANCE.getSurveyDao();
+    void criteriaSearchWithResult() throws DaoException {
+        String existingSurveyName = "bad habits";
+        SearchCriteria criteria = new SearchCriteria();
+        criteria.addParameter(Parameter.SURVEY_NAME, existingSurveyName);
 
-        List<Survey> completedSurveys = surveyDao.searchSurveysPassedByUser(1);
-        System.out.println(completedSurveys);
+        assertFalse(surveyDao.search(criteria).isEmpty());
     }
 
     @Test
-    void create() throws DaoException {
-        DaoFactory daoFactory = DaoFactory.INSTANCE;
-        SurveyDao surveyDao = daoFactory.getSurveyDao();
+    void criteriaSearchWithoutResult() throws DaoException {
+        String nonExistentSurveyName = "non-existent survey";
+        SearchCriteria criteria = new SearchCriteria();
+        criteria.addParameter(Parameter.SURVEY_NAME, nonExistentSurveyName);
 
+        assertTrue(surveyDao.search(criteria).isEmpty());
+    }
+
+    @Test
+    void nullCriteriaSearch() throws DaoException {
+        assertTrue(surveyDao.search(null).isEmpty());
+    }
+
+    @Test
+    void emptyCriteriaSearch() throws DaoException {
+        assertFalse(surveyDao.search(new SearchCriteria()).isEmpty());
+    }
+
+    @Test
+    void invalidParameterCriteriaSearch() {
+        SearchCriteria criteria = new SearchCriteria();
+        criteria.addParameter(Parameter.USER_EMAIL, "mail@mail.ru");
+
+        assertThrows(DaoException.class, () -> surveyDao.search(criteria));
+    }
+
+
+    @Test
+    void createValidSurvey() {
         Survey survey = new Survey();
-        survey.setName("Test survey");
+        survey.setName("test2");
         survey.setCategory("politics");
 
-        List<Question> questions = new ArrayList<>();
 
-        Question question1 = new Question();
-        question1.setBody("Test question 1?");
-        question1.setOptionType("select");
-        question1.setIndex(1);
-        List<Option> options1 = new ArrayList<>();
-        Option option11 = new Option();
-        option11.setIndex(1);
-        option11.setBody("Option 1 for question 1");
+        int questionCount = 3;
+        int optionCount = 2;
 
-        Option option21 = new Option();
-        option21.setIndex(2);
-        option21.setBody("Option 2 for question 1");
-        options1.add(option11);
-        options1.add(option21);
+        List<Question> questions = new ArrayList<>(questionCount);
 
-        question1.setOptions(options1);
+        for (int i = 0; i < questionCount; i++) {
+            Question question = new Question();
+            question.setIndex(i);
+            question.setOptionType(Question.SELECT);
+            question.setBody("test question " + i + "?");
+            question.setDescription("test description " + i);
+            questions.add(question);
 
+            List<Option> options = new ArrayList<>(optionCount);
 
-        Question question2 = new Question();
-        question2.setBody("Test question 2?");
-        question2.setOptionType("select");
-        question2.setIndex(2);
-        List<Option> options2 = new ArrayList<>();
-        Option option12 = new Option();
-        option12.setIndex(1);
-        option12.setBody("Option 1 for question 2");
+            for (int j = 0; j < optionCount; j++) {
+                Option option = new Option();
+                option.setIndex(j);
+                option.setBody("test option " + i);
 
-        Option option22 = new Option();
-        option22.setIndex(2);
-        option22.setBody("Option 2 for question 2");
-        options2.add(option12);
-        options2.add(option22);
+                options.add(option);
+            }
 
-        question2.setOptions(options2);
-
-        questions.add(question1);
-        questions.add(question2);
+            question.setOptions(options);
+        }
 
         survey.setQuestions(questions);
 
-        surveyDao.create(survey);
-
-        System.out.println(survey);
-
-
+        assertDoesNotThrow(() -> surveyDao.create(survey));
     }
-
 }

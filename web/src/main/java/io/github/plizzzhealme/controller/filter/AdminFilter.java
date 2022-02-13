@@ -18,12 +18,12 @@ public class AdminFilter implements Filter {
     @Override
     public void init(FilterConfig filterConfig) {
         adminCommands.add(Util.ADD_SURVEY_COMMAND);
-        adminCommands.add(Util.ADD_SURVEY_HEADER_COMMAND);
-        adminCommands.add(Util.ADD_SURVEY_QUESTION_COMMAND);
+        adminCommands.add(Util.ADD_HEADER_COMMAND);
+        adminCommands.add(Util.ADD_QUESTION_COMMAND);
         adminCommands.add(Util.EDIT_SURVEY_COMMAND);
-        adminCommands.add(Util.TO_ADD_SURVEY_HEADER_PAGE_COMMAND);
+        adminCommands.add(Util.TO_ADD_HEADER_PAGE_COMMAND);
         adminCommands.add(Util.TO_ADD_SURVEY_PAGE_COMMAND);
-        adminCommands.add(Util.TO_ADD_SURVEY_QUESTION_PAGE_COMMAND);
+        adminCommands.add(Util.TO_ADD_QUESTION_PAGE_COMMAND);
         adminCommands.add(Util.TO_SURVEY_ADDED_PAGE_COMMAND);
     }
 
@@ -36,7 +36,7 @@ public class AdminFilter implements Filter {
         if (adminCommands.contains(command)) {
             HttpSession session = ((HttpServletRequest) servletRequest).getSession();
 
-            if (User.ADMIN.equals(session.getAttribute(Util.USER_ROLE))) {
+            if (User.ADMIN_ROLE.equals(session.getAttribute(Util.USER_ROLE))) {
                 filterChain.doFilter(servletRequest, servletResponse);
             } else {
                 HttpServletResponse response = (HttpServletResponse) servletResponse;

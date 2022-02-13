@@ -18,7 +18,7 @@
 <div class="grid-container-1">
     <c:forEach var="survey" items="${requestScope.survey_list}">
         <div class="grid-item">
-            <a href="${Util.CONTROLLER}?${Util.COMMAND}=${Util.TO_SURVEY_HEADER_PAGE_COMMAND}&${Util.SURVEY_ID}=${survey.id}">
+            <a href="${Util.CONTROLLER}?${Util.COMMAND}=${Util.TO_HEADER_PAGE_COMMAND}&${Util.SURVEY_ID}=${survey.id}">
                 <c:out value="${survey.name}"/>
             </a>
         </div>

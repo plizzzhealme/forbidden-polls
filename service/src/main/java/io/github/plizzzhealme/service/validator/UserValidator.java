@@ -64,7 +64,7 @@ public class UserValidator {
     }
 
     public boolean isValidGender(String gender) {
-        return StringUtils.equalsAnyIgnoreCase(gender, User.MALE, User.FEMALE, User.OTHER);
+        return StringUtils.equalsAnyIgnoreCase(gender, User.MALE_GENDER, User.FEMALE_GENDER, User.OTHER_GENDER);
     }
 
     public boolean isValidBirthday(LocalDate birthday) {

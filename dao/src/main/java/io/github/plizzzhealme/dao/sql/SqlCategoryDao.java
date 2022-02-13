@@ -17,16 +17,16 @@ public class SqlCategoryDao implements CategoryDao {
     private static final ConnectionPool pool = ConnectionPool.INSTANCE;
 
     private static final String CREATE_NEW_CATEGORY_SQL = "" +
-            "INSERT INTO forbidden_polls.categories (name) VALUES (?)";
+            "INSERT INTO categories (name) VALUES (?)";
 
     private static final String SELECT_ALL_CATEGORIES_SQL = "" +
-            "SELECT * FROM forbidden_polls.categories";
+            "SELECT * FROM categories";
 
     private static final String CHECK_IF_CATEGORY_EXISTS_SQL = "" +
-            "SELECT EXISTS(SELECT id FROM forbidden_polls.categories WHERE categories.name = ?)";
+            "SELECT EXISTS(SELECT id FROM categories WHERE categories.name = ?)";
 
     private static final String SELECT_CATEGORY_ID_SQL = "" +
-            "SELECT categories.id FROM forbidden_polls.categories WHERE categories.name = ?";
+            "SELECT categories.id FROM categories WHERE categories.name = ?";
 
     @Override
     public List<String> findAll() throws DaoException {

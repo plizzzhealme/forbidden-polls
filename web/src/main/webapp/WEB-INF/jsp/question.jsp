@@ -1,3 +1,4 @@
+<%--suppress ELValidationInspection --%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page contentType="text/html; charset=UTF-8" %>
 <%@ include file="../jspf/localization.jspf" %>
@@ -25,7 +26,7 @@
 </div>
 
 <form action="${Util.CONTROLLER}">
-    <input type="hidden" name="${Util.COMMAND}" value="${Util.ANSWER_SURVEY_QUESTION_COMMAND}">
+    <input type="hidden" name="${Util.COMMAND}" value="${Util.ANSWER_QUESTION_COMMAND}">
 
     <div class="grid-container-1">
         <c:forEach var="option" items="${options}" varStatus="loop">

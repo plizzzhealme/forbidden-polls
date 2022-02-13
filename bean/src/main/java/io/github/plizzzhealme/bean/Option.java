@@ -12,6 +12,7 @@ public class Option implements Serializable {
     private int id;
     private String body;
     private int index;
+    private int count;
 
     public int getId() {
         return id;
@@ -19,6 +20,14 @@ public class Option implements Serializable {
 
     public void setId(int id) {
         this.id = id;
+    }
+
+    public String getBody() {
+        return body;
+    }
+
+    public void setBody(String body) {
+        this.body = body;
     }
 
     public int getIndex() {
@@ -29,12 +38,12 @@ public class Option implements Serializable {
         this.index = index;
     }
 
-    public String getBody() {
-        return body;
+    public int getCount() {
+        return count;
     }
 
-    public void setBody(String body) {
-        this.body = body;
+    public void setCount(int count) {
+        this.count = count;
     }
 
     @Override
@@ -51,20 +60,22 @@ public class Option implements Serializable {
 
         return getId() == option.getId()
                 && getIndex() == option.getIndex()
+                && getCount() == option.getCount()
                 && Objects.equals(getBody(), option.getBody());
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(getId(), getBody(), getIndex());
+        return Objects.hash(getId(), getBody(), getIndex(), getCount());
     }
 
     @Override
     public String toString() {
         return "Option{" +
                 "id=" + id +
-                ", index=" + index +
                 ", body='" + body + '\'' +
+                ", index=" + index +
+                ", count=" + count +
                 '}';
     }
 }

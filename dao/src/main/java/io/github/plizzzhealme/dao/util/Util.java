@@ -62,10 +62,14 @@ public final class Util {
     }
 
     public static String buildSearchSql(SearchCriteria searchCriteria, String table) {
-        return searchCriteria.getSearchParameters().keySet()
-                .stream()
-                .map(parameter -> SqlParameter.getSqlParameter(parameter) + " = ?")
-                .collect(Collectors.joining(" AND ", "SELECT * FROM " + table + " WHERE ", ""));
+        if (searchCriteria.getSearchParameters().isEmpty()) {
+            return "SELECT * FROM " + table;
+        } else {
+            return searchCriteria.getSearchParameters().keySet()
+                    .stream()
+                    .map(parameter -> SqlParameter.getSqlParameter(parameter) + " = ?")
+                    .collect(Collectors.joining(" AND ", "SELECT * FROM " + table + " WHERE ", ""));
+        }
     }
 
     public static void setSearchParameters(SearchCriteria searchCriteria, PreparedStatement preparedStatement)

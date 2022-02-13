@@ -15,9 +15,9 @@ public final class CommandProvider {
         commands = new HashMap<>();
 
         commands.put(Util.ADD_SURVEY_COMMAND, new AddSurveyCommand());
-        commands.put(Util.ADD_SURVEY_HEADER_COMMAND, new AddSurveyHeaderCommand());
-        commands.put(Util.ADD_SURVEY_QUESTION_COMMAND, new AddSurveyQuestionCommand());
-        commands.put(Util.ANSWER_SURVEY_QUESTION_COMMAND, new AnswerSurveyQuestionCommand());
+        commands.put(Util.ADD_HEADER_COMMAND, new AddHeaderCommand());
+        commands.put(Util.ADD_QUESTION_COMMAND, new AddQuestionCommand());
+        commands.put(Util.ANSWER_QUESTION_COMMAND, new AnswerQuestionCommand());
         commands.put(Util.CHANGE_LOCALE_COMMAND, new ChangeLocaleCommand());
         commands.put(Util.EDIT_PROFILE_INFO_COMMAND, new EditProfileInfoCommand());
         commands.put(Util.EDIT_SURVEY_COMMAND, new EditSurveyCommand());
@@ -27,9 +27,9 @@ public final class CommandProvider {
         commands.put(Util.TAKE_SURVEY_COMMAND, new TakeSurveyCommand());
         commands.put(Util.UNKNOWN_COMMAND, new UnknownCommand());
 
-        commands.put(Util.TO_ADD_SURVEY_HEADER_PAGE_COMMAND, new ToAddSurveyHeaderPageCommand());
+        commands.put(Util.TO_ADD_HEADER_PAGE_COMMAND, new ToAddHeaderPageCommand());
         commands.put(Util.TO_ADD_SURVEY_PAGE_COMMAND, new ToAddSurveyPageCommand());
-        commands.put(Util.TO_ADD_SURVEY_QUESTION_PAGE_COMMAND, new ToAddSurveyQuestionPageCommand());
+        commands.put(Util.TO_ADD_QUESTION_PAGE_COMMAND, new ToAddQuestionPageCommand());
         commands.put(Util.TO_CATEGORIES_PAGE_COMMAND, new ToCategoriesPageCommand());
         commands.put(Util.TO_CATEGORY_PAGE_COMMAND, new ToCategoryPageCommand());
         commands.put(Util.TO_COMPLETED_SURVEYS_PAGE_COMMAND, new ToCompletedSurveysPageCommand());
@@ -41,10 +41,9 @@ public final class CommandProvider {
         commands.put(Util.TO_SIGN_UP_PAGE_COMMAND, new ToSignUpPageCommand());
         commands.put(Util.TO_SURVEY_ADDED_PAGE_COMMAND, new ToSurveyAddedPageCommand());
         commands.put(Util.TO_SURVEY_COMPLETED_PAGE_COMMAND, new ToSurveyCompletedPageCommand());
-        commands.put(Util.TO_SURVEY_HEADER_PAGE_COMMAND, new ToSurveyHeaderPageCommand());
-        commands.put(Util.TO_SURVEY_QUESTION_PAGE_COMMAND, new ToSurveyQuestionPageCommand());
-
-
+        commands.put(Util.TO_HEADER_PAGE_COMMAND, new ToHeaderPageCommand());
+        commands.put(Util.TO_QUESTION_PAGE_COMMAND, new ToQuestionPageCommand());
+        commands.put(Util.TO_STATISTICS_PAGE_COMMAND, new ToStatisticsPageCommand());
     }
 
     public Command getCommand(String commandName) {

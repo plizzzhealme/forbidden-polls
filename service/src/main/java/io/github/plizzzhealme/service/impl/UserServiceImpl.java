@@ -4,17 +4,22 @@ import io.github.plizzzhealme.bean.User;
 import io.github.plizzzhealme.dao.DaoFactory;
 import io.github.plizzzhealme.dao.UserDao;
 import io.github.plizzzhealme.dao.exception.DaoException;
+import io.github.plizzzhealme.dao.exception.EntityNotFoundException;
+import io.github.plizzzhealme.dao.exception.InvalidPasswordException;
 import io.github.plizzzhealme.service.UserService;
 import io.github.plizzzhealme.service.exception.EmailIsBusyException;
+import io.github.plizzzhealme.service.exception.InvalidCredentialsException;
 import io.github.plizzzhealme.service.exception.ServiceException;
 import io.github.plizzzhealme.service.exception.ValidatorException;
 import io.github.plizzzhealme.service.validator.UserValidator;
 
 public class UserServiceImpl implements UserService {
 
-    public User signIn(String email, String password) throws ServiceException {
+    public User signIn(String email, String password) throws ServiceException, InvalidCredentialsException {
         try {
             return DaoFactory.INSTANCE.getUserDao().signIn(email, password);
+        } catch (EntityNotFoundException | InvalidPasswordException e) {
+            throw new InvalidCredentialsException("Invalid credentials");
         } catch (DaoException e) {
             throw new ServiceException("Authorization error", e);
         }
@@ -42,7 +47,7 @@ public class UserServiceImpl implements UserService {
     public User readUserInfo(int id) throws ServiceException {
         try {
             return DaoFactory.INSTANCE.getUserDao().find(id);
-        } catch (DaoException e) {
+        } catch (DaoException | EntityNotFoundException e) {
             throw new ServiceException("Error getting user info", e);
         }
     }

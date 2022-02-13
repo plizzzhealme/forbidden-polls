@@ -11,8 +11,6 @@ public interface SurveyService {
 
     Survey takeSurvey(int id) throws ServiceException;
 
-    List<Survey> search(SearchCriteria searchCriteria) throws ServiceException;
-
     void completeSurvey(Survey survey, int userId) throws ServiceException;
 
     List<Survey> searchCompletedSurveys(int userId) throws ServiceException;
@@ -20,4 +18,6 @@ public interface SurveyService {
     List<Survey> searchAvailableSurveys(SearchCriteria criteria, int userId) throws ServiceException;
 
     void addNewSurvey(Survey survey) throws ServiceException, ValidatorException;
+
+    Survey searchSurveyStatistics(int surveyId) throws ServiceException;
 }

@@ -17,7 +17,12 @@ public class SqlQuestionDao implements QuestionDao {
 
     private static final ConnectionPool pool = ConnectionPool.INSTANCE;
 
-    private static final String SELECT_QUESTIONS_BY_SURVEY_ID = "" + "SELECT questions.id, questions.index_number, questions.body, questions.image_url, " + "questions.description, option_types.type " + "FROM forbidden_polls.questions " + "JOIN forbidden_polls.option_types ON option_types.id = questions.option_type_id " + "WHERE questions.survey_id = ? " + "ORDER BY questions.index_number";
+    private static final String SELECT_QUESTIONS_BY_SURVEY_ID = "" +
+            "SELECT questions.id, questions.index_number, questions.body, questions.image_url, " +
+            "questions.description, option_types.type " +
+            "FROM questions " +
+            "JOIN option_types ON option_types.id = questions.option_type_id " +
+            "WHERE questions.survey_id = ? " + "ORDER BY questions.index_number";
 
     @Override
     public List<Question> search(int surveyId) throws DaoException {

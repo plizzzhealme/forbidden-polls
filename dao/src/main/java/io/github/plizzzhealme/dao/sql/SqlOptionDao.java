@@ -18,13 +18,36 @@ public class SqlOptionDao implements OptionDao {
     private static final ConnectionPool pool = ConnectionPool.INSTANCE;
 
     private static final String SELECT_OPTIONS_BY_QUESTION_ID = "" +
-            "SELECT options.id, options.index_number, options.body " +
-            "FROM forbidden_polls.options " +
+            "SELECT * " +
+            "FROM options " +
             "WHERE options.question_id = ? " +
             "ORDER BY options.index_number";
 
+    private static final String COUNT_ANSWERS_SQL = "" +
+            "SELECT COUNT(*) FROM picked_options WHERE picked_options.option_id = ?";
+
     @Override
-    public List<Option> search(int questionId) throws DaoException {
+    public int countAnswers(int optionId) throws DaoException {
+        Connection connection = pool.takeConnection();
+        PreparedStatement preparedStatement = null;
+        ResultSet resultSet = null;
+
+        try {
+            preparedStatement = connection.prepareStatement(COUNT_ANSWERS_SQL);
+            preparedStatement.setInt(1, optionId);
+            resultSet = preparedStatement.executeQuery();
+            resultSet.next();
+
+            return resultSet.getInt(1);
+        } catch (SQLException e) {
+            throw new DaoException("Error while reading options from database.", e);
+        } finally {
+            pool.closeConnection(connection, preparedStatement, resultSet);
+        }
+    }
+
+    @Override
+    public List<Option> searchQuestionOptions(int questionId) throws DaoException {
         Connection connection = pool.takeConnection();
         PreparedStatement preparedStatement = null;
         ResultSet resultSet = null;
