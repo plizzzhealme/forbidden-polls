@@ -122,4 +122,13 @@ class SqlSurveyDaoTest {
 
         assertDoesNotThrow(() -> surveyDao.create(survey));
     }
+
+    @Test
+    void adminSearch() throws DaoException {
+        SearchCriteria criteria = new SearchCriteria();
+        criteria.addParameter(Parameter.SURVEY_NAME, "t");
+        criteria.addParameter(Parameter.SURVEY_CATEGORY_ID, 2);
+
+        assertFalse(surveyDao.search(criteria).isEmpty());
+    }
 }
