@@ -25,6 +25,8 @@ public class AdminFilter implements Filter {
         adminCommands.add(Util.TO_ADD_SURVEY_PAGE_COMMAND);
         adminCommands.add(Util.TO_ADD_QUESTION_PAGE_COMMAND);
         adminCommands.add(Util.TO_SURVEY_ADDED_PAGE_COMMAND);
+        adminCommands.add(Util.TO_SEARCH_COMMON_STATISTICS_PAGE_COMMAND);
+        adminCommands.add(Util.SEARCH_COMMON_STATISTICS_COMMAND);
     }
 
     @Override
