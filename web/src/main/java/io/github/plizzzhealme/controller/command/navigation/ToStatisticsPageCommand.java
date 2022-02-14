@@ -15,7 +15,9 @@ import java.io.IOException;
 public class ToStatisticsPageCommand implements Command {
 
     @Override
-    public void execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException, ServiceException {
+    public void execute(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException, ServiceException {
+
         int surveyId = Integer.parseInt(request.getParameter(Util.SURVEY_ID));
 
         Survey survey = ServiceFactory.INSTANCE.getSurveyService().searchSurveyStatistics(surveyId);

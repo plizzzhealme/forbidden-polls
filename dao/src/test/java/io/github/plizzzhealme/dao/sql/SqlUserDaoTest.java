@@ -65,7 +65,7 @@ class SqlUserDaoTest {
         user.setPassword("Password#666");
         user.setUserRole(User.USER_ROLE);
         user.setCountry("belarus");
-        user.setGender("invalid role");
+        user.setGender("invalid");
 
         assertThrows(DaoException.class, () -> userDao.create(user));
     }
