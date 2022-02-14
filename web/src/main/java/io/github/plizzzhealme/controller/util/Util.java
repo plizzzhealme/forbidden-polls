@@ -24,7 +24,7 @@ public final class Util {
     public static final String NEW_SURVEY = "new_survey";
     public static final String SURVEY_LIST = "survey_list";
     public static final String SURVEY_ID = "survey_id";
-    public static final String SURVEY_NAME = "survey_name";
+    public static final String SURVEY_TITLE = "survey_title";
     public static final String SURVEY_DESCRIPTION = "survey_description";
     public static final String SURVEY_INSTRUCTIONS = "survey_instructions";
     public static final String SURVEY_IMAGE_URL = "survey_image_url";
@@ -55,6 +55,8 @@ public final class Util {
     public static final String ADD_SURVEY_JSP = "/WEB-INF/jsp/addSurvey.jsp";
     public static final String EDIT_PROFILE_INFO_JSP = "/WEB-INF/jsp/editProfileInfo.jsp";
     public static final String STATISTICS_JSP = "/WEB-INF/jsp/statistics.jsp";
+    public static final String SEARCH_COMMON_STATISTICS_JSP = "/WEB-INF/jsp/searchCommonStatistics.jsp";
+
 
     // errors
     public static final String ERROR = "error";
@@ -83,6 +85,8 @@ public final class Util {
     public static final String EDIT_SURVEY_COMMAND = "edit_survey";
     public static final String EDIT_PROFILE_INFO_COMMAND = "edit_profile_info";
 
+    public static final String SEARCH_COMMON_STATISTICS_COMMAND = "search_common_statistics";
+
 
     // navigation
     public static final String TO_SIGN_IN_PAGE_COMMAND = "to_sign_in_page";
@@ -102,6 +106,8 @@ public final class Util {
     public static final String TO_SURVEY_ADDED_PAGE_COMMAND = "to_survey_added_page";
     public static final String TO_ADD_SURVEY_PAGE_COMMAND = "to_add_survey_page";
     public static final String TO_STATISTICS_PAGE_COMMAND = "to_statistics_page";
+
+    public static final String TO_SEARCH_COMMON_STATISTICS_PAGE_COMMAND = "to_search_common_statistics_page";
 
     public static final String CATEGORY_LIST = "category_list";
     public static final String OPTION = "option";
