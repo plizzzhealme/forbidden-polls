@@ -61,24 +61,44 @@ public final class Util {
         return false;
     }
 
-    public static String buildSearchSql(SearchCriteria searchCriteria, String table) {
-        if (searchCriteria.getSearchParameters().isEmpty()) {
+    public static String buildSearchSql(SearchCriteria criteria, String table) {
+        if (criteria.getSearchParameters().isEmpty()) {
             return "SELECT * FROM " + table;
-        } else {
-            return searchCriteria.getSearchParameters().keySet()
-                    .stream()
-                    .map(parameter -> SqlParameter.getSqlParameter(parameter) + " = ?")
-                    .collect(Collectors.joining(" AND ", "SELECT * FROM " + table + " WHERE ", ""));
         }
+
+        return criteria.getSearchParameters().keySet()
+                .stream()
+                .map(parameter -> {
+                    if (isIntParameter(parameter)) {
+                        return SqlParameter.getSqlParameter(parameter) + " = ?";
+                    } else {
+                        return SqlParameter.getSqlParameter(parameter) + " LIKE ?";
+                    }
+                })
+                .collect(Collectors.joining(" AND ", "SELECT * FROM " + table + " WHERE ", ""));
     }
 
-    public static void setSearchParameters(SearchCriteria searchCriteria, PreparedStatement preparedStatement)
+    private static boolean isIntParameter(Parameter parameter) {
+        return parameter == Parameter.OPTION_ID
+                || parameter == Parameter.SURVEY_ID
+                || parameter == Parameter.SURVEY_CATEGORY_ID
+                || parameter == Parameter.USER_ID
+                || parameter == Parameter.QUESTION_ID
+                || parameter == Parameter.QUESTION_CATEGORY_ID;
+    }
+
+    public static void setSearchParameters(SearchCriteria criteria, PreparedStatement preparedStatement)
             throws SQLException {
 
         int i = 1;
 
-        for (Parameter parameter : searchCriteria.getSearchParameters().keySet()) {
-            preparedStatement.setObject(i, searchCriteria.getSearchParameters().get(parameter));
+        for (Parameter parameter : criteria.getSearchParameters().keySet()) {
+            if (isIntParameter(parameter)) {
+                preparedStatement.setObject(i, criteria.getSearchParameters().get(parameter));
+            } else {
+                preparedStatement.setObject(i, "%" + criteria.getSearchParameters().get(parameter) + "%");
+            }
+
             i++;
         }
     }
