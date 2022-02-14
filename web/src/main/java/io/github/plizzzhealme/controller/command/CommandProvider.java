@@ -1,7 +1,9 @@
 package io.github.plizzzhealme.controller.command;
 
-import io.github.plizzzhealme.controller.command.action.*;
-import io.github.plizzzhealme.controller.command.navigation.*;
+import io.github.plizzzhealme.controller.command.admin.*;
+import io.github.plizzzhealme.controller.command.guest.*;
+import io.github.plizzzhealme.controller.command.signedin.*;
+import io.github.plizzzhealme.controller.command.user.*;
 import io.github.plizzzhealme.controller.util.Util;
 
 import java.util.HashMap;
@@ -21,7 +23,7 @@ public final class CommandProvider {
         commands.put(Util.CHANGE_LOCALE_COMMAND, new ChangeLocaleCommand());
         commands.put(Util.EDIT_PROFILE_INFO_COMMAND, new EditProfileInfoCommand());
         commands.put(Util.EDIT_SURVEY_COMMAND, new EditSurveyCommand());
-        commands.put(Util.SEARCH_COMMON_STATISTICS_COMMAND, new SearchCommonStatisticsCommand());
+        commands.put(Util.SEARCH_GENERAL_STATISTICS_COMMAND, new SearchGeneralStatisticsCommand());
         commands.put(Util.SIGN_IN_COMMAND, new SignInCommand());
         commands.put(Util.SIGN_OUT_COMMAND, new SignOutCommand());
         commands.put(Util.SIGN_UP_COMMAND, new SignUpCommand());
@@ -44,8 +46,10 @@ public final class CommandProvider {
         commands.put(Util.TO_SURVEY_COMPLETED_PAGE_COMMAND, new ToSurveyCompletedPageCommand());
         commands.put(Util.TO_HEADER_PAGE_COMMAND, new ToHeaderPageCommand());
         commands.put(Util.TO_QUESTION_PAGE_COMMAND, new ToQuestionPageCommand());
-        commands.put(Util.TO_SEARCH_COMMON_STATISTICS_PAGE_COMMAND, new ToSearchCommonStatisticsPageCommand());
+        commands.put(Util.TO_SEARCH_GENERAL_STATISTICS_PAGE_COMMAND, new ToSearchGeneralStatisticsPageCommand());
         commands.put(Util.TO_STATISTICS_PAGE_COMMAND, new ToStatisticsPageCommand());
+
+        commands.put(Util.TO_GENERAL_STATISTICS_PAGE_COMMAND, new ToGeneralStatisticsPageCommand());
 
     }
 

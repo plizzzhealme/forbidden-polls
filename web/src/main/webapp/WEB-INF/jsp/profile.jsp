@@ -16,25 +16,25 @@
         <a href="${Util.CONTROLLER}?${Util.COMMAND}=${Util.TO_PROFILE_INFO_PAGE_COMMAND}">${profile_info}</a>
     </div>
 
-    <div class="grid-item">
-        <a href="${Util.CONTROLLER}?${Util.COMMAND}=${Util.TO_CATEGORIES_PAGE_COMMAND}">${survey_categories}</a>
-    </div>
-
-    <div class="grid-item">
-        <c:if test="${sessionScope.user_role == Util.ADMIN}">
+    <c:if test="${sessionScope.user_role == Util.ADMIN}">
+        <div class="grid-item">
             <a href="${Util.CONTROLLER}?${Util.COMMAND}=${Util.TO_ADD_HEADER_PAGE_COMMAND}">${create_survey}</a>
-        </c:if>
-    </div>
+        </div>
 
-    <div class="grid-item">
-        <c:if test="${sessionScope.user_role == Util.ADMIN}">
-            <a href="${Util.CONTROLLER}?${Util.COMMAND}=${Util.TO_SEARCH_COMMON_STATISTICS_PAGE_COMMAND}">search</a>
-        </c:if>
-    </div>
+        <div class="grid-item">
+            <a href="${Util.CONTROLLER}?${Util.COMMAND}=${Util.TO_SEARCH_GENERAL_STATISTICS_PAGE_COMMAND}">search</a>
+        </div>
+    </c:if>
 
-    <div class="grid-item">
-        <a href="${Util.CONTROLLER}?${Util.COMMAND}=${Util.TO_COMPLETED_SURVEYS_PAGE_COMMAND}">${passed_surveys}</a>
-    </div>
+    <c:if test="${sessionScope.user_role == Util.USER}">
+        <div class="grid-item">
+            <a href="${Util.CONTROLLER}?${Util.COMMAND}=${Util.TO_CATEGORIES_PAGE_COMMAND}">${survey_categories}</a>
+        </div>
+
+        <div class="grid-item">
+            <a href="${Util.CONTROLLER}?${Util.COMMAND}=${Util.TO_COMPLETED_SURVEYS_PAGE_COMMAND}">${passed_surveys}</a>
+        </div>
+    </c:if>
 
     <div class="grid-item">
         <a class="classic" href="${Util.CONTROLLER}?${Util.COMMAND}=${Util.SIGN_OUT_COMMAND}">${sign_out}</a>
