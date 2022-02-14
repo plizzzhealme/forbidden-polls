@@ -104,46 +104,6 @@ public class SqlSurveyDao implements SurveyDao {
     }
 
     @Override
-    public List<Survey> search(SearchCriteria searchCriteria) throws DaoException {
-        if (searchCriteria == null) {
-            return Collections.emptyList();
-        }
-
-        Connection connection = pool.takeConnection();
-        PreparedStatement preparedStatement = null;
-        ResultSet resultSet = null;
-
-        String sql = Util.buildSearchSql(searchCriteria, SqlParameter.SURVEYS);
-
-        try {
-            preparedStatement = connection.prepareStatement(sql);
-            Util.setSearchParameters(searchCriteria, preparedStatement);
-            resultSet = preparedStatement.executeQuery();
-
-            List<Survey> result = new ArrayList<>();
-
-            while (resultSet.next()) {
-                Survey survey = new Survey();
-
-                survey.setId(resultSet.getInt(SqlParameter.SURVEYS_ID));
-                survey.setName(resultSet.getString(SqlParameter.SURVEYS_NAME));
-                survey.setCreationDate(Util.toJavaTime(resultSet.getTimestamp(SqlParameter.SURVEYS_CREATION_DATE)));
-                survey.setDescription(resultSet.getString(SqlParameter.SURVEYS_DESCRIPTION));
-                survey.setInstructions(resultSet.getString(SqlParameter.SURVEYS_INSTRUCTIONS));
-                survey.setImageUrl(resultSet.getString(SqlParameter.SURVEYS_IMAGE_URL));
-
-                result.add(survey);
-            }
-
-            return result;
-        } catch (SQLException e) {
-            throw new DaoException("Error searching surveys in database.", e);
-        } finally {
-            pool.closeConnection(connection, preparedStatement, resultSet);
-        }
-    }
-
-    @Override
     public void create(Survey survey) throws DaoException {
         Connection connection = pool.takeConnection();
 
@@ -324,6 +284,47 @@ public class SqlSurveyDao implements SurveyDao {
         }
     }
 
+    @Override
+    public List<Survey> search(SearchCriteria criteria) throws DaoException {
+        if (criteria == null) {
+            return Collections.emptyList();
+        }
+
+        Connection connection = pool.takeConnection();
+        PreparedStatement preparedStatement = null;
+        ResultSet resultSet = null;
+
+        String sql = Util.buildSearchSql(criteria, SqlParameter.SURVEYS);
+
+        try {
+            preparedStatement = connection.prepareStatement(sql);
+
+            Util.setSearchParameters(criteria, preparedStatement);
+
+            resultSet = preparedStatement.executeQuery();
+
+            List<Survey> result = new ArrayList<>();
+
+            while (resultSet.next()) {
+                Survey survey = new Survey();
+
+                survey.setId(resultSet.getInt(SqlParameter.SURVEYS_ID));
+                survey.setName(resultSet.getString(SqlParameter.SURVEYS_NAME));
+                survey.setCreationDate(Util.toJavaTime(resultSet.getTimestamp(SqlParameter.SURVEYS_CREATION_DATE)));
+                survey.setDescription(resultSet.getString(SqlParameter.SURVEYS_DESCRIPTION));
+                survey.setInstructions(resultSet.getString(SqlParameter.SURVEYS_INSTRUCTIONS));
+                survey.setImageUrl(resultSet.getString(SqlParameter.SURVEYS_IMAGE_URL));
+
+                result.add(survey);
+            }
+
+            return result;
+        } catch (SQLException e) {
+            throw new DaoException("Error searching surveys in database.", e);
+        } finally {
+            pool.closeConnection(connection, preparedStatement, resultSet);
+        }
+    }
 
     private void addPassedSurvey(Connection connection, Survey survey, int userId) throws DaoException {
         try (PreparedStatement preparedStatement = connection.prepareStatement(ADD_SURVEY_RESULT_SQL)) {
