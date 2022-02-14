@@ -21,6 +21,7 @@ public final class CommandProvider {
         commands.put(Util.CHANGE_LOCALE_COMMAND, new ChangeLocaleCommand());
         commands.put(Util.EDIT_PROFILE_INFO_COMMAND, new EditProfileInfoCommand());
         commands.put(Util.EDIT_SURVEY_COMMAND, new EditSurveyCommand());
+        commands.put(Util.SEARCH_COMMON_STATISTICS_COMMAND, new SearchCommonStatisticsCommand());
         commands.put(Util.SIGN_IN_COMMAND, new SignInCommand());
         commands.put(Util.SIGN_OUT_COMMAND, new SignOutCommand());
         commands.put(Util.SIGN_UP_COMMAND, new SignUpCommand());
@@ -28,8 +29,8 @@ public final class CommandProvider {
         commands.put(Util.UNKNOWN_COMMAND, new UnknownCommand());
 
         commands.put(Util.TO_ADD_HEADER_PAGE_COMMAND, new ToAddHeaderPageCommand());
-        commands.put(Util.TO_ADD_SURVEY_PAGE_COMMAND, new ToAddSurveyPageCommand());
         commands.put(Util.TO_ADD_QUESTION_PAGE_COMMAND, new ToAddQuestionPageCommand());
+        commands.put(Util.TO_ADD_SURVEY_PAGE_COMMAND, new ToAddSurveyPageCommand());
         commands.put(Util.TO_CATEGORIES_PAGE_COMMAND, new ToCategoriesPageCommand());
         commands.put(Util.TO_CATEGORY_PAGE_COMMAND, new ToCategoryPageCommand());
         commands.put(Util.TO_COMPLETED_SURVEYS_PAGE_COMMAND, new ToCompletedSurveysPageCommand());
@@ -43,7 +44,9 @@ public final class CommandProvider {
         commands.put(Util.TO_SURVEY_COMPLETED_PAGE_COMMAND, new ToSurveyCompletedPageCommand());
         commands.put(Util.TO_HEADER_PAGE_COMMAND, new ToHeaderPageCommand());
         commands.put(Util.TO_QUESTION_PAGE_COMMAND, new ToQuestionPageCommand());
+        commands.put(Util.TO_SEARCH_COMMON_STATISTICS_PAGE_COMMAND, new ToSearchCommonStatisticsPageCommand());
         commands.put(Util.TO_STATISTICS_PAGE_COMMAND, new ToStatisticsPageCommand());
+
     }
 
     public Command getCommand(String commandName) {
