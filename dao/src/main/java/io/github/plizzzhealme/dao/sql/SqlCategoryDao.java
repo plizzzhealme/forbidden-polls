@@ -64,9 +64,11 @@ public class SqlCategoryDao implements CategoryDao {
             preparedStatement.setString(1, category);
             resultSet = preparedStatement.executeQuery();
 
-            resultSet.next();
+            if (resultSet.next()) {
+                return resultSet.getInt(SqlParameter.CATEGORIES_ID);
+            }
 
-            return resultSet.getInt(SqlParameter.CATEGORIES_ID);
+            return 0;
         } catch (SQLException e) {
             throw new DaoException("Error while reading category ID from database.", e);
         } finally {
