@@ -27,6 +27,12 @@
     </div>
 
     <div class="grid-item">
+        <c:if test="${sessionScope.user_role == Util.ADMIN}">
+            <a href="${Util.CONTROLLER}?${Util.COMMAND}=${Util.TO_SEARCH_COMMON_STATISTICS_PAGE_COMMAND}">search</a>
+        </c:if>
+    </div>
+
+    <div class="grid-item">
         <a href="${Util.CONTROLLER}?${Util.COMMAND}=${Util.TO_COMPLETED_SURVEYS_PAGE_COMMAND}">${passed_surveys}</a>
     </div>
 
