@@ -20,7 +20,7 @@ public class AddHeaderCommand implements Command {
     public void execute(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
-        String surveyName = request.getParameter(Util.SURVEY_NAME);
+        String surveyName = request.getParameter(Util.SURVEY_TITLE);
         String surveyCategory = request.getParameter(Util.SURVEY_CATEGORY);
         String surveyDescription = request.getParameter(Util.SURVEY_DESCRIPTION);
         String surveyInstructions = request.getParameter(Util.SURVEY_INSTRUCTIONS);

@@ -20,7 +20,7 @@
     <div class="grid-container-1">
         <div class="grid-item"><label for="name">${survey_title}:</label></div>
         <div class="grid-item">
-            <input class="classic" id="name" name="${Util.SURVEY_NAME}" type="text" value="${survey.name}">
+            <input class="classic" id="name" name="${Util.SURVEY_TITLE}" type="text" value="${survey.name}">
         </div>
 
         <div class="grid-item"><label for="category">${survey_category}:</label></div>
