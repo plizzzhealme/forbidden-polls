@@ -1,6 +1,6 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page contentType="text/html; charset=UTF-8" %>
-<%@ include file="../jspf/localization.jspf" %>
+<%@ include file="../../jspf/localization.jspf" %>
 <!DOCTYPE>
 <html xml:lang="eu">
 <meta charset="UTF-8">
@@ -9,7 +9,7 @@
     <link href="${pageContext.request.contextPath}/css/style.css" rel="stylesheet">
 </head>
 <body>
-<%@include file="../jspf/header.jspf" %>
+<%@include file="../../jspf/header.jspf" %>
 
 <div class="grid-container-2">
     <div class="grid-item">${name}</div>
@@ -44,13 +44,7 @@
 
 <div class="grid-container-2">
     <div class="grid-item">
-        <a class="classic" href="${Util.CONTROLLER}?${Util.COMMAND}=${Util.TO_EDIT_PROFILE_INFO_PAGE_COMMAND}">
-            ${edit}
-        </a>
-    </div>
-
-    <div class="grid-item">
-        <a class="classic" href="${Util.CONTROLLER}?${Util.COMMAND}=${Util.TO_PROFILE_PAGE_COMMAND}">${back}</a>
+        <a class="classic" href="${Util.CONTROLLER}?${Util.COMMAND}=${Util.TO_SEARCH_USER_PAGE_COMMAND}">${back}</a>
     </div>
 </div>
 </body>

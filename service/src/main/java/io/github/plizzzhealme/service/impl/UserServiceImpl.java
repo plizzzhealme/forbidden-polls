@@ -1,6 +1,7 @@
 package io.github.plizzzhealme.service.impl;
 
 import io.github.plizzzhealme.bean.User;
+import io.github.plizzzhealme.bean.criteria.SearchCriteria;
 import io.github.plizzzhealme.dao.DaoFactory;
 import io.github.plizzzhealme.dao.UserDao;
 import io.github.plizzzhealme.dao.exception.DaoException;
@@ -12,6 +13,8 @@ import io.github.plizzzhealme.service.exception.InvalidCredentialsException;
 import io.github.plizzzhealme.service.exception.ServiceException;
 import io.github.plizzzhealme.service.exception.ValidatorException;
 import io.github.plizzzhealme.service.validator.UserValidator;
+
+import java.util.List;
 
 public class UserServiceImpl implements UserService {
 
@@ -69,6 +72,15 @@ public class UserServiceImpl implements UserService {
             }
         } else {
             throw new ValidatorException("Invalid data, unable to update");
+        }
+    }
+
+    @Override
+    public List<User> search(SearchCriteria criteria, int limit, int offset) throws ServiceException {
+        try {
+            return DaoFactory.INSTANCE.getUserDao().search(criteria, limit, offset);
+        } catch (DaoException e) {
+            throw new ServiceException("Failed to search", e);
         }
     }
 }

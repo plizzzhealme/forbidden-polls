@@ -1,6 +1,7 @@
-package io.github.plizzzhealme.controller.command.signedin;
+package io.github.plizzzhealme.controller.command.admin;
 
 import io.github.plizzzhealme.bean.User;
+import io.github.plizzzhealme.bean.criteria.SearchCriteria;
 import io.github.plizzzhealme.controller.command.Command;
 import io.github.plizzzhealme.controller.util.Util;
 import io.github.plizzzhealme.service.ServiceFactory;
@@ -12,21 +13,25 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
+import java.util.List;
 
-public class ToProfileInfoPageCommand implements Command {
+public class SearchPreviousUserCommand implements Command {
 
     @Override
     public void execute(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException, ServiceException {
 
         HttpSession session = request.getSession();
+        SearchCriteria criteria = (SearchCriteria) session.getAttribute(Util.SEARCH_CRITERIA);
+        int offset = (int) session.getAttribute(Util.SEARCH_OFFSET);
+        int previousOffset = Math.max(0, offset - Util.SEARCH_LIMIT);
 
-        int id = (int) session.getAttribute(Util.USER_ID);
+        List<User> users = ServiceFactory.INSTANCE.getUserService().search(criteria, Util.SEARCH_LIMIT, previousOffset);
 
-        User user = ServiceFactory.INSTANCE.getUserService().readUserInfo(id);
-        request.setAttribute(Util.USER, user);
+        request.setAttribute(Util.USER_LIST, users);
+        session.setAttribute("offset", previousOffset);
 
-        RequestDispatcher dispatcher = request.getRequestDispatcher(Util.PROFILE_INFO_JSP);
+        RequestDispatcher dispatcher = request.getRequestDispatcher(Util.SEARCH_USER_JSP);
         dispatcher.forward(request, response);
     }
 }

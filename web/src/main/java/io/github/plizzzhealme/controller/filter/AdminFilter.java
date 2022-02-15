@@ -22,13 +22,18 @@ public class AdminFilter implements Filter {
         adminCommands.add(Util.ADD_SURVEY_COMMAND);
         adminCommands.add(Util.EDIT_SURVEY_COMMAND);
         adminCommands.add(Util.SEARCH_GENERAL_STATISTICS_COMMAND);
+        adminCommands.add(Util.SEARCH_NEXT_USER_COMMAND);
+        adminCommands.add(Util.SEARCH_PREVIOUS_USER_COMMAND);
+        adminCommands.add(Util.SEARCH_USER_COMMAND);
 
         adminCommands.add(Util.TO_ADD_HEADER_PAGE_COMMAND);
         adminCommands.add(Util.TO_ADD_QUESTION_PAGE_COMMAND);
         adminCommands.add(Util.TO_ADD_SURVEY_PAGE_COMMAND);
         adminCommands.add(Util.TO_GENERAL_STATISTICS_PAGE_COMMAND);
         adminCommands.add(Util.TO_SEARCH_GENERAL_STATISTICS_PAGE_COMMAND);
+        adminCommands.add(Util.TO_SEARCH_USER_PAGE_COMMAND);
         adminCommands.add(Util.TO_SURVEY_ADDED_PAGE_COMMAND);
+        adminCommands.add(Util.TO_USER_PAGE_COMMAND);
     }
 
     @Override

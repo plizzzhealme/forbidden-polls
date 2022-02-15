@@ -1,8 +1,6 @@
 package io.github.plizzzhealme.dao.sql;
 
 import io.github.plizzzhealme.bean.User;
-import io.github.plizzzhealme.bean.criteria.Parameter;
-import io.github.plizzzhealme.bean.criteria.SearchCriteria;
 import io.github.plizzzhealme.dao.DaoFactory;
 import io.github.plizzzhealme.dao.UserDao;
 import io.github.plizzzhealme.dao.exception.DaoException;
@@ -12,8 +10,6 @@ import io.github.plizzzhealme.dao.pool.ConnectionPool;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
-
-import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -139,15 +135,5 @@ class SqlUserDaoTest {
     @Test
     void signInWithNullParameters() {
         assertThrows(EntityNotFoundException.class, () -> userDao.signIn(null, null));
-    }
-
-    @Test
-    void search() throws DaoException {
-        SearchCriteria criteria = new SearchCriteria();
-        criteria.addParameter(Parameter.USER_NAME, "n");
-        List<User> users = userDao.search(criteria, 3, 0);
-
-
-        users.forEach(System.out::println);
     }
 }

@@ -1,4 +1,4 @@
-package io.github.plizzzhealme.controller.command.signedin;
+package io.github.plizzzhealme.controller.command.admin;
 
 import io.github.plizzzhealme.bean.User;
 import io.github.plizzzhealme.controller.command.Command;
@@ -10,23 +10,26 @@ import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 import java.io.IOException;
 
-public class ToProfileInfoPageCommand implements Command {
+public class ToUserPageCommand implements Command {
 
     @Override
     public void execute(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException, ServiceException {
 
-        HttpSession session = request.getSession();
+        int id;
 
-        int id = (int) session.getAttribute(Util.USER_ID);
+        try {
+            id = Integer.parseInt(request.getParameter(Util.USER_ID));
+        } catch (NumberFormatException e) {
+            id = Util.NON_EXISTENT_ID;
+        }
 
         User user = ServiceFactory.INSTANCE.getUserService().readUserInfo(id);
         request.setAttribute(Util.USER, user);
 
-        RequestDispatcher dispatcher = request.getRequestDispatcher(Util.PROFILE_INFO_JSP);
+        RequestDispatcher dispatcher = request.getRequestDispatcher(Util.USER_JSP);
         dispatcher.forward(request, response);
     }
 }

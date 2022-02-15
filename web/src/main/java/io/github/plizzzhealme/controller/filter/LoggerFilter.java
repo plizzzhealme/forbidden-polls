@@ -4,9 +4,11 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import javax.servlet.*;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 import java.io.IOException;
-import java.text.MessageFormat;
 import java.util.Collections;
+import java.util.List;
 
 public class LoggerFilter implements Filter {
 
@@ -16,11 +18,25 @@ public class LoggerFilter implements Filter {
     public void doFilter(ServletRequest servletRequest, ServletResponse servletResponse, FilterChain filterChain)
             throws IOException, ServletException {
 
-         Collections.list(servletRequest.getParameterNames())
-                .forEach(param -> logger.info(MessageFormat.format("{0} = {1}",
-                        param,
+        String line = "------------------------------------------";
+        logger.info("request:");
+        logger.info(line);
+        Collections.list(servletRequest.getParameterNames())
+                .stream()
+                .map(param -> param + " = " + servletRequest.getParameter(param))
+                .forEach(logger::info);
+        logger.info(line);
 
-                        servletRequest.getParameter(param))));
+        HttpSession session = ((HttpServletRequest) servletRequest).getSession();
+
+        List<String> attributeNames = Collections.list(session.getAttributeNames());
+
+        logger.info("session:");
+        logger.info(line);
+        attributeNames.stream()
+                .map(p -> p + " = " + session.getAttribute(p))
+                .forEach(logger::info);
+        logger.info(line);
 
         filterChain.doFilter(servletRequest, servletResponse);
     }

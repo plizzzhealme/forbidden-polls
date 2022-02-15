@@ -51,6 +51,13 @@ public final class CommandProvider {
 
         commands.put(Util.TO_GENERAL_STATISTICS_PAGE_COMMAND, new ToGeneralStatisticsPageCommand());
 
+        commands.put(Util.SEARCH_USER_COMMAND, new SearchUserCommand());
+        commands.put(Util.TO_USER_PAGE_COMMAND, new ToUserPageCommand());
+        commands.put(Util.TO_SEARCH_USER_PAGE_COMMAND, new ToSearchUserPageCommand());
+        commands.put(Util.SEARCH_NEXT_USER_COMMAND, new SearchNextUserCommand());
+        commands.put(Util.SEARCH_PREVIOUS_USER_COMMAND, new SearchPreviousUserCommand());
+
+
     }
 
     public Command getCommand(String commandName) {

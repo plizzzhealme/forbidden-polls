@@ -1,6 +1,8 @@
 package io.github.plizzzhealme.bean.criteria;
 
-public enum Parameter {
+import java.io.Serializable;
+
+public enum Parameter implements Serializable {
 
     USER_ID,
     USER_NAME,
@@ -23,5 +25,6 @@ public enum Parameter {
 
     OPTION_ID,
     OPTION_INDEX_NUMBER,
+    GENDER_NAME,
     OPTION_BODY
 }

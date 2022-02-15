@@ -2,6 +2,10 @@ package io.github.plizzzhealme.controller.util;
 
 public final class Util {
 
+    public static final String TO_SEARCH_USER_PAGE_COMMAND = "to_search_user_page";
+    public static final String TO_USER_PAGE_COMMAND = "to_user_page";
+    public static final String SEARCH_USER_COMMAND = "search_user";
+
     public static final String CONTROLLER = "controller";
     public static final String CATEGORY = "category";
 
@@ -52,11 +56,12 @@ public final class Util {
     // admin pages
     public static final String ADD_HEADER_JSP = "/WEB-INF/jsp/admin/addHeader.jsp";
     public static final String ADD_QUESTION_JSP = "/WEB-INF/jsp/admin/addQuestion.jsp";
-    public static final String SURVEY_ADDED_JSP = "/WEB-INF/jsp/admin/surveyAdded.jsp";
     public static final String ADD_SURVEY_JSP = "/WEB-INF/jsp/admin/addSurvey.jsp";
-    public static final String SEARCH_GENERAL_STATISTICS_JSP = "/WEB-INF/jsp/admin/searchGeneralStatistics.jsp";
     public static final String GENERAL_STATISTICS_JSP = "/WEB-INF/jsp/admin/generalStatistics.jsp";
-
+    public static final String SEARCH_GENERAL_STATISTICS_JSP = "/WEB-INF/jsp/admin/searchGeneralStatistics.jsp";
+    public static final String SEARCH_USER_JSP = "/WEB-INF/jsp/admin/searchUser.jsp";
+    public static final String SURVEY_ADDED_JSP = "/WEB-INF/jsp/admin/surveyAdded.jsp";
+    public static final String USER_JSP = "/WEB-INF/jsp/admin/user.jsp";
 
     // common for admin and user pages
     public static final String EDIT_PROFILE_INFO_JSP = "/WEB-INF/jsp/editProfileInfo.jsp";
@@ -95,6 +100,7 @@ public final class Util {
     public static final String EDIT_PROFILE_INFO_COMMAND = "edit_profile_info";
 
     public static final String SEARCH_GENERAL_STATISTICS_COMMAND = "search_general_statistics";
+    public static final String SEARCH_NEXT_USER_COMMAND = "search_next_user";
 
 
     // navigation
@@ -124,6 +130,12 @@ public final class Util {
     public static final String REDIRECT_URL_PATTERN = CONTROLLER + "?" + COMMAND + "=";
     public static final String EDIT_INDEX = "edit_index";
     public static final String TO_SEARCH_GENERAL_STATISTICS_PAGE_COMMAND = "to_search_general_statistics_page_command";
+    public static final String USER_LIST = "user_list";
+    public static final String SEARCH_PREVIOUS_USER_COMMAND = "search_previous_user";
+    public static final String SEARCH_CRITERIA = "criteria";
+    public static final String SEARCH_OFFSET = "offset";
+    public static final int SEARCH_LIMIT = 3;
+    public static final int NON_EXISTENT_ID = 0;
 
 
     private Util() {

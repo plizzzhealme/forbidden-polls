@@ -16,7 +16,13 @@ public class ToGeneralStatisticsPageCommand implements Command {
 
     @Override
     public void execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException, ServiceException {
-        int surveyId = Integer.parseInt(request.getParameter(Util.SURVEY_ID));
+        int surveyId;
+
+        try {
+            surveyId = Integer.parseInt(request.getParameter(Util.SURVEY_ID));
+        } catch (NumberFormatException e) {
+            surveyId = Util.NON_EXISTENT_ID;
+        }
 
         Survey survey = ServiceFactory.INSTANCE.getSurveyService().searchSurveyStatistics(surveyId);
 

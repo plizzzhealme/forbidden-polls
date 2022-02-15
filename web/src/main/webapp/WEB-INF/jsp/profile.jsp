@@ -22,7 +22,12 @@
         </div>
 
         <div class="grid-item">
-            <a href="${Util.CONTROLLER}?${Util.COMMAND}=${Util.TO_SEARCH_GENERAL_STATISTICS_PAGE_COMMAND}">search</a>
+            <a href="${Util.CONTROLLER}?${Util.COMMAND}=${Util.TO_SEARCH_GENERAL_STATISTICS_PAGE_COMMAND}">search
+                surveys</a>
+        </div>
+
+        <div class="grid-item">
+            <a href="${Util.CONTROLLER}?${Util.COMMAND}=${Util.TO_SEARCH_USER_PAGE_COMMAND}">search users</a>
         </div>
     </c:if>
 
