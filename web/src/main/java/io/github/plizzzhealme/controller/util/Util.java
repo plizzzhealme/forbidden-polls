@@ -24,7 +24,7 @@ public final class Util {
     public static final String NEW_SURVEY = "new_survey";
     public static final String SURVEY_LIST = "survey_list";
     public static final String SURVEY_ID = "survey_id";
-    public static final String SURVEY_NAME = "survey_name";
+    public static final String SURVEY_TITLE = "survey_title";
     public static final String SURVEY_DESCRIPTION = "survey_description";
     public static final String SURVEY_INSTRUCTIONS = "survey_instructions";
     public static final String SURVEY_IMAGE_URL = "survey_image_url";
@@ -35,26 +35,37 @@ public final class Util {
     public static final String QUESTION_IMAGE_URL = "question_image_url";
     public static final String QUESTION_INDEX = "question_index";
 
-    // pages
-    public static final String SIGN_IN_JSP = "/WEB-INF/jsp/signIn.jsp";
-    public static final String SIGN_UP_JSP = "/WEB-INF/jsp/signUp.jsp";
-    public static final String HOME_JSP = "/WEB-INF/jsp/home.jsp";
-    public static final String PROFILE_JSP = "/WEB-INF/jsp/profile.jsp";
-    public static final String PAGE_NOT_FOUND_JSP = "error/pageNotFound.jsp";
-    public static final String SERVER_ERROR_JSP = "error/serverError.jsp";
-    public static final String QUESTION_JSP = "/WEB-INF/jsp/question.jsp";
-    public static final String PROFILE_INFO_JSP = "/WEB-INF/jsp/profileInfo.jsp";
-    public static final String CATEGORIES_JSP = "/WEB-INF/jsp/categories.jsp";
-    public static final String CATEGORY_JSP = "/WEB-INF/jsp/category.jsp";
-    public static final String SURVEY_COMPLETED_JSP = "/WEB-INF/jsp/surveyCompleted.jsp";
-    public static final String HEADER_JSP = "/WEB-INF/jsp/header.jsp";
-    public static final String COMPLETED_SURVEYS_JSP = "/WEB-INF/jsp/completedSurveys.jsp";
-    public static final String ADD_HEADER_JSP = "/WEB-INF/jsp/addHeader.jsp";
-    public static final String ADD_QUESTION_JSP = "/WEB-INF/jsp/addQuestion.jsp";
-    public static final String SURVEY_ADDED_JSP = "/WEB-INF/jsp/surveyAdded.jsp";
-    public static final String ADD_SURVEY_JSP = "/WEB-INF/jsp/addSurvey.jsp";
+    // guest pages
+    public static final String SIGN_IN_JSP = "/WEB-INF/jsp/guest/signIn.jsp";
+    public static final String SIGN_UP_JSP = "/WEB-INF/jsp/guest/signUp.jsp";
+    public static final String HOME_JSP = "/WEB-INF/jsp/guest/home.jsp";
+
+    // user pages
+    public static final String QUESTION_JSP = "/WEB-INF/jsp/user/question.jsp";
+    public static final String CATEGORIES_JSP = "/WEB-INF/jsp/user/categories.jsp";
+    public static final String CATEGORY_JSP = "/WEB-INF/jsp/user/category.jsp";
+    public static final String SURVEY_COMPLETED_JSP = "/WEB-INF/jsp/user/surveyCompleted.jsp";
+    public static final String HEADER_JSP = "/WEB-INF/jsp/user/header.jsp";
+    public static final String COMPLETED_SURVEYS_JSP = "/WEB-INF/jsp/user/completedSurveys.jsp";
+    public static final String STATISTICS_JSP = "/WEB-INF/jsp/user/statistics.jsp";
+
+    // admin pages
+    public static final String ADD_HEADER_JSP = "/WEB-INF/jsp/admin/addHeader.jsp";
+    public static final String ADD_QUESTION_JSP = "/WEB-INF/jsp/admin/addQuestion.jsp";
+    public static final String SURVEY_ADDED_JSP = "/WEB-INF/jsp/admin/surveyAdded.jsp";
+    public static final String ADD_SURVEY_JSP = "/WEB-INF/jsp/admin/addSurvey.jsp";
+    public static final String SEARCH_GENERAL_STATISTICS_JSP = "/WEB-INF/jsp/admin/searchGeneralStatistics.jsp";
+    public static final String GENERAL_STATISTICS_JSP = "/WEB-INF/jsp/admin/generalStatistics.jsp";
+
+
+    // common for admin and user pages
     public static final String EDIT_PROFILE_INFO_JSP = "/WEB-INF/jsp/editProfileInfo.jsp";
-    public static final String STATISTICS_JSP = "/WEB-INF/jsp/statistics.jsp";
+    public static final String PROFILE_INFO_JSP = "/WEB-INF/jsp/profileInfo.jsp";
+    public static final String PROFILE_JSP = "/WEB-INF/jsp/profile.jsp";
+
+    // error pages
+    public static final String SERVER_ERROR_JSP = "error/serverError.jsp";
+    public static final String PAGE_NOT_FOUND_JSP = "error/pageNotFound.jsp";
 
     // errors
     public static final String ERROR = "error";
@@ -83,6 +94,8 @@ public final class Util {
     public static final String EDIT_SURVEY_COMMAND = "edit_survey";
     public static final String EDIT_PROFILE_INFO_COMMAND = "edit_profile_info";
 
+    public static final String SEARCH_GENERAL_STATISTICS_COMMAND = "search_general_statistics";
+
 
     // navigation
     public static final String TO_SIGN_IN_PAGE_COMMAND = "to_sign_in_page";
@@ -103,11 +116,14 @@ public final class Util {
     public static final String TO_ADD_SURVEY_PAGE_COMMAND = "to_add_survey_page";
     public static final String TO_STATISTICS_PAGE_COMMAND = "to_statistics_page";
 
+    public static final String TO_GENERAL_STATISTICS_PAGE_COMMAND = "to_general_statistics_page";
+
     public static final String CATEGORY_LIST = "category_list";
     public static final String OPTION = "option";
 
     public static final String REDIRECT_URL_PATTERN = CONTROLLER + "?" + COMMAND + "=";
     public static final String EDIT_INDEX = "edit_index";
+    public static final String TO_SEARCH_GENERAL_STATISTICS_PAGE_COMMAND = "to_search_general_statistics_page_command";
 
 
     private Util() {

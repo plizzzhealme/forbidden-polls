@@ -128,4 +128,13 @@ public class SurveyServiceImpl implements SurveyService {
 
         return survey;
     }
+
+    @Override
+    public List<Survey> search(SearchCriteria criteria) throws ServiceException {
+        try {
+            return DaoFactory.INSTANCE.getSurveyDao().search(criteria);
+        } catch (DaoException e) {
+            throw new ServiceException("Failed", e);
+        }
+    }
 }

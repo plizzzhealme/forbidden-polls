@@ -1,5 +1,6 @@
 package io.github.plizzzhealme.controller.filter;
 
+import io.github.plizzzhealme.bean.User;
 import io.github.plizzzhealme.controller.util.Util;
 
 import javax.servlet.*;
@@ -17,18 +18,15 @@ public class UserFilter implements Filter {
     @Override
     public void init(FilterConfig filterConfig) {
         userCommands.add(Util.ANSWER_QUESTION_COMMAND);
-        userCommands.add(Util.EDIT_PROFILE_INFO_COMMAND);
-        userCommands.add(Util.SIGN_OUT_COMMAND);
         userCommands.add(Util.TAKE_SURVEY_COMMAND);
+
         userCommands.add(Util.TO_CATEGORIES_PAGE_COMMAND);
         userCommands.add(Util.TO_CATEGORY_PAGE_COMMAND);
         userCommands.add(Util.TO_COMPLETED_SURVEYS_PAGE_COMMAND);
-        userCommands.add(Util.TO_EDIT_PROFILE_INFO_PAGE_COMMAND);
-        userCommands.add(Util.TO_PROFILE_INFO_PAGE_COMMAND);
-        userCommands.add(Util.TO_PROFILE_PAGE_COMMAND);
-        userCommands.add(Util.TO_SURVEY_COMPLETED_PAGE_COMMAND);
         userCommands.add(Util.TO_HEADER_PAGE_COMMAND);
         userCommands.add(Util.TO_QUESTION_PAGE_COMMAND);
+        userCommands.add(Util.TO_STATISTICS_PAGE_COMMAND);
+        userCommands.add(Util.TO_SURVEY_COMPLETED_PAGE_COMMAND);
     }
 
     @Override
@@ -36,11 +34,11 @@ public class UserFilter implements Filter {
             throws IOException, ServletException {
 
         String command = servletRequest.getParameter(Util.COMMAND);
-        HttpServletRequest request = (HttpServletRequest) servletRequest;
-        HttpSession session = request.getSession();
 
         if (userCommands.contains(command)) {
-            if (session.getAttribute(Util.USER_ID) != null) {
+            HttpSession session = ((HttpServletRequest) servletRequest).getSession();
+
+            if (User.USER_ROLE.equals(session.getAttribute(Util.USER_ROLE))) {
                 filterChain.doFilter(servletRequest, servletResponse);
             } else {
                 HttpServletResponse response = (HttpServletResponse) servletResponse;

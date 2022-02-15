@@ -1,6 +1,5 @@
 package io.github.plizzzhealme.controller.filter;
 
-import io.github.plizzzhealme.bean.User;
 import io.github.plizzzhealme.controller.util.Util;
 
 import javax.servlet.*;
@@ -11,24 +10,17 @@ import java.io.IOException;
 import java.util.HashSet;
 import java.util.Set;
 
-public class AdminFilter implements Filter {
+public class SignInFilter implements Filter {
 
-    private final Set<String> adminCommands = new HashSet<>();
+    private final Set<String> signInCommands = new HashSet<>();
 
     @Override
     public void init(FilterConfig filterConfig) {
-        adminCommands.add(Util.ADD_HEADER_COMMAND);
-        adminCommands.add(Util.ADD_QUESTION_COMMAND);
-        adminCommands.add(Util.ADD_SURVEY_COMMAND);
-        adminCommands.add(Util.EDIT_SURVEY_COMMAND);
-        adminCommands.add(Util.SEARCH_GENERAL_STATISTICS_COMMAND);
-
-        adminCommands.add(Util.TO_ADD_HEADER_PAGE_COMMAND);
-        adminCommands.add(Util.TO_ADD_QUESTION_PAGE_COMMAND);
-        adminCommands.add(Util.TO_ADD_SURVEY_PAGE_COMMAND);
-        adminCommands.add(Util.TO_GENERAL_STATISTICS_PAGE_COMMAND);
-        adminCommands.add(Util.TO_SEARCH_GENERAL_STATISTICS_PAGE_COMMAND);
-        adminCommands.add(Util.TO_SURVEY_ADDED_PAGE_COMMAND);
+        signInCommands.add(Util.EDIT_PROFILE_INFO_COMMAND);
+        signInCommands.add(Util.SIGN_OUT_COMMAND);
+        signInCommands.add(Util.TO_EDIT_PROFILE_INFO_PAGE_COMMAND);
+        signInCommands.add(Util.TO_PROFILE_INFO_PAGE_COMMAND);
+        signInCommands.add(Util.TO_PROFILE_PAGE_COMMAND);
     }
 
     @Override
@@ -37,10 +29,10 @@ public class AdminFilter implements Filter {
 
         String command = servletRequest.getParameter(Util.COMMAND);
 
-        if (adminCommands.contains(command)) {
+        if (signInCommands.contains(command)) {
             HttpSession session = ((HttpServletRequest) servletRequest).getSession();
 
-            if (User.ADMIN_ROLE.equals(session.getAttribute(Util.USER_ROLE))) {
+            if (session.getAttribute(Util.USER_ID) != null) {
                 filterChain.doFilter(servletRequest, servletResponse);
             } else {
                 HttpServletResponse response = (HttpServletResponse) servletResponse;

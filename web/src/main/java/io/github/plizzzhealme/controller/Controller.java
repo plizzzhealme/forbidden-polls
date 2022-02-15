@@ -45,7 +45,7 @@ public class Controller extends HttpServlet {
             logger.error(MessageFormat.format("Error processing a request for a command {0}.", commandName), e);
 
             try {
-                response.sendRedirect(Util.SERVER_ERROR_JSP);
+                response.sendRedirect(Util.PAGE_NOT_FOUND_JSP);
             } catch (IOException ex) {
                 logger.error("Error while redirecting to the error page.", ex);
 

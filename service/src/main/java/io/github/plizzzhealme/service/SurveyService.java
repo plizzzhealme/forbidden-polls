@@ -20,4 +20,6 @@ public interface SurveyService {
     void addNewSurvey(Survey survey) throws ServiceException, ValidatorException;
 
     Survey searchSurveyStatistics(int surveyId) throws ServiceException;
+
+    List<Survey> search(SearchCriteria criteria) throws ServiceException;
 }

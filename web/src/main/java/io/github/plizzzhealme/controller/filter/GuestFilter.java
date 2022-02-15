@@ -1,6 +1,5 @@
 package io.github.plizzzhealme.controller.filter;
 
-import io.github.plizzzhealme.bean.User;
 import io.github.plizzzhealme.controller.util.Util;
 
 import javax.servlet.*;
@@ -11,24 +10,17 @@ import java.io.IOException;
 import java.util.HashSet;
 import java.util.Set;
 
-public class AdminFilter implements Filter {
+public class GuestFilter implements Filter {
 
-    private final Set<String> adminCommands = new HashSet<>();
+    private final Set<String> guestCommands = new HashSet<>();
 
     @Override
     public void init(FilterConfig filterConfig) {
-        adminCommands.add(Util.ADD_HEADER_COMMAND);
-        adminCommands.add(Util.ADD_QUESTION_COMMAND);
-        adminCommands.add(Util.ADD_SURVEY_COMMAND);
-        adminCommands.add(Util.EDIT_SURVEY_COMMAND);
-        adminCommands.add(Util.SEARCH_GENERAL_STATISTICS_COMMAND);
-
-        adminCommands.add(Util.TO_ADD_HEADER_PAGE_COMMAND);
-        adminCommands.add(Util.TO_ADD_QUESTION_PAGE_COMMAND);
-        adminCommands.add(Util.TO_ADD_SURVEY_PAGE_COMMAND);
-        adminCommands.add(Util.TO_GENERAL_STATISTICS_PAGE_COMMAND);
-        adminCommands.add(Util.TO_SEARCH_GENERAL_STATISTICS_PAGE_COMMAND);
-        adminCommands.add(Util.TO_SURVEY_ADDED_PAGE_COMMAND);
+        guestCommands.add(Util.TO_SIGN_IN_PAGE_COMMAND);
+        guestCommands.add(Util.SIGN_IN_COMMAND);
+        guestCommands.add(Util.TO_SIGN_UP_PAGE_COMMAND);
+        guestCommands.add(Util.SIGN_UP_COMMAND);
+        guestCommands.add(Util.TO_HOME_PAGE_COMMAND);
     }
 
     @Override
@@ -37,14 +29,15 @@ public class AdminFilter implements Filter {
 
         String command = servletRequest.getParameter(Util.COMMAND);
 
-        if (adminCommands.contains(command)) {
+        if (guestCommands.contains(command)) {
             HttpSession session = ((HttpServletRequest) servletRequest).getSession();
+            Object id = session.getAttribute(Util.USER_ID);
 
-            if (User.ADMIN_ROLE.equals(session.getAttribute(Util.USER_ROLE))) {
+            if (id == null) {
                 filterChain.doFilter(servletRequest, servletResponse);
             } else {
                 HttpServletResponse response = (HttpServletResponse) servletResponse;
-                response.sendRedirect(Util.REDIRECT_URL_PATTERN + Util.TO_SIGN_IN_PAGE_COMMAND);
+                response.sendRedirect(Util.REDIRECT_URL_PATTERN + Util.TO_PROFILE_PAGE_COMMAND);
             }
         } else {
             filterChain.doFilter(servletRequest, servletResponse);
