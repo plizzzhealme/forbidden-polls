@@ -1,6 +1,8 @@
 package io.github.plizzzhealme.dao.sql;
 
 import io.github.plizzzhealme.bean.User;
+import io.github.plizzzhealme.bean.criteria.Parameter;
+import io.github.plizzzhealme.bean.criteria.SearchCriteria;
 import io.github.plizzzhealme.dao.UserDao;
 import io.github.plizzzhealme.dao.exception.DaoException;
 import io.github.plizzzhealme.dao.exception.EntityNotFoundException;
@@ -13,6 +15,9 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.stream.Collectors;
 
 public class SqlUserDao implements UserDao {
 
@@ -49,6 +54,22 @@ public class SqlUserDao implements UserDao {
             "users.gender_id=(SELECT id FROM genders WHERE genders.name=? LIMIT 1), " +
             "users.country_id=(SELECT id FROM countries WHERE countries.iso_code = ? OR countries.name = ? LIMIT 1) " +
             "WHERE users.id=?";
+
+    private static void setSearchParameters(SearchCriteria criteria,
+                                            PreparedStatement preparedStatement,
+                                            int limit,
+                                            int offset) throws SQLException {
+
+        int i = 1;
+
+        for (Parameter parameter : criteria.getSearchParameters().keySet()) {
+            preparedStatement.setObject(i, "%" + criteria.getSearchParameters().get(parameter) + "%");
+            i++;
+        }
+
+        preparedStatement.setInt(i++, limit);
+        preparedStatement.setInt(i, offset);
+    }
 
     /**
      * Checks if the user exists in the database
@@ -244,5 +265,61 @@ public class SqlUserDao implements UserDao {
         } finally {
             pool.closeConnection(connection, preparedStatement, resultSet);
         }
+    }
+
+    @Override
+    public List<User> search(SearchCriteria criteria, int limit, int offset) throws DaoException {
+        Connection connection = pool.takeConnection();
+
+        String sql = buildSearchQuery(criteria);
+        PreparedStatement preparedStatement = null;
+        ResultSet resultSet = null;
+
+        try {
+            preparedStatement = connection.prepareStatement(sql);
+
+            setSearchParameters(criteria, preparedStatement, limit, offset);
+
+            resultSet = preparedStatement.executeQuery();
+            List<User> users = new ArrayList<>();
+
+            while (resultSet.next()) {
+                User user = new User();
+
+                user.setId(resultSet.getInt(SqlParameter.USERS_ID));
+                user.setName(resultSet.getString(SqlParameter.USERS_NAME));
+                user.setEmail(resultSet.getString(SqlParameter.USERS_EMAIL));
+                user.setRegistrationDate(Util.toJavaTime(resultSet.getTimestamp(SqlParameter.USERS_REGISTRATION_DATE)));
+                user.setBirthday(Util.toJavaTime(resultSet.getDate(SqlParameter.USERS_BIRTHDAY)));
+                user.setUserRole(resultSet.getString(SqlParameter.USER_ROLES_NAME));
+                user.setCountry(resultSet.getString(SqlParameter.COUNTRIES_NAME));
+                user.setGender(resultSet.getString(SqlParameter.GENDERS_NAME));
+
+                users.add(user);
+            }
+            return users;
+
+        } catch (SQLException e) {
+            throw new DaoException("Error while reading user data from database.", e);
+        } finally {
+            pool.closeConnection(connection, preparedStatement, resultSet);
+        }
+    }
+
+    private String buildSearchQuery(SearchCriteria criteria) {
+        String queryBegin = "SELECT * FROM users " +
+                "JOIN user_roles ON user_roles.id = users.user_role_id " +
+                "JOIN countries ON countries.id = users.country_id " +
+                "JOIN genders ON genders.id = users.gender_id ";
+        String queryEnd = "ORDER BY users.id LIMIT ? OFFSET ?";
+
+        if (criteria.getSearchParameters().isEmpty()) {
+            return queryBegin + queryEnd;
+        }
+
+        return criteria.getSearchParameters().keySet()
+                .stream()
+                .map(parameter -> SqlParameter.getSqlParameter(parameter) + " LIKE ? ")
+                .collect(Collectors.joining(" AND ", queryBegin + "WHERE ", queryEnd));
     }
 }
