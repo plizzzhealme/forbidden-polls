@@ -17,7 +17,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.List;
 
-public class SearchGeneralStatisticsCommand implements Command {
+public class SearchSurveyCommand implements Command {
 
     @Override
     public void execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException, ServiceException {
@@ -39,7 +39,7 @@ public class SearchGeneralStatisticsCommand implements Command {
         List<Survey> surveys = ServiceFactory.INSTANCE.getSurveyService().search(criteria);
         request.setAttribute(Util.SURVEY_LIST, surveys);
 
-        RequestDispatcher dispatcher = request.getRequestDispatcher(Util.SEARCH_GENERAL_STATISTICS_JSP);
+        RequestDispatcher dispatcher = request.getRequestDispatcher(Util.SEARCH_SURVEY_JSP);
         dispatcher.forward(request, response);
     }
 }

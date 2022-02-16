@@ -12,7 +12,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
-public class ToGeneralStatisticsPageCommand implements Command {
+public class ToSurveyPageCommand implements Command {
 
     @Override
     public void execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException, ServiceException {
@@ -28,7 +28,7 @@ public class ToGeneralStatisticsPageCommand implements Command {
 
         request.setAttribute(Util.SURVEY, survey);
 
-        RequestDispatcher dispatcher = request.getRequestDispatcher(Util.GENERAL_STATISTICS_JSP);
+        RequestDispatcher dispatcher = request.getRequestDispatcher(Util.SURVEY_JSP);
         dispatcher.forward(request, response);
     }
 }

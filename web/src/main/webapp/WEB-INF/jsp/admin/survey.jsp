@@ -32,7 +32,7 @@
 
 <div class="grid-container-1">
     <div class="grid-item">
-        <a class="classic" href="${Util.CONTROLLER}?${Util.COMMAND}=${Util.TO_SEARCH_GENERAL_STATISTICS_PAGE_COMMAND}">
+        <a class="classic" href="${Util.CONTROLLER}?${Util.COMMAND}=${Util.TO_SEARCH_SURVEY_PAGE_COMMAND}">
             ${back}
         </a>
     </div>

@@ -10,13 +10,13 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
-public class ToSearchGeneralStatisticsPageCommand implements Command {
+public class ToSearchSurveyPageCommand implements Command {
 
     @Override
     public void execute(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException, ServiceException {
 
-        RequestDispatcher dispatcher = request.getRequestDispatcher(Util.SEARCH_GENERAL_STATISTICS_JSP);
+        RequestDispatcher dispatcher = request.getRequestDispatcher(Util.SEARCH_SURVEY_JSP);
         dispatcher.forward(request, response);
     }
 }

@@ -11,7 +11,7 @@
 <%@include file="../../jspf/header.jspf" %>
 
 <form action="${Util.CONTROLLER}" method="get">
-    <input type="hidden" name="${Util.COMMAND}" value="${Util.SEARCH_GENERAL_STATISTICS_COMMAND}">
+    <input type="hidden" name="${Util.COMMAND}" value="${Util.SEARCH_SURVEY_COMMAND}">
 
     <div class="grid-container-1">
         <div class="grid-item"><label for="title">${survey_title}:</label></div>
@@ -34,7 +34,7 @@
 <div class="grid-container-1">
     <c:forEach var="survey" items="${requestScope.survey_list}">
         <div class="grid-item">
-            <a href="${Util.CONTROLLER}?${Util.COMMAND}=${Util.TO_GENERAL_STATISTICS_PAGE_COMMAND}&${Util.SURVEY_ID}=${survey.id}">
+            <a href="${Util.CONTROLLER}?${Util.COMMAND}=${Util.TO_SURVEY_PAGE_COMMAND}&${Util.SURVEY_ID}=${survey.id}">
                     ${survey.name}
             </a>
         </div>
