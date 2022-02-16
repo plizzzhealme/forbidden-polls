@@ -10,18 +10,18 @@ public class ChangeLocaleCommand implements Command {
 
     @Override
     public void execute(HttpServletRequest request, HttpServletResponse response) throws IOException {
-        saveLocaleParameter(request);
+        saveRequestData(request);
         String redirectUrl = readRedirectUrl(request);
 
         response.sendRedirect(redirectUrl);
     }
 
-    private String readRedirectUrl(HttpServletRequest request) {
-        return (String) request.getSession().getAttribute(Util.URL);
-    }
-
-    private void saveLocaleParameter(HttpServletRequest request) {
+    private void saveRequestData(HttpServletRequest request) {
         String locale = request.getParameter(Util.LOCALE);
         request.getSession().setAttribute(Util.LOCALE, locale);
+    }
+
+    private String readRedirectUrl(HttpServletRequest request) {
+        return (String) request.getSession().getAttribute(Util.URL);
     }
 }

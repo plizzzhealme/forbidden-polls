@@ -3,6 +3,7 @@ package io.github.plizzzhealme.controller;
 import io.github.plizzzhealme.controller.command.Command;
 import io.github.plizzzhealme.controller.command.CommandProvider;
 import io.github.plizzzhealme.controller.exception.ControllerException;
+import io.github.plizzzhealme.controller.exception.EmptyInputException;
 import io.github.plizzzhealme.controller.util.Util;
 import io.github.plizzzhealme.service.exception.ServiceException;
 import org.apache.logging.log4j.LogManager;
@@ -41,7 +42,7 @@ public class Controller extends HttpServlet {
 
         try {
             command.execute(request, response);
-        } catch (ServletException | IOException | ServiceException e) {
+        } catch (ServletException | IOException | ServiceException | EmptyInputException e) {
             logger.error(MessageFormat.format("Error processing a request for a command {0}.", commandName), e);
 
             try {

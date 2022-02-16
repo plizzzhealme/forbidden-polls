@@ -12,9 +12,7 @@ import java.io.IOException;
 public class ToQuestionPageCommand implements Command {
 
     @Override
-    public void execute(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-
+    public void execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         RequestDispatcher dispatcher = request.getRequestDispatcher(Util.QUESTION_JSP);
         dispatcher.forward(request, response);
     }

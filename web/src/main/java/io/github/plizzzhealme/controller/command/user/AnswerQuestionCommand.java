@@ -2,6 +2,7 @@ package io.github.plizzzhealme.controller.command.user;
 
 import io.github.plizzzhealme.bean.Survey;
 import io.github.plizzzhealme.controller.command.Command;
+import io.github.plizzzhealme.controller.exception.EmptyInputException;
 import io.github.plizzzhealme.controller.util.Util;
 import io.github.plizzzhealme.service.ServiceFactory;
 import io.github.plizzzhealme.service.exception.ServiceException;
@@ -15,33 +16,72 @@ public class AnswerQuestionCommand implements Command {
 
     @Override
     public void execute(HttpServletRequest request, HttpServletResponse response)
-            throws IOException, ServiceException {
+            throws IOException, ServiceException, EmptyInputException {
 
-        HttpSession session = request.getSession();
-        Survey survey = (Survey) session.getAttribute(Util.SURVEY);
-        int questionIndex = (int) session.getAttribute(Util.QUESTION_INDEX);
-        int answerIndex = Integer.parseInt(request.getParameter(Util.OPTION));
-        survey.getQuestions().get(questionIndex).setAnswerIndex(answerIndex);
+        Survey survey = readSurvey(request);
 
+        if (survey == null) {
+            throw new EmptyInputException("Survey must not be null");
+        }
+
+        int questionIndex = readQuestionIndex(request);
+        int answerIndex = readAnswerIndex(request);
+
+        setAnswer(survey, questionIndex, answerIndex);
         questionIndex++;
 
         if (questionIndex < survey.getQuestions().size()) {
-            session.setAttribute(Util.QUESTION_INDEX, questionIndex);
+            saveRequestData(request, questionIndex);
 
             response.sendRedirect(Util.REDIRECT_URL_PATTERN + Util.TO_QUESTION_PAGE_COMMAND);
         } else {
-            finishSurvey(request);
+            saveSurveyResult(request);
+            clearSession(request);
 
             response.sendRedirect(Util.REDIRECT_URL_PATTERN + Util.TO_SURVEY_COMPLETED_PAGE_COMMAND);
         }
     }
 
-    private void finishSurvey(HttpServletRequest request) throws ServiceException {
+    private void setAnswer(Survey survey, int questionIndex, int answerIndex) {
+        survey.getQuestions().get(questionIndex).setAnswerIndex(answerIndex);
+    }
+
+    private Survey readSurvey(HttpServletRequest request) {
+        return (Survey) request.getSession().getAttribute(Util.SURVEY);
+    }
+
+    private int readAnswerIndex(HttpServletRequest request) throws EmptyInputException {
+        try {
+            return Integer.parseInt(request.getParameter(Util.OPTION));
+        } catch (NumberFormatException e) {
+            throw new EmptyInputException("Invalid answer Index");
+        }
+    }
+
+    private int readQuestionIndex(HttpServletRequest request) {
+        Object questionIndex = request.getSession().getAttribute(Util.QUESTION_INDEX);
+
+        if (questionIndex != null) {
+            return (int) questionIndex;
+        }
+
+        return 0;
+    }
+
+    private void saveRequestData(HttpServletRequest request, int questionIndex) {
+        request.getSession().setAttribute(Util.QUESTION_INDEX, questionIndex);
+    }
+
+    private void saveSurveyResult(HttpServletRequest request) throws ServiceException {
         HttpSession session = request.getSession();
         Survey survey = (Survey) session.getAttribute(Util.SURVEY);
         int userId = (int) session.getAttribute(Util.USER_ID);
+        ServiceFactory.INSTANCE.getSurveyService().completeSurvey(survey, userId);
+    }
+
+    private void clearSession(HttpServletRequest request) {
+        HttpSession session = request.getSession();
         session.removeAttribute(Util.QUESTION_INDEX);
         session.removeAttribute(Util.SURVEY);
-        ServiceFactory.INSTANCE.getSurveyService().completeSurvey(survey, userId);
     }
 }

@@ -24,14 +24,14 @@ public class EditProfileInfoCommand implements Command {
 
         int id = readId(request);
         User user = findUser(id);
-        updateUser(request, user);
+        setUpdateParameters(request, user);
 
         try {
-            ServiceFactory.INSTANCE.getUserService().updateUserInfo(user);
+            updateUser(user);
 
             response.sendRedirect(Util.REDIRECT_URL_PATTERN + Util.TO_PROFILE_INFO_PAGE_COMMAND);
         } catch (ValidatorException e) {
-            request.setAttribute(Util.ERROR, e.getMessage());
+            setErrorParameters(request, e);
 
             RequestDispatcher dispatcher = request.getRequestDispatcher(Util.EDIT_PROFILE_INFO_JSP);
             dispatcher.forward(request, response);
@@ -52,7 +52,7 @@ public class EditProfileInfoCommand implements Command {
         return ServiceFactory.INSTANCE.getUserService().readUserInfo(id);
     }
 
-    private void updateUser(HttpServletRequest request, User user) {
+    private void setUpdateParameters(HttpServletRequest request, User user) {
         String email = request.getParameter(Util.USER_EMAIL);
         String name = request.getParameter(Util.USER_NAME);
         String birthday = request.getParameter(Util.USER_BIRTHDAY);
@@ -83,5 +83,13 @@ public class EditProfileInfoCommand implements Command {
         if (StringUtils.isNotBlank(gender)) {
             user.setGender(gender);
         }
+    }
+
+    private void updateUser(User user) throws ServiceException, ValidatorException {
+        ServiceFactory.INSTANCE.getUserService().updateUserInfo(user);
+    }
+
+    private void setErrorParameters(HttpServletRequest request, ValidatorException e) {
+        request.setAttribute(Util.ERROR, e.getMessage());
     }
 }

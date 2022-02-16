@@ -1,5 +1,6 @@
 package io.github.plizzzhealme.controller.command;
 
+import io.github.plizzzhealme.controller.exception.EmptyInputException;
 import io.github.plizzzhealme.service.exception.ServiceException;
 
 import javax.servlet.ServletException;
@@ -10,5 +11,5 @@ import java.io.IOException;
 public interface Command {
 
     void execute(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException, ServiceException;
+            throws ServletException, IOException, ServiceException, EmptyInputException;
 }

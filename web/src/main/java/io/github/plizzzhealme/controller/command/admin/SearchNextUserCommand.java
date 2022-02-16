@@ -33,13 +33,12 @@ public class SearchNextUserCommand implements Command {
                 offset += Util.SEARCH_LIMIT;
             }
 
-            saveSearchData(request, offset, users);
+            saveRequestData(request, offset, users);
         }
 
         RequestDispatcher dispatcher = request.getRequestDispatcher(Util.SEARCH_USER_JSP);
         dispatcher.forward(request, response);
     }
-
 
     private int readSearchOffset(HttpServletRequest request) {
         HttpSession session = request.getSession();
@@ -66,7 +65,7 @@ public class SearchNextUserCommand implements Command {
         return ServiceFactory.INSTANCE.getUserService().search(criteria, Util.SEARCH_LIMIT, offset);
     }
 
-    private void saveSearchData(HttpServletRequest request, int offset, List<User> users) {
+    private void saveRequestData(HttpServletRequest request, int offset, List<User> users) {
         request.getSession().setAttribute(Util.SEARCH_OFFSET, offset);
         request.setAttribute(Util.USER_LIST, users);
     }

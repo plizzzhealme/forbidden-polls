@@ -18,20 +18,20 @@
     <div class="grid-item"><img src="${requestScope.survey.imageUrl}" alt=""/></div>
 </div>
 
-
-<form action="${Util.CONTROLLER}" method="post">
-    <input type="hidden" name="${Util.COMMAND}" value="${Util.TAKE_SURVEY_COMMAND}">
-    <input type="hidden" name="${Util.SURVEY_ID}" value="${requestScope.survey.id}">
-
-    <div class="grid-container-2">
-        <div class="grid-item"><input class="classic" type="submit" value="${start_survey}"></div>
-        <div class="grid-item">
-            <a class="classic" href="${Util.CONTROLLER}?${Util.COMMAND}=${Util.TO_CATEGORIES_PAGE_COMMAND}">
-                ${back}
-            </a>
-        </div>
+<div class="grid-container-2">
+    <div class="grid-item">
+        <a class="classic"
+           href="${Util.CONTROLLER}?${Util.COMMAND}=${Util.TAKE_SURVEY_COMMAND}&${Util.SURVEY_ID}=${requestScope.survey.id}">
+            ${start_survey}
+        </a>
     </div>
-</form>
 
+    <div class="grid-item">
+        <a class="classic"
+           href="${Util.REDIRECT_URL_PATTERN}${Util.TO_CATEGORY_PAGE_COMMAND}&${Util.CATEGORY}=${requestScope.survey.category}">
+            ${back}
+        </a>
+    </div>
+</div>
 </body>
 </html>

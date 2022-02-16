@@ -27,21 +27,15 @@ public class SearchPreviousUserCommand implements Command {
         if (criteria != null) {
             offset = Math.max(0, offset - Util.SEARCH_LIMIT);
             List<User> users = search(criteria, offset);
-            saveSearchData(request, offset, users);
+            saveRequestData(request, offset, users);
         }
 
         RequestDispatcher dispatcher = request.getRequestDispatcher(Util.SEARCH_USER_JSP);
         dispatcher.forward(request, response);
     }
 
-    private void saveSearchData(HttpServletRequest request, int offset, List<User> users) {
-        HttpSession session = request.getSession();
-        request.setAttribute(Util.USER_LIST, users);
-        session.setAttribute(Util.SEARCH_OFFSET, offset);
-    }
-
-    private List<User> search(SearchCriteria criteria, int offset) throws ServiceException {
-        return ServiceFactory.INSTANCE.getUserService().search(criteria, Util.SEARCH_LIMIT, offset);
+    private SearchCriteria readSearchCriteria(HttpServletRequest request) {
+        return (SearchCriteria) request.getSession().getAttribute(Util.SEARCH_CRITERIA);
     }
 
     private int readSearchOffset(HttpServletRequest request) {
@@ -55,7 +49,12 @@ public class SearchPreviousUserCommand implements Command {
         return Util.OFFSET_INIT_VALUE;
     }
 
-    private SearchCriteria readSearchCriteria(HttpServletRequest request) {
-        return (SearchCriteria) request.getSession().getAttribute(Util.SEARCH_CRITERIA);
+    private List<User> search(SearchCriteria criteria, int offset) throws ServiceException {
+        return ServiceFactory.INSTANCE.getUserService().search(criteria, Util.SEARCH_LIMIT, offset);
+    }
+
+    private void saveRequestData(HttpServletRequest request, int offset, List<User> users) {
+        request.setAttribute(Util.USER_LIST, users);
+        request.getSession().setAttribute(Util.SEARCH_OFFSET, offset);
     }
 }

@@ -26,7 +26,7 @@ public class SearchUserCommand implements Command {
         clearPreviousSearchData(request);
         SearchCriteria criteria = buildSearchCriteria(request);
         List<User> users = search(criteria);
-        saveSearchData(request, criteria, users);
+        saveRequestData(request, criteria, users);
 
         RequestDispatcher dispatcher = request.getRequestDispatcher(Util.SEARCH_USER_JSP);
         dispatcher.forward(request, response);
@@ -64,7 +64,7 @@ public class SearchUserCommand implements Command {
         return ServiceFactory.INSTANCE.getUserService().search(criteria, Util.SEARCH_LIMIT, Util.OFFSET_INIT_VALUE);
     }
 
-    private void saveSearchData(HttpServletRequest request, SearchCriteria criteria, List<User> users) {
+    private void saveRequestData(HttpServletRequest request, SearchCriteria criteria, List<User> users) {
         request.setAttribute(Util.USER_LIST, users);
 
         HttpSession session = request.getSession();

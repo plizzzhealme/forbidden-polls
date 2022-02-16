@@ -18,7 +18,7 @@ public class ToEditProfileInfoPageCommand implements Command {
     public void execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException, ServiceException {
         int id = readId(request);
         User user = findUser(id);
-        saveProfileInfo(request, user);
+        saveRequestData(request, user);
 
         RequestDispatcher dispatcher = request.getRequestDispatcher(Util.EDIT_PROFILE_INFO_JSP);
         dispatcher.forward(request, response);
@@ -38,7 +38,7 @@ public class ToEditProfileInfoPageCommand implements Command {
         return ServiceFactory.INSTANCE.getUserService().readUserInfo(id);
     }
 
-    private void saveProfileInfo(HttpServletRequest request, User user) {
+    private void saveRequestData(HttpServletRequest request, User user) {
         request.setAttribute(Util.USER, user);
     }
 }
