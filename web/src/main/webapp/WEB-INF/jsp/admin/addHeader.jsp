@@ -13,7 +13,7 @@
 
 <c:set var="survey" value="${sessionScope.new_survey}"/>
 
-<form action="${Util.CONTROLLER}">
+<form action="${Util.CONTROLLER}" method="post">
     <input type="hidden" name="${Util.COMMAND}" value="${Util.ADD_HEADER_COMMAND}">
 
     <div class="grid-container-1">

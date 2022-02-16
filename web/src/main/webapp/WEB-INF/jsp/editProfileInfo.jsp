@@ -12,7 +12,7 @@
 <body>
 <%@include file="../jspf/header.jspf" %>
 
-<form action="${Util.CONTROLLER}" method="post" accept-charset="UTF-8">
+<form action="${Util.CONTROLLER}" method="post">
     <input type="hidden" name="${Util.COMMAND}" value="${Util.EDIT_PROFILE_INFO_COMMAND}">
 
     <div class="grid-container-1">

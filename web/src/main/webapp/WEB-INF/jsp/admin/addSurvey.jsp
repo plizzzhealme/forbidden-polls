@@ -11,7 +11,7 @@
 
 <c:set var="questions" value="${sessionScope.new_survey.questions}"/>
 
-<form action="controller" method="post">
+<form action="${Util.CONTROLLER}" method="post">
     <input type="hidden" name="${Util.COMMAND}" value="${Util.EDIT_SURVEY_COMMAND}">
 
     <div class="grid-container-1">

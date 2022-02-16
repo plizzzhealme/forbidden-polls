@@ -136,6 +136,7 @@ public final class Util {
     public static final String SEARCH_OFFSET = "offset";
     public static final int SEARCH_LIMIT = 3;
     public static final int NON_EXISTENT_ID = 0;
+    public static final int OFFSET_INIT_VALUE = 0;
 
 
     private Util() {

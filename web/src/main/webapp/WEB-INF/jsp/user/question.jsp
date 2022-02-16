@@ -24,7 +24,7 @@
     <div class="grid-item"><img src="${current_question.imageUrl}" alt=""/></div>
 </div>
 
-<form action="${Util.CONTROLLER}">
+<form action="${Util.CONTROLLER}" method="post">
     <input type="hidden" name="${Util.COMMAND}" value="${Util.ANSWER_QUESTION_COMMAND}">
 
     <div class="grid-container-1">

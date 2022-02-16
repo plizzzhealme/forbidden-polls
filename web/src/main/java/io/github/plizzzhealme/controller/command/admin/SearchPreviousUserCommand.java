@@ -21,17 +21,41 @@ public class SearchPreviousUserCommand implements Command {
     public void execute(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException, ServiceException {
 
-        HttpSession session = request.getSession();
-        SearchCriteria criteria = (SearchCriteria) session.getAttribute(Util.SEARCH_CRITERIA);
-        int offset = (int) session.getAttribute(Util.SEARCH_OFFSET);
-        int previousOffset = Math.max(0, offset - Util.SEARCH_LIMIT);
+        SearchCriteria criteria = readSearchCriteria(request);
+        int offset = readSearchOffset(request);
 
-        List<User> users = ServiceFactory.INSTANCE.getUserService().search(criteria, Util.SEARCH_LIMIT, previousOffset);
-
-        request.setAttribute(Util.USER_LIST, users);
-        session.setAttribute("offset", previousOffset);
+        if (criteria != null) {
+            offset = Math.max(0, offset - Util.SEARCH_LIMIT);
+            List<User> users = search(criteria, offset);
+            saveSearchData(request, offset, users);
+        }
 
         RequestDispatcher dispatcher = request.getRequestDispatcher(Util.SEARCH_USER_JSP);
         dispatcher.forward(request, response);
+    }
+
+    private void saveSearchData(HttpServletRequest request, int offset, List<User> users) {
+        HttpSession session = request.getSession();
+        request.setAttribute(Util.USER_LIST, users);
+        session.setAttribute(Util.SEARCH_OFFSET, offset);
+    }
+
+    private List<User> search(SearchCriteria criteria, int offset) throws ServiceException {
+        return ServiceFactory.INSTANCE.getUserService().search(criteria, Util.SEARCH_LIMIT, offset);
+    }
+
+    private int readSearchOffset(HttpServletRequest request) {
+        HttpSession session = request.getSession();
+        Object offsetObject = session.getAttribute(Util.SEARCH_OFFSET);
+
+        if (offsetObject != null) {
+            return (int) offsetObject;
+        }
+
+        return Util.OFFSET_INIT_VALUE;
+    }
+
+    private SearchCriteria readSearchCriteria(HttpServletRequest request) {
+        return (SearchCriteria) request.getSession().getAttribute(Util.SEARCH_CRITERIA);
     }
 }

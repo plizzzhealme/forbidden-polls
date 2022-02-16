@@ -23,6 +23,22 @@ public class SearchUserCommand implements Command {
     public void execute(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException, ServiceException {
 
+        clearPreviousSearchData(request);
+        SearchCriteria criteria = buildSearchCriteria(request);
+        List<User> users = search(criteria);
+        saveSearchData(request, criteria, users);
+
+        RequestDispatcher dispatcher = request.getRequestDispatcher(Util.SEARCH_USER_JSP);
+        dispatcher.forward(request, response);
+    }
+
+    private void clearPreviousSearchData(HttpServletRequest request) {
+        HttpSession session = request.getSession();
+        session.removeAttribute(Util.SEARCH_CRITERIA);
+        session.removeAttribute(Util.SEARCH_OFFSET);
+    }
+
+    private SearchCriteria buildSearchCriteria(HttpServletRequest request) {
         String name = request.getParameter(Util.USER_NAME);
         String email = request.getParameter(Util.USER_EMAIL);
         String gender = request.getParameter(Util.USER_GENDER);
@@ -41,16 +57,18 @@ public class SearchUserCommand implements Command {
             criteria.addParameter(Parameter.GENDER_NAME, gender);
         }
 
-        int offset = 0;
+        return criteria;
+    }
 
-        List<User> users = ServiceFactory.INSTANCE.getUserService().search(criteria, Util.SEARCH_LIMIT, offset);
+    private List<User> search(SearchCriteria criteria) throws ServiceException {
+        return ServiceFactory.INSTANCE.getUserService().search(criteria, Util.SEARCH_LIMIT, Util.OFFSET_INIT_VALUE);
+    }
+
+    private void saveSearchData(HttpServletRequest request, SearchCriteria criteria, List<User> users) {
         request.setAttribute(Util.USER_LIST, users);
 
         HttpSession session = request.getSession();
         session.setAttribute(Util.SEARCH_CRITERIA, criteria);
-        session.setAttribute(Util.SEARCH_OFFSET, offset);
-
-        RequestDispatcher dispatcher = request.getRequestDispatcher(Util.SEARCH_USER_JSP);
-        dispatcher.forward(request, response);
+        session.setAttribute(Util.SEARCH_OFFSET, Util.OFFSET_INIT_VALUE);
     }
 }

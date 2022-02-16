@@ -5,7 +5,6 @@ import io.github.plizzzhealme.bean.criteria.SearchCriteria;
 import io.github.plizzzhealme.controller.command.Command;
 import io.github.plizzzhealme.controller.util.Util;
 import io.github.plizzzhealme.service.ServiceFactory;
-import io.github.plizzzhealme.service.UserService;
 import io.github.plizzzhealme.service.exception.ServiceException;
 
 import javax.servlet.RequestDispatcher;
@@ -22,23 +21,53 @@ public class SearchNextUserCommand implements Command {
     public void execute(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException, ServiceException {
 
-        HttpSession session = request.getSession();
-        SearchCriteria criteria = (SearchCriteria) session.getAttribute(Util.SEARCH_CRITERIA);
-        int offset = (int) session.getAttribute(Util.SEARCH_OFFSET);
-        int nextOffset = offset + Util.SEARCH_LIMIT;
+        int offset = readSearchOffset(request);
+        SearchCriteria criteria = readSearchCriteria(request);
 
-        UserService userService = ServiceFactory.INSTANCE.getUserService();
-        List<User> users = userService.search(criteria, Util.SEARCH_LIMIT, nextOffset);
+        if (criteria != null) {
+            List<User> users = search(criteria, offset);
 
-        if (users.isEmpty()) {
-            users = userService.search(criteria, Util.SEARCH_LIMIT, offset); // repeat previous search
-        } else {
-            session.setAttribute(Util.SEARCH_OFFSET, nextOffset);
+            if (users.isEmpty()) {
+                users = repeatPreviousSearch(criteria, offset);
+            } else {
+                offset += Util.SEARCH_LIMIT;
+            }
+
+            saveSearchData(request, offset, users);
         }
-
-        request.setAttribute(Util.USER_LIST, users);
 
         RequestDispatcher dispatcher = request.getRequestDispatcher(Util.SEARCH_USER_JSP);
         dispatcher.forward(request, response);
+    }
+
+
+    private int readSearchOffset(HttpServletRequest request) {
+        HttpSession session = request.getSession();
+        Object offsetObject = session.getAttribute(Util.SEARCH_OFFSET);
+
+        if (offsetObject != null) {
+            return (int) offsetObject;
+        }
+
+        return Util.OFFSET_INIT_VALUE;
+    }
+
+    private SearchCriteria readSearchCriteria(HttpServletRequest request) {
+        return (SearchCriteria) request.getSession().getAttribute(Util.SEARCH_CRITERIA);
+    }
+
+    private List<User> search(SearchCriteria criteria, int offset) throws ServiceException {
+        int nextOffset = offset + Util.SEARCH_LIMIT;
+        return ServiceFactory.INSTANCE.getUserService().search(criteria, Util.SEARCH_LIMIT, nextOffset);
+
+    }
+
+    private List<User> repeatPreviousSearch(SearchCriteria criteria, int offset) throws ServiceException {
+        return ServiceFactory.INSTANCE.getUserService().search(criteria, Util.SEARCH_LIMIT, offset);
+    }
+
+    private void saveSearchData(HttpServletRequest request, int offset, List<User> users) {
+        request.getSession().setAttribute(Util.SEARCH_OFFSET, offset);
+        request.setAttribute(Util.USER_LIST, users);
     }
 }
