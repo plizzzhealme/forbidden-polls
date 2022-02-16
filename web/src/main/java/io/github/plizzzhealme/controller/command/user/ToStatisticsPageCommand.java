@@ -18,13 +18,27 @@ public class ToStatisticsPageCommand implements Command {
     public void execute(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException, ServiceException {
 
-        int surveyId = Integer.parseInt(request.getParameter(Util.SURVEY_ID));
-
-        Survey survey = ServiceFactory.INSTANCE.getSurveyService().searchSurveyStatistics(surveyId);
-
-        request.setAttribute(Util.SURVEY, survey);
+        int surveyId = readSurveyId(request);
+        Survey survey = findSurvey(surveyId);
+        saveRequestParameters(request, survey);
 
         RequestDispatcher dispatcher = request.getRequestDispatcher(Util.STATISTICS_JSP);
         dispatcher.forward(request, response);
+    }
+
+    private int readSurveyId(HttpServletRequest request) {
+        try {
+            return Integer.parseInt(request.getParameter(Util.SURVEY_ID));
+        } catch (NumberFormatException e) {
+            return Util.NON_EXISTENT_ID;
+        }
+    }
+
+    private Survey findSurvey(int surveyId) throws ServiceException {
+        return ServiceFactory.INSTANCE.getSurveyService().searchSurveyStatistics(surveyId);
+    }
+
+    private void saveRequestParameters(HttpServletRequest request, Survey survey) {
+        request.setAttribute(Util.SURVEY, survey);
     }
 }
