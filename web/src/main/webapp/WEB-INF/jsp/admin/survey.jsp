@@ -24,8 +24,9 @@
 
     <div class="grid-container-2">
         <c:forEach var="o" items="${q.options}">
+            <fmt:formatNumber var="percentage" type="number" pattern="0.00" value="${o.count / voicesCount * 100}"/>
             <div class="grid-item">${o.body}</div>
-            <div class="grid-item">${o.count} (${o.count / voicesCount * 100}%)</div>
+            <div class="grid-item">${o.count} (${percentage}%)</div>
         </c:forEach>
     </div>
 </c:forEach>

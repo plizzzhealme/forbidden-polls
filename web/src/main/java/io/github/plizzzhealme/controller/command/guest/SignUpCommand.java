@@ -34,7 +34,6 @@ public class SignUpCommand implements Command {
 
         try {
             EmptyInputValidator.getInstance().validateEmptyInput(email, password, name, birthday, country, gender);
-
             User user = createUserObject(email, password, name, birthday, country, gender);
 
             ServiceFactory.INSTANCE.getUserService().signUp(user);

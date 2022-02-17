@@ -27,7 +27,6 @@ public class SignInCommand implements Command {
 
         try {
             EmptyInputValidator.getInstance().validateEmptyInput(email, password);
-
             User user = ServiceFactory.INSTANCE.getUserService().signIn(email, password);
 
             HttpSession session = request.getSession();
