@@ -18,7 +18,22 @@ import java.util.List;
 public class SurveyServiceImpl implements SurveyService {
 
     @Override
-    public Survey takeSurvey(int id) throws ServiceException {
+    public Survey takeSurvey(int surveyId, int userId) throws ServiceException {
+        try {
+            boolean isCompleted = DaoFactory.INSTANCE.getSurveyDao().isSurveyPassedByUser(surveyId, userId);
+
+            if (isCompleted) {
+                throw new ServiceException("Cannot take the same survey twice");
+            }
+
+            return read(surveyId);
+        } catch (DaoException e) {
+            throw new ServiceException("Failed to get survey info", e);
+        }
+    }
+
+    @Override
+    public Survey read(int id) throws ServiceException {
         try {
             DaoFactory daoFactory = DaoFactory.INSTANCE;
 
@@ -108,7 +123,7 @@ public class SurveyServiceImpl implements SurveyService {
 
     @Override
     public Survey searchSurveyStatistics(int surveyId) throws ServiceException {
-        Survey survey = takeSurvey(surveyId);
+        Survey survey = read(surveyId);
         OptionDao optionDao = DaoFactory.INSTANCE.getOptionDao();
 
         List<Question> questions = survey.getQuestions();

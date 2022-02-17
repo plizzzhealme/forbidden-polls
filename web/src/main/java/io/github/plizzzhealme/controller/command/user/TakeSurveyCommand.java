@@ -15,11 +15,22 @@ public class TakeSurveyCommand implements Command {
 
     @Override
     public void execute(HttpServletRequest request, HttpServletResponse response) throws IOException, ServiceException {
+        int userId = readUserId(request);
         int surveyId = readSurveyId(request);
-        Survey survey = findSurvey(surveyId);
+        Survey survey = findSurvey(surveyId, userId);
         saveRequestData(request, survey);
 
         response.sendRedirect(Util.REDIRECT_URL_PATTERN + Util.TO_QUESTION_PAGE_COMMAND);
+    }
+
+    private int readUserId(HttpServletRequest request) {
+        Object id = request.getSession().getAttribute(Util.USER_ID);
+
+        if (id != null) {
+            return (int) id;
+        }
+
+        return Util.NON_EXISTENT_ID;
     }
 
     private int readSurveyId(HttpServletRequest request) {
@@ -30,8 +41,8 @@ public class TakeSurveyCommand implements Command {
         }
     }
 
-    private Survey findSurvey(int surveyId) throws ServiceException {
-        return ServiceFactory.INSTANCE.getSurveyService().takeSurvey(surveyId);
+    private Survey findSurvey(int surveyId, int userId) throws ServiceException {
+        return ServiceFactory.INSTANCE.getSurveyService().takeSurvey(surveyId, userId);
     }
 
     private void saveRequestData(HttpServletRequest request, Survey survey) {

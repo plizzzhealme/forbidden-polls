@@ -9,7 +9,9 @@ import java.util.List;
 
 public interface SurveyService {
 
-    Survey takeSurvey(int id) throws ServiceException;
+    Survey read(int id) throws ServiceException;
+
+    Survey takeSurvey(int surveyId, int userId) throws ServiceException;
 
     void completeSurvey(Survey survey, int userId) throws ServiceException;
 

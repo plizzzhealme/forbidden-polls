@@ -35,7 +35,7 @@ public class ToHeaderPageCommand implements Command {
     }
 
     private Survey findSurvey(int surveyId) throws ServiceException {
-        return ServiceFactory.INSTANCE.getSurveyService().takeSurvey(surveyId);
+        return ServiceFactory.INSTANCE.getSurveyService().read(surveyId);
     }
 
     private void saveRequestData(HttpServletRequest request, Survey survey) {
