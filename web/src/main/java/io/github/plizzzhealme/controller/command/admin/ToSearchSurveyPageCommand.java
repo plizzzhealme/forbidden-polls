@@ -2,7 +2,6 @@ package io.github.plizzzhealme.controller.command.admin;
 
 import io.github.plizzzhealme.controller.command.Command;
 import io.github.plizzzhealme.controller.util.Util;
-import io.github.plizzzhealme.service.exception.ServiceException;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -14,7 +13,7 @@ public class ToSearchSurveyPageCommand implements Command {
 
     @Override
     public void execute(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException, ServiceException {
+            throws ServletException, IOException {
 
         RequestDispatcher dispatcher = request.getRequestDispatcher(Util.SEARCH_SURVEY_JSP);
         dispatcher.forward(request, response);
