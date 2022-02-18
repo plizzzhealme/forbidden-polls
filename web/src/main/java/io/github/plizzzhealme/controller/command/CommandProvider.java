@@ -20,6 +20,7 @@ public final class CommandProvider {
         commands.put(Util.ADD_HEADER_COMMAND, new AddHeaderCommand());
         commands.put(Util.ADD_QUESTION_COMMAND, new AddQuestionCommand());
         commands.put(Util.ADD_SURVEY_COMMAND, new AddSurveyCommand());
+        commands.put(Util.BLOCK_USER_COMMAND, new BlockUserCommand());
         commands.put(Util.EDIT_SURVEY_COMMAND, new EditSurveyCommand());
         commands.put(Util.SEARCH_NEXT_USER_COMMAND, new SearchNextUserCommand());
         commands.put(Util.SEARCH_PREVIOUS_USER_COMMAND, new SearchPreviousUserCommand());

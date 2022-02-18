@@ -54,6 +54,15 @@ public class SqlUserDao implements UserDao {
             "users.gender_id=(SELECT id FROM genders WHERE genders.name=? LIMIT 1), " +
             "users.country_id=(SELECT id FROM countries WHERE countries.iso_code = ? OR countries.name = ? LIMIT 1) " +
             "WHERE users.id=?";
+    private static final String SELECT_USER_ROLE_BY_USER_ID = "" +
+            "SELECT user_roles.name FROM forbidden_polls.user_roles " +
+            "JOIN users ON user_roles.id = users.user_role_id " +
+            "WHERE users.id = ?";
+
+    private static final String BLOCK_USER_SQL = "" +
+            "UPDATE users " +
+            "SET users.user_role_id = (SELECT id FROM user_roles WHERE user_roles.name = ? LIMIT 1) " +
+            "WHERE users.id = ?";
 
     private static void setSearchParameters(SearchCriteria criteria,
                                             PreparedStatement preparedStatement,
@@ -173,9 +182,9 @@ public class SqlUserDao implements UserDao {
                 return user;
             }
 
-            throw new EntityNotFoundException("User is not found");
+            throw new EntityNotFoundException("User with id " + id + " is not found");
         } catch (SQLException e) {
-            throw new DaoException("Error while reading user data from database.", e);
+            throw new DaoException("Error while reading user with id " + id + " data from database.", e);
         } finally {
             pool.closeConnection(connection, preparedStatement, resultSet);
         }
@@ -214,6 +223,30 @@ public class SqlUserDao implements UserDao {
             throw new DaoException("User update error.", e);
         } finally {
             pool.closeConnection(connection, preparedStatement);
+        }
+    }
+
+    @Override
+    public String readRole(int userId) throws DaoException, EntityNotFoundException {
+        Connection connection = pool.takeConnection();
+
+        PreparedStatement preparedStatement = null;
+        ResultSet resultSet = null;
+
+        try {
+            preparedStatement = connection.prepareStatement(SELECT_USER_ROLE_BY_USER_ID);
+            preparedStatement.setInt(1, userId);
+            resultSet = preparedStatement.executeQuery();
+
+            if (resultSet.next()) {
+                return resultSet.getString(SqlParameter.USER_ROLES_NAME);
+            }
+
+            throw new EntityNotFoundException("User is not found");
+        } catch (SQLException e) {
+            throw new DaoException("Error while reading user data from database.", e);
+        } finally {
+            pool.closeConnection(connection, preparedStatement, resultSet);
         }
     }
 
@@ -303,6 +336,26 @@ public class SqlUserDao implements UserDao {
             throw new DaoException("Error while reading user data from database.", e);
         } finally {
             pool.closeConnection(connection, preparedStatement, resultSet);
+        }
+    }
+
+    @Override
+    public void updateUserRole(String userRole, int userId) throws DaoException {
+        Connection connection = pool.takeConnection();
+
+        PreparedStatement preparedStatement = null;
+
+        try {
+            preparedStatement = connection.prepareStatement(BLOCK_USER_SQL);
+
+            preparedStatement.setString(1, userRole);
+            preparedStatement.setInt(2, userId);
+
+            preparedStatement.executeUpdate();
+        } catch (SQLException e) {
+            throw new DaoException("User update error.", e);
+        } finally {
+            pool.closeConnection(connection, preparedStatement);
         }
     }
 

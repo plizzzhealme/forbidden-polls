@@ -20,6 +20,7 @@ public class AdminFilter implements Filter {
         adminCommands.add(Util.ADD_HEADER_COMMAND);
         adminCommands.add(Util.ADD_QUESTION_COMMAND);
         adminCommands.add(Util.ADD_SURVEY_COMMAND);
+        adminCommands.add(Util.BLOCK_USER_COMMAND);
         adminCommands.add(Util.EDIT_SURVEY_COMMAND);
         adminCommands.add(Util.SEARCH_SURVEY_COMMAND);
         adminCommands.add(Util.SEARCH_NEXT_USER_COMMAND);

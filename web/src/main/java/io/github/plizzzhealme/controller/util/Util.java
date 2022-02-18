@@ -12,6 +12,7 @@ public final class Util {
     public static final String ADD_HEADER_COMMAND = "add_header";
     public static final String ADD_QUESTION_COMMAND = "add_question";
     public static final String ADD_SURVEY_COMMAND = "add_survey";
+    public static final String BLOCK_USER_COMMAND = "block_user";
     public static final String EDIT_SURVEY_COMMAND = "edit_survey";
     public static final String SEARCH_NEXT_USER_COMMAND = "search_next_user";
     public static final String SEARCH_PREVIOUS_USER_COMMAND = "search_previous_user";
@@ -133,6 +134,8 @@ public final class Util {
     public static final String INVALID_CREDENTIALS_ERROR = "invalid_credentials_error";
     public static final String PASSWORD_MISMATCH_ERROR = "password_mismatch_error";
     public static final String EMAIL_IS_BUSY_ERROR = "email_is_busy_error";
+    public static final String USER_BLOCKED_ERROR = "user_blocked_error";
+
 
     // not classified
     public static final String URL = "url";

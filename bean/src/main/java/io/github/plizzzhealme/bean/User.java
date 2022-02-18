@@ -11,8 +11,10 @@ public class User implements Serializable {
     public static final String MALE_GENDER = "male";
     public static final String FEMALE_GENDER = "female";
     public static final String OTHER_GENDER = "other";
+
     public static final String ADMIN_ROLE = "admin";
     public static final String USER_ROLE = "user";
+    public static final String BANNED_ROLE = "banned";
 
     @Serial
     private static final long serialVersionUID = 6985791175479557902L;

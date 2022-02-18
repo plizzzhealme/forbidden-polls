@@ -31,7 +31,7 @@
     <div class="grid-item">
         <c:choose>
             <c:when test="${requestScope.user.userRole == Util.ADMIN}">${admin}</c:when>
-            <c:otherwise>${user}</c:otherwise>
+            <c:otherwise>${requestScope.user.userRole}</c:otherwise>
         </c:choose>
     </div>
 
@@ -42,10 +42,19 @@
     <div class="grid-item">${requestScope.user.country}</div>
 </div>
 
-<div class="grid-container-2">
-    <div class="grid-item">
-        <a class="classic" href="${Util.CONTROLLER}?${Util.COMMAND}=${Util.TO_SEARCH_USER_PAGE_COMMAND}">${back}</a>
+<form action="controller" method="post">
+    <div class="grid-container-2">
+        <c:if test="${requestScope.user.userRole != Util.ADMIN}">
+            <input type="hidden" name="${Util.COMMAND}" value="${Util.BLOCK_USER_COMMAND}">
+            <input type="hidden" name="${Util.USER_ID}" value="${requestScope.user.id}">
+            <div class="grid-item">
+                <input class="classic" type="submit" value="Block">
+            </div>
+        </c:if>
+        <div class="grid-item">
+            <a class="classic" href="${Util.CONTROLLER}?${Util.COMMAND}=${Util.TO_SEARCH_USER_PAGE_COMMAND}">${back}</a>
+        </div>
     </div>
-</div>
+</form>
 </body>
 </html>

@@ -8,6 +8,7 @@ import io.github.plizzzhealme.controller.validator.EmptyInputValidator;
 import io.github.plizzzhealme.service.ServiceFactory;
 import io.github.plizzzhealme.service.exception.InvalidCredentialsException;
 import io.github.plizzzhealme.service.exception.ServiceException;
+import io.github.plizzzhealme.service.exception.UserBlockedException;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -41,6 +42,11 @@ public class SignInCommand implements Command {
             dispatcher.forward(request, response);
         } catch (EmptyInputException e) {
             request.setAttribute(Util.ERROR, Util.EMPTY_FIELDS_ERROR);
+
+            RequestDispatcher dispatcher = request.getRequestDispatcher(Util.SIGN_IN_JSP);
+            dispatcher.forward(request, response);
+        } catch (UserBlockedException e) {
+            request.setAttribute(Util.ERROR, Util.USER_BLOCKED_ERROR);
 
             RequestDispatcher dispatcher = request.getRequestDispatcher(Util.SIGN_IN_JSP);
             dispatcher.forward(request, response);
