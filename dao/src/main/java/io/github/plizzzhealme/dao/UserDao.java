@@ -14,6 +14,8 @@ public interface UserDao {
 
     void update(User user) throws DaoException;
 
+    String readRole(int userId) throws DaoException, EntityNotFoundException;
+
     User find(int id) throws DaoException, EntityNotFoundException;
 
     User signIn(String email, String password) throws DaoException, EntityNotFoundException, InvalidPasswordException;
@@ -21,4 +23,6 @@ public interface UserDao {
     boolean isPresent(String email) throws DaoException;
 
     List<User> search(SearchCriteria criteria, int limit, int offset) throws DaoException;
+
+    void updateUserRole(String userRole, int userId) throws DaoException;
 }

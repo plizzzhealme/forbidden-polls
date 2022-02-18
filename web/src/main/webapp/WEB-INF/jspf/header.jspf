@@ -16,6 +16,7 @@
             <c:when test="${requestScope.error == Util.INVALID_CREDENTIALS_ERROR}">${invalid_credentials}</c:when>
             <c:when test="${requestScope.error == Util.PASSWORD_MISMATCH_ERROR}">${password_mismatch}</c:when>
             <c:when test="${requestScope.error == Util.EMAIL_IS_BUSY_ERROR}">${email_is_busy}</c:when>
+            <c:when test="${requestScope.error == Util.USER_BLOCKED_ERROR}">${user_blocked}</c:when>
             <c:otherwise>${requestScope.error}</c:otherwise> <%-- stub for non localized cases --%>
         </c:choose>
     </div>

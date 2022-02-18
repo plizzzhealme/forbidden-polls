@@ -2,6 +2,8 @@ package io.github.plizzzhealme.controller.filter;
 
 import io.github.plizzzhealme.bean.User;
 import io.github.plizzzhealme.controller.util.Util;
+import io.github.plizzzhealme.service.ServiceFactory;
+import io.github.plizzzhealme.service.exception.ServiceException;
 
 import javax.servlet.*;
 import javax.servlet.http.HttpServletRequest;
@@ -33,11 +35,22 @@ public class UserFilter implements Filter {
     public void doFilter(ServletRequest servletRequest, ServletResponse servletResponse, FilterChain filterChain)
             throws IOException, ServletException {
 
+        HttpSession session = ((HttpServletRequest) servletRequest).getSession();
+
+        try {
+            Object id = session.getAttribute(Util.USER_ID);
+
+            if (id != null) {
+                String userRole = ServiceFactory.INSTANCE.getUserService().readUserRole((int) id);
+                session.setAttribute(Util.USER_ROLE, userRole);
+            }
+        } catch (ServiceException e) {
+            throw new ServletException("Failed to read user info", e);
+        }
+
         String command = servletRequest.getParameter(Util.COMMAND);
 
         if (userCommands.contains(command)) {
-            HttpSession session = ((HttpServletRequest) servletRequest).getSession();
-
             if (User.USER_ROLE.equals(session.getAttribute(Util.USER_ROLE))) {
                 filterChain.doFilter(servletRequest, servletResponse);
             } else {

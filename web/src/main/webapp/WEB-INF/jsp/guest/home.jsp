@@ -8,7 +8,6 @@
 <meta charset="UTF-8">
 <head>
     <title>${project_name}</title>
-    <link href="${pageContext.request.contextPath}/css/style.css" rel="stylesheet">
 </head>
 <body>
 <%@include file="../../jspf/header.jspf" %>

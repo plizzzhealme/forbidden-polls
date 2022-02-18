@@ -1,23 +1,30 @@
 package io.github.plizzzhealme.service.impl;
 
 import io.github.plizzzhealme.bean.User;
+import io.github.plizzzhealme.bean.criteria.SearchCriteria;
 import io.github.plizzzhealme.dao.DaoFactory;
 import io.github.plizzzhealme.dao.UserDao;
 import io.github.plizzzhealme.dao.exception.DaoException;
 import io.github.plizzzhealme.dao.exception.EntityNotFoundException;
 import io.github.plizzzhealme.dao.exception.InvalidPasswordException;
 import io.github.plizzzhealme.service.UserService;
-import io.github.plizzzhealme.service.exception.EmailIsBusyException;
-import io.github.plizzzhealme.service.exception.InvalidCredentialsException;
-import io.github.plizzzhealme.service.exception.ServiceException;
-import io.github.plizzzhealme.service.exception.ValidatorException;
+import io.github.plizzzhealme.service.exception.*;
 import io.github.plizzzhealme.service.validator.UserValidator;
+
+import java.util.List;
 
 public class UserServiceImpl implements UserService {
 
-    public User signIn(String email, String password) throws ServiceException, InvalidCredentialsException {
+    public User signIn(String email, String password)
+            throws ServiceException, InvalidCredentialsException, UserBlockedException {
+
         try {
-            return DaoFactory.INSTANCE.getUserDao().signIn(email, password);
+            User user = DaoFactory.INSTANCE.getUserDao().signIn(email, password);
+
+            if (user.getUserRole().equals(User.BANNED_ROLE)) {
+                throw new UserBlockedException();
+            }
+            return user;
         } catch (EntityNotFoundException | InvalidPasswordException e) {
             throw new InvalidCredentialsException("Invalid credentials");
         } catch (DaoException e) {
@@ -69,6 +76,38 @@ public class UserServiceImpl implements UserService {
             }
         } else {
             throw new ValidatorException("Invalid data, unable to update");
+        }
+    }
+
+    @Override
+    public List<User> search(SearchCriteria criteria, int limit, int offset) throws ServiceException {
+        try {
+            return DaoFactory.INSTANCE.getUserDao().search(criteria, limit, offset);
+        } catch (DaoException e) {
+            throw new ServiceException("Failed to search", e);
+        }
+    }
+
+    @Override
+    public String readUserRole(int userId) throws ServiceException {
+        try {
+            return DaoFactory.INSTANCE.getUserDao().readRole(userId);
+        } catch (DaoException | EntityNotFoundException e) {
+            throw new ServiceException("Failed to read user role", e);
+        }
+    }
+
+    @Override
+    public void blockUser(int userId) throws ServiceException {
+        try {
+            UserDao userDao = DaoFactory.INSTANCE.getUserDao();
+            String userRole = userDao.readRole(userId);
+
+            if (!userRole.equals(User.ADMIN_ROLE)) {
+                userDao.updateUserRole(User.BANNED_ROLE, userId);
+            }
+        } catch (DaoException | EntityNotFoundException e) {
+            throw new ServiceException("Failed to block user", e);
         }
     }
 }

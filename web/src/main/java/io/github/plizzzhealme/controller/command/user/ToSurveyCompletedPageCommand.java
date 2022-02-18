@@ -11,10 +11,7 @@ import java.io.IOException;
 public class ToSurveyCompletedPageCommand implements Command {
 
     @Override
-    public void execute(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-
+    public void execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         request.getRequestDispatcher(Util.SURVEY_COMPLETED_JSP).forward(request, response);
-
     }
 }

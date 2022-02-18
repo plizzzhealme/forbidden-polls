@@ -6,7 +6,10 @@ import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.validator.routines.EmailValidator;
 
 import java.time.LocalDate;
+import java.util.Arrays;
+import java.util.HashSet;
 import java.util.Locale;
+import java.util.Set;
 import java.util.regex.Pattern;
 
 public class UserValidator {
@@ -15,7 +18,12 @@ public class UserValidator {
 
     private static final String PASSWORD_REGEX = "^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%^&+=])(?=\\S+$).{8,}$";
     private static final Pattern PASSWORD_PATTERN = Pattern.compile(PASSWORD_REGEX);
-    private static final String[] COUNTRIES = Locale.getISOCountries();
+    private static final Set<String> COUNTRIES = new HashSet<>(Arrays.asList(Locale.getISOCountries()));
+
+
+    private UserValidator() {
+    }
+
 
     public static UserValidator getInstance() {
         return INSTANCE;
@@ -76,6 +84,6 @@ public class UserValidator {
     }
 
     public boolean isValidCountyCode(String iso2) {
-        return StringUtils.equalsAny(iso2, COUNTRIES);
+        return COUNTRIES.contains(iso2);
     }
 }

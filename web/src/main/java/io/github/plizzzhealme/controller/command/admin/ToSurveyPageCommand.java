@@ -12,17 +12,23 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
-public class ToGeneralStatisticsPageCommand implements Command {
+public class ToSurveyPageCommand implements Command {
 
     @Override
     public void execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException, ServiceException {
-        int surveyId = Integer.parseInt(request.getParameter(Util.SURVEY_ID));
+        int surveyId;
+
+        try {
+            surveyId = Integer.parseInt(request.getParameter(Util.SURVEY_ID));
+        } catch (NumberFormatException e) {
+            surveyId = Util.NON_EXISTENT_ID;
+        }
 
         Survey survey = ServiceFactory.INSTANCE.getSurveyService().searchSurveyStatistics(surveyId);
 
         request.setAttribute(Util.SURVEY, survey);
 
-        RequestDispatcher dispatcher = request.getRequestDispatcher(Util.GENERAL_STATISTICS_JSP);
+        RequestDispatcher dispatcher = request.getRequestDispatcher(Util.SURVEY_JSP);
         dispatcher.forward(request, response);
     }
 }

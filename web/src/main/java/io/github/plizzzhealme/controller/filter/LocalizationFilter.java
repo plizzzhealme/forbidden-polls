@@ -7,45 +7,22 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.util.Collections;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 import java.util.stream.Collectors;
 
 public class LocalizationFilter implements Filter {
 
-    private final Set<String> commandsToBeSaved = new HashSet<>();
-
-    @Override
-    public void init(FilterConfig filterConfig) {
-        commandsToBeSaved.add(Util.TO_ADD_HEADER_PAGE_COMMAND);
-        commandsToBeSaved.add(Util.TO_ADD_SURVEY_PAGE_COMMAND);
-        commandsToBeSaved.add(Util.TO_ADD_QUESTION_PAGE_COMMAND);
-        commandsToBeSaved.add(Util.TO_CATEGORIES_PAGE_COMMAND);
-        commandsToBeSaved.add(Util.TO_CATEGORY_PAGE_COMMAND);
-        commandsToBeSaved.add(Util.TO_COMPLETED_SURVEYS_PAGE_COMMAND);
-        commandsToBeSaved.add(Util.TO_EDIT_PROFILE_INFO_PAGE_COMMAND);
-        commandsToBeSaved.add(Util.TO_HOME_PAGE_COMMAND);
-        commandsToBeSaved.add(Util.TO_PROFILE_INFO_PAGE_COMMAND);
-        commandsToBeSaved.add(Util.TO_PROFILE_PAGE_COMMAND);
-        commandsToBeSaved.add(Util.TO_SIGN_IN_PAGE_COMMAND);
-        commandsToBeSaved.add(Util.TO_SIGN_UP_PAGE_COMMAND);
-        commandsToBeSaved.add(Util.TO_SURVEY_ADDED_PAGE_COMMAND);
-        commandsToBeSaved.add(Util.TO_SURVEY_COMPLETED_PAGE_COMMAND);
-        commandsToBeSaved.add(Util.TO_HEADER_PAGE_COMMAND);
-        commandsToBeSaved.add(Util.TO_QUESTION_PAGE_COMMAND);
-        commandsToBeSaved.add(Util.TO_STATISTICS_PAGE_COMMAND);
-        commandsToBeSaved.add(Util.TO_SEARCH_GENERAL_STATISTICS_PAGE_COMMAND);
-        commandsToBeSaved.add(Util.TO_GENERAL_STATISTICS_PAGE_COMMAND);
-    }
+    private static final String GET = "GET";
 
     @Override
     public void doFilter(ServletRequest servletRequest, ServletResponse servletResponse, FilterChain filterChain)
             throws ServletException, IOException {
 
-        String command = servletRequest.getParameter(Util.COMMAND);
+        HttpServletRequest request = (HttpServletRequest) servletRequest;
+        String command = request.getParameter(Util.COMMAND);
+        String method = request.getMethod();
 
-        if (commandsToBeSaved.contains(command)) {
+        if (!Util.CHANGE_LOCALE_COMMAND.equals(command) && GET.equals(method)) {
             saveUrlToSession((HttpServletRequest) servletRequest);
         }
 

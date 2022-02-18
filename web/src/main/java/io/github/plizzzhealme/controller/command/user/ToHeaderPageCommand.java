@@ -18,11 +18,27 @@ public class ToHeaderPageCommand implements Command {
     public void execute(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException, ServiceException {
 
-        int surveyId = Integer.parseInt(request.getParameter(Util.SURVEY_ID));
-        Survey survey = ServiceFactory.INSTANCE.getSurveyService().takeSurvey(surveyId);
-        request.setAttribute(Util.SURVEY, survey);
+        int surveyId = readSurveyId(request);
+        Survey survey = findSurvey(surveyId);
+        saveRequestData(request, survey);
 
         RequestDispatcher dispatcher = request.getRequestDispatcher(Util.HEADER_JSP);
         dispatcher.forward(request, response);
+    }
+
+    private int readSurveyId(HttpServletRequest request) {
+        try {
+            return Integer.parseInt(request.getParameter(Util.SURVEY_ID));
+        } catch (NumberFormatException e) {
+            return Util.NON_EXISTENT_ID;
+        }
+    }
+
+    private Survey findSurvey(int surveyId) throws ServiceException {
+        return ServiceFactory.INSTANCE.getSurveyService().read(surveyId);
+    }
+
+    private void saveRequestData(HttpServletRequest request, Survey survey) {
+        request.setAttribute(Util.SURVEY, survey);
     }
 }

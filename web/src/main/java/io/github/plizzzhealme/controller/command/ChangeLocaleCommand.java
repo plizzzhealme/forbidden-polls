@@ -4,17 +4,24 @@ import io.github.plizzzhealme.controller.util.Util;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 import java.io.IOException;
 
 public class ChangeLocaleCommand implements Command {
 
     @Override
     public void execute(HttpServletRequest request, HttpServletResponse response) throws IOException {
-        HttpSession session = request.getSession(true);
-        String locale = request.getParameter(Util.LOCALE);
-        session.setAttribute(Util.LOCALE, locale);
+        saveRequestData(request);
+        String redirectUrl = readRedirectUrl(request);
 
-        response.sendRedirect((String) session.getAttribute(Util.URL));
+        response.sendRedirect(redirectUrl);
+    }
+
+    private void saveRequestData(HttpServletRequest request) {
+        String locale = request.getParameter(Util.LOCALE);
+        request.getSession().setAttribute(Util.LOCALE, locale);
+    }
+
+    private String readRedirectUrl(HttpServletRequest request) {
+        return (String) request.getSession().getAttribute(Util.URL);
     }
 }

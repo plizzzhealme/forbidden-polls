@@ -60,6 +60,8 @@ public final class SqlParameter {
         PARAMETERS.put(Parameter.SURVEY_DESCRIPTION, SURVEYS_DESCRIPTION);
         PARAMETERS.put(Parameter.SURVEY_CATEGORY_ID, SURVEYS_CATEGORY_ID);
 
+        PARAMETERS.put(Parameter.GENDER_NAME, GENDERS_NAME);
+
     }
 
     private SqlParameter() {

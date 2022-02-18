@@ -34,7 +34,7 @@
 
 <c:set var="edit_question" value="${sessionScope.new_survey.questions[sessionScope.edit_index]}"/>
 
-<form action="${Util.CONTROLLER}">
+<form action="${Util.CONTROLLER}" method="post">
     <input type="hidden" name="${Util.COMMAND}" value="${Util.ADD_QUESTION_COMMAND}">
 
     <div class="grid-container-1">

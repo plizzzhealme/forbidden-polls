@@ -12,7 +12,7 @@
 <body>
 <%@include file="../../jspf/header.jspf" %>
 
-<form action="${Util.CONTROLLER}">
+<form action="${Util.CONTROLLER}" method="post">
     <input type="hidden" name="${Util.COMMAND}" value="${Util.SIGN_IN_COMMAND}">
 
     <div class="grid-container-1">
